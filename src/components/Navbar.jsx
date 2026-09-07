@@ -70,11 +70,6 @@ export default function Navbar() {
               <MapPin size={13} className="top-icon" />
               <span>Mohali HQ, Punjab</span>
             </div>
-            <span className="top-bar-divider">|</span>
-            <Link to="/admin" className="top-bar-item admin-link-badge">
-              <Lock size={12} />
-              <span>Practice Portal</span>
-            </Link>
           </div>
 
         </div>
@@ -262,13 +257,9 @@ export default function Navbar() {
 
         {/* Mobile Bottom Action */}
         <div className="mobile-menu-footer">
-          <Link to="/contact" className="btn btn-accent btn-block" style={{ marginBottom: '12px', padding: '14px 20px', borderRadius: '8px' }}>
+          <Link to="/contact" className="btn btn-accent btn-block" style={{ padding: '14px 20px', borderRadius: '8px' }}>
             <span>Submit Search Mandate</span>
             <ArrowRight size={16} />
-          </Link>
-          <Link to="/admin" className="mobile-admin-portal-link">
-            <Lock size={13} />
-            <span>Executive Practice Portal (Admin) &rarr;</span>
           </Link>
         </div>
 
