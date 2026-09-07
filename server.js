@@ -73,6 +73,8 @@ const mandateSchema = new mongoose.Schema({
   sector: { type: String, required: true },
   leadership_level: { type: String, required: true },
   notes: String,
+  doc_filename: String,
+  doc_original_name: String,
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -95,6 +97,8 @@ const inquirySchema = new mongoose.Schema({
   phone: String,
   topic: { type: String, required: true },
   message: { type: String, required: true },
+  cv_filename: String,
+  cv_original_name: String,
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -256,11 +260,13 @@ const server = http.createServer(async (req, res) => {
     try {
       const contentType = req.headers['content-type'] || '';
       let data = {};
+      let file = null;
 
       if (contentType.includes('multipart/form-data')) {
         const boundary = contentType.split('boundary=')[1]?.trim().replace(/^["']|["']$/g, '');
         const parsed = await parseMultipart(req, boundary);
         data = parsed.fields;
+        file = parsed.file;
       } else {
         data = await parseJson(req);
       }
@@ -272,8 +278,22 @@ const server = http.createServer(async (req, res) => {
         company: data.company || '',
         sector: data.sector || '',
         leadership_level: data.leadership_level || '',
-        notes: data.notes || ''
+        notes: data.notes || '',
+        doc_filename: file ? file.savedFilename : null,
+        doc_original_name: file ? file.originalName : null
       });
+
+      // Prepare email attachments if JD/spec was uploaded
+      const emailAttachments = [];
+      if (file && file.savedFilename) {
+        const filePath = path.join(UPLOADS_DIR, file.savedFilename);
+        if (fs.existsSync(filePath)) {
+          emailAttachments.push({
+            filename: file.originalName || file.savedFilename,
+            path: filePath
+          });
+        }
+      }
 
       // Trigger instant email alert to the recruitment team
       sendNotificationEmail({
@@ -295,14 +315,16 @@ const server = http.createServer(async (req, res) => {
                   <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Industry Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.sector)}</td></tr>
                   <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Role Level:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #c49a45; font-weight: bold;">${escapeHtml(data.leadership_level)}</td></tr>
                   <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Notes:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.notes || 'None')}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Attached Document:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${file ? '📎 ' + escapeHtml(file.originalName) + ' (Attached to this email)' : 'No file attached'}</td></tr>
                 </table>
                 <div style="margin-top: 24px; text-align: center;">
-                  <a href="http://localhost:${PORT}/admin.html" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                  <a href="http://localhost:${PORT}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
                 </div>
               </div>
             </div>
           </div>
-        `
+        `,
+        attachments: emailAttachments
       });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -415,11 +437,13 @@ const server = http.createServer(async (req, res) => {
     try {
       const contentType = req.headers['content-type'] || '';
       let data = {};
+      let file = null;
 
       if (contentType.includes('multipart/form-data')) {
         const boundary = contentType.split('boundary=')[1]?.trim().replace(/^["']|["']$/g, '');
         const parsed = await parseMultipart(req, boundary);
         data = parsed.fields;
+        file = parsed.file;
       } else {
         data = await parseJson(req);
       }
@@ -429,12 +453,26 @@ const server = http.createServer(async (req, res) => {
         email: data.email || '',
         phone: data.phone || '',
         topic: data.topic || '',
-        message: data.message || ''
+        message: data.message || '',
+        cv_filename: file ? file.savedFilename : null,
+        cv_original_name: file ? file.originalName : null
       });
+
+      // Prepare email attachments if CV or document was uploaded
+      const emailAttachments = [];
+      if (file && file.savedFilename) {
+        const filePath = path.join(UPLOADS_DIR, file.savedFilename);
+        if (fs.existsSync(filePath)) {
+          emailAttachments.push({
+            filename: file.originalName || file.savedFilename,
+            path: filePath
+          });
+        }
+      }
 
       // Trigger instant email alert
       sendNotificationEmail({
-        subject: `✉️ [General Inquiry] ${data.topic || 'Website Inquiry'} from ${data.name || 'Visitor'}`,
+        subject: `✉️ [General Inquiry] ${data.topic || 'Website Inquiry'} from ${data.name || 'Visitor'}${file ? ' (Resume Attached)' : ''}`,
         html: `
           <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
             <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -450,14 +488,16 @@ const server = http.createServer(async (req, res) => {
                   <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(data.phone)}" style="color: #0b1a2f;">${escapeHtml(data.phone || 'N/A')}</a></td></tr>
                   <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Topic / Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.topic)}</td></tr>
                   <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Message:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.message)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Attached Resume / File:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${file ? '📎 ' + escapeHtml(file.originalName) + ' (Attached to this email)' : 'No file uploaded'}</td></tr>
                 </table>
                 <div style="margin-top: 24px; text-align: center;">
-                  <a href="http://localhost:${PORT}/admin.html" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                  <a href="http://localhost:${PORT}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
                 </div>
               </div>
             </div>
           </div>
-        `
+        `,
+        attachments: emailAttachments
       });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
