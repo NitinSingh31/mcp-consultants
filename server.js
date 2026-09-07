@@ -85,7 +85,6 @@ async function connectMongoDB() {
   }
 }
 
-connectMongoDB();
 
 // ---------------------------------------------------------------------------
 // 2. SQLite Engine (Offline / Local Fallback)
@@ -520,8 +519,15 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`MCP CONSULTANTS Server running at http://localhost:${PORT}/`);
-  console.log(`Active Database: ${isMongoConnected ? 'MongoDB' : 'SQLite (Local)'}`);
-  console.log(`Admin Portal: http://localhost:${PORT}/admin.html`);
-});
+async function startServer() {
+  await connectMongoDB();
+  server.listen(PORT, () => {
+    console.log(`\n======================================================`);
+    console.log(`🚀 MCP CONSULTANTS Server running at http://localhost:${PORT}/`);
+    console.log(`🗄️  Active Database: ${isMongoConnected ? 'MongoDB Atlas (Cloud)' : 'SQLite (Local)'}`);
+    console.log(`📊 Admin Portal: http://localhost:${PORT}/admin.html`);
+    console.log(`======================================================\n`);
+  });
+}
+
+startServer();
