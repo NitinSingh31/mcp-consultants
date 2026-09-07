@@ -3,6 +3,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
@@ -15,7 +16,52 @@ if (!fs.existsSync(UPLOADS_DIR)) {
 }
 
 // ---------------------------------------------------------------------------
-// 1. MongoDB Setup & Mongoose Schemas
+// 1. Email Alert Configuration (nodemailer)
+// ---------------------------------------------------------------------------
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+const NOTIFICATION_EMAILS = process.env.NOTIFICATION_EMAILS || 'Recruiter.mcpconsultants@gmail.com, Shallu.mcpconsultants@gmail.com, Shikha.mcpconsultants@gmail.com';
+
+let mailTransporter = null;
+if (EMAIL_USER && EMAIL_PASS && !EMAIL_PASS.includes('your_')) {
+  mailTransporter = nodemailer.createTransport({
+    service: process.env.EMAIL_SERVICE || 'gmail',
+    auth: {
+      user: EMAIL_USER,
+      pass: EMAIL_PASS
+    }
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+async function sendNotificationEmail({ subject, html, attachments = [] }) {
+  if (!mailTransporter) {
+    console.log(`ℹ️  [Email Alert Triggered]: "${subject}"`);
+    console.log(`ℹ️  Recipients: ${NOTIFICATION_EMAILS}`);
+    console.log(`ℹ️  (To deliver live emails, set EMAIL_USER and EMAIL_PASS in your .env or host settings)`);
+    return;
+  }
+
+  try {
+    const info = await mailTransporter.sendMail({
+      from: `"MCP CONSULTANTS Alerts" <${EMAIL_USER}>`,
+      to: NOTIFICATION_EMAILS,
+      subject: subject,
+      html: html,
+      attachments: attachments
+    });
+    console.log(`📧 Email alert successfully dispatched to [${NOTIFICATION_EMAILS}] (ID: ${info.messageId})`);
+  } catch (err) {
+    console.error('⚠️  Failed to send notification email:', err.message);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 2. MongoDB Setup & Mongoose Schemas
 // ---------------------------------------------------------------------------
 let isMongoConnected = false;
 
@@ -76,7 +122,7 @@ async function connectMongoDB() {
 }
 
 // ---------------------------------------------------------------------------
-// 2. Helper: Multipart/Form-Data Parser
+// 3. Helper: Multipart/Form-Data Parser
 // ---------------------------------------------------------------------------
 function parseMultipart(req, boundary) {
   return new Promise((resolve, reject) => {
@@ -170,7 +216,7 @@ const MIME_TYPES = {
 };
 
 // ---------------------------------------------------------------------------
-// 3. HTTP Server & REST API
+// 4. HTTP Server & REST API
 // ---------------------------------------------------------------------------
 const server = http.createServer(async (req, res) => {
   const urlParts = req.url.split('?');
@@ -193,7 +239,8 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       database: 'MongoDB Atlas',
-      connected: isMongoConnected
+      connected: isMongoConnected,
+      emailAlertsActive: !!mailTransporter
     }));
     return;
   }
@@ -222,6 +269,36 @@ const server = http.createServer(async (req, res) => {
         sector: data.sector || '',
         leadership_level: data.leadership_level || '',
         notes: data.notes || ''
+      });
+
+      // Trigger instant email alert to the recruitment team
+      sendNotificationEmail({
+        subject: `🚨 [New Mandate] ${data.leadership_level || 'Leadership'} Search - ${data.company || 'Enterprise Client'}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+              <div style="background: #0b1a2f; padding: 20px 24px; border-bottom: 3px solid #c49a45;">
+                <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP CONSULTANTS</h2>
+                <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">New Leadership Search Mandate</p>
+              </div>
+              <div style="padding: 24px;">
+                <p style="font-size: 16px; margin-top: 0;">A client has submitted a new executive hiring mandate via the website:</p>
+                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b; width: 140px;"><strong>Client Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.name)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Company:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.company)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Work Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="mailto:${escapeHtml(data.email)}" style="color: #0b1a2f;">${escapeHtml(data.email)}</a></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(data.phone)}" style="color: #0b1a2f;">${escapeHtml(data.phone || 'N/A')}</a></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Industry Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.sector)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Role Level:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #c49a45; font-weight: bold;">${escapeHtml(data.leadership_level)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Notes:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.notes || 'None')}</td></tr>
+                </table>
+                <div style="margin-top: 24px; text-align: center;">
+                  <a href="http://localhost:${PORT}/admin.html" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
       });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -268,6 +345,50 @@ const server = http.createServer(async (req, res) => {
         cv_original_name: file ? file.originalName : null
       });
 
+      // Prepare email attachments if CV was uploaded
+      const emailAttachments = [];
+      if (file && file.savedFilename) {
+        const filePath = path.join(UPLOADS_DIR, file.savedFilename);
+        if (fs.existsSync(filePath)) {
+          emailAttachments.push({
+            filename: file.originalName || file.savedFilename,
+            path: filePath
+          });
+        }
+      }
+
+      // Trigger instant email alert with attached resume
+      sendNotificationEmail({
+        subject: `👤 [New Candidate CV] ${fields.name || 'Executive'} - ${fields.current_role || 'Leadership Role'}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+              <div style="background: #0b1a2f; padding: 20px 24px; border-bottom: 3px solid #c49a45;">
+                <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP CONSULTANTS</h2>
+                <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">New Candidate Profile &amp; Attached CV</p>
+              </div>
+              <div style="padding: 24px;">
+                <p style="font-size: 16px; margin-top: 0;">An executive candidate has submitted their resume:</p>
+                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b; width: 140px;"><strong>Candidate Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(fields.name)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Current Role:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(fields.current_role)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Industry Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.sector)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Experience:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.experience)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="mailto:${escapeHtml(fields.email)}" style="color: #0b1a2f;">${escapeHtml(fields.email)}</a></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(fields.phone)}" style="color: #0b1a2f;">${escapeHtml(fields.phone || 'N/A')}</a></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>LinkedIn:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${fields.linkedin_url ? `<a href="${escapeHtml(fields.linkedin_url)}" target="_blank" style="color: #c49a45; font-weight: bold;">View LinkedIn Profile &rarr;</a>` : 'Not provided'}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Resume File:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${file ? '📎 ' + escapeHtml(file.originalName) + ' (Attached to this email)' : 'No file uploaded'}</td></tr>
+                </table>
+                <div style="margin-top: 24px; text-align: center;">
+                  <a href="http://localhost:${PORT}/admin.html" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        attachments: emailAttachments
+      });
+
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
@@ -305,6 +426,34 @@ const server = http.createServer(async (req, res) => {
         phone: data.phone || '',
         topic: data.topic || '',
         message: data.message || ''
+      });
+
+      // Trigger instant email alert
+      sendNotificationEmail({
+        subject: `✉️ [General Inquiry] ${data.topic || 'Website Inquiry'} from ${data.name || 'Visitor'}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+              <div style="background: #0b1a2f; padding: 20px 24px; border-bottom: 3px solid #c49a45;">
+                <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP CONSULTANTS</h2>
+                <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">General Contact Inquiry</p>
+              </div>
+              <div style="padding: 24px;">
+                <p style="font-size: 16px; margin-top: 0;">A visitor has sent an inquiry through the contact form:</p>
+                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b; width: 140px;"><strong>Sender Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.name)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="mailto:${escapeHtml(data.email)}" style="color: #0b1a2f;">${escapeHtml(data.email)}</a></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(data.phone)}" style="color: #0b1a2f;">${escapeHtml(data.phone || 'N/A')}</a></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Topic / Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.topic)}</td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Message:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.message)}</td></tr>
+                </table>
+                <div style="margin-top: 24px; text-align: center;">
+                  <a href="http://localhost:${PORT}/admin.html" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
       });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -400,6 +549,8 @@ async function startServer() {
     console.log(`\n======================================================`);
     console.log(`🚀 MCP CONSULTANTS Server running at http://localhost:${PORT}/`);
     console.log(`🗄️  Database: MongoDB Atlas (Cloud)`);
+    console.log(`📧 Email Alerts: ${mailTransporter ? 'Active (Live)' : 'Standby (Configure EMAIL_USER & EMAIL_PASS in .env)'}`);
+    console.log(`📬 Recipients: ${NOTIFICATION_EMAILS}`);
     console.log(`📊 Admin Portal: http://localhost:${PORT}/admin.html`);
     console.log(`======================================================\n`);
   });
