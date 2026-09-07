@@ -1014,7 +1014,7 @@ const server = http.createServer(async (req, res) => {
 
 async function startServer() {
   await connectMongoDB();
-  server.listen(PORT, () => {
+  server.listen(PORT, '0.0.0.0', () => {
     console.log(`\n======================================================`);
     console.log(`🚀 MCP CONSULTANTS Server running at http://localhost:${PORT}/`);
     console.log(`🗄️  Database: MongoDB Atlas (Cloud)`);
