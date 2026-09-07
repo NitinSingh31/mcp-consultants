@@ -18,8 +18,7 @@ Adapted from the structure, visual aesthetics, and executive positioning of ABC 
   - `admin.html`: Internal executive practice dashboard to view mandates, review candidate submissions, download attached CVs, and export data to CSV.
 
 - **Backend & Database**:
-  - **Primary Cloud Database**: **MongoDB Atlas** using Mongoose for scalable, production cloud storage (`mcp_consultants` database).
-  - **Offline/Zero-Crash Fallback**: Built-in SQLite database (`mcp_database.sqlite`) using Node.js native `node:sqlite`.
+  - **Database**: **MongoDB Atlas** using Mongoose for scalable, production cloud storage (`mcp_consultants` database).
   - Multipart resume upload handler saving documents into `/uploads`.
   - REST endpoints for mandates, candidates, inquiries, and admin metrics.
 
@@ -78,13 +77,10 @@ Configure Nginx as a reverse proxy to forward port 80/443 to `localhost:3000`.
 
 ---
 
-## Database Architecture: MongoDB Atlas + SQLite Fallback
+## Database Architecture: MongoDB Atlas
 
-The backend uses a dual-engine architecture in `server.js`:
+The backend is powered by **MongoDB Atlas** using Mongoose in `server.js`:
 
-1. **MongoDB Atlas (Active Primary)**:
-   - Configured via `MONGODB_URI` in `.env`.
-   - Stores all client hiring mandates, executive candidates, and inquiries in cloud collections (`mandates`, `candidates`, `inquiries`).
-2. **Local SQLite (Automatic Fallback)**:
-   - Built into Node.js (`mcp_database.sqlite`).
-   - If the network drops or MongoDB is temporarily unreachable, the server automatically falls back to SQLite so form submissions and user visits never fail.
+- Configured via `MONGODB_URI` in `.env`.
+- Stores all client hiring mandates, executive candidate profiles, CV references, and contact inquiries in cloud collections (`mandates`, `candidates`, `inquiries`).
+- Automatically managed schemas with timestamps and ObjectId references.

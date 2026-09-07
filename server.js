@@ -4,18 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 
-// Safe load for node:sqlite (native in Node >= 22.5.0)
-let DatabaseSync = null;
-try {
-  DatabaseSync = require('node:sqlite').DatabaseSync;
-} catch (e) {
-  // Gracefully handled for environments on Node < 22.5
-}
-
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
-const DB_PATH = path.join(__dirname, 'mcp_database.sqlite');
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // Ensure uploads folder exists
@@ -67,76 +58,25 @@ const InquiryModel = mongoose.model('Inquiry', inquirySchema);
 
 async function connectMongoDB() {
   if (!MONGODB_URI || MONGODB_URI.includes('<username>') || MONGODB_URI.includes('<password>')) {
-    console.log('ℹ️  MONGODB_URI is not configured in .env. Using local SQLite engine.');
+    console.error('❌ MONGODB_URI is not properly configured in .env.');
     return;
   }
 
   try {
-    console.log('🔄 Connecting to MongoDB...');
+    console.log('🔄 Connecting to MongoDB Atlas...');
     await mongoose.connect(MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000
+      serverSelectionTimeoutMS: 8000
     });
     isMongoConnected = true;
-    console.log('✅ Successfully connected to MongoDB Atlas / Cloud Database!');
+    console.log('✅ Successfully connected to MongoDB Atlas!');
   } catch (err) {
-    console.warn('⚠️  MongoDB connection error:', err.message);
-    console.log('ℹ️  Falling back to local SQLite engine so the site remains operational.');
+    console.error('❌ MongoDB connection error:', err.message);
     isMongoConnected = false;
   }
 }
 
-
 // ---------------------------------------------------------------------------
-// 2. SQLite Engine (Offline / Local Fallback)
-// ---------------------------------------------------------------------------
-let sqliteDb = null;
-if (DatabaseSync) {
-  try {
-    sqliteDb = new DatabaseSync(DB_PATH);
-    sqliteDb.exec(`
-      CREATE TABLE IF NOT EXISTS mandates (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT,
-        company TEXT NOT NULL,
-        sector TEXT NOT NULL,
-        leadership_level TEXT NOT NULL,
-        notes TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE TABLE IF NOT EXISTS candidates (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT,
-        current_role TEXT NOT NULL,
-        sector TEXT NOT NULL,
-        experience TEXT NOT NULL,
-        linkedin_url TEXT,
-        cv_filename TEXT,
-        cv_original_name TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE TABLE IF NOT EXISTS inquiries (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT,
-        topic TEXT NOT NULL,
-        message TEXT NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      );
-    `);
-  } catch (err) {
-    console.warn('SQLite init warning:', err.message);
-  }
-}
-
-// ---------------------------------------------------------------------------
-// 3. Helper: Multipart/Form-Data Parser
+// 2. Helper: Multipart/Form-Data Parser
 // ---------------------------------------------------------------------------
 function parseMultipart(req, boundary) {
   return new Promise((resolve, reject) => {
@@ -230,7 +170,7 @@ const MIME_TYPES = {
 };
 
 // ---------------------------------------------------------------------------
-// 4. HTTP Server & REST API
+// 3. HTTP Server & REST API
 // ---------------------------------------------------------------------------
 const server = http.createServer(async (req, res) => {
   const urlParts = req.url.split('?');
@@ -252,9 +192,8 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'GET' && pathname === '/api/db-status') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
-      database: isMongoConnected ? 'MongoDB' : 'SQLite (Local)',
-      connected: true,
-      mongoUriConfigured: !!(MONGODB_URI && !MONGODB_URI.includes('<username>'))
+      database: 'MongoDB Atlas',
+      connected: isMongoConnected
     }));
     return;
   }
@@ -275,38 +214,20 @@ const server = http.createServer(async (req, res) => {
         data = await parseJson(req);
       }
 
-      if (isMongoConnected) {
-        // Save to MongoDB
-        await MandateModel.create({
-          name: data.name || 'Anonymous',
-          email: data.email || '',
-          phone: data.phone || '',
-          company: data.company || '',
-          sector: data.sector || '',
-          leadership_level: data.leadership_level || '',
-          notes: data.notes || ''
-        });
-      } else {
-        // Save to SQLite
-        const stmt = sqliteDb.prepare(`
-          INSERT INTO mandates (name, email, phone, company, sector, leadership_level, notes)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
-        `);
-        stmt.run(
-          data.name || 'Anonymous',
-          data.email || '',
-          data.phone || '',
-          data.company || '',
-          data.sector || '',
-          data.leadership_level || '',
-          data.notes || ''
-        );
-      }
+      await MandateModel.create({
+        name: data.name || 'Anonymous',
+        email: data.email || '',
+        phone: data.phone || '',
+        company: data.company || '',
+        sector: data.sector || '',
+        leadership_level: data.leadership_level || '',
+        notes: data.notes || ''
+      });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
-        database: isMongoConnected ? 'MongoDB' : 'SQLite',
+        database: 'MongoDB Atlas',
         message: 'Mandate inquiry recorded successfully.'
       }));
     } catch (err) {
@@ -335,42 +256,22 @@ const server = http.createServer(async (req, res) => {
         fields = await parseJson(req);
       }
 
-      if (isMongoConnected) {
-        // Save to MongoDB
-        await CandidateModel.create({
-          name: fields.name || 'Anonymous',
-          email: fields.email || '',
-          phone: fields.phone || '',
-          current_role: fields.current_role || '',
-          sector: fields.sector || '',
-          experience: fields.experience || '',
-          linkedin_url: fields.linkedin_url || '',
-          cv_filename: file ? file.savedFilename : null,
-          cv_original_name: file ? file.originalName : null
-        });
-      } else {
-        // Save to SQLite
-        const stmt = sqliteDb.prepare(`
-          INSERT INTO candidates (name, email, phone, current_role, sector, experience, linkedin_url, cv_filename, cv_original_name)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `);
-        stmt.run(
-          fields.name || 'Anonymous',
-          fields.email || '',
-          fields.phone || '',
-          fields.current_role || '',
-          fields.sector || '',
-          fields.experience || '',
-          fields.linkedin_url || '',
-          file ? file.savedFilename : null,
-          file ? file.originalName : null
-        );
-      }
+      await CandidateModel.create({
+        name: fields.name || 'Anonymous',
+        email: fields.email || '',
+        phone: fields.phone || '',
+        current_role: fields.current_role || '',
+        sector: fields.sector || '',
+        experience: fields.experience || '',
+        linkedin_url: fields.linkedin_url || '',
+        cv_filename: file ? file.savedFilename : null,
+        cv_original_name: file ? file.originalName : null
+      });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
-        database: isMongoConnected ? 'MongoDB' : 'SQLite',
+        database: 'MongoDB Atlas',
         message: 'Executive candidate profile and CV recorded successfully.',
         fileSaved: !!file
       }));
@@ -398,34 +299,18 @@ const server = http.createServer(async (req, res) => {
         data = await parseJson(req);
       }
 
-      if (isMongoConnected) {
-        // Save to MongoDB
-        await InquiryModel.create({
-          name: data.name || 'Anonymous',
-          email: data.email || '',
-          phone: data.phone || '',
-          topic: data.topic || '',
-          message: data.message || ''
-        });
-      } else {
-        // Save to SQLite
-        const stmt = sqliteDb.prepare(`
-          INSERT INTO inquiries (name, email, phone, topic, message)
-          VALUES (?, ?, ?, ?, ?)
-        `);
-        stmt.run(
-          data.name || 'Anonymous',
-          data.email || '',
-          data.phone || '',
-          data.topic || '',
-          data.message || ''
-        );
-      }
+      await InquiryModel.create({
+        name: data.name || 'Anonymous',
+        email: data.email || '',
+        phone: data.phone || '',
+        topic: data.topic || '',
+        message: data.message || ''
+      });
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
-        database: isMongoConnected ? 'MongoDB' : 'SQLite',
+        database: 'MongoDB Atlas',
         message: 'Inquiry received.'
       }));
     } catch (err) {
@@ -441,28 +326,18 @@ const server = http.createServer(async (req, res) => {
   // -------------------------------------------------------------------------
   if (req.method === 'GET' && pathname === '/api/admin/submissions') {
     try {
-      let mandates = [];
-      let candidates = [];
-      let inquiries = [];
+      const mList = await MandateModel.find().sort({ createdAt: -1 }).lean();
+      const cList = await CandidateModel.find().sort({ createdAt: -1 }).lean();
+      const iList = await InquiryModel.find().sort({ createdAt: -1 }).lean();
 
-      if (isMongoConnected) {
-        const mList = await MandateModel.find().sort({ createdAt: -1 }).lean();
-        const cList = await CandidateModel.find().sort({ createdAt: -1 }).lean();
-        const iList = await InquiryModel.find().sort({ createdAt: -1 }).lean();
-
-        // Format MongoDB documents with id and created_at
-        mandates = mList.map(m => ({ ...m, id: m._id.toString().slice(-6), created_at: m.createdAt }));
-        candidates = cList.map(c => ({ ...c, id: c._id.toString().slice(-6), created_at: c.createdAt }));
-        inquiries = iList.map(i => ({ ...i, id: i._id.toString().slice(-6), created_at: i.createdAt }));
-      } else {
-        mandates = sqliteDb.prepare('SELECT * FROM mandates ORDER BY id DESC').all();
-        candidates = sqliteDb.prepare('SELECT * FROM candidates ORDER BY id DESC').all();
-        inquiries = sqliteDb.prepare('SELECT * FROM inquiries ORDER BY id DESC').all();
-      }
+      // Format MongoDB documents with id and created_at
+      const mandates = mList.map(m => ({ ...m, id: m._id.toString().slice(-6), created_at: m.createdAt }));
+      const candidates = cList.map(c => ({ ...c, id: c._id.toString().slice(-6), created_at: c.createdAt }));
+      const inquiries = iList.map(i => ({ ...i, id: i._id.toString().slice(-6), created_at: i.createdAt }));
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
-        activeDatabase: isMongoConnected ? 'MongoDB' : 'SQLite (Local Fallback)',
+        activeDatabase: 'MongoDB Atlas',
         stats: {
           mandatesCount: mandates.length,
           candidatesCount: candidates.length,
@@ -524,7 +399,7 @@ async function startServer() {
   server.listen(PORT, () => {
     console.log(`\n======================================================`);
     console.log(`🚀 MCP CONSULTANTS Server running at http://localhost:${PORT}/`);
-    console.log(`🗄️  Active Database: ${isMongoConnected ? 'MongoDB Atlas (Cloud)' : 'SQLite (Local)'}`);
+    console.log(`🗄️  Database: MongoDB Atlas (Cloud)`);
     console.log(`📊 Admin Portal: http://localhost:${PORT}/admin.html`);
     console.log(`======================================================\n`);
   });
