@@ -826,38 +826,6 @@ export default function Admin() {
                 MCP CONSULTANTS
               </span>
             </Link>
-            
-            <span style={{ 
-              backgroundColor: 'rgba(196, 154, 69, 0.2)', 
-              color: 'var(--color-accent, #c49a45)', 
-              border: '1px solid var(--color-accent, #c49a45)',
-              padding: '4px 10px',
-              borderRadius: '12px',
-              fontSize: '11px',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.8px'
-            }}>
-              Practice Portal
-            </span>
-
-            <span style={{
-              backgroundColor: isDbConnected ? 'rgba(34, 197, 94, 0.18)' : 'rgba(239, 68, 68, 0.18)',
-              borderColor: isDbConnected ? '#22c55e' : '#ef4444',
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              color: isDbConnected ? '#4ade80' : '#f87171',
-              padding: '4px 12px',
-              borderRadius: '12px',
-              fontSize: '11px',
-              fontWeight: 700,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: isDbConnected ? '#4ade80' : '#f87171' }} />
-              {isDbConnected ? 'MongoDB Atlas Connected' : 'Database Disconnected'}
-            </span>
           </div>
 
           {/* User Controls & Navigation */}
