@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Building2, 
   UserCheck, 
@@ -10,15 +10,31 @@ import {
   Loader2,
   MapPin,
   Phone,
-  Mail
+  Mail,
+  FileText,
+  X
 } from 'lucide-react';
 import FeedbackModal from '../components/FeedbackModal';
 
 export default function Contact() {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('hiring');
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ title: '', message: '' });
+
+  // Handle URL query parameters for direct tab switching
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tabParam = params.get('tab');
+    if (tabParam === 'candidate' || tabParam === 'resume' || tabParam === 'roles') {
+      setActiveTab('candidate');
+    } else if (tabParam === 'hiring' || tabParam === 'mandate') {
+      setActiveTab('hiring');
+    } else if (tabParam === 'queries' || tabParam === 'inquiry' || tabParam === 'contact') {
+      setActiveTab('queries');
+    }
+  }, [location.search]);
 
   // Form states
   const [hiringForm, setHiringForm] = useState({
@@ -28,7 +44,8 @@ export default function Contact() {
     company: '',
     sector: 'Heavy Engineering & Capital Goods',
     leadership_level: 'Chief Executive Officer (CEO)',
-    notes: ''
+    notes: '',
+    docFile: null
   });
 
   const [candidateForm, setCandidateForm] = useState({
@@ -47,7 +64,8 @@ export default function Contact() {
     email: '',
     phone: '',
     topic: 'Board Advisory',
-    message: ''
+    message: '',
+    cvFile: null
   });
 
   // Handle Mandate submission
@@ -55,16 +73,27 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
     try {
+      const formData = new FormData();
+      formData.append('name', hiringForm.name);
+      formData.append('email', hiringForm.email);
+      formData.append('phone', hiringForm.phone);
+      formData.append('company', hiringForm.company);
+      formData.append('sector', hiringForm.sector);
+      formData.append('leadership_level', hiringForm.leadership_level);
+      formData.append('notes', hiringForm.notes);
+      if (hiringForm.docFile) {
+        formData.append('cv', hiringForm.docFile);
+      }
+
       const res = await fetch('/api/hiring', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(hiringForm)
+        body: formData
       });
       const data = await res.json();
       if (data.success) {
         setModalData({
           title: 'Mandate Registered Successfully',
-          message: `Thank you, ${hiringForm.name}. Your executive search requirement for ${hiringForm.company} has been confidential recorded. A Senior Practice Partner will contact you within 24 business hours.`
+          message: `Thank you, ${hiringForm.name}. Your executive search requirement for ${hiringForm.company} has been confidential recorded${hiringForm.docFile ? ' along with your attached document' : ''}. A Senior Practice Partner will contact you within 24 business hours.`
         });
         setModalOpen(true);
         setHiringForm({
@@ -74,7 +103,8 @@ export default function Contact() {
           company: '',
           sector: 'Heavy Engineering & Capital Goods',
           leadership_level: 'Chief Executive Officer (CEO)',
-          notes: ''
+          notes: '',
+          docFile: null
         });
       } else {
         alert(data.error || 'Failed to submit mandate.');
@@ -134,21 +164,30 @@ export default function Contact() {
     }
   };
 
-  // Handle General Inquiry submission
+  // Handle General Inquiry submission (with optional resume upload)
   const handleInquirySubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      const formData = new FormData();
+      formData.append('name', inquiryForm.name);
+      formData.append('email', inquiryForm.email);
+      formData.append('phone', inquiryForm.phone);
+      formData.append('topic', inquiryForm.topic);
+      formData.append('message', inquiryForm.message);
+      if (inquiryForm.cvFile) {
+        formData.append('cv', inquiryForm.cvFile);
+      }
+
       const res = await fetch('/api/inquiry', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(inquiryForm)
+        body: formData
       });
       const data = await res.json();
       if (data.success) {
         setModalData({
-          title: 'Inquiry Transmitted',
-          message: `Thank you, ${inquiryForm.name}. Your inquiry regarding ${inquiryForm.topic} has been dispatched to our advisory desk.`
+          title: 'Inquiry Transmitted Successfully',
+          message: `Thank you, ${inquiryForm.name}. Your inquiry and details${inquiryForm.cvFile ? ' (with your attached resume/document)' : ''} have been dispatched to our executive advisory desk.`
         });
         setModalOpen(true);
         setInquiryForm({
@@ -156,7 +195,8 @@ export default function Contact() {
           email: '',
           phone: '',
           topic: 'Board Advisory',
-          message: ''
+          message: '',
+          cvFile: null
         });
       } else {
         alert(data.error || 'Failed to send inquiry.');
@@ -325,6 +365,60 @@ export default function Contact() {
                       />
                     </div>
 
+                    {/* Role Spec / JD Upload */}
+                    <div className="form-group">
+                      <label className="form-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span>Attach Role Specification / JD Brief (PDF / DOCX)</span>
+                        <span style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: '700' }}>Optional</span>
+                      </label>
+                      <div 
+                        className="file-upload-box"
+                        style={{
+                          border: hiringForm.docFile ? '2px solid var(--color-accent)' : '2px dashed var(--color-border-light)',
+                          padding: '24px 20px',
+                          borderRadius: 'var(--radius-md)',
+                          textAlign: 'center',
+                          backgroundColor: hiringForm.docFile ? 'rgba(196, 154, 69, 0.05)' : 'var(--color-bg-offwhite)',
+                          cursor: 'pointer',
+                          transition: 'all var(--transition-fast)'
+                        }}
+                        onClick={() => document.getElementById('hiringDocInput').click()}
+                      >
+                        <Upload size={28} color="var(--color-accent)" style={{ marginBottom: '6px' }} />
+                        <div style={{ fontWeight: '700', fontSize: '14px', color: 'var(--color-primary)' }}>
+                          {hiringForm.docFile ? hiringForm.docFile.name : 'Click to Browse or Attach JD / Mandate Brief'}
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+                          Supported formats: PDF, DOCX, DOC (Max 15MB)
+                        </div>
+                        <input 
+                          type="file" 
+                          id="hiringDocInput" 
+                          accept=".pdf,.docx,.doc" 
+                          style={{ display: 'none' }}
+                          onChange={e => {
+                            if (e.target.files && e.target.files[0]) {
+                              setHiringForm({ ...hiringForm, docFile: e.target.files[0] });
+                            }
+                          }}
+                        />
+                      </div>
+                      {hiringForm.docFile && (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#16a34a' }}>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <CheckCircle size={14} /> Attached: {hiringForm.docFile.name} ({(hiringForm.docFile.size / 1024).toFixed(1)} KB)
+                          </span>
+                          <button 
+                            type="button" 
+                            onClick={(e) => { e.stopPropagation(); setHiringForm({ ...hiringForm, docFile: null }); }}
+                            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold' }}
+                          >
+                            Remove file
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <button type="submit" className="btn btn-primary" disabled={loading} style={{ minWidth: '220px' }}>
                       {loading ? <><Loader2 size={18} className="animate-spin" /><span>Submitting...</span></> : <span>Submit Search Mandate</span>}
                     </button>
@@ -440,12 +534,13 @@ export default function Contact() {
                       <div 
                         className="file-upload-box"
                         style={{
-                          border: '2px dashed var(--color-border-light)',
+                          border: candidateForm.cvFile ? '2px solid var(--color-accent)' : '2px dashed var(--color-border-light)',
                           padding: '30px',
                           borderRadius: 'var(--radius-md)',
                           textAlign: 'center',
-                          backgroundColor: 'var(--color-bg-offwhite)',
-                          cursor: 'pointer'
+                          backgroundColor: candidateForm.cvFile ? 'rgba(196, 154, 69, 0.05)' : 'var(--color-bg-offwhite)',
+                          cursor: 'pointer',
+                          transition: 'all var(--transition-fast)'
                         }}
                         onClick={() => document.getElementById('cvFileInput').click()}
                       >
@@ -461,9 +556,27 @@ export default function Contact() {
                           id="cvFileInput" 
                           accept=".pdf,.docx,.doc" 
                           style={{ display: 'none' }}
-                          onChange={e => setCandidateForm({ ...candidateForm, cvFile: e.target.files[0] })}
+                          onChange={e => {
+                            if (e.target.files && e.target.files[0]) {
+                              setCandidateForm({ ...candidateForm, cvFile: e.target.files[0] });
+                            }
+                          }}
                         />
                       </div>
+                      {candidateForm.cvFile && (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#16a34a' }}>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <CheckCircle size={14} /> Attached: {candidateForm.cvFile.name} ({(candidateForm.cvFile.size / 1024).toFixed(1)} KB)
+                          </span>
+                          <button 
+                            type="button" 
+                            onClick={(e) => { e.stopPropagation(); setCandidateForm({ ...candidateForm, cvFile: null }); }}
+                            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold' }}
+                          >
+                            Remove file
+                          </button>
+                        </div>
+                      )}
                     </div>
 
                     <button type="submit" className="btn btn-primary" disabled={loading} style={{ minWidth: '220px' }}>
@@ -543,6 +656,60 @@ export default function Contact() {
                         value={inquiryForm.message}
                         onChange={e => setInquiryForm({ ...inquiryForm, message: e.target.value })}
                       />
+                    </div>
+
+                    {/* Resume / Document Upload for Get In Touch / General Inquiries */}
+                    <div className="form-group">
+                      <label className="form-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span>Attach Resume / Profile Document (PDF / DOCX)</span>
+                        <span style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: '700' }}>Optional</span>
+                      </label>
+                      <div 
+                        className="file-upload-box"
+                        style={{
+                          border: inquiryForm.cvFile ? '2px solid var(--color-accent)' : '2px dashed var(--color-border-light)',
+                          padding: '24px 20px',
+                          borderRadius: 'var(--radius-md)',
+                          textAlign: 'center',
+                          backgroundColor: inquiryForm.cvFile ? 'rgba(196, 154, 69, 0.05)' : 'var(--color-bg-offwhite)',
+                          cursor: 'pointer',
+                          transition: 'all var(--transition-fast)'
+                        }}
+                        onClick={() => document.getElementById('inquiryCvInput').click()}
+                      >
+                        <Upload size={28} color="var(--color-accent)" style={{ marginBottom: '6px' }} />
+                        <div style={{ fontWeight: '700', fontSize: '14px', color: 'var(--color-primary)' }}>
+                          {inquiryForm.cvFile ? inquiryForm.cvFile.name : 'Click to Browse or Attach Resume / Document'}
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+                          Supported formats: PDF, DOCX, DOC (Max 15MB)
+                        </div>
+                        <input 
+                          type="file" 
+                          id="inquiryCvInput" 
+                          accept=".pdf,.docx,.doc" 
+                          style={{ display: 'none' }}
+                          onChange={e => {
+                            if (e.target.files && e.target.files[0]) {
+                              setInquiryForm({ ...inquiryForm, cvFile: e.target.files[0] });
+                            }
+                          }}
+                        />
+                      </div>
+                      {inquiryForm.cvFile && (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#16a34a' }}>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <CheckCircle size={14} /> Attached: {inquiryForm.cvFile.name} ({(inquiryForm.cvFile.size / 1024).toFixed(1)} KB)
+                          </span>
+                          <button 
+                            type="button" 
+                            onClick={(e) => { e.stopPropagation(); setInquiryForm({ ...inquiryForm, cvFile: null }); }}
+                            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold' }}
+                          >
+                            Remove file
+                          </button>
+                        </div>
+                      )}
                     </div>
 
                     <button type="submit" className="btn btn-primary" disabled={loading} style={{ minWidth: '220px' }}>

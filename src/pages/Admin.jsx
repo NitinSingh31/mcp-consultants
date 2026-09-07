@@ -364,6 +364,7 @@ export default function Admin() {
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Sector</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Target Role</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Mandate Details</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Attached Brief</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Submitted At</th>
                       </tr>
                     </thead>
@@ -393,6 +394,32 @@ export default function Admin() {
                           </td>
                           <td style={{ padding: '14px 18px', maxWidth: '240px', color: '#475569', lineHeight: 1.4 }}>
                             {item.notes || '-'}
+                          </td>
+                          <td style={{ padding: '14px 18px' }}>
+                            {item.doc_filename ? (
+                              <a 
+                                href={`/uploads/${item.doc_filename}`} 
+                                download 
+                                style={{ 
+                                  display: 'inline-flex', 
+                                  alignItems: 'center', 
+                                  gap: '6px', 
+                                  backgroundColor: 'rgba(196, 154, 69, 0.1)', 
+                                  border: '1px solid rgba(196, 154, 69, 0.4)', 
+                                  color: 'var(--color-primary, #0b1a2f)', 
+                                  fontSize: '12px', 
+                                  fontWeight: 700, 
+                                  padding: '6px 12px', 
+                                  borderRadius: '6px', 
+                                  textDecoration: 'none' 
+                                }}
+                              >
+                                <FileText size={14} color="var(--color-accent, #c49a45)" />
+                                <span>{item.doc_original_name || 'Download JD'}</span>
+                              </a>
+                            ) : (
+                              <span style={{ color: '#94a3b8' }}>-</span>
+                            )}
                           </td>
                           <td style={{ padding: '14px 18px', whiteSpace: 'nowrap', color: '#64748b', fontSize: '12px' }}>
                             {item.created_at ? new Date(item.created_at).toLocaleString() : '-'}
@@ -504,6 +531,7 @@ export default function Admin() {
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Phone</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Topic</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Message</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Attached Resume / File</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Submitted At</th>
                       </tr>
                     </thead>
@@ -529,6 +557,32 @@ export default function Admin() {
                           </td>
                           <td style={{ padding: '14px 18px', maxWidth: '300px', color: '#475569', lineHeight: 1.4 }}>
                             {item.message}
+                          </td>
+                          <td style={{ padding: '14px 18px' }}>
+                            {item.cv_filename ? (
+                              <a 
+                                href={`/uploads/${item.cv_filename}`} 
+                                download 
+                                style={{ 
+                                  display: 'inline-flex', 
+                                  alignItems: 'center', 
+                                  gap: '6px', 
+                                  backgroundColor: 'rgba(196, 154, 69, 0.1)', 
+                                  border: '1px solid rgba(196, 154, 69, 0.4)', 
+                                  color: 'var(--color-primary, #0b1a2f)', 
+                                  fontSize: '12px', 
+                                  fontWeight: 700, 
+                                  padding: '6px 12px', 
+                                  borderRadius: '6px', 
+                                  textDecoration: 'none' 
+                                }}
+                              >
+                                <FileText size={14} color="var(--color-accent, #c49a45)" />
+                                <span>{item.cv_original_name || 'Download CV'}</span>
+                              </a>
+                            ) : (
+                              <span style={{ color: '#94a3b8' }}>No File</span>
+                            )}
                           </td>
                           <td style={{ padding: '14px 18px', whiteSpace: 'nowrap', color: '#64748b', fontSize: '12px' }}>
                             {item.created_at ? new Date(item.created_at).toLocaleString() : '-'}
