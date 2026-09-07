@@ -8,40 +8,39 @@ Adapted from the structure, visual aesthetics, and executive positioning of ABC 
 
 ## Features
 
-- **Flagship Pages**:
-  - `index.html`: Hero banner slider, 8 "All-Weather Allies" service cards, 20+ Industrial vertical practices, cross-functional leadership matrix, animated numerical counters, client testimonials carousel, core manifesto, awards showcase, and corporate footer.
-  - `industries.html`: Dedicated industrial hub with real-time category filter pills and live search bar.
-  - `services.html`: Executive search, fractional CXO, board advisory, and talent assessment practices.
-  - `about.html`: Heritage narrative, leadership team profiles, and workplace culture (*Life at MCP*).
-  - `insights.html`: Annual flagship studies, CXO remuneration reports, and board succession whitepapers.
-  - `contact.html`: Multi-intent portal (*I Am Hiring*, *I am Seeking Leadership Roles* with CV upload, and *General Queries*).
-  - `admin.html`: Internal executive practice dashboard to view mandates, review candidate submissions, download attached CVs, and export data to CSV.
+- **React Single Page Application (SPA)**:
+  - `/` (Home): Hero banner slider, 8 "All-Weather Allies" service cards, 20+ Industrial vertical practices, cross-functional leadership matrix, animated numerical counters, client testimonials, core manifesto, and corporate footer.
+  - `/industries`: Dedicated industrial hub with real-time category filter pills and live search bar.
+  - `/services`: Executive search, fractional CXO, board advisory, and 4-stage search methodology.
+  - `/about`: Heritage narrative, leadership team profiles, and corporate values.
+  - `/insights`: Annual flagship studies, CXO remuneration reports, and board succession whitepapers.
+  - `/contact`: Multi-intent portal (*I Am Hiring*, *I am Seeking Leadership Roles* with CV upload, and *General Queries*).
+  - `/admin`: Internal executive practice dashboard to view mandates, review candidate submissions, download attached CVs, and export data to CSV.
 
 - **Backend & Database**:
   - **Database**: **MongoDB Atlas** using Mongoose for scalable, production cloud storage (`mcp_consultants` database).
   - Multipart resume upload handler saving documents into `/uploads`.
+  - Automated recruitment email notifications via `nodemailer`.
   - REST endpoints for mandates, candidates, inquiries, and admin metrics.
 
 ---
 
 ## Quick Start (Local Run)
 
-Requires **Node.js v22.5.0+** (tested on Node v24).
+Requires **Node.js v18.0.0+**.
 
 ```powershell
-# 1. Open terminal in the project directory
-cd "e:\MCP CONSULTANTS"
-
-# 2. Start the application
+# 1. Start the backend API server (Node.js + MongoDB)
 node server.js
-# Or
-npm start
+
+# 2. In a separate terminal, start the React Vite dev server
+npm run dev
 ```
 
 Open your browser:
-* **Main Website**: [http://localhost:3000/](http://localhost:3000/)
-* **Contact & Hiring Portal**: [http://localhost:3000/contact.html](http://localhost:3000/contact.html)
-* **Internal Admin Dashboard**: [http://localhost:3000/admin.html](http://localhost:3000/admin.html)
+* **Main Website**: [http://localhost:5173/](http://localhost:5173/)
+* **Contact & Hiring Portal**: [http://localhost:5173/contact](http://localhost:5173/contact)
+* **Internal Admin Dashboard**: [http://localhost:5173/admin](http://localhost:5173/admin)
 
 ---
 
