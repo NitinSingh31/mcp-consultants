@@ -71,7 +71,7 @@ export default function Home() {
           <div 
             key={idx}
             className={`hero-slide ${idx === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `linear-gradient(rgba(7, 17, 32, 0.78), rgba(11, 26, 47, 0.88)), url('${slide.bgImage}')` }}
+            style={{ backgroundImage: `url('${slide.bgImage}')` }}
           >
             <div className="container">
               <div className="hero-content">
@@ -82,7 +82,7 @@ export default function Home() {
                 <h1 className="hero-title">{slide.title}</h1>
                 <p className="hero-desc">{slide.description}</p>
                 <div className="hero-cta-group">
-                  <Link to={slide.ctaLink} className="btn btn-primary btn-lg">
+                  <Link to={slide.ctaLink} className="btn btn-hero-accent btn-lg">
                     <span>{slide.ctaText}</span>
                     <ArrowRight size={18} />
                   </Link>
