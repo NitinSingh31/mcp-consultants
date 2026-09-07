@@ -1,0 +1,25 @@
+{
+  "name": "mcp-consultants-website",
+  "version": "1.0.0",
+  "description": "Full working website for MCP CONSULTANTS - Executive Search & Leadership Advisory",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "executive-search",
+    "leadership-advisory",
+    "mcp-consultants",
+    "recruitment"
+  ],
+  "author": "MCP CONSULTANTS",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "mongoose": "^9.9.5"
+  }
+}
