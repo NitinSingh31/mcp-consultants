@@ -520,7 +520,7 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, '0.0.0.0', () => {
+server.listen(PORT, () => {
   console.log(`MCP CONSULTANTS Server running at http://localhost:${PORT}/`);
   console.log(`Active Database: ${isMongoConnected ? 'MongoDB' : 'SQLite (Local)'}`);
   console.log(`Admin Portal: http://localhost:${PORT}/admin.html`);
