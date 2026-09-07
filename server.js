@@ -204,6 +204,7 @@ const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
   '.css': 'text/css; charset=UTF-8',
   '.js': 'application/javascript; charset=UTF-8',
+  '.mjs': 'application/javascript; charset=UTF-8',
   '.json': 'application/json; charset=UTF-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
@@ -212,7 +213,10 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon',
   '.pdf': 'application/pdf',
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  '.doc': 'application/msword'
+  '.doc': 'application/msword',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf'
 };
 
 // ---------------------------------------------------------------------------
@@ -523,23 +527,34 @@ const server = http.createServer(async (req, res) => {
   }
 
   // -------------------------------------------------------------------------
-  // Static Files Serving
+  // Static Files & Single Page Application (SPA) Serving
   // -------------------------------------------------------------------------
-  let reqPath = pathname === '/' ? '/index.html' : pathname;
-  const filePath = path.join(PUBLIC_DIR, reqPath);
+  const DIST_DIR = path.join(__dirname, 'dist');
+  const hasDist = fs.existsSync(DIST_DIR);
+  const baseDir = hasDist ? DIST_DIR : PUBLIC_DIR;
 
-  fs.stat(filePath, (err, stats) => {
-    if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
+  let reqPath = pathname === '/' ? '/index.html' : pathname;
+  let targetFile = path.join(baseDir, reqPath);
+
+  fs.stat(targetFile, (err, stats) => {
+    if (!err && stats.isFile()) {
+      const ext = path.extname(targetFile).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      res.writeHead(200, { 'Content-Type': contentType });
+      fs.createReadStream(targetFile).pipe(res);
       return;
     }
 
-    const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    // SPA fallback: Serve index.html for client-side routing
+    const spaIndex = path.join(baseDir, 'index.html');
+    if (fs.existsSync(spaIndex)) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+      fs.createReadStream(spaIndex).pipe(res);
+      return;
+    }
 
-    res.writeHead(200, { 'Content-Type': contentType });
-    fs.createReadStream(filePath).pipe(res);
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('404 Not Found');
   });
 });
 

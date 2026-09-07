@@ -4,8 +4,11 @@
   "description": "Full working website for MCP CONSULTANTS - Executive Search & Leadership Advisory",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node server.js",
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -20,7 +23,15 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.4.2",
+    "lucide-react": "^1.41.0",
     "mongoose": "^9.9.5",
-    "nodemailer": "^10.0.0"
+    "nodemailer": "^10.0.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.2.2"
   }
 }
