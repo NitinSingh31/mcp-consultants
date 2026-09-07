@@ -566,7 +566,7 @@ async function startServer() {
     console.log(`🗄️  Database: MongoDB Atlas (Cloud)`);
     console.log(`📧 Email Alerts: ${mailTransporter ? 'Active (Live)' : 'Standby (Configure EMAIL_USER & EMAIL_PASS in .env)'}`);
     console.log(`📬 Recipients: ${NOTIFICATION_EMAILS}`);
-    console.log(`📊 Admin Portal: http://localhost:${PORT}/admin.html`);
+    console.log(`📊 Admin Portal: http://localhost:${PORT}/admin`);
     console.log(`======================================================\n`);
   });
 }
