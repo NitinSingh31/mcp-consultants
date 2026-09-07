@@ -18,8 +18,8 @@ Adapted from the structure, visual aesthetics, and executive positioning of ABC 
   - `admin.html`: Internal executive practice dashboard to view mandates, review candidate submissions, download attached CVs, and export data to CSV.
 
 - **Backend & Database**:
-  - Built-in SQLite database (`mcp_database.sqlite`) using Node.js native `node:sqlite`.
-  - Zero external database dependencies required.
+  - **Primary Cloud Database**: **MongoDB Atlas** using Mongoose for scalable, production cloud storage (`mcp_consultants` database).
+  - **Offline/Zero-Crash Fallback**: Built-in SQLite database (`mcp_database.sqlite`) using Node.js native `node:sqlite`.
   - Multipart resume upload handler saving documents into `/uploads`.
   - REST endpoints for mandates, candidates, inquiries, and admin metrics.
 
@@ -78,15 +78,13 @@ Configure Nginx as a reverse proxy to forward port 80/443 to `localhost:3000`.
 
 ---
 
-## Migrating from SQLite to PostgreSQL / Supabase
+## Database Architecture: MongoDB Atlas + SQLite Fallback
 
-When scaling up to enterprise level:
-1. Create a Supabase project at [supabase.com](https://supabase.com).
-2. Run the SQL schema from `server.js` directly in Supabase's SQL Editor:
-   ```sql
-   CREATE TABLE mandates (...);
-   CREATE TABLE candidates (...);
-   CREATE TABLE inquiries (...);
-   ```
-3. Point your file uploads to a Supabase Storage bucket (`resumes`).
-4. Replace `node:sqlite` calls in `server.js` with `pg` / `@supabase/supabase-js`.
+The backend uses a dual-engine architecture in `server.js`:
+
+1. **MongoDB Atlas (Active Primary)**:
+   - Configured via `MONGODB_URI` in `.env`.
+   - Stores all client hiring mandates, executive candidates, and inquiries in cloud collections (`mandates`, `candidates`, `inquiries`).
+2. **Local SQLite (Automatic Fallback)**:
+   - Built into Node.js (`mcp_database.sqlite`).
+   - If the network drops or MongoDB is temporarily unreachable, the server automatically falls back to SQLite so form submissions and user visits never fail.
