@@ -308,8 +308,8 @@ const server = http.createServer(async (req, res) => {
   const pathname = urlParts[0];
 
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -983,33 +983,51 @@ const server = http.createServer(async (req, res) => {
   // -------------------------------------------------------------------------
   // Static Files & Single Page Application (SPA) Serving
   // -------------------------------------------------------------------------
-  const DIST_DIR = path.join(__dirname, 'dist');
-  const hasDist = fs.existsSync(DIST_DIR);
-  const baseDir = hasDist ? DIST_DIR : PUBLIC_DIR;
+  const FRONTEND_DIST = path.join(__dirname, '../frontend/dist');
+  const LOCAL_DIST = path.join(__dirname, 'dist');
+  const baseDir = fs.existsSync(FRONTEND_DIST) ? FRONTEND_DIST : (fs.existsSync(LOCAL_DIST) ? LOCAL_DIST : null);
 
-  let reqPath = pathname === '/' ? '/index.html' : pathname;
-  let targetFile = path.join(baseDir, reqPath);
+  if (baseDir) {
+    let reqPath = pathname === '/' ? '/index.html' : pathname;
+    let targetFile = path.join(baseDir, reqPath);
 
-  fs.stat(targetFile, (err, stats) => {
-    if (!err && stats.isFile()) {
-      const ext = path.extname(targetFile).toLowerCase();
-      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-      res.writeHead(200, { 'Content-Type': contentType });
-      fs.createReadStream(targetFile).pipe(res);
-      return;
-    }
+    fs.stat(targetFile, (err, stats) => {
+      if (!err && stats.isFile()) {
+        const ext = path.extname(targetFile).toLowerCase();
+        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+        res.writeHead(200, { 'Content-Type': contentType });
+        fs.createReadStream(targetFile).pipe(res);
+        return;
+      }
 
-    // SPA fallback: Serve index.html for client-side routing
-    const spaIndex = path.join(baseDir, 'index.html');
-    if (fs.existsSync(spaIndex)) {
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
-      fs.createReadStream(spaIndex).pipe(res);
-      return;
-    }
+      // SPA fallback: Serve index.html for client-side routing
+      const spaIndex = path.join(baseDir, 'index.html');
+      if (fs.existsSync(spaIndex)) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+        fs.createReadStream(spaIndex).pipe(res);
+        return;
+      }
 
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('404 Not Found');
-  });
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Not Found', message: 'Resource not found.' }));
+    });
+    return;
+  }
+
+  // Pure API mode when no frontend dist is compiled yet
+  if (pathname === '/') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      status: 'active',
+      service: 'MCP CONSULTANTS API Server',
+      database: isMongoConnected ? 'Connected (MongoDB Atlas)' : 'Connecting...',
+      documentation: 'Run the frontend dev server on http://localhost:5173 to access the full user experience.'
+    }));
+    return;
+  }
+
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ error: 'Not Found', message: `Cannot ${req.method} ${pathname}` }));
 });
 
 async function startServer() {
