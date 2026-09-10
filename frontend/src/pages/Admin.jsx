@@ -23,6 +23,7 @@ import {
   User,
   Check
 } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function Admin() {
   // Authentication & User State
@@ -81,7 +82,7 @@ export default function Admin() {
       }
 
       try {
-        const res = await fetch('/api/admin/verify-session', {
+        const res = await fetch(apiUrl('/api/admin/verify-session'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: savedToken })
@@ -123,7 +124,7 @@ export default function Admin() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/submissions', {
+      const res = await fetch(apiUrl('/api/admin/submissions'), {
         headers: {
           'Authorization': `Bearer ${activeToken}`
         }
@@ -168,7 +169,7 @@ export default function Admin() {
     setLoginLoading(true);
 
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(apiUrl('/api/admin/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -203,7 +204,7 @@ export default function Admin() {
     const savedToken = token || localStorage.getItem('mcp_admin_token');
     try {
       if (savedToken) {
-        await fetch('/api/admin/logout', {
+        await fetch(apiUrl('/api/admin/logout'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -231,7 +232,7 @@ export default function Admin() {
     setForgotLoading(true);
 
     try {
-      const res = await fetch('/api/admin/forgot-password', {
+      const res = await fetch(apiUrl('/api/admin/forgot-password'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: forgotEmail })
@@ -258,7 +259,7 @@ export default function Admin() {
     setForgotLoading(true);
 
     try {
-      const res = await fetch('/api/admin/reset-password', {
+      const res = await fetch(apiUrl('/api/admin/reset-password'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -305,7 +306,7 @@ export default function Admin() {
     setSettingsLoading(true);
 
     try {
-      const res = await fetch('/api/admin/update-credentials', {
+      const res = await fetch(apiUrl('/api/admin/update-credentials'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1157,7 +1158,7 @@ export default function Admin() {
                           <td style={{ padding: '14px 18px' }}>
                             {item.doc_filename ? (
                               <a 
-                                href={`/uploads/${item.doc_filename}`} 
+                                href={apiUrl(`/uploads/${item.doc_filename}`)} 
                                 download 
                                 style={{ 
                                   display: 'inline-flex', 
@@ -1247,7 +1248,7 @@ export default function Admin() {
                           <td style={{ padding: '14px 18px' }}>
                             {item.cv_filename ? (
                               <a 
-                                href={`/uploads/${item.cv_filename}`} 
+                                href={apiUrl(`/uploads/${item.cv_filename}`)} 
                                 download 
                                 style={{ 
                                   display: 'inline-flex', 
@@ -1320,7 +1321,7 @@ export default function Admin() {
                           <td style={{ padding: '14px 18px' }}>
                             {item.cv_filename ? (
                               <a 
-                                href={`/uploads/${item.cv_filename}`} 
+                                href={apiUrl(`/uploads/${item.cv_filename}`)} 
                                 download 
                                 style={{ 
                                   display: 'inline-flex', 

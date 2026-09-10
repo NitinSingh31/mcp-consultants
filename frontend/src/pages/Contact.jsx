@@ -15,6 +15,7 @@ import {
   X
 } from 'lucide-react';
 import FeedbackModal from '../components/FeedbackModal';
+import { apiUrl } from '../api';
 
 export default function Contact() {
   const location = useLocation();
@@ -85,7 +86,7 @@ export default function Contact() {
         formData.append('cv', hiringForm.docFile);
       }
 
-      const res = await fetch('/api/hiring', {
+      const res = await fetch(apiUrl('/api/hiring'), {
         method: 'POST',
         body: formData
       });
@@ -133,7 +134,7 @@ export default function Contact() {
         formData.append('cv', candidateForm.cvFile);
       }
 
-      const res = await fetch('/api/candidate', {
+      const res = await fetch(apiUrl('/api/candidate'), {
         method: 'POST',
         body: formData
       });
@@ -179,7 +180,7 @@ export default function Contact() {
         formData.append('cv', inquiryForm.cvFile);
       }
 
-      const res = await fetch('/api/inquiry', {
+      const res = await fetch(apiUrl('/api/inquiry'), {
         method: 'POST',
         body: formData
       });
