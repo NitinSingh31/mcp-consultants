@@ -84,8 +84,18 @@ const candidateSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: String,
   current_role: { type: String, required: true },
+  company: String,
   sector: { type: String, required: true },
   experience: { type: String, required: true },
+  location: String,
+  key_skills: [String],
+  notice_period: String,
+  ug_qualification: String,
+  pg_qualification: String,
+  gender: String,
+  annual_ctc: String,
+  verified_mobile: { type: Boolean, default: true },
+  verified_email: { type: Boolean, default: true },
   linkedin_url: String,
   cv_filename: String,
   cv_original_name: String,
@@ -155,6 +165,174 @@ async function seedDefaultAdmin() {
   }
 }
 
+// Seed Sample Executive Candidates for Resdex Search if database is empty/small
+async function seedSampleCandidates() {
+  try {
+    const count = await CandidateModel.countDocuments();
+    if (count < 6) {
+      const samples = [
+        {
+          name: "Vikram Malhotra",
+          email: "v.malhotra@executive-search.mcp",
+          phone: "+91 98230 44120",
+          current_role: "Vice President - Operations & Plant Manufacturing",
+          company: "L&T Heavy Engineering",
+          sector: "Heavy Engineering & Capital Goods",
+          experience: "18 Years",
+          location: "Pune, Maharashtra",
+          key_skills: ["CNC Machining", "Six Sigma Black Belt", "Heavy Fabrication", "Lean Manufacturing", "Plant P&L"],
+          notice_period: "1 month",
+          ug_qualification: "B.Tech Mechanical Engineering",
+          pg_qualification: "M.Tech Production Engineering",
+          gender: "Male",
+          annual_ctc: "48 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-vmalhotra"
+        },
+        {
+          name: "Pooja Deshmukh",
+          email: "pooja.d@executive-search.mcp",
+          phone: "+91 98112 33490",
+          current_role: "Chief Technology Officer - EV Powertrain & Battery Systems",
+          company: "Tata Motors Electric Mobility",
+          sector: "Automotive & Electric Vehicles",
+          experience: "15 Years",
+          location: "Bengaluru, Karnataka",
+          key_skills: ["Battery Management Systems (BMS)", "AUTOSAR", "Motor Controls", "Powertrain Integration", "Thermal Architecture"],
+          notice_period: "0 - 15 days",
+          ug_qualification: "B.E. Electrical & Electronics",
+          pg_qualification: "MS Power Electronics (IISc)",
+          gender: "Female",
+          annual_ctc: "55 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-pdeshmukh"
+        },
+        {
+          name: "Rajesh K. Sharma",
+          email: "rajesh.sharma@executive-search.mcp",
+          phone: "+91 97180 88200",
+          current_role: "Head of Metallurgy, Blast Furnace & Hot Strip Mill",
+          company: "JSW Steel Ltd",
+          sector: "Steel & Metallurgy",
+          experience: "21 Years",
+          location: "Jamshedpur, Jharkhand",
+          key_skills: ["Blast Furnace Operations", "Continuous Casting", "Alloy Metallurgy", "Cost Optimization", "ISO 9001"],
+          notice_period: "2 months",
+          ug_qualification: "B.Tech Metallurgical Engineering (IIT BHU)",
+          pg_qualification: "MBA Operations",
+          gender: "Male",
+          annual_ctc: "42 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-rksharma"
+        },
+        {
+          name: "Sunita Nair",
+          email: "sunita.nair@executive-search.mcp",
+          phone: "+91 99401 55621",
+          current_role: "Director - Global Supply Chain & Strategic Sourcing",
+          company: "Thermax Limited",
+          sector: "Heavy Engineering & Capital Goods",
+          experience: "16 Years",
+          location: "Chennai, Tamil Nadu",
+          key_skills: ["Strategic Sourcing", "Vendor Development", "ERP SAP S/4HANA", "Import-Export Compliance", "Contract Negotiation"],
+          notice_period: "Currently serving notice period",
+          ug_qualification: "B.Tech Industrial Engineering",
+          pg_qualification: "Executive MBA (IIM Calcutta)",
+          gender: "Female",
+          annual_ctc: "38 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-snair"
+        },
+        {
+          name: "Anand Verma",
+          email: "anand.verma@executive-search.mcp",
+          phone: "+91 98450 12890",
+          current_role: "General Manager - Aerospace Composites & Avionics Quality",
+          company: "Bharat Forge Aerospace",
+          sector: "Aerospace & Defence",
+          experience: "19 Years",
+          location: "Hyderabad, Telangana",
+          key_skills: ["AS9100 Rev D", "Titanium Forging", "NADCAP Audits", "Avionics Assemblies", "Defence Offsets"],
+          notice_period: "1 month",
+          ug_qualification: "B.Tech Aeronautical Engineering",
+          pg_qualification: "M.Tech Materials Science",
+          gender: "Male",
+          annual_ctc: "45 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-averma"
+        },
+        {
+          name: "Deepak Chawla",
+          email: "deepak.c@executive-search.mcp",
+          phone: "+91 98710 99011",
+          current_role: "Head of Project Engineering - Solar & Wind EPC",
+          company: "Suzlon Green Energy",
+          sector: "Renewable Energy & CleanTech",
+          experience: "14 Years",
+          location: "Gurugram, Haryana",
+          key_skills: ["Utility Scale EPC", "Grid Interconnection", "SCADA", "Turbine Erection", "PPA Execution"],
+          notice_period: "3 months",
+          ug_qualification: "B.Tech Electrical Engineering",
+          pg_qualification: "PG Diploma Project Management",
+          gender: "Male",
+          annual_ctc: "35 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-dchawla"
+        },
+        {
+          name: "Megha Sengupta",
+          email: "megha.sengupta@executive-search.mcp",
+          phone: "+91 98300 77412",
+          current_role: "Chief Operating Officer (COO) - Industrial Automation & Robotics",
+          company: "Kirloskar Automation Systems",
+          sector: "Industrial Automation",
+          experience: "22 Years",
+          location: "Pune, Maharashtra",
+          key_skills: ["Industrial IoT", "PLC & DCS Architecture", "Factory Automation", "Global P&L", "Transformational Leadership"],
+          notice_period: "0 - 15 days",
+          ug_qualification: "B.E. Instrumentation & Control",
+          pg_qualification: "Executive Post Graduate (ISB)",
+          gender: "Female",
+          annual_ctc: "60 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-msengupta"
+        },
+        {
+          name: "Arun Mehra",
+          email: "arun.mehra@executive-search.mcp",
+          phone: "+91 98201 66530",
+          current_role: "Head of Heavy Fabrication & Pressure Vessels",
+          company: "Godrej Process Equipment",
+          sector: "Heavy Engineering & Capital Goods",
+          experience: "17 Years",
+          location: "Mumbai, Maharashtra",
+          key_skills: ["ASME Section VIII", "Heavy Nuclear Vessels", "Welding Engineering", "Submerged Arc Welding", "Client Interface"],
+          notice_period: "2 months",
+          ug_qualification: "B.Tech Mechanical",
+          pg_qualification: "Certified Welding Inspector (AWS)",
+          gender: "Male",
+          annual_ctc: "40 Lacs",
+          verified_mobile: true,
+          verified_email: true,
+          linkedin_url: "https://linkedin.com/in/sample-amehra"
+        }
+      ];
+
+      await CandidateModel.insertMany(samples);
+      console.log(`🎯 Seeded ${samples.length} executive candidate profiles for Resdex Talent Search.`);
+    }
+  } catch (err) {
+    console.error('Error seeding sample candidates:', err.message);
+  }
+}
+
 // Extract Authenticated Admin from Request Token
 async function getAuthenticatedAdmin(req) {
   const authHeader = req.headers['authorization'] || '';
@@ -196,6 +374,7 @@ async function connectMongoDB() {
     isMongoConnected = true;
     console.log('✅ Successfully connected to MongoDB Atlas!');
     await seedDefaultAdmin();
+    await seedSampleCandidates();
   } catch (err) {
     console.error('❌ MongoDB connection error:', err.message);
     isMongoConnected = false;
@@ -959,6 +1138,203 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: err.message }));
     }
+    return;
+  }
+
+  // -------------------------------------------------------------------------
+  // Resdex API 1: POST /api/candidates/search - Advanced Candidate Search
+  // -------------------------------------------------------------------------
+  if (req.method === 'POST' && pathname === '/api/candidates/search') {
+    try {
+      const body = await parseJson(req);
+      const {
+        keywords = '',
+        booleanMode = false,
+        client = '',
+        minExp = '',
+        maxExp = '',
+        industry = '',
+        company = '',
+        excludeCompany = '',
+        designation = '',
+        noticePeriod = 'Any',
+        ugQualification = 'Any',
+        pgQualification = 'Any',
+        gender = 'All',
+        displayFilter = 'All candidates',
+        verifiedMobileOnly = false,
+        verifiedEmailOnly = false,
+        attachedResumeOnly = false
+      } = body;
+
+      const query = {};
+
+      // Keywords match across name, current_role, company, sector, key_skills
+      if (keywords && keywords.trim()) {
+        const terms = keywords.trim().split(/[\s,]+/).filter(Boolean);
+        if (terms.length > 0) {
+          const regexes = terms.map(t => new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+          query.$or = [
+            { name: { $in: regexes } },
+            { current_role: { $in: regexes } },
+            { sector: { $in: regexes } },
+            { company: { $in: regexes } },
+            { key_skills: { $in: regexes } }
+          ];
+        }
+      }
+
+      // Sector / Industry filter
+      if (industry && industry.trim() && industry !== 'Any' && industry !== 'All') {
+        query.sector = { $regex: new RegExp(industry.trim(), 'i') };
+      }
+
+      // Company filter
+      if (company && company.trim()) {
+        query.company = { $regex: new RegExp(company.trim(), 'i') };
+      }
+
+      // Exclude Company filter
+      if (excludeCompany && excludeCompany.trim()) {
+        query.company = { ...(query.company || {}), $not: new RegExp(excludeCompany.trim(), 'i') };
+      }
+
+      // Designation filter
+      if (designation && designation.trim()) {
+        query.current_role = { $regex: new RegExp(designation.trim(), 'i') };
+      }
+
+      // Notice period filter
+      if (noticePeriod && noticePeriod !== 'Any' && noticePeriod.trim()) {
+        const cleanNotice = noticePeriod.replace('+', '').trim();
+        query.notice_period = { $regex: new RegExp(cleanNotice, 'i') };
+      }
+
+      // Gender filter
+      if (gender && gender !== 'All' && gender !== 'All candidates') {
+        const targetGender = gender.includes('Female') ? 'Female' : 'Male';
+        query.gender = targetGender;
+      }
+
+      // Resume attached filter
+      if (attachedResumeOnly) {
+        query.cv_filename = { $exists: true, $ne: '' };
+      }
+
+      let candidates = await CandidateModel.find(query).sort({ createdAt: -1 }).lean();
+
+      // Numerical Experience Filter
+      const minYears = minExp ? parseInt(minExp, 10) : null;
+      const maxYears = maxExp ? parseInt(maxExp, 10) : null;
+
+      if (minYears !== null || maxYears !== null) {
+        candidates = candidates.filter(c => {
+          const match = (c.experience || '').match(/\d+/);
+          const years = match ? parseInt(match[0], 10) : 0;
+          if (minYears !== null && years < minYears) return false;
+          if (maxYears !== null && years > maxYears) return false;
+          return true;
+        });
+      }
+
+      const results = candidates.map(c => ({
+        ...c,
+        id: c._id.toString().slice(-6),
+        created_at: c.createdAt
+      }));
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        total: results.length,
+        candidates: results,
+        querySummary: {
+          keywords,
+          industry,
+          company,
+          designation,
+          noticePeriod,
+          minExp,
+          maxExp,
+          gender
+        }
+      }));
+    } catch (err) {
+      console.error('Candidate search error:', err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
+  // -------------------------------------------------------------------------
+  // Resdex API 2: GET /api/candidates/recent-searches
+  // -------------------------------------------------------------------------
+  if (req.method === 'GET' && pathname === '/api/candidates/recent-searches') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      recentSearches: [
+        {
+          id: 'rs-1',
+          title: '<= 8.50 Lacs | Baddi, Kalka, Nalagarh, Ramshahr, Kasauli, Krishangarh, Pachhad, Naya Gaon, Dharampur, Chandigarh...',
+          query: {
+            keywords: 'Production Supervisor Quality Plant',
+            industry: 'Heavy Engineering & Capital Goods',
+            noticePeriod: '0 - 15 days',
+            minExp: '3',
+            maxExp: '8'
+          }
+        },
+        {
+          id: 'rs-2',
+          title: 'amit kumar',
+          query: {
+            keywords: 'Amit Kumar',
+            industry: 'Any',
+            noticePeriod: 'Any',
+            minExp: '',
+            maxExp: ''
+          }
+        },
+        {
+          id: 'rs-3',
+          title: 'Recent Search 3 (EV & Powertrain)',
+          query: {
+            keywords: 'Battery Management Systems Powertrain',
+            industry: 'Automotive & Electric Vehicles',
+            noticePeriod: '1 month',
+            minExp: '10',
+            maxExp: '18'
+          }
+        },
+        {
+          id: 'rs-4',
+          title: '<= 9 Lacs (CNC & Metallurgy)',
+          query: {
+            keywords: 'CNC Machining Metallurgy Heavy',
+            industry: 'Steel & Metallurgy',
+            noticePeriod: 'Any',
+            minExp: '5',
+            maxExp: '12'
+          }
+        }
+      ],
+      savedSearches: [
+        {
+          id: 'ss-1',
+          name: 'HR 04- 09',
+          summary: 'Recruitment | <= 20 Lacs | Anywhere in North India, Anywhere in South India...',
+          query: {
+            keywords: 'Vice President General Manager Operations',
+            industry: 'Heavy Engineering & Capital Goods',
+            noticePeriod: '1 month',
+            minExp: '15',
+            maxExp: '25'
+          }
+        }
+      ]
+    }));
     return;
   }
 

@@ -848,6 +848,29 @@ export default function Admin() {
               <strong style={{ color: '#ffffff' }}>{currentUser.username || 'admin'}</strong>
             </div>
 
+            {/* Resdex Candidate Talent Search Button */}
+            <Link 
+              to="/admin/resdex" 
+              style={{ 
+                padding: '8px 16px', 
+                fontSize: '13px', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                backgroundColor: '#0056b3',
+                border: '1px solid #004494',
+                color: '#ffffff',
+                borderRadius: '8px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 2px 4px rgba(0, 86, 179, 0.3)'
+              }}
+              title="Launch Candidate Talent Search Engine (Naukri Resdex layout)"
+            >
+              <Search size={14} />
+              <span>Resdex Search</span>
+            </Link>
+
             {/* Settings Modal Trigger */}
             <button 
               onClick={() => {
