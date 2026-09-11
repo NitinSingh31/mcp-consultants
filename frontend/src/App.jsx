@@ -11,6 +11,7 @@ import Services from './pages/Services';
 import Insights from './pages/Insights';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
+import ResdexSearch from './pages/ResdexSearch';
 
 // ScrollToTop component: ensures page starts at top upon navigation
 function ScrollToTop() {
@@ -32,7 +33,7 @@ function ScrollToTop() {
 
 export default function App() {
   const location = useLocation();
-  const isAdmin = location.pathname.startsWith('/admin');
+  const isAdmin = location.pathname.startsWith('/admin') || location.pathname.startsWith('/resdex');
 
   return (
     <div className="app-container">
@@ -49,6 +50,8 @@ export default function App() {
         <Route path="/insights" element={<Insights />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/resdex" element={<ResdexSearch />} />
+        <Route path="/resdex" element={<ResdexSearch />} />
         {/* Fallback route */}
         <Route path="*" element={<Home />} />
       </Routes>
