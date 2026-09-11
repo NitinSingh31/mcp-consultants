@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Search,
@@ -27,9 +27,43 @@ import {
   Headphones,
   ArrowLeft,
   Filter,
-  Check
+  Check,
+  Plus
 } from 'lucide-react';
 import { apiUrl } from '../api';
+import {
+  filterSkills,
+  filterDesignations,
+  filterCompanies,
+  filterIndustries,
+  SKILLS_DATABASE
+} from '../data/resdexSuggestions';
+
+// Helper to highlight matching letters/substring in autocomplete suggestions
+function highlightMatch(text, query) {
+  if (!query || !query.trim()) return text;
+  const cleanQuery = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${cleanQuery})`, 'gi');
+  const parts = text.split(regex);
+  return parts.map((part, index) =>
+    regex.test(part) ? (
+      <span
+        key={index}
+        style={{
+          color: '#0056b3',
+          backgroundColor: '#e0f2fe',
+          fontWeight: 800,
+          borderRadius: '2px',
+          padding: '0 2px'
+        }}
+      >
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
 
 export default function ResdexSearch() {
   // Navigation State
@@ -37,8 +71,14 @@ export default function ResdexSearch() {
   const [activeSubTab, setActiveSubTab] = useState('search');
 
   // Form Filter State (Matching Naukri Resdex layout)
+  // 1. Client Autocomplete State
   const [clientHiringFor, setClientHiringFor] = useState('');
-  const [keywords, setKeywords] = useState('');
+  const [showClientSuggestions, setShowClientSuggestions] = useState(false);
+
+  // 2. Keywords Autocomplete & Chips State
+  const [selectedKeywords, setSelectedKeywords] = useState([]);
+  const [keywordInput, setKeywordInput] = useState('');
+  const [showKeywordSuggestions, setShowKeywordSuggestions] = useState(false);
   const [booleanMode, setBooleanMode] = useState(false);
   const [mandatoryKeywords, setMandatoryKeywords] = useState(false);
   const [keywordLocation, setKeywordLocation] = useState('Entire resume');
@@ -47,21 +87,30 @@ export default function ResdexSearch() {
   const [showItSkills, setShowItSkills] = useState(false);
   const [itSkills, setItSkills] = useState('');
 
-  // Experience
+  // 3. Experience
   const [minExp, setMinExp] = useState('');
   const [maxExp, setMaxExp] = useState('');
 
-  // Industry, Company, Designation
+  // 4. Industry / Sector Autocomplete State
   const [industry, setIndustry] = useState('');
-  const [company, setCompany] = useState('');
+  const [showIndustrySuggestions, setShowIndustrySuggestions] = useState(false);
+
+  // 5. Company Autocomplete & Chips State
+  const [selectedCompanies, setSelectedCompanies] = useState([]);
+  const [companyInput, setCompanyInput] = useState('');
+  const [showCompanySuggestions, setShowCompanySuggestions] = useState(false);
   const [currentCompanyOnly, setCurrentCompanyOnly] = useState(true);
   const [showExcludeCompany, setShowExcludeCompany] = useState(false);
   const [excludeCompany, setExcludeCompany] = useState('');
-  const [designation, setDesignation] = useState('');
+
+  // 6. Designation Autocomplete & Chips State
+  const [selectedDesignations, setSelectedDesignations] = useState([]);
+  const [designationInput, setDesignationInput] = useState('');
+  const [showDesignationSuggestions, setShowDesignationSuggestions] = useState(false);
   const [designationBoolean, setDesignationBoolean] = useState(false);
   const [currentDesignationOnly, setCurrentDesignationOnly] = useState(true);
 
-  // Notice Period Pills
+  // 7. Notice Period Pills
   const [noticePeriod, setNoticePeriod] = useState('Any');
   const noticeOptions = [
     'Any',
@@ -111,10 +160,25 @@ export default function ResdexSearch() {
   const [recentSearches, setRecentSearches] = useState([]);
   const [savedSearches, setSavedSearches] = useState([]);
 
+  // Outside click listener to dismiss all autocomplete dropdowns
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!e.target.closest('.resdex-autocomplete-wrapper')) {
+        setShowKeywordSuggestions(false);
+        setShowCompanySuggestions(false);
+        setShowDesignationSuggestions(false);
+        setShowIndustrySuggestions(false);
+        setShowClientSuggestions(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   // Fetch Initial Data & Recent Searches
   useEffect(() => {
     fetchRecentSearches();
-    // Pre-execute a broad search to show available candidates right away
+    // Pre-execute a search to show available talent right away
     handleSearch(false);
   }, []);
 
@@ -131,20 +195,69 @@ export default function ResdexSearch() {
     }
   };
 
+  // Keyword Chip Helpers
+  const addKeywordChip = (skillName) => {
+    if (!skillName || !skillName.trim()) return;
+    const clean = skillName.trim();
+    if (!selectedKeywords.includes(clean)) {
+      setSelectedKeywords([...selectedKeywords, clean]);
+    }
+    setKeywordInput('');
+    setShowKeywordSuggestions(false);
+  };
+
+  const removeKeywordChip = (skillName) => {
+    setSelectedKeywords(selectedKeywords.filter((k) => k !== skillName));
+  };
+
+  // Company Chip Helpers
+  const addCompanyChip = (companyName) => {
+    if (!companyName || !companyName.trim()) return;
+    const clean = companyName.trim();
+    if (!selectedCompanies.includes(clean)) {
+      setSelectedCompanies([...selectedCompanies, clean]);
+    }
+    setCompanyInput('');
+    setShowCompanySuggestions(false);
+  };
+
+  const removeCompanyChip = (companyName) => {
+    setSelectedCompanies(selectedCompanies.filter((c) => c !== companyName));
+  };
+
+  // Designation Chip Helpers
+  const addDesignationChip = (roleName) => {
+    if (!roleName || !roleName.trim()) return;
+    const clean = roleName.trim();
+    if (!selectedDesignations.includes(clean)) {
+      setSelectedDesignations([...selectedDesignations, clean]);
+    }
+    setDesignationInput('');
+    setShowDesignationSuggestions(false);
+  };
+
+  const removeDesignationChip = (roleName) => {
+    setSelectedDesignations(selectedDesignations.filter((d) => d !== roleName));
+  };
+
   // Execute Search Function
   const handleSearch = async (scrollToResults = true) => {
     setSearching(true);
     try {
+      const activeKeywords = [...selectedKeywords, keywordInput.trim()].filter(Boolean).join(' ');
+      const activeCompanies = [...selectedCompanies, companyInput.trim()].filter(Boolean).join(' ');
+      const activeDesignations = [...selectedDesignations, designationInput.trim()].filter(Boolean).join(' ');
+
       const payload = {
-        keywords,
+        keywords: activeKeywords,
         booleanMode,
         client: clientHiringFor,
         minExp,
         maxExp,
         industry,
-        company,
+        company: activeCompanies,
         excludeCompany,
-        designation,
+        designation: activeDesignations,
         noticePeriod,
         ugQualification,
         pgQualification,
@@ -183,13 +296,40 @@ export default function ResdexSearch() {
 
   // Fill Search from Recent / Saved
   const handleFillSearch = (query, autoExecute = false) => {
-    if (query.keywords) setKeywords(query.keywords);
-    if (query.industry && query.industry !== 'Any') setIndustry(query.industry);
+    if (query.keywords) {
+      const terms = query.keywords.split(/[\s,]+/).filter(Boolean);
+      setSelectedKeywords(terms);
+      setKeywordInput('');
+    } else {
+      setSelectedKeywords([]);
+      setKeywordInput('');
+    }
+
+    if (query.industry && query.industry !== 'Any') {
+      setIndustry(query.industry);
+    } else {
+      setIndustry('');
+    }
+
+    if (query.company) {
+      setSelectedCompanies([query.company]);
+      setCompanyInput('');
+    } else {
+      setSelectedCompanies([]);
+      setCompanyInput('');
+    }
+
+    if (query.designation) {
+      setSelectedDesignations([query.designation]);
+      setDesignationInput('');
+    } else {
+      setSelectedDesignations([]);
+      setDesignationInput('');
+    }
+
     if (query.noticePeriod) setNoticePeriod(query.noticePeriod);
     if (query.minExp) setMinExp(query.minExp);
     if (query.maxExp) setMaxExp(query.maxExp);
-    if (query.company) setCompany(query.company);
-    if (query.designation) setDesignation(query.designation);
 
     if (autoExecute) {
       setTimeout(() => {
@@ -199,6 +339,32 @@ export default function ResdexSearch() {
       window.scrollTo({ top: 120, behavior: 'smooth' });
     }
   };
+
+  // Clear all filters
+  const handleClearFilters = () => {
+    setSelectedKeywords([]);
+    setKeywordInput('');
+    setSelectedCompanies([]);
+    setCompanyInput('');
+    setSelectedDesignations([]);
+    setDesignationInput('');
+    setIndustry('');
+    setClientHiringFor('');
+    setNoticePeriod('Any');
+    setMinExp('');
+    setMaxExp('');
+    setExcludeKeywords('');
+    setExcludeCompany('');
+    setItSkills('');
+    handleSearch(false);
+  };
+
+  // Filtered Autocomplete Lists
+  const filteredSkills = filterSkills(keywordInput);
+  const filteredCompanies = filterCompanies(companyInput);
+  const filteredDesignations = filterDesignations(designationInput);
+  const filteredIndustries = filterIndustries(industry);
+  const filteredClients = filterCompanies(clientHiringFor);
 
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', fontFamily: "'Inter', sans-serif", color: '#0f172a' }}>
@@ -283,8 +449,8 @@ export default function ResdexSearch() {
               <input 
                 type="text" 
                 placeholder="Search candidates..." 
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
+                value={keywordInput}
+                onChange={(e) => setKeywordInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch(true)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', width: '100%', color: '#0f172a' }}
               />
@@ -401,37 +567,102 @@ export default function ResdexSearch() {
           {/* ============================================================= */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             
-            {/* Card 1: Client you're hiring for */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            {/* ----------------------------------------------------------- */}
+            {/* Card 1: Client you're hiring for (WITH AUTOCOMPLETE)       */}
+            {/* ----------------------------------------------------------- */}
+            <div className="resdex-autocomplete-wrapper" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)', position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Client you're hiring for</span>
                 <span style={{ backgroundColor: '#fff7ed', color: '#ea580c', fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', border: '1px solid #ffedd5' }}>New</span>
               </div>
-              <input 
-                type="text" 
-                placeholder="Add client/company you're hiring for"
-                value={clientHiringFor}
-                onChange={(e) => setClientHiringFor(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
-                  borderRadius: '8px',
-                  border: '1px solid #cbd5e1',
-                  fontSize: '14px',
-                  outline: 'none',
-                  backgroundColor: '#ffffff'
-                }}
-              />
+              
+              <div style={{ position: 'relative' }}>
+                <input 
+                  type="text" 
+                  placeholder="Add client/company you're hiring for (e.g. L&T, Tata Motors, Thermax)"
+                  value={clientHiringFor}
+                  onChange={(e) => {
+                    setClientHiringFor(e.target.value);
+                    setShowClientSuggestions(true);
+                  }}
+                  onFocus={() => setShowClientSuggestions(true)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    border: '1px solid #cbd5e1',
+                    fontSize: '14px',
+                    outline: 'none',
+                    backgroundColor: '#ffffff'
+                  }}
+                />
+
+                {/* Client Autocomplete Dropdown */}
+                {showClientSuggestions && filteredClients.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+                    zIndex: 60,
+                    maxHeight: '240px',
+                    overflowY: 'auto'
+                  }}>
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      {clientHiringFor ? `Matching Clients "${clientHiringFor}"` : 'Top Executive Clients'}
+                    </div>
+                    {filteredClients.map((clientItem, i) => (
+                      <div
+                        key={i}
+                        onClick={() => {
+                          setClientHiringFor(clientItem.name);
+                          setShowClientSuggestions(false);
+                        }}
+                        style={{
+                          padding: '10px 14px',
+                          borderBottom: '1px solid #f1f5f9',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.15s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                      >
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                          {highlightMatch(clientItem.name, clientHiringFor)}
+                        </span>
+                        <span style={{ fontSize: '11px', backgroundColor: '#fef3c7', color: '#b45309', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
+                          {clientItem.sector}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '10px', color: '#7c3aed', fontSize: '12px', fontWeight: 600 }}>
                 <Sparkles size={13} />
                 <span>Get AI-powered results tailored to your client's hiring needs</span>
               </div>
             </div>
 
-            {/* Card 2: Keywords */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            {/* ----------------------------------------------------------- */}
+            {/* Card 2: KEYWORDS (WITH RICH AUTOCOMPLETE & TAG CHIPS)       */}
+            {/* ----------------------------------------------------------- */}
+            <div className="resdex-autocomplete-wrapper" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)', position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Keywords</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Keywords</span>
+                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type any letter like "f" to see all related skills)</span>
+                </div>
+
+                {/* Boolean Mode Toggle */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setBooleanMode(!booleanMode)}>
                   <span style={{ fontSize: '12px', color: '#64748b' }}>Boolean {booleanMode ? 'on' : 'off'}</span>
                   <div style={{ width: '32px', height: '18px', backgroundColor: booleanMode ? '#0056b3' : '#cbd5e1', borderRadius: '10px', position: 'relative', transition: 'background-color 0.2s' }}>
@@ -440,24 +671,184 @@ export default function ResdexSearch() {
                 </div>
               </div>
 
-              <input 
-                type="text" 
-                placeholder="Enter keywords like skills, designation and company (e.g. CNC, Heavy Engineering, Quality, VP)"
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
+              {/* Tag Chips Container & Active Input */}
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                  alignItems: 'center',
+                  minHeight: '48px',
+                  padding: '6px 12px',
                   borderRadius: '8px',
-                  border: '1px solid #cbd5e1',
-                  fontSize: '14px',
-                  outline: 'none',
-                  backgroundColor: '#ffffff'
-                }}
-              />
+                  border: showKeywordSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                  backgroundColor: '#ffffff',
+                  boxShadow: showKeywordSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
+                  transition: 'all 0.15s'
+                }}>
+                  
+                  {/* Selected Keyword Tag Chips */}
+                  {selectedKeywords.map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        backgroundColor: '#eff6ff',
+                        border: '1px solid #bfdbfe',
+                        color: '#0056b3',
+                        padding: '4px 10px',
+                        borderRadius: '16px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{tag}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeKeywordChip(tag)}
+                        style={{ background: 'none', border: 'none', color: '#0056b3', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                      >
+                        <X size={13} />
+                      </button>
+                    </span>
+                  ))}
+
+                  {/* Typing input */}
+                  <input 
+                    type="text" 
+                    placeholder={selectedKeywords.length === 0 ? "Enter keywords like skills, designation (e.g. type 'f' for Fabrication, Foundry, FEA, Forging...)" : "Add more skills..."}
+                    value={keywordInput}
+                    onChange={(e) => {
+                      setKeywordInput(e.target.value);
+                      setShowKeywordSuggestions(true);
+                    }}
+                    onFocus={() => setShowKeywordSuggestions(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && keywordInput.trim()) {
+                        e.preventDefault();
+                        addKeywordChip(keywordInput.trim());
+                      } else if (e.key === 'Backspace' && !keywordInput && selectedKeywords.length > 0) {
+                        removeKeywordChip(selectedKeywords[selectedKeywords.length - 1]);
+                      }
+                    }}
+                    style={{
+                      border: 'none',
+                      outline: 'none',
+                      fontSize: '14px',
+                      flex: 1,
+                      minWidth: '220px',
+                      padding: '6px 0',
+                      backgroundColor: 'transparent',
+                      color: '#0f172a'
+                    }}
+                  />
+
+                  {/* Clear all keywords if any */}
+                  {selectedKeywords.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedKeywords([])}
+                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '4px', textDecoration: 'underline' }}
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+
+                {/* ========================================================= */}
+                {/* REAL NAUKRI RESDEX SKILLS AUTOCOMPLETE DROPDOWN          */}
+                {/* ========================================================= */}
+                {showKeywordSuggestions && filteredSkills.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 6px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
+                    zIndex: 70,
+                    maxHeight: '320px',
+                    overflowY: 'auto'
+                  }}>
+                    {/* Header bar */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span>
+                        {keywordInput ? `Skills & Competencies matching "${keywordInput}"` : 'Popular Executive Skills (Click to add)'}
+                      </span>
+                      <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to add tag</span>
+                    </div>
+
+                    {/* Suggestions List */}
+                    {filteredSkills.map((skill, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => addKeywordChip(skill.name)}
+                        style={{
+                          padding: '11px 16px',
+                          borderBottom: '1px solid #f1f5f9',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.12s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
+                            {highlightMatch(skill.name, keywordInput)}
+                          </span>
+                          <span style={{ fontSize: '11px', backgroundColor: '#f3e8ff', color: '#7e22ce', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
+                            {skill.category}
+                          </span>
+                        </div>
+                        <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
+                          {skill.count}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Quick Trending Skills Chips Ribbon (Instant 1-Click Addition) */}
+              <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Quick Add:</span>
+                {['Fabrication', 'Foundry', 'Six Sigma', 'CNC Machining', 'Battery Systems', 'Blast Furnace', 'Plant Management'].map((quickSkill) => {
+                  const isAdded = selectedKeywords.includes(quickSkill);
+                  return (
+                    <button
+                      key={quickSkill}
+                      type="button"
+                      onClick={() => isAdded ? removeKeywordChip(quickSkill) : addKeywordChip(quickSkill)}
+                      style={{
+                        background: isAdded ? '#dbeafe' : '#f8fafc',
+                        border: isAdded ? '1px solid #93c5fd' : '1px solid #e2e8f0',
+                        color: isAdded ? '#1d4ed8' : '#475569',
+                        padding: '3px 10px',
+                        borderRadius: '12px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}
+                    >
+                      {isAdded ? <Check size={11} /> : <Plus size={11} />}
+                      <span>{quickSkill}</span>
+                    </button>
+                  );
+                })}
+              </div>
 
               {/* Checkbox & Dropdown bar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '14px' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#475569', cursor: 'pointer' }}>
                   <input 
                     type="checkbox" 
@@ -494,7 +885,7 @@ export default function ResdexSearch() {
                 <div style={{ marginTop: '12px' }}>
                   <input 
                     type="text" 
-                    placeholder="Enter keywords you want to exclude (e.g. Intern, Trainee)"
+                    placeholder="Enter keywords you want to exclude (e.g. Intern, Trainee, Contract)"
                     value={excludeKeywords}
                     onChange={(e) => setExcludeKeywords(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', border: '1px solid #fca5a5', fontSize: '13px', backgroundColor: '#fef2f2' }}
@@ -503,7 +894,9 @@ export default function ResdexSearch() {
               )}
             </div>
 
-            {/* Card 3: Experience */}
+            {/* ----------------------------------------------------------- */}
+            {/* Card 3: Experience                                         */}
+            {/* ----------------------------------------------------------- */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '10px' }}>Experience (in Years)</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -531,31 +924,164 @@ export default function ResdexSearch() {
               </div>
             </div>
 
-            {/* Card 4: Industry & Target Company */}
+            {/* ----------------------------------------------------------- */}
+            {/* Card 4: INDUSTRY, COMPANY & DESIGNATION AUTOCOMPLETE       */}
+            {/* ----------------------------------------------------------- */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               
-              {/* Industry */}
-              <div style={{ marginBottom: '18px' }}>
+              {/* Industry / Sector with Autocomplete */}
+              <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '8px' }}>Industry / Sector</span>
                 <input 
                   type="text" 
                   placeholder="e.g. Heavy Engineering, Automotive, Steel & Metallurgy, CleanTech"
                   value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
-                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
+                  onChange={(e) => {
+                    setIndustry(e.target.value);
+                    setShowIndustrySuggestions(true);
+                  }}
+                  onFocus={() => setShowIndustrySuggestions(true)}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
                 />
+
+                {/* Industry Autocomplete Dropdown */}
+                {showIndustrySuggestions && filteredIndustries.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                    zIndex: 60,
+                    maxHeight: '220px',
+                    overflowY: 'auto'
+                  }}>
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
+                      Matching Industrial Sectors
+                    </div>
+                    {filteredIndustries.map((ind, i) => (
+                      <div
+                        key={i}
+                        onClick={() => {
+                          setIndustry(ind.name);
+                          setShowIndustrySuggestions(false);
+                        }}
+                        style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                      >
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                          {highlightMatch(ind.name, industry)}
+                        </span>
+                        <span style={{ fontSize: '11px', color: '#64748b' }}>
+                          {ind.tags}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Company */}
-              <div style={{ marginBottom: '18px' }}>
+              {/* Company with Autocomplete & Chips */}
+              <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '8px' }}>Company</span>
-                <input 
-                  type="text" 
-                  placeholder="Add company name (e.g. L&T, Tata Motors, JSW, Bharat Forge)"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
-                />
+                
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                  alignItems: 'center',
+                  minHeight: '46px',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #cbd5e1',
+                  backgroundColor: '#ffffff'
+                }}>
+                  {selectedCompanies.map((comp) => (
+                    <span
+                      key={comp}
+                      style={{
+                        backgroundColor: '#fef3c7',
+                        border: '1px solid #fde68a',
+                        color: '#92400e',
+                        padding: '4px 10px',
+                        borderRadius: '16px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{comp}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeCompanyChip(comp)}
+                        style={{ background: 'none', border: 'none', color: '#92400e', cursor: 'pointer', padding: 0 }}
+                      >
+                        <X size={13} />
+                      </button>
+                    </span>
+                  ))}
+
+                  <input 
+                    type="text" 
+                    placeholder={selectedCompanies.length === 0 ? "Add company name (e.g. L&T, Tata Motors, JSW, Bharat Forge...)" : "Add another company..."}
+                    value={companyInput}
+                    onChange={(e) => {
+                      setCompanyInput(e.target.value);
+                      setShowCompanySuggestions(true);
+                    }}
+                    onFocus={() => setShowCompanySuggestions(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && companyInput.trim()) {
+                        e.preventDefault();
+                        addCompanyChip(companyInput.trim());
+                      }
+                    }}
+                    style={{ border: 'none', outline: 'none', fontSize: '14px', flex: 1, minWidth: '180px', padding: '6px 0', backgroundColor: 'transparent' }}
+                  />
+                </div>
+
+                {/* Company Dropdown */}
+                {showCompanySuggestions && filteredCompanies.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                    zIndex: 60,
+                    maxHeight: '220px',
+                    overflowY: 'auto'
+                  }}>
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
+                      Matching Industrial Companies
+                    </div>
+                    {filteredCompanies.map((cItem, i) => (
+                      <div
+                        key={i}
+                        onClick={() => addCompanyChip(cItem.name)}
+                        style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                      >
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                          {highlightMatch(cItem.name, companyInput)}
+                        </span>
+                        <span style={{ fontSize: '11px', backgroundColor: '#fef3c7', color: '#b45309', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
+                          {cItem.sector}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: '#0056b3', cursor: 'pointer' }}>
@@ -583,8 +1109,8 @@ export default function ResdexSearch() {
                 )}
               </div>
 
-              {/* Designation */}
-              <div>
+              {/* Designation with Autocomplete & Chips */}
+              <div className="resdex-autocomplete-wrapper" style={{ position: 'relative' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Designation</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setDesignationBoolean(!designationBoolean)}>
@@ -595,13 +1121,99 @@ export default function ResdexSearch() {
                   </div>
                 </div>
 
-                <input 
-                  type="text" 
-                  placeholder="Add designation (e.g. Vice President, Plant Head, CTO, General Manager)"
-                  value={designation}
-                  onChange={(e) => setDesignation(e.target.value)}
-                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
-                />
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                  alignItems: 'center',
+                  minHeight: '46px',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #cbd5e1',
+                  backgroundColor: '#ffffff'
+                }}>
+                  {selectedDesignations.map((desig) => (
+                    <span
+                      key={desig}
+                      style={{
+                        backgroundColor: '#e0e7ff',
+                        border: '1px solid #c7d2fe',
+                        color: '#3730a3',
+                        padding: '4px 10px',
+                        borderRadius: '16px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{desig}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeDesignationChip(desig)}
+                        style={{ background: 'none', border: 'none', color: '#3730a3', cursor: 'pointer', padding: 0 }}
+                      >
+                        <X size={13} />
+                      </button>
+                    </span>
+                  ))}
+
+                  <input 
+                    type="text" 
+                    placeholder={selectedDesignations.length === 0 ? "Add designation (e.g. Vice President, Plant Head, CTO, GM...)" : "Add another designation..."}
+                    value={designationInput}
+                    onChange={(e) => {
+                      setDesignationInput(e.target.value);
+                      setShowDesignationSuggestions(true);
+                    }}
+                    onFocus={() => setShowDesignationSuggestions(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && designationInput.trim()) {
+                        e.preventDefault();
+                        addDesignationChip(designationInput.trim());
+                      }
+                    }}
+                    style={{ border: 'none', outline: 'none', fontSize: '14px', flex: 1, minWidth: '180px', padding: '6px 0', backgroundColor: 'transparent' }}
+                  />
+                </div>
+
+                {/* Designation Dropdown */}
+                {showDesignationSuggestions && filteredDesignations.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                    zIndex: 60,
+                    maxHeight: '220px',
+                    overflowY: 'auto'
+                  }}>
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
+                      Executive & Management Roles
+                    </div>
+                    {filteredDesignations.map((dItem, i) => (
+                      <div
+                        key={i}
+                        onClick={() => addDesignationChip(dItem.name)}
+                        style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                      >
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                          {highlightMatch(dItem.name, designationInput)}
+                        </span>
+                        <span style={{ fontSize: '11px', backgroundColor: '#ede9fe', color: '#6d28d9', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
+                          {dItem.category}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: '#0056b3', marginTop: '8px', cursor: 'pointer' }}>
                   <span>Search in Current designation</span>
@@ -611,7 +1223,9 @@ export default function ResdexSearch() {
 
             </div>
 
-            {/* Card 5: Notice Period / Availability to Join */}
+            {/* ----------------------------------------------------------- */}
+            {/* Card 5: Notice Period / Availability to Join               */}
+            {/* ----------------------------------------------------------- */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '14px' }}>
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Notice Period / Availability to join</span>
@@ -1004,7 +1618,13 @@ export default function ResdexSearch() {
 
                     {/* Stats Pill / Highlights */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-                      <div style={{ textAlign: 'right' }}>
+                      {cand.annual_ctc && (
+                        <div style={{ textAlign: 'right' }}>
+                          <span style={{ fontSize: '11px', textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700, display: 'block' }}>CTC</span>
+                          <span style={{ fontSize: '14px', fontWeight: 700, color: '#166534' }}>{cand.annual_ctc}</span>
+                        </div>
+                      )}
+                      <div style={{ textAlign: 'right', paddingLeft: cand.annual_ctc ? '16px' : 0, borderLeft: cand.annual_ctc ? '1px solid #e2e8f0' : 'none' }}>
                         <span style={{ fontSize: '11px', textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700, display: 'block' }}>Experience</span>
                         <span style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a' }}>{cand.experience || '10+ Years'}</span>
                       </div>
@@ -1170,16 +1790,7 @@ export default function ResdexSearch() {
         {/* Center/Right Action Buttons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <button
-            onClick={() => {
-              setKeywords('');
-              setIndustry('');
-              setCompany('');
-              setDesignation('');
-              setNoticePeriod('Any');
-              setMinExp('');
-              setMaxExp('');
-              handleSearch(false);
-            }}
+            onClick={handleClearFilters}
             style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
           >
             Clear Filters
