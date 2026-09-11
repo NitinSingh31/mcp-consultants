@@ -659,7 +659,7 @@ export default function ResdexSearch() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Keywords</span>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type any letter like "f" to see all related skills)</span>
+                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type any letter A-Z to see instant matching skills & competencies)</span>
                 </div>
 
                 {/* Boolean Mode Toggle */}
@@ -718,7 +718,7 @@ export default function ResdexSearch() {
                   {/* Typing input */}
                   <input 
                     type="text" 
-                    placeholder={selectedKeywords.length === 0 ? "Enter keywords like skills, designation (e.g. type 'f' for Fabrication, Foundry, FEA, Forging...)" : "Add more skills..."}
+                    placeholder={selectedKeywords.length === 0 ? "Type any letter A-Z for skills (e.g. A for AutoCAD, B for Battery, C for CNC, F for Fabrication...)" : "Add more skills..."}
                     value={keywordInput}
                     onChange={(e) => {
                       setKeywordInput(e.target.value);
@@ -738,7 +738,7 @@ export default function ResdexSearch() {
                       outline: 'none',
                       fontSize: '14px',
                       flex: 1,
-                      minWidth: '220px',
+                      minWidth: '240px',
                       padding: '6px 0',
                       backgroundColor: 'transparent',
                       color: '#0f172a'
@@ -771,13 +771,13 @@ export default function ResdexSearch() {
                     borderRadius: '10px',
                     boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
                     zIndex: 70,
-                    maxHeight: '320px',
+                    maxHeight: '340px',
                     overflowY: 'auto'
                   }}>
                     {/* Header bar */}
                     <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span>
-                        {keywordInput ? `Skills & Competencies matching "${keywordInput}"` : 'Popular Executive Skills (Click to add)'}
+                        {keywordInput ? `Matching Skills (${filteredSkills.length}) for "${keywordInput}"` : '🔥 Popular & Trending Executive Skills (Click to add)'}
                       </span>
                       <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to add tag</span>
                     </div>
@@ -812,6 +812,12 @@ export default function ResdexSearch() {
                         </span>
                       </div>
                     ))}
+
+                    {/* Footer bar */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>Showing {filteredSkills.length} skills • Scroll to view all</span>
+                      <span style={{ fontWeight: 600 }}>Type any letter A-Z to filter</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -819,7 +825,7 @@ export default function ResdexSearch() {
               {/* Quick Trending Skills Chips Ribbon (Instant 1-Click Addition) */}
               <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Quick Add:</span>
-                {['Fabrication', 'Foundry', 'Six Sigma', 'CNC Machining', 'Battery Systems', 'Blast Furnace', 'Plant Management'].map((quickSkill) => {
+                {['Fabrication', 'Six Sigma', 'CNC Machining', 'EV Powertrain', 'Battery Systems', 'AutoCAD', 'Blast Furnace', 'Plant Operations', 'Total Productive Maintenance (TPM)', 'Robotics'].map((quickSkill) => {
                   const isAdded = selectedKeywords.includes(quickSkill);
                   return (
                     <button
@@ -956,11 +962,11 @@ export default function ResdexSearch() {
                     borderRadius: '8px',
                     boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
                     zIndex: 60,
-                    maxHeight: '220px',
+                    maxHeight: '260px',
                     overflowY: 'auto'
                   }}>
                     <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-                      Matching Industrial Sectors
+                      {industry ? `Matching Industrial Sectors (${filteredIndustries.length})` : 'Popular Industry Practices'}
                     </div>
                     {filteredIndustries.map((ind, i) => (
                       <div
@@ -981,6 +987,9 @@ export default function ResdexSearch() {
                         </span>
                       </div>
                     ))}
+                    <div style={{ padding: '6px 14px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b' }}>
+                      Showing {filteredIndustries.length} sectors • Click to select
+                    </div>
                   </div>
                 )}
               </div>
@@ -1058,11 +1067,12 @@ export default function ResdexSearch() {
                     borderRadius: '8px',
                     boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
                     zIndex: 60,
-                    maxHeight: '220px',
+                    maxHeight: '280px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-                      Matching Industrial Companies
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>{companyInput ? `Matching Companies (${filteredCompanies.length}) for "${companyInput}"` : 'Top Industrial Corporations (A-Z)'}</span>
+                      <span style={{ color: '#0056b3', fontWeight: 600 }}>Click to add chip</span>
                     </div>
                     {filteredCompanies.map((cItem, i) => (
                       <div
@@ -1080,6 +1090,9 @@ export default function ResdexSearch() {
                         </span>
                       </div>
                     ))}
+                    <div style={{ padding: '6px 14px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b' }}>
+                      Showing {filteredCompanies.length} companies • Scroll to explore
+                    </div>
                   </div>
                 )}
                 
@@ -1100,7 +1113,7 @@ export default function ResdexSearch() {
                   <div style={{ marginTop: '10px' }}>
                     <input 
                       type="text" 
-                      placeholder="Exclude companies from search"
+                      placeholder="Add companies you want to exclude (e.g. competitors)"
                       value={excludeCompany}
                       onChange={(e) => setExcludeCompany(e.target.value)}
                       style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', border: '1px solid #fca5a5', fontSize: '13px', backgroundColor: '#fef2f2' }}
@@ -1115,8 +1128,8 @@ export default function ResdexSearch() {
                   <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Designation</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setDesignationBoolean(!designationBoolean)}>
                     <span style={{ fontSize: '12px', color: '#64748b' }}>Boolean {designationBoolean ? 'on' : 'off'}</span>
-                    <div style={{ width: '32px', height: '18px', backgroundColor: designationBoolean ? '#0056b3' : '#cbd5e1', borderRadius: '10px', position: 'relative' }}>
-                      <div style={{ width: '14px', height: '14px', backgroundColor: '#ffffff', borderRadius: '50%', position: 'absolute', top: '2px', left: designationBoolean ? '16px' : '2px' }} />
+                    <div style={{ width: '32px', height: '18px', backgroundColor: designationBoolean ? '#0056b3' : '#cbd5e1', borderRadius: '10px', position: 'relative', transition: 'background-color 0.2s' }}>
+                      <div style={{ width: '14px', height: '14px', backgroundColor: '#ffffff', borderRadius: '50%', position: 'absolute', top: '2px', left: designationBoolean ? '16px' : '2px', transition: 'left 0.2s' }} />
                     </div>
                   </div>
                 </div>
@@ -1190,11 +1203,12 @@ export default function ResdexSearch() {
                     borderRadius: '8px',
                     boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
                     zIndex: 60,
-                    maxHeight: '220px',
+                    maxHeight: '280px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-                      Executive & Management Roles
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>{designationInput ? `Matching Roles (${filteredDesignations.length}) for "${designationInput}"` : 'Executive & Management Roles (A-Z)'}</span>
+                      <span style={{ color: '#4338ca', fontWeight: 600 }}>Click to add chip</span>
                     </div>
                     {filteredDesignations.map((dItem, i) => (
                       <div
@@ -1212,6 +1226,9 @@ export default function ResdexSearch() {
                         </span>
                       </div>
                     ))}
+                    <div style={{ padding: '6px 14px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b' }}>
+                      Showing {filteredDesignations.length} roles • Scroll to explore
+                    </div>
                   </div>
                 )}
 
