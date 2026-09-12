@@ -2,20 +2,21 @@
 
 Official corporate website and leadership talent portal for **MCP CONSULTANTS** (*"Protect. Shape. Advance"*).
 
-Adapted from the structure, visual aesthetics, and executive positioning of ABC Consultants, with all references to IT & Telecommunications removed and replaced with comprehensive **Industry & Manufacturing** sectors.
+Adapted from the structure, visual aesthetics, and executive positioning of premier executive search consultancies, with a focused specialization in comprehensive **Industry & Manufacturing** sectors.
 
 ---
 
 ## 📁 Project Structure
 
-The project is decoupled into two clean, independent directories:
+The project is structured into two clean, decoupled directories with a modular architecture:
 
 ```
 e:\MCP CONSULTANTS\
 ├── frontend/                     # React 19 + Vite Single Page Application (SPA)
 │   ├── src/                      # UI components, pages, luxury styling
 │   │   ├── components/           # Navbar, Footer, FeedbackModal, StatCounter
-│   │   ├── pages/                # Home, About, Services, Industries, Insights, Contact, Admin
+│   │   ├── pages/                # Home, About, Services, Industries, Insights, Contact, Admin, ResdexSearch
+│   │   ├── data/                 # Comprehensive A-Z databases (skills, companies, designations, industries)
 │   │   ├── api.js                # Dynamic API endpoint configuration
 │   │   ├── App.jsx               # Client-side router setup
 │   │   ├── index.css             # Luxury design system & responsive styling
@@ -25,10 +26,34 @@ e:\MCP CONSULTANTS\
 │   ├── package.json              # Frontend dependencies (React, Lucide, Vite)
 │   └── .env.example              # Frontend environment variables (VITE_API_URL)
 │
-├── backend/                      # Node.js API & Microservices
-│   ├── server.js                 # API server, MongoDB connection, Nodemailer, Auth
+├── backend/                      # Express.js Modular MVC Backend
+│   ├── config/                   # Configuration services
+│   │   ├── db.js                 # MongoDB connection & status tracker
+│   │   └── mailer.js             # Nodemailer setup & alert email dispatching
+│   ├── models/                   # Mongoose data schemas
+│   │   ├── Admin.js              # Admin credentials, tokens & OTP schema
+│   │   ├── Candidate.js          # Resdex candidate profiles schema
+│   │   ├── Inquiry.js            # General contact inquiries schema
+│   │   └── Mandate.js            # Client leadership hiring mandates schema
+│   ├── middleware/               # Express request middleware
+│   │   ├── auth.js               # Bearer token verification for protected endpoints
+│   │   └── upload.js             # Multer multipart file upload handling (up to 25MB)
+│   ├── controllers/              # Business logic handlers
+│   │   ├── adminController.js    # Auth, password reset, credential update, submissions
+│   │   ├── candidateController.js# Resdex multi-filter search & recent searches
+│   │   └── submissionController.js# Client mandates, candidate CVs & inquiries
+│   ├── routes/                   # Modular API routers
+│   │   ├── adminRoutes.js        # /api/admin/* endpoints
+│   │   ├── candidateRoutes.js    # /api/candidates/* endpoints
+│   │   └── submissionRoutes.js   # /api/hiring, /api/candidate, /api/inquiry, /api/db-status
+│   ├── seeds/                    # Automatic database seeders
+│   │   ├── adminSeed.js          # Initial default admin seeding
+│   │   └── candidateSeed.js      # Initial sample Resdex candidate profiles
+│   ├── utils/                    # Utility functions
+│   │   └── crypto.js             # Scrypt password hashing & verification
 │   ├── uploads/                  # Secure folder for uploaded CVs and mandate documents
-│   ├── package.json              # Backend dependencies (Mongoose, Nodemailer, Dotenv)
+│   ├── server.js                 # Clean Express application entrypoint (~70 lines)
+│   ├── package.json              # Backend dependencies (Express, CORS, Multer, Mongoose, Nodemailer)
 │   ├── .env                      # Atlas credentials, email credentials, port
 │   └── .env.example              # Template configuration
 │
@@ -69,19 +94,33 @@ npm run dev:backend
 
 ### 3. Open in Browser
 * **Main Website**: [http://localhost:5173/](http://localhost:5173/)
+* **Resdex Executive Candidate Search**: [http://localhost:5173/resdex](http://localhost:5173/resdex)
 * **Contact & Hiring Portal**: [http://localhost:5173/contact](http://localhost:5173/contact)
 * **Internal Admin Practice Portal**: [http://localhost:5173/admin](http://localhost:5173/admin)
 
 ---
 
-## 🔒 Admin Portal & Authentication
+## 🌟 Key Features
 
-The Executive Practice Portal (`/admin`) features self-service authentication backed by **MongoDB Atlas**:
-- **Initial Default Login**:
-  - **Username**: `admin`
-  - **Password**: `McpAdmin@2026`
-- **Self-Service Credentials**: Admins can change their username, email, and password directly from the **⚙️ Settings** modal inside the portal without touching the `.env` file.
-- **Forgot Password (OTP via Email)**: If password is forgotten, click *"Forgot Password?"* on the login gate. A 6-digit OTP code will be sent to the registered email address.
+### 1. Resdex Executive Candidate Search (`/resdex`)
+- **Interactive A-Z Alphabet Scrubbers**: Quick jump letter selectors (`A-Z`) for instant filter discovery.
+- **Comprehensive Domain Databases**: Hundreds of categorized keywords across:
+  - **Real-World Skills**: CNC Machining, Six Sigma, Lean Manufacturing, Battery Management Systems, Blast Furnace, etc.
+  - **Target Companies**: Tier-1 heavy engineering, automotive, aerospace, and metallurgy enterprises.
+  - **Executive Designations**: VP Operations, Plant Head, Director Supply Chain, Chief Technology Officer, etc.
+  - **Industry Sectors**: Automotive & EV, Heavy Engineering, Steel & Metallurgy, Aerospace & Defence, etc.
+- **Multi-Facet Search API**: Backed by MongoDB Atlas with regex keyword querying, numerical experience filters, and notice period filtering.
+
+### 2. Executive Practice Portal (`/admin`)
+- **Self-Service Authentication**: Protected by MongoDB session tokens and password hashing via `crypto.scrypt`.
+  - **Default Credentials**: `admin` / `McpAdmin@2026`
+- **Credential Management**: Update username, email, and password directly from the **⚙️ Settings** modal.
+- **Forgot Password (OTP via Email)**: 6-digit verification code dispatched via Nodemailer for self-service resets.
+- **Submissions Dashboard**: View and manage incoming client search mandates, candidate resume submissions, and general inquiries.
+
+### 3. Secure File Uploads & Email Alerts
+- Powered by `multer` with file size limits (25MB) and collision-free filenames stored in `backend/uploads/`.
+- Automated email alerts dispatched to recruiters whenever a new candidate CV, mandate document, or inquiry is submitted.
 
 ---
 
