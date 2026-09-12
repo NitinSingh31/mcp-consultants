@@ -717,21 +717,8 @@ export const INDUSTRIES_DATABASE = [
 
 export function filterSkills(query) {
   if (!query || !query.trim()) {
-    // Show top trending and high-demand executive competencies on click/focus
-    return [
-      { name: 'Fabrication (Heavy & Structural Steel)', category: 'Manufacturing', count: '4,820 candidates' },
-      { name: 'Six Sigma Green / Black Belt (DMAIC & Lean)', category: 'Quality & Process', count: '6,500 candidates' },
-      { name: 'CNC Machining & VMC / HMC Programming', category: 'Precision Engineering', count: '4,900 candidates' },
-      { name: 'Electric Vehicle (EV) Powertrain Integration', category: 'Automotive & EV', count: '3,150 candidates' },
-      { name: 'Plant Head & Factory Operations General Management', category: 'Executive Leadership', count: '3,900 candidates' },
-      { name: 'Battery Management Systems (BMS)', category: 'Electric Vehicles', count: '2,640 candidates' },
-      { name: 'AutoCAD & 3D Modeling (CATIA / NX)', category: 'Design & CAD', count: '5,800 candidates' },
-      { name: 'PLC Programming (Siemens TIA Portal / Rockwell / Allen-Bradley)', category: 'Industrial Automation', count: '4,300 candidates' },
-      { name: 'Supply Chain Management & End-to-End Logistics', category: 'Logistics & SCM', count: '5,900 candidates' },
-      { name: 'Total Productive Maintenance (TPM - 8 Pillars)', category: 'Plant Reliability', count: '4,700 candidates' },
-      { name: 'Blast Furnace Operations & Ironmaking', category: 'Steel & Mining', count: '1,720 candidates' },
-      { name: 'Finite Element Analysis (FEA / ANSYS / HyperMesh)', category: 'Design & R&D', count: '1,980 candidates' }
-    ];
+    // Show ALL available skills present in the database (275+ skills across A-Z)
+    return SKILLS_DATABASE;
   }
 
   const clean = query.trim().toLowerCase();
@@ -755,13 +742,14 @@ export function filterSkills(query) {
     }
   }
 
-  // Return up to 30 matching skills sorted by relevance
-  return [...startsWith, ...wordStartsWith, ...substringMatch].slice(0, 30);
+  // Return ALL matching skills without any artificial slice/cutoff
+  return [...startsWith, ...wordStartsWith, ...substringMatch];
 }
 
 export function filterDesignations(query) {
   if (!query || !query.trim()) {
-    return DESIGNATIONS_DATABASE.slice(0, 10);
+    // Show ALL available designations present in the database
+    return DESIGNATIONS_DATABASE;
   }
 
   const clean = query.trim().toLowerCase();
@@ -785,12 +773,13 @@ export function filterDesignations(query) {
     }
   }
 
-  return [...startsWith, ...wordStartsWith, ...substringMatch].slice(0, 25);
+  return [...startsWith, ...wordStartsWith, ...substringMatch];
 }
 
 export function filterCompanies(query) {
   if (!query || !query.trim()) {
-    return COMPANIES_DATABASE.slice(0, 10);
+    // Show ALL available companies present in the database
+    return COMPANIES_DATABASE;
   }
 
   const clean = query.trim().toLowerCase();
@@ -814,12 +803,13 @@ export function filterCompanies(query) {
     }
   }
 
-  return [...startsWith, ...wordStartsWith, ...substringMatch].slice(0, 25);
+  return [...startsWith, ...wordStartsWith, ...substringMatch];
 }
 
 export function filterIndustries(query) {
   if (!query || !query.trim()) {
-    return INDUSTRIES_DATABASE.slice(0, 10);
+    // Show ALL available industries present in the database
+    return INDUSTRIES_DATABASE;
   }
 
   const clean = query.trim().toLowerCase();
@@ -843,5 +833,5 @@ export function filterIndustries(query) {
     }
   }
 
-  return [...startsWith, ...wordStartsWith, ...substringMatch].slice(0, 20);
+  return [...startsWith, ...wordStartsWith, ...substringMatch];
 }
