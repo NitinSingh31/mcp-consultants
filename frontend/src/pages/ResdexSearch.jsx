@@ -982,37 +982,63 @@ export default function ResdexSearch() {
               
               {/* Industry / Sector with Autocomplete */}
               <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '8px' }}>Industry / Sector</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Industry / Sector</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>(Scroll or type to choose practice)</span>
+                  </div>
+                  {industry && (
+                    <button
+                      type="button"
+                      onClick={() => setIndustry('')}
+                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '2px', textDecoration: 'underline' }}
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+
                 <input 
                   type="text" 
-                  placeholder="e.g. Heavy Engineering, Automotive, Steel & Metallurgy, CleanTech"
+                  placeholder="e.g. Heavy Engineering, Automotive, Steel & Metallurgy, CleanTech..."
                   value={industry}
                   onChange={(e) => {
                     setIndustry(e.target.value);
                     setShowIndustrySuggestions(true);
                   }}
                   onFocus={() => setShowIndustrySuggestions(true)}
-                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
+                  style={{
+                    width: '100%',
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    border: showIndustrySuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                    fontSize: '14px',
+                    outline: 'none',
+                    boxShadow: showIndustrySuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
+                    transition: 'all 0.15s'
+                  }}
                 />
 
                 {/* Industry Autocomplete Dropdown */}
                 {showIndustrySuggestions && filteredIndustries.length > 0 && (
                   <div style={{
                     position: 'absolute',
-                    top: 'calc(100% + 4px)',
+                    top: 'calc(100% + 6px)',
                     left: 0,
                     right: 0,
                     backgroundColor: '#ffffff',
                     border: '1px solid #cbd5e1',
-                    borderRadius: '8px',
-                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
                     zIndex: 60,
-                    maxHeight: '260px',
+                    maxHeight: '320px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-                      {industry ? `Matching Industrial Sectors (${filteredIndustries.length})` : 'Popular Industry Practices'}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
+                      <span>{industry ? `Matching Industrial Sectors (${filteredIndustries.length})` : `All Industrial Practices (${filteredIndustries.length} Total)`}</span>
+                      <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to select</span>
                     </div>
+
                     {filteredIndustries.map((ind, i) => (
                       <div
                         key={i}
@@ -1020,20 +1046,22 @@ export default function ResdexSearch() {
                           setIndustry(ind.name);
                           setShowIndustrySuggestions(false);
                         }}
-                        style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                        style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'background-color 0.12s' }}
                         onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
                       >
                         <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
                           {highlightMatch(ind.name, industry)}
                         </span>
-                        <span style={{ fontSize: '11px', color: '#64748b' }}>
+                        <span style={{ fontSize: '11px', color: '#64748b', maxWidth: '300px', textAlign: 'right' }}>
                           {ind.tags}
                         </span>
                       </div>
                     ))}
-                    <div style={{ padding: '6px 14px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b' }}>
-                      Showing {filteredIndustries.length} sectors • Click to select
+
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
+                      <span>Showing all {filteredIndustries.length} industrial practices • Scroll to browse</span>
+                      <span style={{ fontWeight: 600 }}>1-Click Select</span>
                     </div>
                   </div>
                 )}
@@ -1041,18 +1069,34 @@ export default function ResdexSearch() {
 
               {/* Company with Autocomplete & Chips */}
               <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '8px' }}>Company</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Company</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>(Type any letter A-Z or browse top employers)</span>
+                  </div>
+                  {selectedCompanies.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCompanies([])}
+                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '2px', textDecoration: 'underline' }}
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
                 
                 <div style={{
                   display: 'flex',
                   flexWrap: 'wrap',
                   gap: '6px',
                   alignItems: 'center',
-                  minHeight: '46px',
+                  minHeight: '48px',
                   padding: '6px 12px',
                   borderRadius: '8px',
-                  border: '1px solid #cbd5e1',
-                  backgroundColor: '#ffffff'
+                  border: showCompanySuggestions ? '1.5px solid #d97706' : '1px solid #cbd5e1',
+                  backgroundColor: '#ffffff',
+                  boxShadow: showCompanySuggestions ? '0 0 0 3px rgba(217, 119, 6, 0.1)' : 'none',
+                  transition: 'all 0.15s'
                 }}>
                   {selectedCompanies.map((comp) => (
                     <span
@@ -1074,7 +1118,7 @@ export default function ResdexSearch() {
                       <button
                         type="button"
                         onClick={() => removeCompanyChip(comp)}
-                        style={{ background: 'none', border: 'none', color: '#92400e', cursor: 'pointer', padding: 0 }}
+                        style={{ background: 'none', border: 'none', color: '#92400e', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
                       >
                         <X size={13} />
                       </button>
@@ -1083,7 +1127,7 @@ export default function ResdexSearch() {
 
                   <input 
                     type="text" 
-                    placeholder={selectedCompanies.length === 0 ? "Add company name (e.g. L&T, Tata Motors, JSW, Bharat Forge...)" : "Add another company..."}
+                    placeholder={selectedCompanies.length === 0 ? "Type A-Z for companies (e.g. A for ABB, B for Bharat Forge, C for Cummins, T for Tata...)" : "Add more companies..."}
                     value={companyInput}
                     onChange={(e) => {
                       setCompanyInput(e.target.value);
@@ -1094,37 +1138,87 @@ export default function ResdexSearch() {
                       if (e.key === 'Enter' && companyInput.trim()) {
                         e.preventDefault();
                         addCompanyChip(companyInput.trim());
+                      } else if (e.key === 'Backspace' && !companyInput && selectedCompanies.length > 0) {
+                        removeCompanyChip(selectedCompanies[selectedCompanies.length - 1]);
                       }
                     }}
-                    style={{ border: 'none', outline: 'none', fontSize: '14px', flex: 1, minWidth: '180px', padding: '6px 0', backgroundColor: 'transparent' }}
+                    style={{ border: 'none', outline: 'none', fontSize: '14px', flex: 1, minWidth: '220px', padding: '6px 0', backgroundColor: 'transparent', color: '#0f172a' }}
                   />
                 </div>
 
-                {/* Company Dropdown */}
+                {/* Company Dropdown with Interactive A-Z Scrubber */}
                 {showCompanySuggestions && filteredCompanies.length > 0 && (
                   <div style={{
                     position: 'absolute',
-                    top: 'calc(100% + 4px)',
+                    top: 'calc(100% + 6px)',
                     left: 0,
                     right: 0,
                     backgroundColor: '#ffffff',
                     border: '1px solid #cbd5e1',
-                    borderRadius: '8px',
-                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
                     zIndex: 60,
-                    maxHeight: '280px',
+                    maxHeight: '380px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span>{companyInput ? `Matching Companies (${filteredCompanies.length}) for "${companyInput}"` : 'Top Industrial Corporations (A-Z)'}</span>
-                      <span style={{ color: '#0056b3', fontWeight: 600 }}>Click to add chip</span>
+                    {/* Sticky Header */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
+                      <span>{companyInput ? `Matching Companies (${filteredCompanies.length}) for "${companyInput}"` : `All Available Companies (${filteredCompanies.length} Total from A–Z)`}</span>
+                      <span style={{ color: '#d97706', fontWeight: 700 }}>Click to add chip</span>
                     </div>
+
+                    {/* A-Z Alphabet Quick Jump Scrubber for Companies */}
+                    <div style={{
+                      padding: '6px 12px',
+                      backgroundColor: '#fefce8',
+                      borderBottom: '1px solid #fef08a',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      overflowX: 'auto',
+                      whiteSpace: 'nowrap',
+                      position: 'sticky',
+                      top: '32px',
+                      zIndex: 10
+                    }}>
+                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#854d0e', marginRight: '4px', textTransform: 'uppercase' }}>Filter A–Z:</span>
+                      {['ALL', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(letter => (
+                        <button
+                          key={letter}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (letter === 'ALL') {
+                              setCompanyInput('');
+                            } else {
+                              setCompanyInput(letter.toLowerCase());
+                            }
+                          }}
+                          style={{
+                            border: 'none',
+                            backgroundColor: (letter === 'ALL' && !companyInput) || (companyInput.toUpperCase() === letter) ? '#d97706' : '#ffffff',
+                            color: (letter === 'ALL' && !companyInput) || (companyInput.toUpperCase() === letter) ? '#ffffff' : '#78350f',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            padding: '2px 7px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                            transition: 'all 0.1s'
+                          }}
+                        >
+                          {letter}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Company Suggestions */}
                     {filteredCompanies.map((cItem, i) => (
                       <div
                         key={i}
                         onClick={() => addCompanyChip(cItem.name)}
-                        style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'background-color 0.12s' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fefce8'}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
                       >
                         <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
@@ -1135,8 +1229,11 @@ export default function ResdexSearch() {
                         </span>
                       </div>
                     ))}
-                    <div style={{ padding: '6px 14px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b' }}>
-                      Showing {filteredCompanies.length} companies • Scroll to explore
+
+                    {/* Sticky Footer */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
+                      <span>Showing all {filteredCompanies.length} companies • Scroll to browse A–Z</span>
+                      <span style={{ fontWeight: 600 }}>Type or click letters A–Z to jump</span>
                     </div>
                   </div>
                 )}
@@ -1170,11 +1267,27 @@ export default function ResdexSearch() {
               {/* Designation with Autocomplete & Chips */}
               <div className="resdex-autocomplete-wrapper" style={{ position: 'relative' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Designation</span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setDesignationBoolean(!designationBoolean)}>
-                    <span style={{ fontSize: '12px', color: '#64748b' }}>Boolean {designationBoolean ? 'on' : 'off'}</span>
-                    <div style={{ width: '32px', height: '18px', backgroundColor: designationBoolean ? '#0056b3' : '#cbd5e1', borderRadius: '10px', position: 'relative', transition: 'background-color 0.2s' }}>
-                      <div style={{ width: '14px', height: '14px', backgroundColor: '#ffffff', borderRadius: '50%', position: 'absolute', top: '2px', left: designationBoolean ? '16px' : '2px', transition: 'left 0.2s' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Designation</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>(Type any letter A-Z or browse executive roles)</span>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    {selectedDesignations.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedDesignations([])}
+                        style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '2px', textDecoration: 'underline' }}
+                      >
+                        Clear
+                      </button>
+                    )}
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setDesignationBoolean(!designationBoolean)}>
+                      <span style={{ fontSize: '12px', color: '#64748b' }}>Boolean {designationBoolean ? 'on' : 'off'}</span>
+                      <div style={{ width: '32px', height: '18px', backgroundColor: designationBoolean ? '#4338ca' : '#cbd5e1', borderRadius: '10px', position: 'relative', transition: 'background-color 0.2s' }}>
+                        <div style={{ width: '14px', height: '14px', backgroundColor: '#ffffff', borderRadius: '50%', position: 'absolute', top: '2px', left: designationBoolean ? '16px' : '2px', transition: 'left 0.2s' }} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1184,11 +1297,13 @@ export default function ResdexSearch() {
                   flexWrap: 'wrap',
                   gap: '6px',
                   alignItems: 'center',
-                  minHeight: '46px',
+                  minHeight: '48px',
                   padding: '6px 12px',
                   borderRadius: '8px',
-                  border: '1px solid #cbd5e1',
-                  backgroundColor: '#ffffff'
+                  border: showDesignationSuggestions ? '1.5px solid #4338ca' : '1px solid #cbd5e1',
+                  backgroundColor: '#ffffff',
+                  boxShadow: showDesignationSuggestions ? '0 0 0 3px rgba(67, 56, 202, 0.1)' : 'none',
+                  transition: 'all 0.15s'
                 }}>
                   {selectedDesignations.map((desig) => (
                     <span
@@ -1210,7 +1325,7 @@ export default function ResdexSearch() {
                       <button
                         type="button"
                         onClick={() => removeDesignationChip(desig)}
-                        style={{ background: 'none', border: 'none', color: '#3730a3', cursor: 'pointer', padding: 0 }}
+                        style={{ background: 'none', border: 'none', color: '#3730a3', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
                       >
                         <X size={13} />
                       </button>
@@ -1219,7 +1334,7 @@ export default function ResdexSearch() {
 
                   <input 
                     type="text" 
-                    placeholder={selectedDesignations.length === 0 ? "Add designation (e.g. Vice President, Plant Head, CTO, GM...)" : "Add another designation..."}
+                    placeholder={selectedDesignations.length === 0 ? "Type A-Z for roles (e.g. A for AGM, C for CTO/COO, P for Plant Head, V for VP...)" : "Add another designation..."}
                     value={designationInput}
                     onChange={(e) => {
                       setDesignationInput(e.target.value);
@@ -1230,37 +1345,87 @@ export default function ResdexSearch() {
                       if (e.key === 'Enter' && designationInput.trim()) {
                         e.preventDefault();
                         addDesignationChip(designationInput.trim());
+                      } else if (e.key === 'Backspace' && !designationInput && selectedDesignations.length > 0) {
+                        removeDesignationChip(selectedDesignations[selectedDesignations.length - 1]);
                       }
                     }}
-                    style={{ border: 'none', outline: 'none', fontSize: '14px', flex: 1, minWidth: '180px', padding: '6px 0', backgroundColor: 'transparent' }}
+                    style={{ border: 'none', outline: 'none', fontSize: '14px', flex: 1, minWidth: '220px', padding: '6px 0', backgroundColor: 'transparent', color: '#0f172a' }}
                   />
                 </div>
 
-                {/* Designation Dropdown */}
+                {/* Designation Dropdown with Interactive A-Z Scrubber */}
                 {showDesignationSuggestions && filteredDesignations.length > 0 && (
                   <div style={{
                     position: 'absolute',
-                    top: 'calc(100% + 4px)',
+                    top: 'calc(100% + 6px)',
                     left: 0,
                     right: 0,
                     backgroundColor: '#ffffff',
                     border: '1px solid #cbd5e1',
-                    borderRadius: '8px',
-                    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
                     zIndex: 60,
-                    maxHeight: '280px',
+                    maxHeight: '380px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span>{designationInput ? `Matching Roles (${filteredDesignations.length}) for "${designationInput}"` : 'Executive & Management Roles (A-Z)'}</span>
-                      <span style={{ color: '#4338ca', fontWeight: 600 }}>Click to add chip</span>
+                    {/* Sticky Header */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
+                      <span>{designationInput ? `Matching Roles (${filteredDesignations.length}) for "${designationInput}"` : `All Available Designations (${filteredDesignations.length} Total from A–Z)`}</span>
+                      <span style={{ color: '#4338ca', fontWeight: 700 }}>Click to add chip</span>
                     </div>
+
+                    {/* A-Z Alphabet Quick Jump Scrubber for Designations */}
+                    <div style={{
+                      padding: '6px 12px',
+                      backgroundColor: '#eef2ff',
+                      borderBottom: '1px solid #e0e7ff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      overflowX: 'auto',
+                      whiteSpace: 'nowrap',
+                      position: 'sticky',
+                      top: '32px',
+                      zIndex: 10
+                    }}>
+                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#4338ca', marginRight: '4px', textTransform: 'uppercase' }}>Filter A–Z:</span>
+                      {['ALL', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(letter => (
+                        <button
+                          key={letter}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (letter === 'ALL') {
+                              setDesignationInput('');
+                            } else {
+                              setDesignationInput(letter.toLowerCase());
+                            }
+                          }}
+                          style={{
+                            border: 'none',
+                            backgroundColor: (letter === 'ALL' && !designationInput) || (designationInput.toUpperCase() === letter) ? '#4338ca' : '#ffffff',
+                            color: (letter === 'ALL' && !designationInput) || (designationInput.toUpperCase() === letter) ? '#ffffff' : '#3730a3',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            padding: '2px 7px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                            transition: 'all 0.1s'
+                          }}
+                        >
+                          {letter}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Designation Suggestions */}
                     {filteredDesignations.map((dItem, i) => (
                       <div
                         key={i}
                         onClick={() => addDesignationChip(dItem.name)}
-                        style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'background-color 0.12s' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#eef2ff'}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
                       >
                         <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
@@ -1271,8 +1436,11 @@ export default function ResdexSearch() {
                         </span>
                       </div>
                     ))}
-                    <div style={{ padding: '6px 14px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b' }}>
-                      Showing {filteredDesignations.length} roles • Scroll to explore
+
+                    {/* Sticky Footer */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
+                      <span>Showing all {filteredDesignations.length} roles • Scroll to browse A–Z</span>
+                      <span style={{ fontWeight: 600 }}>Type or click letters A–Z to jump</span>
                     </div>
                   </div>
                 )}

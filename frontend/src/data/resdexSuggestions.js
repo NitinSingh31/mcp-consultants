@@ -425,20 +425,28 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Automation & Robotics Lead Engineer', category: 'Industry 4.0' },
   { name: 'Aerospace Systems Architect & Avionics Lead', category: 'Aerospace Leadership' },
   { name: 'APQP & Quality Assurance Lead', category: 'Automotive Quality' },
+  { name: 'Assistant Vice President (AVP) - Manufacturing', category: 'Executive Leadership' },
+  { name: 'Account Director - Industrial OEM', category: 'Commercial Leadership' },
+  { name: 'Artificial Intelligence / ML Research Lead', category: 'Data & AI' },
 
   // B
   { name: 'Business Head / Country Manager', category: 'Executive Leadership' },
   { name: 'Battery Systems Principal Engineer', category: 'EV Engineering' },
   { name: 'Boiler & Thermal EPC Project Lead', category: 'Power Projects' },
   { name: 'Branch Operations & Service Manager', category: 'Operations' },
+  { name: 'Business Development Director - B2B Capital Goods', category: 'Commercial Strategy' },
+  { name: 'Blast Furnace Operations Superintendent', category: 'Metallurgy' },
+  { name: 'BIM & Digital Infrastructure Lead', category: 'Civil & Infrastructure' },
 
   // C
   { name: 'Chief Executive Officer (CEO)', category: 'C-Suite' },
   { name: 'Chief Operating Officer (COO)', category: 'C-Suite' },
   { name: 'Chief Technology Officer (CTO)', category: 'C-Suite' },
+  { name: 'Chief Financial Officer (CFO)', category: 'C-Suite' },
   { name: 'Continuous Improvement Lead (Kaizen / Six Sigma)', category: 'Operational Excellence' },
   { name: 'Commercial Director & Industrial Sales Head', category: 'Commercial' },
   { name: 'CNC Tool Room Manager', category: 'Tooling' },
+  { name: 'Chief Sustainability Officer (CSO)', category: 'ESG & Sustainability' },
 
   // D
   { name: 'Director - Engineering & Design', category: 'Senior Leadership' },
@@ -446,6 +454,8 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Director - Manufacturing Operations', category: 'Executive Leadership' },
   { name: 'Deputy General Manager (DGM) - Production', category: 'Operations' },
   { name: 'Die Casting & Foundry Technical Specialist', category: 'Metallurgy' },
+  { name: 'Data Engineering & Cloud Architecture Lead', category: 'Technology' },
+  { name: 'Design Engineering Lead - Heavy Machinery', category: 'Mechanical Design' },
 
   // E
   { name: 'Engineering Manager - R&D & Product Design', category: 'R&D Leadership' },
@@ -453,6 +463,8 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'EPC Project Director (Turnkey Plants)', category: 'Projects' },
   { name: 'Electrical Maintenance Head & Switchyard In-Charge', category: 'Plant Maintenance' },
   { name: 'EV Powertrain Principal Architect', category: 'Automotive & EV' },
+  { name: 'Executive Vice President (EVP) - Business Operations', category: 'Executive Leadership' },
+  { name: 'Embedded Firmware Lead Architect', category: 'Electronics' },
 
   // F
   { name: 'Factory Manager / Plant Head', category: 'Plant Management' },
@@ -460,12 +472,16 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Foundry Operations General Manager', category: 'Metallurgy' },
   { name: 'Finance Controller / Head of Commercial', category: 'Finance' },
   { name: 'Field Service & Commissioning Lead', category: 'Customer Engineering' },
+  { name: 'Facility Engineering & Utilities Manager', category: 'Plant Utilities' },
+  { name: 'Full Stack Engineering Lead', category: 'Software Tech' },
 
   // G
   { name: 'General Manager - Plant Operations', category: 'Operations Leadership' },
   { name: 'General Manager - Quality Assurance (QA/QC)', category: 'Quality Leadership' },
   { name: 'Global Sourcing & Vendor Development Head', category: 'Procurement' },
   { name: 'Gearbox & Transmission Lead Engineer', category: 'Design Engineering' },
+  { name: 'Group Head - Continuous Improvement', category: 'Operational Excellence' },
+  { name: 'Gas Turbine Overhaul Superintendent', category: 'Turbomachinery' },
 
   // H
   { name: 'Head of Manufacturing Excellence & TPM', category: 'Continuous Improvement' },
@@ -474,28 +490,37 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Head of EV Powertrain & Battery Systems', category: 'Automotive & EV' },
   { name: 'Head of Project Engineering - EPC', category: 'Projects' },
   { name: 'HR & Industrial Relations (IR) Head', category: 'Human Resources' },
+  { name: 'HVAC & Cleanroom Systems Manager', category: 'MEP Engineering' },
 
   // I
   { name: 'Industrial Engineering & Productivity Manager', category: 'Industrial Engineering' },
   { name: 'Instrumentation & Process Control Head', category: 'Automation' },
   { name: 'IATF Lead Auditor & Quality Compliance Head', category: 'Quality' },
   { name: 'IT Infrastructure & OT Security Director', category: 'Technology' },
+  { name: 'Injection Mould Tooling Specialist', category: 'Polymers & Tooling' },
+  { name: 'Internal Audit & Corporate Governance Head', category: 'Corporate Governance' },
 
   // J
   { name: 'Jigs & Fixtures Design Lead', category: 'Tooling' },
   { name: 'Java Cloud Solutions Architect', category: 'Software' },
   { name: 'Junior Plant Operations Engineer', category: 'Operations' },
+  { name: 'Joint Managing Director (JMD)', category: 'C-Suite' },
+  { name: 'Journey Management & Fleet Logistics Lead', category: 'Supply Chain' },
 
   // K
   { name: 'Kaizen & Operational Excellence Champion', category: 'Lean' },
   { name: 'Key Account Director (OEM & Global Accounts)', category: 'B2B Sales' },
   { name: 'Kinematics & Multi-Body Simulation Lead', category: 'R&D' },
+  { name: 'KPI & Overall Equipment Effectiveness (OEE) Lead', category: 'Plant Analytics' },
+  { name: 'KUKA / FANUC Robotics Programmer & Lead', category: 'Robotics' },
 
   // L
   { name: 'Lean Manufacturing Champion & Black Belt', category: 'Operational Excellence' },
   { name: 'Logistics & Supply Chain Head', category: 'Supply Chain' },
   { name: 'Laser Cutting & Press Shop Manager', category: 'Sheet Metal' },
   { name: 'Lead Metallurgist & Material Specialist', category: 'Metallurgy' },
+  { name: 'Lead Systems Architect - Cloud & Microservices', category: 'Technology' },
+  { name: 'Low-Voltage Switchgear Engineering Lead', category: 'Power Distribution' },
 
   // M
   { name: 'Maintenance Manager (Mechanical & Electrical)', category: 'Plant Engineering' },
@@ -503,18 +528,24 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Materials Management & SCM Head', category: 'Supply Chain' },
   { name: 'Mechatronics & Robotics Lead Engineer', category: 'Automation' },
   { name: 'Metrology & CMM Inspection Lead', category: 'Quality' },
+  { name: 'Managing Director (MD)', category: 'C-Suite' },
+  { name: 'Motor & Drive Calibration Engineer', category: 'Automotive Electrical' },
 
   // N
   { name: 'NDT Level III Quality Assurance Manager', category: 'Quality' },
   { name: 'New Product Introduction (NPI) Manager', category: 'Product Engineering' },
   { name: 'Nuclear Equipment Fabrication Lead', category: 'Heavy Engineering' },
   { name: 'Network & Cyber Security Architect', category: 'IT Security' },
+  { name: 'National Sales Manager - Industrial Capital Goods', category: 'Commercial' },
+  { name: 'Noise, Vibration & Harshness (NVH) Lead Specialist', category: 'Vehicle Testing' },
 
   // O
   { name: 'Operations Director & Plant P&L Owner', category: 'Executive Leadership' },
   { name: 'Overall Equipment Effectiveness (OEE) Lead', category: 'Operations' },
   { name: 'Offshore Structural EPC Manager', category: 'Oil & Gas' },
   { name: 'OEM Business Head & Key Accounts', category: 'Automotive Commercial' },
+  { name: 'Operational Excellence & Lean Transformation Head', category: 'Continuous Improvement' },
+  { name: 'Optical Spectroscopy & Testing Lab In-Charge', category: 'Metallurgical Testing' },
 
   // P
   { name: 'Plant Head / Factory Manager', category: 'Plant Management' },
@@ -522,11 +553,15 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Pressure Vessel Design Lead Engineer', category: 'Engineering Design' },
   { name: 'Procurement & Strategic Sourcing Head', category: 'Supply Chain' },
   { name: 'Power Plant Operations In-Charge', category: 'Energy' },
+  { name: 'Principal Consultant - Management Advisory', category: 'Leadership Advisory' },
+  { name: 'Piping Engineering Lead (SP3D / P&ID)', category: 'Process Plant Design' },
 
   // Q
   { name: 'Quality Control Manager (QC Lead)', category: 'Quality' },
   { name: 'Quality Management Systems (QMS) Lead', category: 'Standards' },
   { name: 'Quantitative Reliability & Safety Specialist', category: 'Plant Safety' },
+  { name: 'Quality Assurance Director - Global Manufacturing', category: 'Quality Leadership' },
+  { name: 'Quick Die Change (SMED) Champion', category: 'Lean Manufacturing' },
 
   // R
   { name: 'R&D Principal Engineer (Mechanical / Electrical)', category: 'Design & R&D' },
@@ -534,6 +569,7 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Rolling Mill Superintendent (Bar / Strip)', category: 'Steel' },
   { name: 'Reliability Centered Maintenance (RCM) Manager', category: 'Maintenance' },
   { name: 'Regional Sales Director - Industrial Capital Goods', category: 'Sales' },
+  { name: 'Regulatory Affairs & Compliance Manager', category: 'Pharma & Medical' },
 
   // S
   { name: 'Senior Vice President (SVP) - Manufacturing', category: 'Executive Leadership' },
@@ -541,17 +577,23 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Structural Engineering Lead (PEB / Steel)', category: 'Civil Design' },
   { name: 'Shop Floor Superintendent', category: 'Production' },
   { name: 'Software Architecture Director', category: 'Technology' },
+  { name: 'Safety & EHS Corporate Director', category: 'Plant Safety' },
+  { name: 'Surface Finishing & CED Coating Manager', category: 'Surface Finishing' },
 
   // T
   { name: 'Technical Director & Principal Consultant', category: 'Executive Leadership' },
   { name: 'TPM Coordinator & Operational Excellence Champion', category: 'Continuous Improvement' },
   { name: 'Tool Room Head (Dies & Moulds)', category: 'Tooling' },
   { name: 'Thermal EPC Project General Manager', category: 'Capital Projects' },
+  { name: 'Transmission & Distribution EPC Lead', category: 'Power Infrastructure' },
+  { name: 'Turbomachinery Overhaul Specialist', category: 'Rotating Equipment' },
 
   // U
   { name: 'Ultrasonic & Non-Destructive Testing In-Charge', category: 'Quality' },
   { name: 'Utilities & Facilities Plant Lead', category: 'Operations' },
   { name: 'UI/UX Design Director', category: 'Product Design' },
+  { name: 'Upstream Oil & Gas Operations Manager', category: 'Petroleum' },
+  { name: 'Underground Mining Heavy Machinery Superintendent', category: 'Mining Engineering' },
 
   // V
   { name: 'Vice President - Operations & Manufacturing', category: 'Executive Leadership' },
@@ -559,24 +601,29 @@ export const DESIGNATIONS_DATABASE = [
   { name: 'Vice President - Supply Chain & Procurement', category: 'Executive Leadership' },
   { name: 'Vendor Development & Quality Head', category: 'Supply Chain' },
   { name: 'VAVE Cost Engineering Lead', category: 'Design Optimization' },
+  { name: 'Vehicle Dynamics Lead Engineer', category: 'Automotive R&D' },
 
   // W
   { name: 'Welding Engineering Head (International Welding Engineer - IWE)', category: 'Welding Standards' },
   { name: 'Warehouse & Logistics Operations Lead', category: 'Logistics' },
   { name: 'Wind Energy Project Director', category: 'Renewable Power' },
   { name: 'Water & Wastewater EPC Lead', category: 'Environmental' },
+  { name: 'Wire Harness & Electrical Distribution Systems (EDS) Lead', category: 'Automotive Electrical' },
 
   // X
   { name: 'X-Ray & NDT Laboratory Specialist', category: 'Metrology Lab' },
   { name: 'XML & Enterprise Integration Architect', category: 'Enterprise Tech' },
+  { name: 'XaaS Solutions Architect & Cloud Strategist', category: 'Cloud Architecture' },
 
   // Y
   { name: 'Yard & Logistics Operations Superintendent', category: 'Supply Chain' },
   { name: 'Yield Optimization Lead Metallurgist', category: 'Process Metallurgy' },
+  { name: 'Yarn & Textile Spinning Mill Manager', category: 'Textile Engineering' },
 
   // Z
   { name: 'Zero Defect Quality Assurance Champion', category: 'Quality' },
-  { name: 'Zero Liquid Discharge (ZLD) Plant Manager', category: 'Environmental Engineering' }
+  { name: 'Zero Liquid Discharge (ZLD) Plant Manager', category: 'Environmental Engineering' },
+  { name: 'Zonal Head - Industrial Sales & Operations', category: 'Commercial Leadership' }
 ];
 
 // =========================================================================
@@ -590,6 +637,8 @@ export const COMPANIES_DATABASE = [
   { name: 'Adani Green Energy Ltd', sector: 'Solar & Wind EPC' },
   { name: 'Ambuja Cements Limited', sector: 'Building Materials' },
   { name: 'Aarti Industries Limited', sector: 'Specialty Chemicals' },
+  { name: 'Apollo Tyres Limited', sector: 'Tyre Manufacturing' },
+  { name: 'Atlas Copco India', sector: 'Compressors & Industrial Tools' },
 
   // B
   { name: 'Bharat Forge Limited', sector: 'Forging, Defense & Aerospace' },
@@ -598,6 +647,8 @@ export const COMPANIES_DATABASE = [
   { name: 'Bajaj Auto Limited', sector: '2-Wheeler & 3-Wheeler OEMs' },
   { name: 'Blue Star Limited', sector: 'HVAC & Commercial Refrigeration' },
   { name: 'Balkrishna Industries (BKT Tires)', sector: 'Off-Highway Tires' },
+  { name: 'Bharat Electronics Limited (BEL)', sector: 'Defence & Aerospace Electronics' },
+  { name: 'Biocon Limited', sector: 'Biopharmaceuticals & Fermentation' },
 
   // C
   { name: 'Cummins India Limited', sector: 'Engines, Gensets & Decarbonization' },
@@ -605,12 +656,17 @@ export const COMPANIES_DATABASE = [
   { name: 'Caterpillar India', sector: 'Earthmoving & Mining Equipment' },
   { name: 'CEAT Tyres Limited', sector: 'Tyres & Rubber Products' },
   { name: 'Coromandel International', sector: 'Agri-Chemicals & Fertilizers' },
+  { name: 'Cipla Limited', sector: 'Pharmaceuticals & API' },
+  { name: 'Castrol India Limited', sector: 'Industrial & Automotive Lubricants' },
 
   // D
   { name: 'Danfoss Power Solutions India', sector: 'Fluid Power, Drives & Climate' },
   { name: 'DCM Shriram Limited', sector: 'Chemicals, Chlor-Alkali & Sugar' },
   { name: 'Dalmia Bharat Group', sector: 'Cement & Infrastructure' },
   { name: 'Deepak Nitrite Limited', sector: 'Chemical Intermediates' },
+  { name: 'Dr. Reddy\'s Laboratories', sector: 'Pharma & Formulations' },
+  { name: 'Dixon Technologies India', sector: 'Electronic Manufacturing Services' },
+  { name: 'Dana India', sector: 'Driveline & EV Powertrains' },
 
   // E
   { name: 'Eaton Power Quality & Electrical', sector: 'Power Management & EV' },
@@ -618,12 +674,16 @@ export const COMPANIES_DATABASE = [
   { name: 'Escorts Kubota Limited', sector: 'Agri Machinery & Tractors' },
   { name: 'Exide Industries Limited', sector: 'Lead-Acid & Lithium Batteries' },
   { name: 'Emerson Process Management', sector: 'Automation & Control Valves' },
+  { name: 'Eicher Motors Limited', sector: 'Commercial Vehicles & Motorcycles' },
+  { name: 'Electrosteel Castings Limited', sector: 'Ductile Iron Pipes & Foundry' },
 
   // F
   { name: 'Forbes Marshall Limited', sector: 'Steam Engineering & Control Instrumentation' },
   { name: 'Force Motors Limited', sector: 'Automotive & Monocoque Vans' },
   { name: 'Finolex Cables Limited', sector: 'Electrical Cables & Switchgear' },
   { name: 'Federal-Mogul Goetze India', sector: 'Pistons & Powertrain Components' },
+  { name: 'Fenner India Limited', sector: 'Belts, Hoses & Polymer Engineering' },
+  { name: 'Fortis Healthcare', sector: 'Healthcare Infrastructure' },
 
   // G
   { name: 'Godrej Process Equipment', sector: 'Heavy Fabrication & Vessels' },
@@ -631,6 +691,8 @@ export const COMPANIES_DATABASE = [
   { name: 'GAIL (India) Limited', sector: 'Natural Gas Transmission & Petrochemicals' },
   { name: 'Greaves Cotton Limited', sector: 'Engines & Clean Mobility Solutions' },
   { name: 'Gabriel India Limited', sector: 'Ride Control & Shock Absorbers' },
+  { name: 'Grasim Industries Limited', sector: 'Viscose Staple Fibre & Chemicals' },
+  { name: 'Gland Pharma Limited', sector: 'Injectables & Biologics' },
 
   // H
   { name: 'Hindustan Aeronautics Limited (HAL)', sector: 'Aerospace & Defence Aircraft' },
@@ -638,12 +700,17 @@ export const COMPANIES_DATABASE = [
   { name: 'Hero MotoCorp Limited', sector: 'Two-Wheeler Mobility' },
   { name: 'Hindalco Industries Limited', sector: 'Aluminium & Copper Smelting' },
   { name: 'Honeywell Automation India', sector: 'Building Automation & Industrial SCADA' },
+  { name: 'Hitachi Energy India', sector: 'Grid Interconnection & Transformers' },
+  { name: 'HCL Technologies', sector: 'Engineering R&D Services' },
 
   // I
   { name: 'ITC Limited (Paperboards & Specialty Papers)', sector: 'Packaging & Paper' },
   { name: 'Indian Oil Corporation (IOCL)', sector: 'Refining & Petrochemicals' },
   { name: 'Ingersoll Rand India', sector: 'Industrial Air Compressors' },
   { name: 'ISGEC Heavy Engineering Limited', sector: 'Process Equipment & Boilers' },
+  { name: 'Infosys Limited', sector: 'Enterprise Cloud & Digital' },
+  { name: 'IPCA Laboratories', sector: 'Active Pharmaceutical Ingredients' },
+  { name: 'India Cements Limited', sector: 'Building Materials' },
 
   // J
   { name: 'JCB India Limited', sector: 'Construction & Earthmoving Equipment' },
@@ -651,6 +718,8 @@ export const COMPANIES_DATABASE = [
   { name: 'Jindal Steel & Power (JSPL)', sector: 'Steel, Mining & Power' },
   { name: 'Jamna Auto Industries', sector: 'Tapered Leaf Springs & Suspensions' },
   { name: 'Johnson Controls India', sector: 'HVAC, Building Automation & Fire Safety' },
+  { name: 'Jubilant Ingrevia Limited', sector: 'Specialty Chemicals & Nutrition' },
+  { name: 'JK Tyre & Industries', sector: 'Automotive Radial Tyres' },
 
   // K
   { name: 'Kirloskar Brothers Limited (KBL)', sector: 'Pumps, Valves & Hydro Turbines' },
@@ -658,6 +727,8 @@ export const COMPANIES_DATABASE = [
   { name: 'Kalpataru Projects International', sector: 'Oil & Gas Pipelines & Substations' },
   { name: 'Kaynes Technology India', sector: 'Electronics Manufacturing Services (EMS)' },
   { name: 'KPIT Technologies Limited', sector: 'Automotive Software & Autonomous' },
+  { name: 'KSB Pumps Limited', sector: 'Pumps, Valves & Wastewater Systems' },
+  { name: 'Kinetic Engineering', sector: 'EV Transmission & Components' },
 
   // L
   { name: 'L&T Heavy Engineering', sector: 'Heavy Engineering & Nuclear Vessels' },
@@ -665,6 +736,7 @@ export const COMPANIES_DATABASE = [
   { name: 'Larsen & Toubro Construction (EPC)', sector: 'Infrastructure, Metro & Ports' },
   { name: 'Lucas TVS Limited', sector: 'Automotive Starters & Alternators' },
   { name: 'Lakshmi Machine Works (LMW)', sector: 'Textile Machinery & CNC Lathes' },
+  { name: 'Lupin Limited', sector: 'Pharmaceuticals & Formulations' },
 
   // M
   { name: 'Mahindra & Mahindra Automotive', sector: 'SUVs, Commercial Vehicles & Tractors' },
@@ -672,34 +744,48 @@ export const COMPANIES_DATABASE = [
   { name: 'Maruti Suzuki India Limited', sector: 'Automotive OEM Manufacturing' },
   { name: 'MRF Limited', sector: 'Tyre & Rubber Manufacturing' },
   { name: 'Mindarika (Uno Minda Group)', sector: 'Automotive Switches & Electronics' },
+  { name: 'Mazagon Dock Shipbuilders', sector: 'Defence Warships & Submarines' },
+  { name: 'Max Healthcare', sector: 'Hospital Operations & Healthcare' },
 
   // N
   { name: 'NTPC Limited', sector: 'Thermal & Renewable Power Generation' },
   { name: 'National Aluminium Company (NALCO)', sector: 'Alumina Refining & Smelting' },
   { name: 'NMDC Limited', sector: 'Iron Ore Mining & Mineral Extraction' },
   { name: 'Nelco Limited (Tata Group)', sector: 'Satellite Communications & Defense' },
+  { name: 'National Fertilizers Limited (NFL)', sector: 'Agri Fertilizers & Chemicals' },
+  { name: 'Nestlé India Limited', sector: 'FMCG Food Processing' },
+  { name: 'Navin Fluorine International', sector: 'Specialty Fluorochemicals' },
 
   // O
   { name: 'Oil & Natural Gas Corporation (ONGC)', sector: 'Upstream Oil & Gas Exploration' },
   { name: 'Omax Autos Limited', sector: 'Sheet Metal & Automotive Machining' },
   { name: 'Orient Electric Limited', sector: 'Electrical Appliances & Lighting' },
   { name: 'Ola Electric Mobility', sector: 'EV Scooters & Gigafactory Batteries' },
+  { name: 'Oracle India', sector: 'Enterprise ERP & Cloud Infrastructure' },
+  { name: 'Oil India Limited (OIL)', sector: 'Crude Petroleum Exploration' },
 
   // P
   { name: 'Praj Industries Limited', sector: 'Biofuels, Ethanol Plants & CleanTech EPC' },
   { name: 'Polycab India Limited', sector: 'Wires, Cables & Fast Moving Electricals' },
   { name: 'Piaggio Vehicles India', sector: 'Commercial 3-Wheelers & EV' },
   { name: 'Pennar Industries Limited', sector: 'Engineered Steel Products & PEB' },
+  { name: 'Pidilite Industries Limited', sector: 'Adhesives, Sealants & Construction Chemicals' },
+  { name: 'Piramal Pharma Solutions', sector: 'Contract Development & Manufacturing' },
+  { name: 'Premier Energies', sector: 'Solar PV Cells & Modules' },
 
   // Q
   { name: 'Quess Corp Industrial Solutions', sector: 'Plant Operations & Engineering Services' },
   { name: 'Quest Global Engineering', sector: 'Aerospace & Mechanical Engineering R&D' },
+  { name: 'Qualcomm India', sector: 'Semiconductors & Wireless Chips' },
+  { name: 'Quntrol Industrial Automations', sector: 'Process Flow Valves' },
 
   // R
   { name: 'Reliance Industries Limited', sector: 'Petrochemicals, Refining & Green Energy' },
   { name: 'Royal Enfield (Eicher Motors)', sector: 'Premium Motorcycles' },
   { name: 'Ramkrishna Forgings Limited', sector: 'Automotive & Railway Forgings' },
   { name: 'RITES Limited', sector: 'Transport Infrastructure & Railway Engineering' },
+  { name: 'Raymond Limited', sector: 'Engineering Files & Precision Tools' },
+  { name: 'Reckitt Benckiser India', sector: 'FMCG & Consumer Health' },
 
   // S
   { name: 'Siemens Industrial Automation & Drives', sector: 'Digital Enterprise & Drives' },
@@ -708,6 +794,8 @@ export const COMPANIES_DATABASE = [
   { name: 'Steel Authority of India (SAIL)', sector: 'Integrated Steel Plants' },
   { name: 'Schaeffler India Limited', sector: 'Precision Bearings & Automotive Systems' },
   { name: 'Sona BLW Precision Forgings', sector: 'EV Differential Assemblies' },
+  { name: 'Sun Pharmaceutical Industries', sector: 'Pharmaceuticals & Healthcare' },
+  { name: 'SRF Limited', sector: 'Chemicals & Technical Textiles' },
 
   // T
   { name: 'Tata Motors Commercial Vehicles', sector: 'Trucks, Buses & Defense Mobility' },
@@ -716,35 +804,49 @@ export const COMPANIES_DATABASE = [
   { name: 'Thermax Limited', sector: 'Industrial Boilers, Clean Energy & Absorption Chillers' },
   { name: 'TVS Motor Company', sector: 'Two & Three Wheeler OEM' },
   { name: 'Tube Investments of India (TII)', sector: 'Precision Steel Tubes & Cycles' },
+  { name: 'Tata Power Renewable Energy', sector: 'Clean Energy EPC & Utility Scale' },
+  { name: 'Torrent Pharmaceuticals', sector: 'Formulations & Healthcare' },
 
   // U
   { name: 'Ultratech Cement Limited', sector: 'Cement & Ready Mix Concrete' },
   { name: 'Uno Minda Limited', sector: 'Automotive Systems, Alloy Wheels & Sensors' },
   { name: 'UPL Limited (United Phosphorus)', sector: 'Crop Protection & Agrochemicals' },
   { name: 'Usha Martin Limited', sector: 'Specialty Steel Wire Ropes' },
+  { name: 'United Breweries Limited', sector: 'Brewing & Beverage Processing' },
+  { name: 'Unichem Laboratories', sector: 'Pharmaceutical APIs & Formulations' },
 
   // V
   { name: 'Vedanta Resources / Hindustan Zinc', sector: 'Zinc, Lead, Silver & Aluminium' },
   { name: 'Voltas Limited', sector: 'Air Conditioning, MEP Projects & Engineering' },
   { name: 'Varroc Engineering Limited', sector: 'Automotive Lighting & Polymer Components' },
   { name: 'VE Commercial Vehicles (Volvo Eicher)', sector: 'Commercial Trucks & Buses' },
+  { name: 'V-Guard Industries', sector: 'Electrical Appliances & Solar Inverters' },
+  { name: 'Vinati Organics Limited', sector: 'Specialty Chemical Intermediates' },
 
   // W
   { name: 'Wipro Enterprises (Hydraulics & Aerospace)', sector: 'Hydraulic Actuators & Precision Machining' },
   { name: 'Welspun Corp Limited', sector: 'Large Diameter Submerged Arc Welded Pipes' },
   { name: 'Wheels India Limited', sector: 'Steel & Alloy Wheels for Commercial Vehicles' },
   { name: 'Wabtec India (GE Transportation)', sector: 'Locomotive Manufacturing & Rail Systems' },
+  { name: 'Whirlpool of India Limited', sector: 'Major Home Appliances' },
+  { name: 'Wockhardt Limited', sector: 'Biotechnology & Pharmaceuticals' },
 
   // X
   { name: 'Xylem Water Solutions India', sector: 'Water Treatment, Pumps & Smart Metering' },
+  { name: 'Xerox India Limited', sector: 'Digital Printing & Office Document Automation' },
+  { name: 'Xiaomi Technology India', sector: 'Consumer Hardware & Smart Devices' },
 
   // Y
   { name: 'Yamaha Motor India', sector: 'Two-Wheeler Manufacturing' },
   { name: 'Yazaki India Private Limited', sector: 'Automotive Wiring Harness Systems' },
+  { name: 'Yokogawa India Limited', sector: 'DCS, Process Automation & Safety Systems' },
+  { name: 'Yaskawa India', sector: 'Robotics & Motion Control' },
 
   // Z
   { name: 'ZF Commercial Vehicle Systems India', sector: 'Commercial Vehicle Braking & Autonomous Driving' },
-  { name: 'Zamil Steel Buildings India', sector: 'Pre-Engineered Steel Buildings (PEB)' }
+  { name: 'Zamil Steel Buildings India', sector: 'Pre-Engineered Steel Buildings (PEB)' },
+  { name: 'Zydus Lifesciences Limited', sector: 'Pharma Formulations & Vaccines' },
+  { name: 'Zen Technologies Limited', sector: 'Defense Training & Combat Simulators' }
 ];
 
 // =========================================================================
