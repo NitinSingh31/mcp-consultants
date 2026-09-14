@@ -312,3 +312,21 @@ exports.getRecentSearches = (req, res) => {
     ]
   });
 };
+
+// DELETE /api/candidates/recent-searches
+exports.clearRecentSearches = async (req, res) => {
+  try {
+    return res.json({ success: true, message: 'Recent searches cleared successfully', recentSearches: [] });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+// DELETE /api/candidates/saved-searches
+exports.clearSavedSearches = async (req, res) => {
+  try {
+    return res.json({ success: true, message: 'Saved searches cleared successfully', savedSearches: [] });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};

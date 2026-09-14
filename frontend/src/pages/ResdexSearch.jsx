@@ -28,7 +28,9 @@ import {
   ArrowLeft,
   Filter,
   Check,
-  Plus
+  Plus,
+  Trash2,
+  RotateCcw
 } from 'lucide-react';
 import { apiUrl } from '../api';
 import {
@@ -240,12 +242,81 @@ export default function ResdexSearch() {
       const res = await fetch(apiUrl('/api/candidates/recent-searches'));
       const data = await res.json();
       if (data.success) {
-        setRecentSearches(data.recentSearches || []);
-        setSavedSearches(data.savedSearches || []);
+        const clearedRecent = localStorage.getItem('mcp_resdex_recent_cleared') === 'true';
+        const clearedSaved = localStorage.getItem('mcp_resdex_saved_cleared') === 'true';
+
+        setRecentSearches(clearedRecent ? [] : (data.recentSearches || []));
+        setSavedSearches(clearedSaved ? [] : (data.savedSearches || []));
       }
     } catch (err) {
       console.error('Failed to load recent searches:', err);
     }
+  };
+
+  // Clear Recent Searches Function
+  const handleClearRecentSearches = async () => {
+    if (window.confirm('Are you sure you want to clear all recent searches?')) {
+      setRecentSearches([]);
+      localStorage.setItem('mcp_resdex_recent_cleared', 'true');
+      try {
+        await fetch(apiUrl('/api/candidates/clear-recent-searches'), { method: 'POST' });
+      } catch (e) {
+        console.error('Failed to notify clear-recent-searches:', e);
+      }
+    }
+  };
+
+  // Restore Default Recent Searches Function
+  const handleRestoreRecentSearches = async () => {
+    localStorage.removeItem('mcp_resdex_recent_cleared');
+    try {
+      const res = await fetch(apiUrl('/api/candidates/recent-searches'));
+      const data = await res.json();
+      if (data.success) {
+        setRecentSearches(data.recentSearches || []);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Remove Single Recent Search
+  const handleRemoveRecentSearch = (id, e) => {
+    e.stopPropagation();
+    setRecentSearches(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Clear Saved Searches Function
+  const handleClearSavedSearches = async () => {
+    if (window.confirm('Are you sure you want to clear all saved searches?')) {
+      setSavedSearches([]);
+      localStorage.setItem('mcp_resdex_saved_cleared', 'true');
+      try {
+        await fetch(apiUrl('/api/candidates/clear-saved-searches'), { method: 'POST' });
+      } catch (e) {
+        console.error('Failed to notify clear-saved-searches:', e);
+      }
+    }
+  };
+
+  // Restore Default Saved Searches Function
+  const handleRestoreSavedSearches = async () => {
+    localStorage.removeItem('mcp_resdex_saved_cleared');
+    try {
+      const res = await fetch(apiUrl('/api/candidates/recent-searches'));
+      const data = await res.json();
+      if (data.success) {
+        setSavedSearches(data.savedSearches || []);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Remove Single Saved Search
+  const handleRemoveSavedSearch = (id, e) => {
+    e.stopPropagation();
+    setSavedSearches(prev => prev.filter(item => item.id !== id));
   };
 
   // Keyword Chip Helpers
@@ -2596,84 +2667,283 @@ export default function ResdexSearch() {
             {/* Recent Searches Box */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                <History size={16} style={{ color: '#0056b3' }} />
-                <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Recent Searches</h3>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', gap: '8px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <History size={16} style={{ color: '#0056b3' }} />
+                  <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Recent Searches</h3>
+                  <span style={{ fontSize: '11px', color: '#64748b', backgroundColor: '#f1f5f9', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
+                    {recentSearches.length}
+                  </span>
+                </div>
+
+                {/* Separate button to clear recent searches */}
+                {recentSearches.length > 0 ? (
+                  <button 
+                    type="button"
+                    onClick={handleClearRecentSearches}
+                    style={{
+                      background: '#fef2f2',
+                      border: '1px solid #fee2e2',
+                      color: '#dc2626',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      padding: '4px 8px',
+                      borderRadius: '6px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      transition: 'all 0.15s'
+                    }}
+                    title="Clear all recent searches"
+                  >
+                    <Trash2 size={12} />
+                    <span>Clear recent searches</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleRestoreRecentSearches}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#0056b3',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                    title="Restore default demo recent searches"
+                  >
+                    <RotateCcw size={11} />
+                    <span>Restore recent</span>
+                  </button>
+                )}
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {recentSearches.map((item) => (
-                  <div key={item.id} style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
-                    <p style={{ fontSize: '13px', fontWeight: 600, color: '#1e293b', margin: '0 0 8px 0', lineHeight: 1.4 }}>
-                      {item.title}
-                    </p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                      <button 
-                        onClick={() => handleFillSearch(item.query, false)}
-                        style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
-                      >
-                        Fill this search
-                      </button>
-                      <button 
-                        onClick={() => handleFillSearch(item.query, true)}
-                        style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
-                      >
-                        Search profiles
-                      </button>
+              {recentSearches.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {recentSearches.map((item) => (
+                    <div key={item.id} style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', position: 'relative' }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+                        <p style={{ fontSize: '13px', fontWeight: 600, color: '#1e293b', margin: 0, lineHeight: 1.4, flex: 1 }}>
+                          {item.title}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={(e) => handleRemoveRecentSearch(item.id, e)}
+                          title="Remove this recent search"
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#94a3b8',
+                            cursor: 'pointer',
+                            padding: '2px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderRadius: '4px'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#ef4444'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}
+                        >
+                          <X size={13} />
+                        </button>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                        <button 
+                          onClick={() => handleFillSearch(item.query, false)}
+                          style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                        >
+                          Fill this search
+                        </button>
+                        <button 
+                          onClick={() => handleFillSearch(item.query, true)}
+                          style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                        >
+                          Search profiles
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ padding: '24px 12px', textAlign: 'center', color: '#64748b' }}>
+                  <History size={26} style={{ color: '#cbd5e1', margin: '0 auto 8px', display: 'block' }} />
+                  <p style={{ margin: '0 0 4px', fontSize: '13px', fontWeight: 700, color: '#334155' }}>No recent searches</p>
+                  <p style={{ margin: '0 0 12px', fontSize: '12px', color: '#94a3b8' }}>Searches you execute will appear here.</p>
+                  <button
+                    type="button"
+                    onClick={handleRestoreRecentSearches}
+                    style={{
+                      background: '#eff6ff',
+                      border: '1px solid #bfdbfe',
+                      color: '#0056b3',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      padding: '5px 12px',
+                      borderRadius: '16px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px'
+                    }}
+                  >
+                    <RotateCcw size={12} />
+                    <span>Restore recent searches</span>
+                  </button>
+                </div>
+              )}
 
             </div>
 
             {/* Saved Searches Box */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', gap: '8px', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Bookmark size={16} style={{ color: '#0056b3' }} />
                   <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Saved Searches</h3>
+                  <span style={{ fontSize: '11px', color: '#64748b', backgroundColor: '#f1f5f9', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
+                    {savedSearches.length}
+                  </span>
                 </div>
-                <button style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}>
-                  View all
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {/* Separate button to clear saved searches */}
+                  {savedSearches.length > 0 ? (
+                    <button 
+                      type="button"
+                      onClick={handleClearSavedSearches}
+                      style={{
+                        background: '#fef2f2',
+                        border: '1px solid #fee2e2',
+                        color: '#dc2626',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        transition: 'all 0.15s'
+                      }}
+                      title="Clear all saved searches"
+                    >
+                      <Trash2 size={12} />
+                      <span>Clear saved searches</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleRestoreSavedSearches}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#0056b3',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}
+                      title="Restore default demo saved searches"
+                    >
+                      <RotateCcw size={11} />
+                      <span>Restore saved</span>
+                    </button>
+                  )}
+                  <button style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}>
+                    View all
+                  </button>
+                </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {savedSearches.map((item) => (
-                  <div 
-                    key={item.id} 
-                    style={{ padding: '14px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
+              {savedSearches.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  {savedSearches.map((item) => (
+                    <div 
+                      key={item.id} 
+                      style={{ padding: '14px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', position: 'relative' }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{ fontSize: '13px', fontWeight: 700, color: '#0056b3' }}>{item.name}</span>
+                          {item.badge && (
+                            <span style={{ fontSize: '11px', fontWeight: 700, backgroundColor: '#dcfce7', color: '#166534', padding: '1px 6px', borderRadius: '4px' }}>
+                              {item.badge}
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={(e) => handleRemoveSavedSearch(item.id, e)}
+                          title="Remove this saved search"
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#94a3b8',
+                            cursor: 'pointer',
+                            padding: '2px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderRadius: '4px'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#ef4444'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}
+                        >
+                          <X size={13} />
+                        </button>
+                      </div>
+                      <span style={{ fontSize: '12px', color: '#64748b', display: 'block', lineHeight: 1.4, marginBottom: '10px' }}>{item.summary}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <button 
+                          type="button"
+                          onClick={() => handleFillSearch(item.query, false)}
+                          style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                        >
+                          Fill this search
+                        </button>
+                        <button 
+                          type="button"
+                          onClick={() => handleFillSearch(item.query, true)}
+                          style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                        >
+                          {item.badge ? `${item.badge}` : 'Search profiles'}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ padding: '24px 12px', textAlign: 'center', color: '#64748b' }}>
+                  <Bookmark size={26} style={{ color: '#cbd5e1', margin: '0 auto 8px', display: 'block' }} />
+                  <p style={{ margin: '0 0 4px', fontSize: '13px', fontWeight: 700, color: '#334155' }}>No saved searches</p>
+                  <p style={{ margin: '0 0 12px', fontSize: '12px', color: '#94a3b8' }}>Bookmark search filters to access them anytime.</p>
+                  <button
+                    type="button"
+                    onClick={handleRestoreSavedSearches}
+                    style={{
+                      background: '#eff6ff',
+                      border: '1px solid #bfdbfe',
+                      color: '#0056b3',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      padding: '5px 12px',
+                      borderRadius: '16px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px'
+                    }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0056b3' }}>{item.name}</span>
-                      {item.badge && (
-                        <span style={{ fontSize: '11px', fontWeight: 700, backgroundColor: '#dcfce7', color: '#166534', padding: '1px 6px', borderRadius: '4px' }}>
-                          {item.badge}
-                        </span>
-                      )}
-                    </div>
-                    <span style={{ fontSize: '12px', color: '#64748b', display: 'block', lineHeight: 1.4, marginBottom: '10px' }}>{item.summary}</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <button 
-                        type="button"
-                        onClick={() => handleFillSearch(item.query, false)}
-                        style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
-                      >
-                        Fill this search
-                      </button>
-                      <button 
-                        type="button"
-                        onClick={() => handleFillSearch(item.query, true)}
-                        style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-                      >
-                        {item.badge ? `${item.badge}` : 'Search profiles'}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    <RotateCcw size={12} />
+                    <span>Restore saved searches</span>
+                  </button>
+                </div>
+              )}
             </div>
 
           </div>
