@@ -47,11 +47,65 @@ exports.searchCandidates = async (req, res) => {
       }
     }
 
-    // Location filter
+    // Hierarchical Location filter (India → Region → State → City & Special Scopes)
     if (location && location.trim()) {
-      const locTerms = location.trim().split(/[,]+/).map(s => s.trim()).filter(Boolean);
-      if (locTerms.length > 0) {
-        const locRegexes = locTerms.map(t => new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+      const rawTerms = location.trim().split(/[,]+/).map(s => s.trim()).filter(Boolean);
+      const expandedTerms = [];
+
+      for (const raw of rawTerms) {
+        const lower = raw.toLowerCase();
+
+        if (lower.includes('anywhere in india') || lower === 'india') {
+          expandedTerms.push(
+            'India', 'Chandigarh', 'Punjab', 'Haryana', 'Himachal', 'Delhi', 'Noida', 'Gurgaon', 'Gurugram',
+            'Maharashtra', 'Mumbai', 'Pune', 'Karnataka', 'Bengaluru', 'Bangalore', 'Tamil Nadu', 'Chennai',
+            'Telangana', 'Hyderabad', 'Gujarat', 'Ahmedabad', 'Vadodara', 'West Bengal', 'Kolkata', 'Jharkhand',
+            'Jamshedpur', 'Rajasthan', 'Jaipur', 'Madhya Pradesh', 'Indore', 'Baddi', 'Mohali'
+          );
+        } else if (lower.includes('north india')) {
+          expandedTerms.push(
+            'North India', 'Chandigarh', 'Punjab', 'Mohali', 'Zirakpur', 'Ludhiana', 'Jalandhar', 'Amritsar', 'Patiala',
+            'Himachal', 'Baddi', 'Nalagarh', 'Solan', 'Paonta Sahib', 'Kala Amb', 'Haryana', 'Panchkula', 'Gurgaon',
+            'Gurugram', 'Faridabad', 'Panipat', 'Sonipat', 'Delhi', 'New Delhi', 'Noida', 'Greater Noida', 'Ghaziabad',
+            'Uttar Pradesh', 'Lucknow', 'Kanpur', 'Rajasthan', 'Jaipur', 'Bhiwadi', 'Neemrana', 'Uttarakhand', 'Dehradun',
+            'Haridwar', 'Jammu'
+          );
+        } else if (lower.includes('west india')) {
+          expandedTerms.push(
+            'West India', 'Maharashtra', 'Mumbai', 'Pune', 'Navi Mumbai', 'Thane', 'Nagpur', 'Nashik', 'Aurangabad',
+            'Chhatrapati Sambhajinagar', 'Kolhapur', 'Gujarat', 'Ahmedabad', 'Vadodara', 'Baroda', 'Surat', 'Rajkot',
+            'Gandhinagar', 'Bharuch', 'Ankleshwar', 'Vapi', 'Goa', 'Panaji'
+          );
+        } else if (lower.includes('south india')) {
+          expandedTerms.push(
+            'South India', 'Karnataka', 'Bengaluru', 'Bangalore', 'Mysuru', 'Mysore', 'Tamil Nadu', 'Chennai', 'Coimbatore',
+            'Hosur', 'Sriperumbudur', 'Telangana', 'Hyderabad', 'Secunderabad', 'Andhra', 'Visakhapatnam', 'Kerala', 'Kochi', 'Cochin'
+          );
+        } else if (lower.includes('east india')) {
+          expandedTerms.push(
+            'East India', 'West Bengal', 'Kolkata', 'Howrah', 'Durgapur', 'Haldia', 'Jharkhand', 'Jamshedpur', 'Ranchi',
+            'Bokaro', 'Odisha', 'Bhubaneswar', 'Rourkela', 'Bihar', 'Patna'
+          );
+        } else if (lower.includes('central india')) {
+          expandedTerms.push(
+            'Central India', 'Madhya Pradesh', 'Indore', 'Pithampur', 'Bhopal', 'Gwalior', 'Chhattisgarh', 'Raipur', 'Bhilai'
+          );
+        } else if (lower.includes('international') || lower.includes('overseas')) {
+          expandedTerms.push(
+            'International', 'Overseas', 'Dubai', 'UAE', 'Abu Dhabi', 'Riyadh', 'Saudi', 'Qatar', 'Doha', 'Oman', 'Muscat',
+            'USA', 'United States', 'Canada', 'Toronto', 'UK', 'London', 'Germany', 'Frankfurt', 'Singapore', 'Australia', 'Sydney'
+          );
+        } else if (lower.includes('(all cities)')) {
+          const stateClean = raw.replace(/\(all cities\)/i, '').trim();
+          expandedTerms.push(stateClean);
+        } else {
+          expandedTerms.push(raw);
+        }
+      }
+
+      const uniqueTerms = Array.from(new Set(expandedTerms)).filter(Boolean);
+      if (uniqueTerms.length > 0) {
+        const locRegexes = uniqueTerms.map(t => new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
         query.$and = query.$and || [];
         query.$and.push({
           $or: [

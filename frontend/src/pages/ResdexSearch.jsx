@@ -43,8 +43,11 @@ import {
   SKILLS_DATABASE,
   SALARY_SUGGESTIONS,
   DEPARTMENTS_DATABASE,
-  LOCATIONS_DATABASE
+  LOCATIONS_DATABASE,
+  SPECIAL_LOCATION_SCOPES,
+  filterHierarchicalLocations
 } from '../data/resdexSuggestions';
+import HierarchicalLocationDropdown from '../components/HierarchicalLocationDropdown';
 
 // 17 Additional RPwD Categories under the Rights of Persons with Disabilities Act (Naukri Resdex benchmark)
 const RPWD_DISABILITIES_EXTRA = [
@@ -119,14 +122,37 @@ export default function ResdexSearch() {
   const [minExp, setMinExp] = useState('');
   const [maxExp, setMaxExp] = useState('');
 
-  // 4. Current Location of Candidate State (Matching Naukri Resdex specification)
+  // 4. Current Location of Candidate State (Hierarchical: India → Region → State → City & Special Scopes)
   const [candidateLocation, setCandidateLocation] = useState('');
+  const [candidateLocationInput, setCandidateLocationInput] = useState('');
+  const [selectedLocations, setSelectedLocations] = useState([]);
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const [relocateToLocations, setRelocateToLocations] = useState(true);
   const [changePreferredLocationOpen, setChangePreferredLocationOpen] = useState(false);
   const [preferredLocation, setPreferredLocation] = useState('');
   const [showExcludeAnywhere, setShowExcludeAnywhere] = useState(false);
   const [excludeAnywhere, setExcludeAnywhere] = useState('');
+
+  const handleSelectHierarchicalLocation = (locName, item) => {
+    if (!selectedLocations.includes(locName)) {
+      const updated = [...selectedLocations, locName];
+      setSelectedLocations(updated);
+      setCandidateLocation(updated.join(', '));
+    }
+    setCandidateLocationInput('');
+  };
+
+  const handleRemoveLocation = (locToRemove) => {
+    const updated = selectedLocations.filter(loc => loc !== locToRemove);
+    setSelectedLocations(updated);
+    setCandidateLocation(updated.join(', '));
+  };
+
+  const handleClearAllLocations = () => {
+    setSelectedLocations([]);
+    setCandidateLocation('');
+    setCandidateLocationInput('');
+  };
 
   // 5. Annual Salary State (INR ... to ... Lacs with 72 suggestions)
   const [minSalary, setMinSalary] = useState('');
@@ -381,7 +407,7 @@ export default function ResdexSearch() {
         minSalary,
         maxSalary,
         includeUnspecifiedSalary,
-        location: candidateLocation,
+        location: candidateLocation || candidateLocationInput,
         relocateToLocations,
         excludeAnywhere: !!excludeAnywhere,
         department: selectedDepartment,
@@ -469,8 +495,15 @@ export default function ResdexSearch() {
       setDesignationInput('');
     }
 
-    if (query.location) setCandidateLocation(query.location);
-    else setCandidateLocation('');
+    if (query.location) {
+      setCandidateLocation(query.location);
+      setSelectedLocations(query.location.split(',').map(s => s.trim()).filter(Boolean));
+      setCandidateLocationInput('');
+    } else {
+      setCandidateLocation('');
+      setSelectedLocations([]);
+      setCandidateLocationInput('');
+    }
 
     if (query.minSalary) setMinSalary(query.minSalary);
     else setMinSalary('');
@@ -505,6 +538,8 @@ export default function ResdexSearch() {
     setIndustry('');
     setClientHiringFor('');
     setCandidateLocation('');
+    setSelectedLocations([]);
+    setCandidateLocationInput('');
     setMinSalary('');
     setMaxSalary('');
     setSelectedDepartment('');
@@ -1162,29 +1197,88 @@ export default function ResdexSearch() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Current location of candidate</span>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type cities or industrial hubs e.g. Chandigarh, Baddi, Mohali, Gurgaon, Pune)</span>
+                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type or select: India → Region → State → City, or Special Scopes)</span>
                 </div>
-                {candidateLocation && (
+                {(selectedLocations.length > 0 || candidateLocationInput || candidateLocation) && (
                   <button
                     type="button"
-                    onClick={() => setCandidateLocation('')}
-                    style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '2px', textDecoration: 'underline' }}
+                    onClick={handleClearAllLocations}
+                    style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '11px', fontWeight: 600, cursor: 'pointer', padding: '2px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    title="Clear all selected locations"
                   >
-                    Clear
+                    <Trash2 size={12} />
+                    <span>Clear locations</span>
                   </button>
                 )}
               </div>
 
+              {/* Selected Location Tags with Level Badges */}
+              {selectedLocations.length > 0 && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '10px' }}>
+                  {selectedLocations.map((loc, idx) => {
+                    const isScope = loc.startsWith('Anywhere') || loc.startsWith('Any International');
+                    const isState = loc.includes('(All cities)');
+                    return (
+                      <span
+                        key={idx}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          padding: '4px 10px',
+                          borderRadius: '20px',
+                          backgroundColor: isScope ? '#fef3c7' : isState ? '#e0f2fe' : '#eff6ff',
+                          border: isScope ? '1px solid #fde68a' : isState ? '1px solid #bae6fd' : '1px solid #bfdbfe',
+                          color: isScope ? '#92400e' : isState ? '#0369a1' : '#0056b3',
+                          fontSize: '12px',
+                          fontWeight: 600
+                        }}
+                      >
+                        <span>{isScope ? '🌐' : isState ? '🏛️' : '📍'}</span>
+                        <span>{loc}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveLocation(loc)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: isScope ? '#b45309' : isState ? '#0284c7' : '#2563eb',
+                            cursor: 'pointer',
+                            padding: '0 2px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderRadius: '50%'
+                          }}
+                          title={`Remove ${loc}`}
+                        >
+                          <X size={12} />
+                        </button>
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
+
               <div style={{ position: 'relative' }}>
                 <input 
                   type="text" 
-                  placeholder="Add location"
-                  value={candidateLocation}
+                  placeholder="Add location (e.g. Anywhere in North India, Baddi, Mohali, Pune, Dubai)"
+                  value={candidateLocationInput}
                   onChange={(e) => {
-                    setCandidateLocation(e.target.value);
+                    setCandidateLocationInput(e.target.value);
                     setShowLocationSuggestions(true);
                   }}
                   onFocus={() => setShowLocationSuggestions(true)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      if (candidateLocationInput.trim()) {
+                        handleSelectHierarchicalLocation(candidateLocationInput.trim());
+                      }
+                    } else if (e.key === 'Escape') {
+                      setShowLocationSuggestions(false);
+                    }
+                  }}
                   style={{
                     width: '100%',
                     padding: '12px 14px',
@@ -1197,49 +1291,16 @@ export default function ResdexSearch() {
                   }}
                 />
 
-                {/* Location Autocomplete Dropdown */}
-                {showLocationSuggestions && filteredLocs.length > 0 && (
-                  <div style={{
-                    position: 'absolute',
-                    top: 'calc(100% + 6px)',
-                    left: 0,
-                    right: 0,
-                    backgroundColor: '#ffffff',
-                    border: '1px solid #cbd5e1',
-                    borderRadius: '10px',
-                    boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
-                    zIndex: 60,
-                    maxHeight: '280px',
-                    overflowY: 'auto'
-                  }}>
-                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
-                      <span>{candidateLocation ? `Matching Locations (${filteredLocs.length})` : `Top Industrial Locations (${filteredLocs.length})`}</span>
-                      <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to select</span>
-                    </div>
-
-                    {filteredLocs.map((locItem, idx) => (
-                      <div
-                        key={idx}
-                        onClick={() => {
-                          setCandidateLocation(locItem.name);
-                          setShowLocationSuggestions(false);
-                        }}
-                        style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'background-color 0.12s' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
-                      >
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
-                          {highlightMatch(locItem.name, candidateLocation)}
-                        </span>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontSize: '11px', backgroundColor: '#e2e8f0', color: '#475569', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
-                            {locItem.state}
-                          </span>
-                          <span style={{ fontSize: '11px', color: '#94a3b8' }}>{locItem.count}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                {/* Hierarchical Searchable Autocomplete Suggestion Dropdown */}
+                {showLocationSuggestions && (
+                  <HierarchicalLocationDropdown
+                    searchQuery={candidateLocationInput}
+                    selectedLocations={selectedLocations}
+                    onSelectLocation={(locName, item) => {
+                      handleSelectHierarchicalLocation(locName, item);
+                    }}
+                    onClose={() => setShowLocationSuggestions(false)}
+                  />
                 )}
               </div>
 

@@ -1057,43 +1057,538 @@ export const DEPARTMENTS_DATABASE = [
 // ===========================================================================
 // CANDIDATE LOCATIONS DATABASE
 // ===========================================================================
-export const LOCATIONS_DATABASE = [
-  { name: 'Chandigarh', state: 'Chandigarh UT', count: '4,500 candidates' },
-  { name: 'Mohali (SAS Nagar)', state: 'Punjab', count: '3,800 candidates' },
-  { name: 'Panchkula', state: 'Haryana', count: '2,900 candidates' },
-  { name: 'Baddi', state: 'Himachal Pradesh', count: '5,200 candidates' },
-  { name: 'Nalagarh', state: 'Himachal Pradesh', count: '3,100 candidates' },
-  { name: 'Solan', state: 'Himachal Pradesh', count: '2,400 candidates' },
-  { name: 'Zirakpur', state: 'Punjab', count: '2,600 candidates' },
-  { name: 'Kharar', state: 'Punjab', count: '1,900 candidates' },
-  { name: 'Kalka', state: 'Haryana', count: '1,200 candidates' },
-  { name: 'Dera Bassi', state: 'Punjab', count: '2,100 candidates' },
-  { name: 'Ludhiana', state: 'Punjab', count: '6,400 candidates' },
-  { name: 'Jalandhar', state: 'Punjab', count: '3,500 candidates' },
-  { name: 'Amritsar', state: 'Punjab', count: '2,800 candidates' },
-  { name: 'Patiala', state: 'Punjab', count: '3,000 candidates' },
-  { name: 'Mandi Gobindgarh', state: 'Punjab', count: '2,200 candidates' },
-  { name: 'Delhi / New Delhi', state: 'Delhi NCR', count: '18,500 candidates' },
-  { name: 'Gurgaon / Gurugram', state: 'Haryana (NCR)', count: '15,200 candidates' },
-  { name: 'Noida', state: 'Uttar Pradesh (NCR)', count: '12,800 candidates' },
-  { name: 'Faridabad', state: 'Haryana (NCR)', count: '7,100 candidates' },
-  { name: 'Ghaziabad', state: 'Uttar Pradesh (NCR)', count: '6,300 candidates' },
-  { name: 'Mumbai', state: 'Maharashtra', count: '19,400 candidates' },
-  { name: 'Pune', state: 'Maharashtra', count: '14,800 candidates' },
-  { name: 'Navi Mumbai / Thane', state: 'Maharashtra', count: '9,200 candidates' },
-  { name: 'Aurangabad', state: 'Maharashtra', count: '4,600 candidates' },
-  { name: 'Nagpur', state: 'Maharashtra', count: '4,100 candidates' },
-  { name: 'Bengaluru / Bangalore', state: 'Karnataka', count: '21,000 candidates' },
-  { name: 'Chennai', state: 'Tamil Nadu', count: '14,200 candidates' },
-  { name: 'Hyderabad', state: 'Telangana', count: '13,500 candidates' },
-  { name: 'Coimbatore', state: 'Tamil Nadu', count: '5,400 candidates' },
-  { name: 'Ahmedabad', state: 'Gujarat', count: '10,800 candidates' },
-  { name: 'Vadodara / Baroda', state: 'Gujarat', count: '7,300 candidates' },
-  { name: 'Surat', state: 'Gujarat', count: '6,200 candidates' },
-  { name: 'Jamshedpur', state: 'Jharkhand', count: '5,800 candidates' },
-  { name: 'Kolkata', state: 'West Bengal', count: '9,500 candidates' },
-  { name: 'Jaipur', state: 'Rajasthan', count: '6,100 candidates' }
+// ===========================================================================
+// HIERARCHICAL CANDIDATE LOCATIONS DATABASE
+// Organized into: India → Region → State → City & Special Scopes + International
+// ===========================================================================
+
+export const SPECIAL_LOCATION_SCOPES = [
+  {
+    id: 'anywhere-india',
+    name: 'Anywhere in India',
+    badge: 'Special Scope',
+    icon: '✨',
+    region: 'Pan India',
+    breadcrumb: 'All India • 28 States & 8 UTs',
+    count: '1,50,000+ candidates',
+    description: 'Open to candidates across all Indian states, territories, or flexible/relocatable talent.',
+    tags: 'all india nationwide pan india domestic anywhere'
+  },
+  {
+    id: 'anywhere-north-india',
+    name: 'Anywhere in North India',
+    badge: 'Region Scope',
+    icon: '🏔️',
+    region: 'North India',
+    breadcrumb: 'North India • Delhi NCR, Punjab, HP, Haryana, UP, Rajasthan, Chandigarh, UK, J&K',
+    count: '68,000+ candidates',
+    description: 'Candidates based anywhere in northern states and industrial manufacturing corridors.',
+    tags: 'north india tricity ncr himachal punjab haryana rajasthan uttar pradesh'
+  },
+  {
+    id: 'anywhere-west-india',
+    name: 'Anywhere in West India',
+    badge: 'Region Scope',
+    icon: '🌊',
+    region: 'West India',
+    breadcrumb: 'West India • Maharashtra, Gujarat, Goa',
+    count: '54,000+ candidates',
+    description: 'Candidates across western commercial & industrial centers (Mumbai-Pune-Ahmedabad belt).',
+    tags: 'west india maharashtra gujarat goa bombay pune ahmedabad'
+  },
+  {
+    id: 'anywhere-south-india',
+    name: 'Anywhere in South India',
+    badge: 'Region Scope',
+    icon: '🌴',
+    region: 'South India',
+    breadcrumb: 'South India • Karnataka, Tamil Nadu, Telangana, Andhra Pradesh, Kerala',
+    count: '62,000+ candidates',
+    description: 'Southern tech & engineering corridors (Bengaluru, Chennai, Hyderabad, Kochi).',
+    tags: 'south india karnataka tamil nadu telangana andhra kerala bangalore hyderabad'
+  },
+  {
+    id: 'anywhere-east-india',
+    name: 'Anywhere in East India',
+    badge: 'Region Scope',
+    icon: '🌅',
+    region: 'East India',
+    breadcrumb: 'East India • West Bengal, Jharkhand, Odisha, Bihar',
+    count: '28,000+ candidates',
+    description: 'Eastern industrial, steel, mining, and port manufacturing clusters.',
+    tags: 'east india west bengal jharkhand odisha bihar kolkata jamshedpur'
+  },
+  {
+    id: 'anywhere-central-india',
+    name: 'Anywhere in Central India',
+    badge: 'Region Scope',
+    icon: '🏛️',
+    region: 'Central India',
+    breadcrumb: 'Central India • Madhya Pradesh, Chhattisgarh',
+    count: '19,000+ candidates',
+    description: 'Central automobile, textile & heavy metal hubs (Indore, Pithampur, Raipur, Bhilai).',
+    tags: 'central india madhya pradesh chhattisgarh indore bhopal raipur'
+  },
+  {
+    id: 'any-international',
+    name: 'Any International Location',
+    badge: 'Global Scope',
+    icon: '🌍',
+    region: 'International',
+    breadcrumb: 'Overseas • UAE & GCC, North America, Europe & UK, Asia-Pacific',
+    count: '14,500+ candidates',
+    description: 'International executives, expat leaders, and candidates with overseas work permits.',
+    tags: 'international overseas foreign expat abroad dubai gcc usa uk europe singapore'
+  }
 ];
+
+export const HIERARCHICAL_REGIONS = [
+  {
+    id: 'north-india',
+    name: 'North India',
+    icon: '🏔️',
+    scopeName: 'Anywhere in North India',
+    states: [
+      {
+        name: 'Chandigarh UT',
+        cities: [
+          { name: 'Chandigarh', count: '4,500 candidates' }
+        ]
+      },
+      {
+        name: 'Punjab',
+        cities: [
+          { name: 'Mohali (SAS Nagar)', count: '3,800 candidates' },
+          { name: 'Zirakpur', count: '2,600 candidates' },
+          { name: 'Kharar', count: '1,900 candidates' },
+          { name: 'Dera Bassi', count: '2,100 candidates' },
+          { name: 'Ludhiana', count: '6,400 candidates' },
+          { name: 'Jalandhar', count: '3,500 candidates' },
+          { name: 'Amritsar', count: '2,800 candidates' },
+          { name: 'Patiala', count: '3,000 candidates' },
+          { name: 'Mandi Gobindgarh', count: '2,200 candidates' },
+          { name: 'Bathinda', count: '1,800 candidates' },
+          { name: 'Phagwara', count: '1,400 candidates' }
+        ]
+      },
+      {
+        name: 'Himachal Pradesh',
+        cities: [
+          { name: 'Baddi', count: '5,200 candidates' },
+          { name: 'Nalagarh', count: '3,100 candidates' },
+          { name: 'Solan', count: '2,400 candidates' },
+          { name: 'Paonta Sahib', count: '1,950 candidates' },
+          { name: 'Kala Amb', count: '1,600 candidates' },
+          { name: 'Parwanoo', count: '1,450 candidates' },
+          { name: 'Shimla', count: '1,200 candidates' },
+          { name: 'Una', count: '1,100 candidates' }
+        ]
+      },
+      {
+        name: 'Haryana',
+        cities: [
+          { name: 'Panchkula', count: '2,900 candidates' },
+          { name: 'Gurgaon / Gurugram', count: '15,200 candidates' },
+          { name: 'Faridabad', count: '7,100 candidates' },
+          { name: 'Kalka', count: '1,200 candidates' },
+          { name: 'Ambala', count: '1,900 candidates' },
+          { name: 'Panipat', count: '2,800 candidates' },
+          { name: 'Sonipat', count: '2,400 candidates' },
+          { name: 'Rohtak', count: '2,100 candidates' },
+          { name: 'Karnal', count: '1,850 candidates' },
+          { name: 'Manesar / Dharuhera', count: '3,600 candidates' }
+        ]
+      },
+      {
+        name: 'Delhi NCR',
+        cities: [
+          { name: 'Delhi / New Delhi', count: '18,500 candidates' },
+          { name: 'South Delhi', count: '4,200 candidates' },
+          { name: 'Central Delhi', count: '3,100 candidates' },
+          { name: 'North Delhi', count: '2,800 candidates' },
+          { name: 'West Delhi', count: '3,400 candidates' }
+        ]
+      },
+      {
+        name: 'Uttar Pradesh (NCR & Industrial)',
+        cities: [
+          { name: 'Noida', count: '12,800 candidates' },
+          { name: 'Greater Noida', count: '6,900 candidates' },
+          { name: 'Ghaziabad', count: '6,300 candidates' },
+          { name: 'Kanpur', count: '4,800 candidates' },
+          { name: 'Lucknow', count: '5,500 candidates' },
+          { name: 'Agra', count: '2,700 candidates' },
+          { name: 'Varanasi', count: '2,300 candidates' },
+          { name: 'Meerut', count: '2,400 candidates' }
+        ]
+      },
+      {
+        name: 'Rajasthan',
+        cities: [
+          { name: 'Jaipur', count: '6,100 candidates' },
+          { name: 'Bhiwadi', count: '3,900 candidates' },
+          { name: 'Neemrana', count: '2,600 candidates' },
+          { name: 'Udaipur', count: '2,200 candidates' },
+          { name: 'Jodhpur', count: '2,100 candidates' },
+          { name: 'Kota', count: '1,900 candidates' },
+          { name: 'Alwar', count: '1,800 candidates' }
+        ]
+      },
+      {
+        name: 'Uttarakhand',
+        cities: [
+          { name: 'Dehradun', count: '3,200 candidates' },
+          { name: 'Haridwar (SIDCUL)', count: '4,100 candidates' },
+          { name: 'Pantnagar / Rudrapur', count: '3,800 candidates' },
+          { name: 'Roorkee', count: '1,500 candidates' }
+        ]
+      },
+      {
+        name: 'Jammu & Kashmir',
+        cities: [
+          { name: 'Jammu', count: '1,800 candidates' },
+          { name: 'Samba / Kathua', count: '1,400 candidates' },
+          { name: 'Srinagar', count: '1,200 candidates' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'west-india',
+    name: 'West India',
+    icon: '🌊',
+    scopeName: 'Anywhere in West India',
+    states: [
+      {
+        name: 'Maharashtra',
+        cities: [
+          { name: 'Mumbai', count: '19,400 candidates' },
+          { name: 'Pune', count: '14,800 candidates' },
+          { name: 'Navi Mumbai / Thane', count: '9,200 candidates' },
+          { name: 'Aurangabad (Chhatrapati Sambhajinagar)', count: '4,600 candidates' },
+          { name: 'Nagpur', count: '4,100 candidates' },
+          { name: 'Nashik', count: '3,700 candidates' },
+          { name: 'Kolhapur', count: '2,300 candidates' },
+          { name: 'Pimpri-Chinchwad', count: '5,800 candidates' },
+          { name: 'Tarapur / Boisar', count: '2,500 candidates' }
+        ]
+      },
+      {
+        name: 'Gujarat',
+        cities: [
+          { name: 'Ahmedabad', count: '10,800 candidates' },
+          { name: 'Vadodara / Baroda', count: '7,300 candidates' },
+          { name: 'Surat', count: '6,200 candidates' },
+          { name: 'Rajkot', count: '3,900 candidates' },
+          { name: 'Gandhinagar', count: '3,100 candidates' },
+          { name: 'Bharuch / Ankleshwar', count: '4,600 candidates' },
+          { name: 'Vapi / Valsad', count: '3,800 candidates' },
+          { name: 'Sanand / Morbi', count: '2,900 candidates' }
+        ]
+      },
+      {
+        name: 'Goa',
+        cities: [
+          { name: 'Panaji / Margao', count: '1,600 candidates' },
+          { name: 'Verna Industrial Estate', count: '1,900 candidates' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'south-india',
+    name: 'South India',
+    icon: '🌴',
+    scopeName: 'Anywhere in South India',
+    states: [
+      {
+        name: 'Karnataka',
+        cities: [
+          { name: 'Bengaluru / Bangalore', count: '21,000 candidates' },
+          { name: 'Mysuru / Mysore', count: '3,400 candidates' },
+          { name: 'Hubballi-Dharwad', count: '2,100 candidates' },
+          { name: 'Mangaluru', count: '2,500 candidates' },
+          { name: 'Belagavi', count: '1,800 candidates' }
+        ]
+      },
+      {
+        name: 'Tamil Nadu',
+        cities: [
+          { name: 'Chennai', count: '14,200 candidates' },
+          { name: 'Coimbatore', count: '5,400 candidates' },
+          { name: 'Sriperumbudur / Oragadam', count: '4,200 candidates' },
+          { name: 'Hosur', count: '3,600 candidates' },
+          { name: 'Madurai', count: '2,400 candidates' },
+          { name: 'Tiruchirappalli', count: '2,100 candidates' },
+          { name: 'Salem / Erode', count: '2,300 candidates' }
+        ]
+      },
+      {
+        name: 'Telangana',
+        cities: [
+          { name: 'Hyderabad', count: '13,500 candidates' },
+          { name: 'Secunderabad', count: '3,200 candidates' },
+          { name: 'Warangal', count: '1,600 candidates' },
+          { name: 'Medak / Sangareddy', count: '2,100 candidates' }
+        ]
+      },
+      {
+        name: 'Andhra Pradesh',
+        cities: [
+          { name: 'Visakhapatnam', count: '4,200 candidates' },
+          { name: 'Vijayawada', count: '3,100 candidates' },
+          { name: 'Tirupati / Sri City', count: '2,800 candidates' },
+          { name: 'Guntur', count: '2,000 candidates' }
+        ]
+      },
+      {
+        name: 'Kerala',
+        cities: [
+          { name: 'Kochi / Cochin', count: '4,100 candidates' },
+          { name: 'Thiruvananthapuram', count: '3,500 candidates' },
+          { name: 'Kozhikode', count: '2,000 candidates' },
+          { name: 'Thrissur / Palakkad', count: '1,900 candidates' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'east-india',
+    name: 'East India',
+    icon: '🌅',
+    scopeName: 'Anywhere in East India',
+    states: [
+      {
+        name: 'West Bengal',
+        cities: [
+          { name: 'Kolkata', count: '9,500 candidates' },
+          { name: 'Howrah', count: '3,200 candidates' },
+          { name: 'Durgapur', count: '3,600 candidates' },
+          { name: 'Asansol', count: '2,400 candidates' },
+          { name: 'Haldia', count: '2,200 candidates' },
+          { name: 'Siliguri', count: '1,800 candidates' }
+        ]
+      },
+      {
+        name: 'Jharkhand',
+        cities: [
+          { name: 'Jamshedpur', count: '5,800 candidates' },
+          { name: 'Ranchi', count: '3,700 candidates' },
+          { name: 'Bokaro Steel City', count: '3,100 candidates' },
+          { name: 'Dhanbad', count: '2,500 candidates' }
+        ]
+      },
+      {
+        name: 'Odisha',
+        cities: [
+          { name: 'Bhubaneswar', count: '4,100 candidates' },
+          { name: 'Rourkela', count: '3,200 candidates' },
+          { name: 'Cuttack', count: '2,400 candidates' },
+          { name: 'Jharsuguda / Angul', count: '2,800 candidates' },
+          { name: 'Paradip', count: '1,700 candidates' }
+        ]
+      },
+      {
+        name: 'Bihar',
+        cities: [
+          { name: 'Patna', count: '4,400 candidates' },
+          { name: 'Gaya', count: '1,500 candidates' },
+          { name: 'Muzaffarpur', count: '1,600 candidates' },
+          { name: 'Begusarai', count: '1,400 candidates' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'central-india',
+    name: 'Central India',
+    icon: '🏛️',
+    scopeName: 'Anywhere in Central India',
+    states: [
+      {
+        name: 'Madhya Pradesh',
+        cities: [
+          { name: 'Indore', count: '6,500 candidates' },
+          { name: 'Pithampur', count: '4,200 candidates' },
+          { name: 'Bhopal', count: '4,800 candidates' },
+          { name: 'Jabalpur', count: '2,600 candidates' },
+          { name: 'Gwalior', count: '2,400 candidates' },
+          { name: 'Dewas / Ujjain', count: '2,100 candidates' }
+        ]
+      },
+      {
+        name: 'Chhattisgarh',
+        cities: [
+          { name: 'Raipur', count: '3,800 candidates' },
+          { name: 'Bhilai / Durg', count: '3,500 candidates' },
+          { name: 'Korba', count: '2,100 candidates' },
+          { name: 'Bilaspur', count: '1,800 candidates' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'international',
+    name: 'International Locations',
+    icon: '🌍',
+    scopeName: 'Any International Location',
+    states: [
+      {
+        name: 'Middle East / GCC',
+        cities: [
+          { name: 'Dubai (UAE)', count: '4,800 candidates' },
+          { name: 'Abu Dhabi (UAE)', count: '3,200 candidates' },
+          { name: 'Riyadh (Saudi Arabia)', count: '2,600 candidates' },
+          { name: 'Doha (Qatar)', count: '2,100 candidates' },
+          { name: 'Muscat (Oman)', count: '1,400 candidates' },
+          { name: 'Kuwait / Bahrain', count: '1,600 candidates' }
+        ]
+      },
+      {
+        name: 'North America',
+        cities: [
+          { name: 'United States (USA)', count: '3,800 candidates' },
+          { name: 'Canada (Toronto / Vancouver)', count: '2,400 candidates' }
+        ]
+      },
+      {
+        name: 'Europe & UK',
+        cities: [
+          { name: 'London / United Kingdom', count: '2,900 candidates' },
+          { name: 'Germany (Frankfurt / Munich)', count: '2,400 candidates' },
+          { name: 'Netherlands (Amsterdam)', count: '1,800 candidates' },
+          { name: 'Ireland (Dublin)', count: '1,300 candidates' }
+        ]
+      },
+      {
+        name: 'Asia-Pacific (APAC)',
+        cities: [
+          { name: 'Singapore', count: '3,400 candidates' },
+          { name: 'Sydney / Melbourne (Australia)', count: '2,200 candidates' },
+          { name: 'Kuala Lumpur (Malaysia)', count: '1,500 candidates' },
+          { name: 'Tokyo (Japan)', count: '1,100 candidates' }
+        ]
+      }
+    ]
+  }
+];
+
+// Pre-compiled Flat Hierarchical Search Index for instantaneous querying
+export const FLAT_HIERARCHICAL_LOCATIONS = (() => {
+  const list = [];
+
+  // 1. Add Special Scopes
+  for (const s of SPECIAL_LOCATION_SCOPES) {
+    list.push({
+      type: 'scope',
+      id: s.id,
+      name: s.name,
+      displayName: s.name,
+      icon: s.icon,
+      badge: s.badge,
+      region: s.region,
+      state: '',
+      country: s.region === 'International' ? 'International' : 'India',
+      breadcrumb: s.breadcrumb,
+      count: s.count,
+      description: s.description,
+      tags: `${s.tags} ${s.name} ${s.region}`.toLowerCase()
+    });
+  }
+
+  // 2. Add Regions, States, and Cities
+  for (const reg of HIERARCHICAL_REGIONS) {
+    // Add State entries (e.g. "Punjab (All Cities)")
+    for (const st of reg.states) {
+      const isInternational = reg.id === 'international';
+      const countryName = isInternational ? 'International' : 'India';
+
+      list.push({
+        type: 'state',
+        id: `state-${st.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+        name: `${st.name} (All cities)`,
+        displayName: `${st.name} (All cities)`,
+        state: st.name,
+        region: reg.name,
+        country: countryName,
+        icon: reg.icon,
+        badge: isInternational ? 'Country / Group' : 'State / UT',
+        breadcrumb: `${st.name} › ${reg.name} › ${countryName}`,
+        count: `${st.cities.length} cities`,
+        tags: `${st.name} ${reg.name} ${countryName} state all cities`.toLowerCase()
+      });
+
+      // Add each City
+      for (const c of st.cities) {
+        list.push({
+          type: 'city',
+          id: `city-${c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+          name: c.name,
+          displayName: c.name,
+          state: st.name,
+          region: reg.name,
+          country: countryName,
+          icon: reg.icon,
+          badge: isInternational ? 'Global Hub' : 'City / Hub',
+          breadcrumb: `${st.name} › ${reg.name} › ${countryName}`,
+          count: c.count,
+          tags: `${c.name} ${st.name} ${reg.name} ${countryName}`.toLowerCase()
+        });
+      }
+    }
+  }
+
+  return list;
+})();
+
+// Backward compatible flat database for legacy imports
+export const LOCATIONS_DATABASE = FLAT_HIERARCHICAL_LOCATIONS
+  .filter(item => item.type === 'city')
+  .map(c => ({
+    name: c.name,
+    state: c.state,
+    count: c.count
+  }));
+
+/**
+ * Filter Hierarchical Locations:
+ * Smart search returning prioritized matches (special scopes first, states second, cities third)
+ * with full breadcrumb hierarchy path.
+ */
+export function filterHierarchicalLocations(query) {
+  if (!query || !query.trim()) {
+    // Return all special scopes and top industrial cities when query is empty
+    return FLAT_HIERARCHICAL_LOCATIONS.slice(0, 45);
+  }
+
+  const clean = query.trim().toLowerCase();
+
+  const exactMatches = [];
+  const startsWith = [];
+  const wordStartsWith = [];
+  const substringMatch = [];
+
+  for (const item of FLAT_HIERARCHICAL_LOCATIONS) {
+    const lowerName = item.name.toLowerCase();
+    const lowerBreadcrumb = item.breadcrumb.toLowerCase();
+    const lowerTags = item.tags.toLowerCase();
+
+    if (lowerName === clean) {
+      exactMatches.push(item);
+    } else if (lowerName.startsWith(clean)) {
+      startsWith.push(item);
+    } else {
+      const words = `${lowerName} ${lowerBreadcrumb}`.split(/[\s/(),›•-]+/).filter(Boolean);
+      if (words.some(w => w.startsWith(clean))) {
+        wordStartsWith.push(item);
+      } else if (lowerName.includes(clean) || lowerBreadcrumb.includes(clean) || lowerTags.includes(clean)) {
+        substringMatch.push(item);
+      }
+    }
+  }
+
+  return [...exactMatches, ...startsWith, ...wordStartsWith, ...substringMatch];
+}
 
 export function filterLocations(query) {
   if (!query || !query.trim()) return LOCATIONS_DATABASE;
