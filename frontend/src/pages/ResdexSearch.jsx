@@ -44,6 +44,27 @@ import {
   LOCATIONS_DATABASE
 } from '../data/resdexSuggestions';
 
+// 17 Additional RPwD Categories under the Rights of Persons with Disabilities Act (Naukri Resdex benchmark)
+const RPWD_DISABILITIES_EXTRA = [
+  'Dwarfism',
+  'Intellectual Disability',
+  'Mental Illness',
+  'Autism Spectrum Disorder',
+  'Cerebral Palsy',
+  'Muscular Dystrophy',
+  'Chronic Neurological conditions',
+  'Specific Learning Disabilities',
+  'Multiple Sclerosis',
+  'Acid Attack victim',
+  "Parkinson's disease",
+  'Haemophilia',
+  'Thalassemia',
+  'Sickle Cell disease',
+  'Multiple Disabilities',
+  'Leprosy cured persons',
+  'Deaf-Blindness'
+];
+
 // Helper to highlight matching letters/substring in autocomplete suggestions
 function highlightMatch(text, query) {
   if (!query || !query.trim()) return text;
@@ -150,8 +171,10 @@ export default function ResdexSearch() {
 
   // Accordion Toggles
   const [educationOpen, setEducationOpen] = useState(false);
-  const [ugQualification, setUgQualification] = useState('Any');
-  const [pgQualification, setPgQualification] = useState('Any');
+  const [ugQualification, setUgQualification] = useState('Any UG qualification');
+  const [pgQualification, setPgQualification] = useState('Any PG qualification');
+  const [ppgOpen, setPpgOpen] = useState(false);
+  const [ppgQualification, setPpgQualification] = useState('Any PPG qualification');
 
   const [diversityOpen, setDiversityOpen] = useState(false);
   const [gender, setGender] = useState('All candidates');
@@ -169,6 +192,7 @@ export default function ResdexSearch() {
   // Work & Display Details
   const [jobType, setJobType] = useState('Any');
   const [employmentType, setEmploymentType] = useState('Any');
+  const [workPermit, setWorkPermit] = useState('Choose category');
   const [displayFilter, setDisplayFilter] = useState('All candidates');
   const [verifiedMobileOnly, setVerifiedMobileOnly] = useState(false);
   const [verifiedEmailOnly, setVerifiedEmailOnly] = useState(false);
@@ -297,11 +321,22 @@ export default function ResdexSearch() {
         noticePeriod,
         ugQualification,
         pgQualification,
+        ppgQualification,
         gender,
+        careerBreak,
+        differentlyAbledType,
+        defencePersonnel,
+        candidateCategory,
+        minAge,
+        maxAge,
+        jobType,
+        employmentType,
+        workPermit,
         displayFilter,
         verifiedMobileOnly,
         verifiedEmailOnly,
-        attachedResumeOnly
+        attachedResumeOnly,
+        activeWindow
       };
 
       const res = await fetch(apiUrl('/api/candidates/search'), {
@@ -402,6 +437,7 @@ export default function ResdexSearch() {
     setMinSalary('');
     setMaxSalary('');
     setSelectedDepartment('');
+    setDepartmentQuery('');
     setPreferredLocation('');
     setExcludeAnywhere('');
     setNoticePeriod('Any');
@@ -410,6 +446,24 @@ export default function ResdexSearch() {
     setExcludeKeywords('');
     setExcludeCompany('');
     setItSkills('');
+    setUgQualification('Any UG qualification');
+    setPgQualification('Any PG qualification');
+    setPpgQualification('Any PPG qualification');
+    setGender('All candidates');
+    setCareerBreak(false);
+    setDifferentlyAbledType('Any');
+    setDefencePersonnel('Any');
+    setCandidateCategory('');
+    setMinAge('');
+    setMaxAge('');
+    setJobType('Any');
+    setEmploymentType('Any');
+    setWorkPermit('Choose category');
+    setDisplayFilter('All candidates');
+    setVerifiedMobileOnly(false);
+    setVerifiedEmailOnly(false);
+    setAttachedResumeOnly(false);
+    setActiveWindow('6 months');
     handleSearch(false);
   };
 
@@ -635,7 +689,7 @@ export default function ResdexSearch() {
               <div style={{ position: 'relative' }}>
                 <input 
                   type="text" 
-                  placeholder="Add client/company you're hiring for (e.g. L&T, Tata Motors, Thermax)"
+                  placeholder="Add client/company you’re hiring for"
                   value={clientHiringFor}
                   onChange={(e) => {
                     setClientHiringFor(e.target.value);
@@ -774,7 +828,7 @@ export default function ResdexSearch() {
                   {/* Typing input */}
                   <input 
                     type="text" 
-                    placeholder={selectedKeywords.length === 0 ? "Type any letter A-Z for skills (e.g. A for AutoCAD, B for Battery, C for CNC, F for Fabrication...)" : "Add more skills..."}
+                    placeholder={selectedKeywords.length === 0 ? "Enter keywords like skills, designation and company" : "Add more skills..."}
                     value={keywordInput}
                     onChange={(e) => {
                       setKeywordInput(e.target.value);
@@ -1005,29 +1059,28 @@ export default function ResdexSearch() {
             {/* Card 3: Experience                                         */}
             {/* ----------------------------------------------------------- */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '10px' }}>Experience (in Years)</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '10px' }}>Experience</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <div style={{ flex: 1 }}>
-                  <label style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', display: 'block' }}>Min Experience</label>
                   <input 
                     type="number" 
-                    placeholder="0" 
+                    placeholder="Min experience" 
                     value={minExp}
                     onChange={(e) => setMinExp(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
                   />
                 </div>
-                <span style={{ color: '#94a3b8', marginTop: '20px' }}>to</span>
+                <span style={{ color: '#94a3b8' }}>to</span>
                 <div style={{ flex: 1 }}>
-                  <label style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', display: 'block' }}>Max Experience</label>
                   <input 
                     type="number" 
-                    placeholder="30+" 
+                    placeholder="Max experience" 
                     value={maxExp}
                     onChange={(e) => setMaxExp(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
                   />
                 </div>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>Years</span>
               </div>
             </div>
 
@@ -1054,7 +1107,7 @@ export default function ResdexSearch() {
               <div style={{ position: 'relative' }}>
                 <input 
                   type="text" 
-                  placeholder="Enter cities (e.g. Chandigarh, Baddi, Solan, Mohali, Nalagarh, Delhi NCR, Mumbai)"
+                  placeholder="Add location"
                   value={candidateLocation}
                   onChange={(e) => {
                     setCandidateLocation(e.target.value);
@@ -1203,7 +1256,7 @@ export default function ResdexSearch() {
                   <div style={{ position: 'relative' }}>
                     <input 
                       type="text" 
-                      placeholder="Min Salary (e.g. 3, 5, 8.5)" 
+                      placeholder="Min salary" 
                       value={minSalary}
                       onChange={(e) => {
                         setMinSalary(e.target.value);
@@ -1256,7 +1309,7 @@ export default function ResdexSearch() {
                   <div style={{ position: 'relative' }}>
                     <input 
                       type="text" 
-                      placeholder="Max Salary (e.g. 10, 20, 45)" 
+                      placeholder="Max salary" 
                       value={maxSalary}
                       onChange={(e) => {
                         setMaxSalary(e.target.value);
@@ -1329,7 +1382,7 @@ export default function ResdexSearch() {
 
               {/* Department and Role Sub-panel Section */}
               <div style={{ marginBottom: '22px', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '14px 16px', backgroundColor: '#f8fafc' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Department and Role</span>
                     <button
@@ -1353,12 +1406,36 @@ export default function ResdexSearch() {
                   {selectedDepartment && (
                     <button
                       type="button"
-                      onClick={() => setSelectedDepartment('')}
+                      onClick={() => { setSelectedDepartment(''); setDepartmentQuery(''); }}
                       style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', textDecoration: 'underline' }}
                     >
                       Clear
                     </button>
                   )}
+                </div>
+
+                {/* Input with exact placeholder Add Department/Role */}
+                <div style={{ position: 'relative', marginBottom: '8px' }}>
+                  <input
+                    type="text"
+                    placeholder="Add Department/Role"
+                    value={selectedDepartment || departmentQuery}
+                    onChange={(e) => {
+                      setSelectedDepartment('');
+                      setDepartmentQuery(e.target.value);
+                      setDepartmentSubPanelOpen(true);
+                    }}
+                    onFocus={() => setDepartmentSubPanelOpen(true)}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: departmentSubPanelOpen ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                      fontSize: '14px',
+                      outline: 'none',
+                      backgroundColor: '#ffffff'
+                    }}
+                  />
                 </div>
 
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>
@@ -1369,21 +1446,13 @@ export default function ResdexSearch() {
                 {selectedDepartment && (
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', color: '#0056b3', padding: '4px 12px', borderRadius: '16px', fontSize: '13px', fontWeight: 600, marginBottom: '8px' }}>
                     <span>{selectedDepartment}</span>
-                    <X size={13} style={{ cursor: 'pointer' }} onClick={() => setSelectedDepartment('')} />
+                    <X size={13} style={{ cursor: 'pointer' }} onClick={() => { setSelectedDepartment(''); setDepartmentQuery(''); }} />
                   </div>
                 )}
 
                 {/* Expandable Sub-panel with the 37 Suggestions */}
                 {departmentSubPanelOpen && (
-                  <div style={{ marginTop: '10px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #cbd5e1', padding: '12px' }}>
-                    <input 
-                      type="text" 
-                      placeholder="Filter 37 departments & roles (e.g. Operations, Quality, Maintenance, R&D, SCM)..."
-                      value={departmentQuery}
-                      onChange={(e) => setDepartmentQuery(e.target.value)}
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px', marginBottom: '10px' }}
-                    />
-
+                  <div style={{ marginTop: '6px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #cbd5e1', padding: '12px' }}>
                     <div style={{ maxHeight: '220px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       {filteredDepts.map((dept, i) => (
                         <div
@@ -1439,7 +1508,7 @@ export default function ResdexSearch() {
 
                 <input 
                   type="text" 
-                  placeholder="e.g. Heavy Engineering, Automotive, Steel & Metallurgy, CleanTech..."
+                  placeholder="Add industry"
                   value={industry}
                   onChange={(e) => {
                     setIndustry(e.target.value);
@@ -1566,7 +1635,7 @@ export default function ResdexSearch() {
 
                   <input 
                     type="text" 
-                    placeholder={selectedCompanies.length === 0 ? "Type A-Z for companies (e.g. A for ABB, B for Bharat Forge, C for Cummins, T for Tata...)" : "Add more companies..."}
+                    placeholder={selectedCompanies.length === 0 ? "Add company name" : "Add more companies..."}
                     value={companyInput}
                     onChange={(e) => {
                       setCompanyInput(e.target.value);
@@ -1773,7 +1842,7 @@ export default function ResdexSearch() {
 
                   <input 
                     type="text" 
-                    placeholder={selectedDesignations.length === 0 ? "Type A-Z for roles (e.g. A for AGM, C for CTO/COO, P for Plant Head, V for VP...)" : "Add another designation..."}
+                    placeholder={selectedDesignations.length === 0 ? "Add designation" : "Add another designation..."}
                     value={designationInput}
                     onChange={(e) => {
                       setDesignationInput(e.target.value);
@@ -1943,14 +2012,15 @@ export default function ResdexSearch() {
               </div>
 
               {educationOpen && (
-                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0' }}>
-                  {/* UG */}
-                  <div style={{ marginBottom: '18px' }}>
+                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                  {/* UG Qualification */}
+                  <div>
                     <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>UG Qualification</span>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                       {['Any UG qualification', 'Specific UG qualification', 'No UG qualification'].map((item) => (
                         <button
                           key={item}
+                          type="button"
                           onClick={() => setUgQualification(item)}
                           style={{
                             padding: '6px 14px',
@@ -1968,13 +2038,14 @@ export default function ResdexSearch() {
                     </div>
                   </div>
 
-                  {/* PG */}
+                  {/* PG Qualification */}
                   <div>
                     <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>PG Qualification</span>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                       {['Any PG qualification', 'Specific PG qualification', 'No PG qualification'].map((item) => (
                         <button
                           key={item}
+                          type="button"
                           onClick={() => setPgQualification(item)}
                           style={{
                             padding: '6px 14px',
@@ -1990,6 +2061,42 @@ export default function ResdexSearch() {
                         </button>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Add PPG/Doctorate Qualification */}
+                  <div style={{ paddingTop: '10px', borderTop: '1px dashed #e2e8f0' }}>
+                    <button
+                      type="button"
+                      onClick={() => setPpgOpen(!ppgOpen)}
+                      style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '13px', fontWeight: 600, cursor: 'pointer', padding: 0, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    >
+                      <span>+ Add PPG/Doctorate Qualification</span>
+                    </button>
+
+                    {ppgOpen && (
+                      <div style={{ marginTop: '12px' }}>
+                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                          {['Any PPG qualification', 'Specific PPG qualification', 'No PPG qualification'].map((item) => (
+                            <button
+                              key={item}
+                              type="button"
+                              onClick={() => setPpgQualification(item)}
+                              style={{
+                                padding: '6px 14px',
+                                borderRadius: '20px',
+                                border: ppgQualification === item ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                                backgroundColor: ppgQualification === item ? '#eff6ff' : '#ffffff',
+                                color: ppgQualification === item ? '#0056b3' : '#475569',
+                                fontSize: '13px',
+                                cursor: 'pointer'
+                              }}
+                            >
+                              {item}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -2009,13 +2116,16 @@ export default function ResdexSearch() {
               </div>
 
               {diversityOpen && (
-                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0' }}>
-                  <div style={{ marginBottom: '16px' }}>
+                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  
+                  {/* Gender */}
+                  <div>
                     <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Gender</span>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                       {['All candidates', 'Male candidates', 'Female candidates'].map((item) => (
                         <button
                           key={item}
+                          type="button"
                           onClick={() => setGender(item)}
                           style={{
                             padding: '6px 14px',
@@ -2033,9 +2143,11 @@ export default function ResdexSearch() {
                     </div>
                   </div>
 
+                  {/* Candidates with career break */}
                   <div>
                     <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidates with career break</span>
                     <button
+                      type="button"
                       onClick={() => setCareerBreak(!careerBreak)}
                       style={{
                         padding: '6px 14px',
@@ -2050,6 +2162,100 @@ export default function ResdexSearch() {
                       Women returning to work
                     </button>
                   </div>
+
+                  {/* Differently-abled */}
+                  <div>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '4px' }}>Differently-abled</span>
+                    <span style={{ fontSize: '12px', color: '#64748b', display: 'block', marginBottom: '8px' }}>Select differently abled type</span>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                      {['Any', 'Blindness', 'Low Vision', 'Hearing Impairment', 'Speech and Language Disability', 'Locomotor Disability'].map((type) => (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => setDifferentlyAbledType(type)}
+                          style={{
+                            padding: '6px 14px',
+                            borderRadius: '20px',
+                            border: differentlyAbledType === type ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                            backgroundColor: differentlyAbledType === type ? '#eff6ff' : '#ffffff',
+                            color: differentlyAbledType === type ? '#0056b3' : '#475569',
+                            fontSize: '13px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {type}
+                        </button>
+                      ))}
+
+                      {/* +17 more toggle */}
+                      <button
+                        type="button"
+                        onClick={() => setDifferentlyAbledOpen(!differentlyAbledOpen)}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: '20px',
+                          border: '1px solid #cbd5e1',
+                          backgroundColor: differentlyAbledOpen ? '#e0e7ff' : '#f8fafc',
+                          color: differentlyAbledOpen ? '#4338ca' : '#0056b3',
+                          fontSize: '13px',
+                          fontWeight: 600,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        +17 more {differentlyAbledOpen ? '▲' : '▼'}
+                      </button>
+                    </div>
+
+                    {/* Expandable +17 more disabilities */}
+                    {differentlyAbledOpen && (
+                      <div style={{ marginTop: '10px', padding: '12px', backgroundColor: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {RPWD_DISABILITIES_EXTRA.map((extraType) => (
+                          <button
+                            key={extraType}
+                            type="button"
+                            onClick={() => setDifferentlyAbledType(extraType)}
+                            style={{
+                              padding: '5px 12px',
+                              borderRadius: '16px',
+                              border: differentlyAbledType === extraType ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                              backgroundColor: differentlyAbledType === extraType ? '#eff6ff' : '#ffffff',
+                              color: differentlyAbledType === extraType ? '#0056b3' : '#475569',
+                              fontSize: '12px',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            {extraType}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Defence background personnel */}
+                  <div>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Defence background personnel</span>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      {['Any', 'Army', 'Navy', 'Air Force', 'Other Paramilitary Forces'].map((force) => (
+                        <button
+                          key={force}
+                          type="button"
+                          onClick={() => setDefencePersonnel(force)}
+                          style={{
+                            padding: '6px 14px',
+                            borderRadius: '20px',
+                            border: defencePersonnel === force ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                            backgroundColor: defencePersonnel === force ? '#eff6ff' : '#ffffff',
+                            color: defencePersonnel === force ? '#0056b3' : '#475569',
+                            fontSize: '13px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {force}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
               )}
             </div>
@@ -2065,78 +2271,165 @@ export default function ResdexSearch() {
               </div>
 
               {additionalDetailsOpen && (
-                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0' }}>
+                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '22px' }}>
                   
-                  {/* Candidate Category */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidate Category</span>
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                      {['Any Category', 'General', 'OBC', 'SC / ST'].map((cat) => (
-                        <button
-                          key={cat}
-                          type="button"
-                          onClick={() => setCandidateCategory(cat)}
-                          style={{
-                            padding: '6px 14px',
-                            borderRadius: '20px',
-                            border: (candidateCategory === cat || (!candidateCategory && cat === 'Any Category')) ? '1px solid #0056b3' : '1px solid #cbd5e1',
-                            backgroundColor: (candidateCategory === cat || (!candidateCategory && cat === 'Any Category')) ? '#eff6ff' : '#ffffff',
-                            color: (candidateCategory === cat || (!candidateCategory && cat === 'Any Category')) ? '#0056b3' : '#475569',
-                            fontSize: '13px',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          {cat}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Age Range */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidate Age (in Years)</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <input 
-                        type="number" 
-                        placeholder="Min Age (e.g. 25)" 
-                        value={minAge}
-                        onChange={(e) => setMinAge(e.target.value)}
-                        style={{ width: '140px', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px' }}
-                      />
-                      <span style={{ color: '#94a3b8' }}>to</span>
-                      <input 
-                        type="number" 
-                        placeholder="Max Age (e.g. 58)" 
-                        value={maxAge}
-                        onChange={(e) => setMaxAge(e.target.value)}
-                        style={{ width: '140px', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px' }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Job Type */}
+                  {/* Candidate details */}
                   <div>
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Job Type</span>
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                      {['Any', 'Permanent', 'Contractual / Temporary'].map((t) => (
-                        <button
-                          key={t}
-                          type="button"
-                          onClick={() => setJobType(t)}
+                    <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#1e293b', margin: '0 0 14px 0', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                      Candidate details
+                    </h3>
+
+                    {/* Candidate Category */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidate Category</span>
+                      <div style={{ position: 'relative', maxWidth: '360px' }}>
+                        <input
+                          type="text"
+                          placeholder="Add candidate category"
+                          value={candidateCategory}
+                          onChange={(e) => setCandidateCategory(e.target.value)}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                        />
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' }}>
+                        {['General', 'OBC', 'SC', 'ST'].map((cat) => (
+                          <button
+                            key={cat}
+                            type="button"
+                            onClick={() => setCandidateCategory(cat)}
+                            style={{
+                              padding: '4px 10px',
+                              borderRadius: '14px',
+                              border: candidateCategory === cat ? '1px solid #0056b3' : '1px solid #e2e8f0',
+                              backgroundColor: candidateCategory === cat ? '#eff6ff' : '#f8fafc',
+                              color: candidateCategory === cat ? '#0056b3' : '#64748b',
+                              fontSize: '12px',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Candidate Age */}
+                    <div>
+                      <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidate Age</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <input 
+                          type="number" 
+                          placeholder="Min age" 
+                          value={minAge}
+                          onChange={(e) => setMinAge(e.target.value)}
+                          style={{ width: '120px', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                        />
+                        <span style={{ color: '#94a3b8' }}>to</span>
+                        <input 
+                          type="number" 
+                          placeholder="Max age" 
+                          value={maxAge}
+                          onChange={(e) => setMaxAge(e.target.value)}
+                          style={{ width: '120px', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                        />
+                        <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>Years</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid #f1f5f9' }} />
+
+                  {/* Work details */}
+                  <div>
+                    <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#1e293b', margin: '0 0 14px 0', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                      Work details
+                    </h3>
+
+                    <div style={{ marginBottom: '14px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '6px' }}>Show candidates seeking</span>
+                    </div>
+
+                    {/* Job type */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', display: 'block', marginBottom: '6px' }}>Job type</span>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {['Any', 'Permanent', 'Contractual / Temporary'].map((t) => (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => setJobType(t)}
+                            style={{
+                              padding: '6px 14px',
+                              borderRadius: '20px',
+                              border: jobType === t ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                              backgroundColor: jobType === t ? '#eff6ff' : '#ffffff',
+                              color: jobType === t ? '#0056b3' : '#475569',
+                              fontSize: '13px',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Employment type */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', display: 'block', marginBottom: '6px' }}>Employment type</span>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {['Any', 'Full Time', 'Part Time'].map((et) => (
+                          <button
+                            key={et}
+                            type="button"
+                            onClick={() => setEmploymentType(et)}
+                            style={{
+                              padding: '6px 14px',
+                              borderRadius: '20px',
+                              border: employmentType === et ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                              backgroundColor: employmentType === et ? '#eff6ff' : '#ffffff',
+                              color: employmentType === et ? '#0056b3' : '#475569',
+                              fontSize: '13px',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            {et}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Work permit for */}
+                    <div>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', display: 'block', marginBottom: '6px' }}>Work permit for</span>
+                      <div style={{ maxWidth: '320px' }}>
+                        <select
+                          value={workPermit}
+                          onChange={(e) => setWorkPermit(e.target.value)}
                           style={{
-                            padding: '6px 14px',
-                            borderRadius: '20px',
-                            border: jobType === t ? '1px solid #0056b3' : '1px solid #cbd5e1',
-                            backgroundColor: jobType === t ? '#eff6ff' : '#ffffff',
-                            color: jobType === t ? '#0056b3' : '#475569',
+                            width: '100%',
+                            padding: '9px 12px',
+                            borderRadius: '8px',
+                            border: '1px solid #cbd5e1',
                             fontSize: '13px',
+                            color: workPermit === 'Choose category' ? '#64748b' : '#0f172a',
+                            backgroundColor: '#ffffff',
+                            outline: 'none',
                             cursor: 'pointer'
                           }}
                         >
-                          {t}
-                        </button>
-                      ))}
+                          <option value="Choose category">Choose category</option>
+                          <option value="Authorized to work in India">Authorized to work in India</option>
+                          <option value="USA (H1B/Green Card)">USA (H1B/Green Card)</option>
+                          <option value="Canada (PR)">Canada (PR)</option>
+                          <option value="UK (Tier 2)">UK (Tier 2)</option>
+                          <option value="UAE / Gulf Countries">UAE / Gulf Countries</option>
+                          <option value="Europe (EU Blue Card)">Europe (EU Blue Card)</option>
+                          <option value="Singapore / ASEAN">Singapore / ASEAN</option>
+                        </select>
+                      </div>
                     </div>
+
                   </div>
 
                 </div>
@@ -2149,11 +2442,12 @@ export default function ResdexSearch() {
               
               {/* Show Status */}
               <div style={{ marginBottom: '14px' }}>
-                <span style={{ fontSize: '12px', color: '#64748b', display: 'block', marginBottom: '6px' }}>Show:</span>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <span style={{ fontSize: '12px', color: '#64748b', display: 'block', marginBottom: '6px' }}>Show</span>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                   {['All candidates', 'New registrations', 'Modified candidates'].map((item) => (
                     <button
                       key={item}
+                      type="button"
                       onClick={() => setDisplayFilter(item)}
                       style={{
                         padding: '6px 14px',
@@ -2173,9 +2467,10 @@ export default function ResdexSearch() {
 
               {/* Show only candidates with */}
               <div>
-                <span style={{ fontSize: '12px', color: '#64748b', display: 'block', marginBottom: '6px' }}>Show only candidates with:</span>
+                <span style={{ fontSize: '12px', color: '#64748b', display: 'block', marginBottom: '6px' }}>Show only candidates with</span>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                   <button
+                    type="button"
                     onClick={() => setVerifiedMobileOnly(!verifiedMobileOnly)}
                     style={{
                       padding: '6px 14px',
@@ -2184,13 +2479,18 @@ export default function ResdexSearch() {
                       backgroundColor: verifiedMobileOnly ? '#eff6ff' : '#ffffff',
                       color: verifiedMobileOnly ? '#0056b3' : '#475569',
                       fontSize: '13px',
-                      cursor: 'pointer'
+                      fontWeight: verifiedMobileOnly ? 700 : 500,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
                     }}
                   >
-                    Verified mobile number +
+                    <span>Verified mobile number</span>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => setVerifiedEmailOnly(!verifiedEmailOnly)}
                     style={{
                       padding: '6px 14px',
@@ -2199,13 +2499,18 @@ export default function ResdexSearch() {
                       backgroundColor: verifiedEmailOnly ? '#eff6ff' : '#ffffff',
                       color: verifiedEmailOnly ? '#0056b3' : '#475569',
                       fontSize: '13px',
-                      cursor: 'pointer'
+                      fontWeight: verifiedEmailOnly ? 700 : 500,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
                     }}
                   >
-                    Verified email ID +
+                    <span>Verified email ID</span>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => setAttachedResumeOnly(!attachedResumeOnly)}
                     style={{
                       padding: '6px 14px',
@@ -2214,13 +2519,71 @@ export default function ResdexSearch() {
                       backgroundColor: attachedResumeOnly ? '#eff6ff' : '#ffffff',
                       color: attachedResumeOnly ? '#0056b3' : '#475569',
                       fontSize: '13px',
-                      cursor: 'pointer'
+                      fontWeight: attachedResumeOnly ? 700 : 500,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
                     }}
                   >
-                    Attached resume +
+                    <span>Attached resume</span>
                   </button>
                 </div>
               </div>
+
+              {/* Active in - */}
+              <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569' }}>Active in -</span>
+                <select
+                  value={activeWindow}
+                  onChange={(e) => setActiveWindow(e.target.value)}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    border: '1px solid #cbd5e1',
+                    fontSize: '13px',
+                    color: '#0f172a',
+                    fontWeight: 600,
+                    outline: 'none',
+                    backgroundColor: '#f8fafc',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="1 month">1 month</option>
+                  <option value="3 months">3 months</option>
+                  <option value="6 months">6 months</option>
+                  <option value="1 year">1 year</option>
+                  <option value="All">All Time</option>
+                </select>
+              </div>
+
+            </div>
+
+            {/* Bottom Primary Search candidates Button directly under form */}
+            <div style={{ marginTop: '4px' }}>
+              <button
+                type="button"
+                onClick={() => handleSearch(true)}
+                disabled={searching}
+                style={{
+                  backgroundColor: '#0056b3',
+                  color: '#ffffff',
+                  padding: '14px 40px',
+                  borderRadius: '24px',
+                  fontSize: '16px',
+                  fontWeight: 800,
+                  border: 'none',
+                  cursor: searching ? 'not-allowed' : 'pointer',
+                  boxShadow: '0 4px 12px rgba(0, 86, 179, 0.3)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  transition: 'background-color 0.15s'
+                }}
+              >
+                <Search size={18} />
+                <span>{searching ? 'Searching...' : 'Search candidates'}</span>
+              </button>
             </div>
 
           </div>
