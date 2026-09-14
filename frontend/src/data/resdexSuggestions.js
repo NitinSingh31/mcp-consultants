@@ -998,3 +998,115 @@ export function filterIndustries(query) {
 
   return [...startsWith, ...wordStartsWith, ...substringMatch];
 }
+
+// ===========================================================================
+// SALARY SUGGESTIONS (Exactly 72 increments matching Naukri Resdex specification)
+// ===========================================================================
+export const SALARY_SUGGESTIONS = [
+  '0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5',
+  '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '11', '12', '13',
+  '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25',
+  '26', '27', '28', '29', '30', '32', '34', '35', '36', '38', '40', '42',
+  '45', '48', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95',
+  '100', '105', '110', '115', '120', '125', '130', '140', '150', '175', '200', '250+'
+];
+
+// ===========================================================================
+// DEPARTMENTS & ROLES DATABASE (Exactly 37 suggestions)
+// ===========================================================================
+export const DEPARTMENTS_DATABASE = [
+  { name: 'Production & Manufacturing Operations', category: 'Operations', count: '8,400 candidates' },
+  { name: 'Plant P&L, Operations & General Management', category: 'Executive Leadership', count: '4,200 candidates' },
+  { name: 'Quality Assurance & Quality Control (QA / QC)', category: 'Quality', count: '6,100 candidates' },
+  { name: 'Plant Maintenance, Reliability & Utilities', category: 'Maintenance', count: '5,300 candidates' },
+  { name: 'Research & Development (R&D) & Product Innovation', category: 'R&D', count: '4,800 candidates' },
+  { name: 'Engineering Design, CAD & Simulation (FEA / CFD)', category: 'Design', count: '5,100 candidates' },
+  { name: 'Supply Chain Management & Logistics (SCM)', category: 'Supply Chain', count: '5,700 candidates' },
+  { name: 'Strategic Sourcing, Procurement & Vendor Development', category: 'Procurement', count: '4,600 candidates' },
+  { name: 'Industrial Automation, PLC, SCADA & Robotics', category: 'Automation', count: '3,900 candidates' },
+  { name: 'Tool Room, Dies, Moulds & Precision Tooling', category: 'Tooling', count: '3,200 candidates' },
+  { name: 'Metallurgy, Melting, Blast Furnace & Foundry', category: 'Metallurgy', count: '2,800 candidates' },
+  { name: 'Forging, Stamping & Heavy Press Shop', category: 'Metal Forming', count: '2,600 candidates' },
+  { name: 'Welding, Heavy Fabrication & Structural EPC', category: 'Fabrication', count: '4,100 candidates' },
+  { name: 'Health, Safety & Environment (EHS / Sustainability)', category: 'EHS', count: '3,400 candidates' },
+  { name: 'Lean Manufacturing, Six Sigma & Continuous Improvement', category: 'OpEx', count: '4,500 candidates' },
+  { name: 'Electrical Maintenance, Switchgear & Substations', category: 'Electrical', count: '3,800 candidates' },
+  { name: 'Mechanical Maintenance & Hydraulic / Pneumatic Systems', category: 'Mechanical', count: '4,200 candidates' },
+  { name: 'Project Management & Industrial Plant Commissioning', category: 'Projects', count: '5,000 candidates' },
+  { name: 'Electric Vehicles (EV) Powertrain & Battery Engineering', category: 'CleanTech', count: '3,100 candidates' },
+  { name: 'Chemical Process Engineering & Pilot Plant Scaling', category: 'Chemical', count: '2,900 candidates' },
+  { name: 'Pharma Formulation, Fermentation & Cleanroom Operations', category: 'Pharma', count: '2,700 candidates' },
+  { name: 'HVAC, Clean Utilities & Industrial Refrigeration', category: 'Utilities', count: '2,400 candidates' },
+  { name: 'Instrumentation, Sensors & Industrial IoT (Industry 4.0)', category: 'Instrumentation', count: '3,300 candidates' },
+  { name: 'Key Account Management & B2B Capital Goods Sales', category: 'Sales', count: '5,900 candidates' },
+  { name: 'Channel Sales, Dealer Network & Regional Distribution', category: 'Sales', count: '5,200 candidates' },
+  { name: 'Technical Support, Customer Service & Field Engineering', category: 'Support', count: '3,700 candidates' },
+  { name: 'Cost Accounting, Plant Finance & Capex Budgeting', category: 'Finance', count: '4,100 candidates' },
+  { name: 'Human Resources, Industrial Relations & Labor Compliance', category: 'HR & IR', count: '4,400 candidates' },
+  { name: 'Factory Administration, Security & Government Liaising', category: 'Administration', count: '2,800 candidates' },
+  { name: 'SAP / ERP Implementation (PP, PM, QM, MM, FICO)', category: 'Enterprise Tech', count: '4,300 candidates' },
+  { name: 'Warehouse, Inventory Control & Material Handling', category: 'Logistics', count: '3,600 candidates' },
+  { name: 'Import, Export & Customs Regulatory Compliance', category: 'Exim', count: '2,500 candidates' },
+  { name: 'Surface Treatment, Powder Coating & Electroplating', category: 'Chemical Finishing', count: '2,100 candidates' },
+  { name: 'Non-Destructive Testing (NDT / ASNT Level II/III)', category: 'Inspection', count: '2,300 candidates' },
+  { name: 'Testing & Validation (Homologation, ARAI, NVH)', category: 'Validation', count: '2,600 candidates' },
+  { name: 'Aerospace Avionics, Composites & Precision Assemblies', category: 'Aerospace', count: '1,800 candidates' },
+  { name: 'Executive Leadership & Board Advisory (CXO / VP / Director)', category: 'C-Suite', count: '3,500 candidates' }
+];
+
+// ===========================================================================
+// CANDIDATE LOCATIONS DATABASE
+// ===========================================================================
+export const LOCATIONS_DATABASE = [
+  { name: 'Chandigarh', state: 'Chandigarh UT', count: '4,500 candidates' },
+  { name: 'Mohali (SAS Nagar)', state: 'Punjab', count: '3,800 candidates' },
+  { name: 'Panchkula', state: 'Haryana', count: '2,900 candidates' },
+  { name: 'Baddi', state: 'Himachal Pradesh', count: '5,200 candidates' },
+  { name: 'Nalagarh', state: 'Himachal Pradesh', count: '3,100 candidates' },
+  { name: 'Solan', state: 'Himachal Pradesh', count: '2,400 candidates' },
+  { name: 'Zirakpur', state: 'Punjab', count: '2,600 candidates' },
+  { name: 'Kharar', state: 'Punjab', count: '1,900 candidates' },
+  { name: 'Kalka', state: 'Haryana', count: '1,200 candidates' },
+  { name: 'Dera Bassi', state: 'Punjab', count: '2,100 candidates' },
+  { name: 'Ludhiana', state: 'Punjab', count: '6,400 candidates' },
+  { name: 'Jalandhar', state: 'Punjab', count: '3,500 candidates' },
+  { name: 'Amritsar', state: 'Punjab', count: '2,800 candidates' },
+  { name: 'Patiala', state: 'Punjab', count: '3,000 candidates' },
+  { name: 'Mandi Gobindgarh', state: 'Punjab', count: '2,200 candidates' },
+  { name: 'Delhi / New Delhi', state: 'Delhi NCR', count: '18,500 candidates' },
+  { name: 'Gurgaon / Gurugram', state: 'Haryana (NCR)', count: '15,200 candidates' },
+  { name: 'Noida', state: 'Uttar Pradesh (NCR)', count: '12,800 candidates' },
+  { name: 'Faridabad', state: 'Haryana (NCR)', count: '7,100 candidates' },
+  { name: 'Ghaziabad', state: 'Uttar Pradesh (NCR)', count: '6,300 candidates' },
+  { name: 'Mumbai', state: 'Maharashtra', count: '19,400 candidates' },
+  { name: 'Pune', state: 'Maharashtra', count: '14,800 candidates' },
+  { name: 'Navi Mumbai / Thane', state: 'Maharashtra', count: '9,200 candidates' },
+  { name: 'Aurangabad', state: 'Maharashtra', count: '4,600 candidates' },
+  { name: 'Nagpur', state: 'Maharashtra', count: '4,100 candidates' },
+  { name: 'Bengaluru / Bangalore', state: 'Karnataka', count: '21,000 candidates' },
+  { name: 'Chennai', state: 'Tamil Nadu', count: '14,200 candidates' },
+  { name: 'Hyderabad', state: 'Telangana', count: '13,500 candidates' },
+  { name: 'Coimbatore', state: 'Tamil Nadu', count: '5,400 candidates' },
+  { name: 'Ahmedabad', state: 'Gujarat', count: '10,800 candidates' },
+  { name: 'Vadodara / Baroda', state: 'Gujarat', count: '7,300 candidates' },
+  { name: 'Surat', state: 'Gujarat', count: '6,200 candidates' },
+  { name: 'Jamshedpur', state: 'Jharkhand', count: '5,800 candidates' },
+  { name: 'Kolkata', state: 'West Bengal', count: '9,500 candidates' },
+  { name: 'Jaipur', state: 'Rajasthan', count: '6,100 candidates' }
+];
+
+export function filterLocations(query) {
+  if (!query || !query.trim()) return LOCATIONS_DATABASE;
+  const clean = query.trim().toLowerCase();
+  return LOCATIONS_DATABASE.filter(item =>
+    item.name.toLowerCase().includes(clean) || item.state.toLowerCase().includes(clean)
+  );
+}
+
+export function filterDepartments(query) {
+  if (!query || !query.trim()) return DEPARTMENTS_DATABASE;
+  const clean = query.trim().toLowerCase();
+  return DEPARTMENTS_DATABASE.filter(item =>
+    item.name.toLowerCase().includes(clean) || item.category.toLowerCase().includes(clean)
+  );
+}

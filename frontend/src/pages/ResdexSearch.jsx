@@ -36,7 +36,12 @@ import {
   filterDesignations,
   filterCompanies,
   filterIndustries,
-  SKILLS_DATABASE
+  filterLocations,
+  filterDepartments,
+  SKILLS_DATABASE,
+  SALARY_SUGGESTIONS,
+  DEPARTMENTS_DATABASE,
+  LOCATIONS_DATABASE
 } from '../data/resdexSuggestions';
 
 // Helper to highlight matching letters/substring in autocomplete suggestions
@@ -91,11 +96,32 @@ export default function ResdexSearch() {
   const [minExp, setMinExp] = useState('');
   const [maxExp, setMaxExp] = useState('');
 
-  // 4. Industry / Sector Autocomplete State
+  // 4. Current Location of Candidate State (Matching Naukri Resdex specification)
+  const [candidateLocation, setCandidateLocation] = useState('');
+  const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
+  const [relocateToLocations, setRelocateToLocations] = useState(true);
+  const [changePreferredLocationOpen, setChangePreferredLocationOpen] = useState(false);
+  const [preferredLocation, setPreferredLocation] = useState('');
+  const [showExcludeAnywhere, setShowExcludeAnywhere] = useState(false);
+  const [excludeAnywhere, setExcludeAnywhere] = useState('');
+
+  // 5. Annual Salary State (INR ... to ... Lacs with 72 suggestions)
+  const [minSalary, setMinSalary] = useState('');
+  const [maxSalary, setMaxSalary] = useState('');
+  const [showMinSalaryDropdown, setShowMinSalaryDropdown] = useState(false);
+  const [showMaxSalaryDropdown, setShowMaxSalaryDropdown] = useState(false);
+  const [includeUnspecifiedSalary, setIncludeUnspecifiedSalary] = useState(true);
+
+  // 6. Department & Role Sub-panel State (37 suggestions)
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [departmentSubPanelOpen, setDepartmentSubPanelOpen] = useState(false);
+  const [departmentQuery, setDepartmentQuery] = useState('');
+
+  // 7. Industry / Sector Autocomplete State
   const [industry, setIndustry] = useState('');
   const [showIndustrySuggestions, setShowIndustrySuggestions] = useState(false);
 
-  // 5. Company Autocomplete & Chips State
+  // 8. Company Autocomplete & Chips State
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [companyInput, setCompanyInput] = useState('');
   const [showCompanySuggestions, setShowCompanySuggestions] = useState(false);
@@ -103,7 +129,7 @@ export default function ResdexSearch() {
   const [showExcludeCompany, setShowExcludeCompany] = useState(false);
   const [excludeCompany, setExcludeCompany] = useState('');
 
-  // 6. Designation Autocomplete & Chips State
+  // 9. Designation Autocomplete & Chips State
   const [selectedDesignations, setSelectedDesignations] = useState([]);
   const [designationInput, setDesignationInput] = useState('');
   const [showDesignationSuggestions, setShowDesignationSuggestions] = useState(false);
@@ -169,6 +195,9 @@ export default function ResdexSearch() {
         setShowDesignationSuggestions(false);
         setShowIndustrySuggestions(false);
         setShowClientSuggestions(false);
+        setShowLocationSuggestions(false);
+        setShowMinSalaryDropdown(false);
+        setShowMaxSalaryDropdown(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -254,6 +283,13 @@ export default function ResdexSearch() {
         client: clientHiringFor,
         minExp,
         maxExp,
+        minSalary,
+        maxSalary,
+        includeUnspecifiedSalary,
+        location: candidateLocation,
+        relocateToLocations,
+        excludeAnywhere: !!excludeAnywhere,
+        department: selectedDepartment,
         industry,
         company: activeCompanies,
         excludeCompany,
@@ -327,6 +363,18 @@ export default function ResdexSearch() {
       setDesignationInput('');
     }
 
+    if (query.location) setCandidateLocation(query.location);
+    else setCandidateLocation('');
+
+    if (query.minSalary) setMinSalary(query.minSalary);
+    else setMinSalary('');
+
+    if (query.maxSalary) setMaxSalary(query.maxSalary);
+    else setMaxSalary('');
+
+    if (query.department) setSelectedDepartment(query.department);
+    else setSelectedDepartment('');
+
     if (query.noticePeriod) setNoticePeriod(query.noticePeriod);
     if (query.minExp) setMinExp(query.minExp);
     if (query.maxExp) setMaxExp(query.maxExp);
@@ -350,6 +398,12 @@ export default function ResdexSearch() {
     setDesignationInput('');
     setIndustry('');
     setClientHiringFor('');
+    setCandidateLocation('');
+    setMinSalary('');
+    setMaxSalary('');
+    setSelectedDepartment('');
+    setPreferredLocation('');
+    setExcludeAnywhere('');
     setNoticePeriod('Any');
     setMinExp('');
     setMaxExp('');
@@ -365,6 +419,8 @@ export default function ResdexSearch() {
   const filteredDesignations = filterDesignations(designationInput);
   const filteredIndustries = filterIndustries(industry);
   const filteredClients = filterCompanies(clientHiringFor);
+  const filteredLocs = filterLocations(candidateLocation);
+  const filteredDepts = filterDepartments(departmentQuery);
 
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', fontFamily: "'Inter', sans-serif", color: '#0f172a' }}>
@@ -976,10 +1032,393 @@ export default function ResdexSearch() {
             </div>
 
             {/* ----------------------------------------------------------- */}
-            {/* Card 4: INDUSTRY, COMPANY & DESIGNATION AUTOCOMPLETE       */}
+            {/* Card 4: Current location of candidate                       */}
             {/* ----------------------------------------------------------- */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            <div className="resdex-autocomplete-wrapper" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)', position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Current location of candidate</span>
+                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type cities or industrial hubs e.g. Chandigarh, Baddi, Mohali, Gurgaon, Pune)</span>
+                </div>
+                {candidateLocation && (
+                  <button
+                    type="button"
+                    onClick={() => setCandidateLocation('')}
+                    style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '2px', textDecoration: 'underline' }}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+
+              <div style={{ position: 'relative' }}>
+                <input 
+                  type="text" 
+                  placeholder="Enter cities (e.g. Chandigarh, Baddi, Solan, Mohali, Nalagarh, Delhi NCR, Mumbai)"
+                  value={candidateLocation}
+                  onChange={(e) => {
+                    setCandidateLocation(e.target.value);
+                    setShowLocationSuggestions(true);
+                  }}
+                  onFocus={() => setShowLocationSuggestions(true)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    border: showLocationSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                    fontSize: '14px',
+                    outline: 'none',
+                    boxShadow: showLocationSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
+                    transition: 'all 0.15s'
+                  }}
+                />
+
+                {/* Location Autocomplete Dropdown */}
+                {showLocationSuggestions && filteredLocs.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 6px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
+                    zIndex: 60,
+                    maxHeight: '280px',
+                    overflowY: 'auto'
+                  }}>
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
+                      <span>{candidateLocation ? `Matching Locations (${filteredLocs.length})` : `Top Industrial Locations (${filteredLocs.length})`}</span>
+                      <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to select</span>
+                    </div>
+
+                    {filteredLocs.map((locItem, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setCandidateLocation(locItem.name);
+                          setShowLocationSuggestions(false);
+                        }}
+                        style={{ padding: '10px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'background-color 0.12s' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                      >
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                          {highlightMatch(locItem.name, candidateLocation)}
+                        </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '11px', backgroundColor: '#e2e8f0', color: '#475569', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
+                            {locItem.state}
+                          </span>
+                          <span style={{ fontSize: '11px', color: '#94a3b8' }}>{locItem.count}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Relocation checkbox */}
+              <div style={{ marginTop: '12px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#475569', cursor: 'pointer' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={relocateToLocations} 
+                    onChange={(e) => setRelocateToLocations(e.target.checked)}
+                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                  />
+                  <span>Include candidates who prefer to relocate to above locations</span>
+                </label>
+              </div>
+
+              {/* Action Links */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9' }}>
+                <button 
+                  type="button"
+                  onClick={() => setChangePreferredLocationOpen(!changePreferredLocationOpen)}
+                  style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '13px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                >
+                  {changePreferredLocationOpen ? '- Hide preferred location' : 'Change preferred location'}
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => setShowExcludeAnywhere(!showExcludeAnywhere)}
+                  style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '13px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                >
+                  {showExcludeAnywhere ? '- Hide Exclude Anywhere' : 'Exclude candidates who have mentioned Anywhere in...'}
+                </button>
+              </div>
+
+              {changePreferredLocationOpen && (
+                <div style={{ marginTop: '12px' }}>
+                  <input 
+                    type="text" 
+                    placeholder="Enter preferred candidate locations (e.g. North India, Anywhere in Himachal/Punjab)"
+                    value={preferredLocation}
+                    onChange={(e) => setPreferredLocation(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px', backgroundColor: '#f8fafc' }}
+                  />
+                </div>
+              )}
+
+              {showExcludeAnywhere && (
+                <div style={{ marginTop: '12px' }}>
+                  <input 
+                    type="text" 
+                    placeholder="Exclude candidates who have mentioned Anywhere in... (e.g. South India, Overseas)"
+                    value={excludeAnywhere}
+                    onChange={(e) => setExcludeAnywhere(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', border: '1px solid #fca5a5', fontSize: '13px', backgroundColor: '#fef2f2' }}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* ----------------------------------------------------------- */}
+            {/* Card 5: Annual Salary                                       */}
+            {/* ----------------------------------------------------------- */}
+            <div className="resdex-autocomplete-wrapper" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Annual Salary</span>
+                  <span style={{ fontSize: '12px', fontWeight: 700, backgroundColor: '#f1f5f9', color: '#475569', padding: '2px 8px', borderRadius: '4px' }}>INR</span>
+                </div>
+                {(minSalary || maxSalary) && (
+                  <button
+                    type="button"
+                    onClick={() => { setMinSalary(''); setMaxSalary(''); }}
+                    style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', textDecoration: 'underline' }}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', position: 'relative' }}>
+                
+                {/* Min Salary Input & Dropdown */}
+                <div style={{ flex: 1, position: 'relative' }}>
+                  <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>72 suggestions found, to navigate use up and down arrows</div>
+                  <div style={{ position: 'relative' }}>
+                    <input 
+                      type="text" 
+                      placeholder="Min Salary (e.g. 3, 5, 8.5)" 
+                      value={minSalary}
+                      onChange={(e) => {
+                        setMinSalary(e.target.value);
+                        setShowMinSalaryDropdown(true);
+                      }}
+                      onFocus={() => setShowMinSalaryDropdown(true)}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
+                    />
+                    {showMinSalaryDropdown && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 4px)',
+                        left: 0,
+                        right: 0,
+                        backgroundColor: '#ffffff',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '8px',
+                        boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                        zIndex: 60,
+                        maxHeight: '220px',
+                        overflowY: 'auto'
+                      }}>
+                        <div style={{ padding: '6px 12px', backgroundColor: '#f8fafc', fontSize: '11px', fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>
+                          72 suggestions found (Lacs)
+                        </div>
+                        {SALARY_SUGGESTIONS.map((sal) => (
+                          <div
+                            key={sal}
+                            onClick={() => {
+                              setMinSalary(sal);
+                              setShowMinSalaryDropdown(false);
+                            }}
+                            style={{ padding: '8px 12px', fontSize: '13px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                          >
+                            {sal} Lacs
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <span style={{ color: '#94a3b8', marginTop: '20px', fontWeight: 600 }}>to</span>
+
+                {/* Max Salary Input & Dropdown */}
+                <div style={{ flex: 1, position: 'relative' }}>
+                  <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>72 suggestions found, to navigate use up and down arrows</div>
+                  <div style={{ position: 'relative' }}>
+                    <input 
+                      type="text" 
+                      placeholder="Max Salary (e.g. 10, 20, 45)" 
+                      value={maxSalary}
+                      onChange={(e) => {
+                        setMaxSalary(e.target.value);
+                        setShowMaxSalaryDropdown(true);
+                      }}
+                      onFocus={() => setShowMaxSalaryDropdown(true)}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
+                    />
+                    {showMaxSalaryDropdown && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 4px)',
+                        left: 0,
+                        right: 0,
+                        backgroundColor: '#ffffff',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '8px',
+                        boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                        zIndex: 60,
+                        maxHeight: '220px',
+                        overflowY: 'auto'
+                      }}>
+                        <div style={{ padding: '6px 12px', backgroundColor: '#f8fafc', fontSize: '11px', fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>
+                          72 suggestions found (Lacs)
+                        </div>
+                        {SALARY_SUGGESTIONS.map((sal) => (
+                          <div
+                            key={sal}
+                            onClick={() => {
+                              setMaxSalary(sal);
+                              setShowMaxSalaryDropdown(false);
+                            }}
+                            style={{ padding: '8px 12px', fontSize: '13px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                          >
+                            {sal} Lacs
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <span style={{ marginTop: '20px', fontSize: '13px', fontWeight: 700, color: '#475569' }}>Lacs</span>
+
+              </div>
+
+              <div style={{ marginTop: '12px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#475569', cursor: 'pointer' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={includeUnspecifiedSalary} 
+                    onChange={(e) => setIncludeUnspecifiedSalary(e.target.checked)}
+                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                  />
+                  <span>Include candidates who did not mention their current salary</span>
+                </label>
+              </div>
+            </div>
+
+            {/* ----------------------------------------------------------- */}
+            {/* Card 6: EMPLOYMENT DETAILS (Department, Industry, Company, Desig) */}
+            {/* ----------------------------------------------------------- */}
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '22px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               
+              <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px 0', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                Employment Details
+              </h2>
+
+              {/* Department and Role Sub-panel Section */}
+              <div style={{ marginBottom: '22px', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '14px 16px', backgroundColor: '#f8fafc' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Department and Role</span>
+                    <button
+                      type="button"
+                      onClick={() => setDepartmentSubPanelOpen(!departmentSubPanelOpen)}
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        padding: '3px 10px',
+                        borderRadius: '12px',
+                        border: '1px solid #cbd5e1',
+                        backgroundColor: departmentSubPanelOpen ? '#0056b3' : '#ffffff',
+                        color: departmentSubPanelOpen ? '#ffffff' : '#475569',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {departmentSubPanelOpen ? 'Sub-panel open' : 'Sub-panel closed'}
+                    </button>
+                  </div>
+
+                  {selectedDepartment && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDepartment('')}
+                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', textDecoration: 'underline' }}
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+
+                <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>
+                  37 suggestions found, to navigate use up and down arrows
+                </div>
+
+                {/* Selected Department Display */}
+                {selectedDepartment && (
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', color: '#0056b3', padding: '4px 12px', borderRadius: '16px', fontSize: '13px', fontWeight: 600, marginBottom: '8px' }}>
+                    <span>{selectedDepartment}</span>
+                    <X size={13} style={{ cursor: 'pointer' }} onClick={() => setSelectedDepartment('')} />
+                  </div>
+                )}
+
+                {/* Expandable Sub-panel with the 37 Suggestions */}
+                {departmentSubPanelOpen && (
+                  <div style={{ marginTop: '10px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #cbd5e1', padding: '12px' }}>
+                    <input 
+                      type="text" 
+                      placeholder="Filter 37 departments & roles (e.g. Operations, Quality, Maintenance, R&D, SCM)..."
+                      value={departmentQuery}
+                      onChange={(e) => setDepartmentQuery(e.target.value)}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px', marginBottom: '10px' }}
+                    />
+
+                    <div style={{ maxHeight: '220px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      {filteredDepts.map((dept, i) => (
+                        <div
+                          key={i}
+                          onClick={() => {
+                            setSelectedDepartment(dept.name);
+                            setDepartmentSubPanelOpen(false);
+                          }}
+                          style={{
+                            padding: '8px 12px',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            backgroundColor: selectedDepartment === dept.name ? '#eff6ff' : '#ffffff',
+                            border: selectedDepartment === dept.name ? '1px solid #bfdbfe' : '1px solid transparent',
+                            transition: 'background-color 0.12s'
+                          }}
+                          onMouseEnter={(e) => { if (selectedDepartment !== dept.name) e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
+                          onMouseLeave={(e) => { if (selectedDepartment !== dept.name) e.currentTarget.style.backgroundColor = '#ffffff'; }}
+                        >
+                          <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                            {highlightMatch(dept.name, departmentQuery)}
+                          </span>
+                          <span style={{ fontSize: '11px', color: '#64748b' }}>
+                            {dept.count}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Industry / Sector with Autocomplete */}
               <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
@@ -1615,6 +2054,95 @@ export default function ResdexSearch() {
               )}
             </div>
 
+            {/* Accordion 3: Additional Details */}
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+              <div 
+                onClick={() => setAdditionalDetailsOpen(!additionalDetailsOpen)}
+                style={{ padding: '18px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', backgroundColor: additionalDetailsOpen ? '#f8fafc' : '#ffffff' }}
+              >
+                <span style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>Additional Details</span>
+                {additionalDetailsOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              </div>
+
+              {additionalDetailsOpen && (
+                <div style={{ padding: '20px 24px', borderTop: '1px solid #e2e8f0' }}>
+                  
+                  {/* Candidate Category */}
+                  <div style={{ marginBottom: '16px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidate Category</span>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                      {['Any Category', 'General', 'OBC', 'SC / ST'].map((cat) => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => setCandidateCategory(cat)}
+                          style={{
+                            padding: '6px 14px',
+                            borderRadius: '20px',
+                            border: (candidateCategory === cat || (!candidateCategory && cat === 'Any Category')) ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                            backgroundColor: (candidateCategory === cat || (!candidateCategory && cat === 'Any Category')) ? '#eff6ff' : '#ffffff',
+                            color: (candidateCategory === cat || (!candidateCategory && cat === 'Any Category')) ? '#0056b3' : '#475569',
+                            fontSize: '13px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Age Range */}
+                  <div style={{ marginBottom: '16px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Candidate Age (in Years)</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <input 
+                        type="number" 
+                        placeholder="Min Age (e.g. 25)" 
+                        value={minAge}
+                        onChange={(e) => setMinAge(e.target.value)}
+                        style={{ width: '140px', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                      />
+                      <span style={{ color: '#94a3b8' }}>to</span>
+                      <input 
+                        type="number" 
+                        placeholder="Max Age (e.g. 58)" 
+                        value={maxAge}
+                        onChange={(e) => setMaxAge(e.target.value)}
+                        style={{ width: '140px', padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Job Type */}
+                  <div>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '8px' }}>Job Type</span>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      {['Any', 'Permanent', 'Contractual / Temporary'].map((t) => (
+                        <button
+                          key={t}
+                          type="button"
+                          onClick={() => setJobType(t)}
+                          style={{
+                            padding: '6px 14px',
+                            borderRadius: '20px',
+                            border: jobType === t ? '1px solid #0056b3' : '1px solid #cbd5e1',
+                            backgroundColor: jobType === t ? '#eff6ff' : '#ffffff',
+                            color: jobType === t ? '#0056b3' : '#475569',
+                            fontSize: '13px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              )}
+            </div>
+
             {/* Display Details Card */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px 24px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
               <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', display: 'block', marginBottom: '12px' }}>Display details</span>
@@ -1749,19 +2277,40 @@ export default function ResdexSearch() {
                 </button>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {savedSearches.map((item) => (
                   <div 
                     key={item.id} 
-                    onClick={() => handleFillSearch(item.query, true)}
-                    style={{ padding: '12px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', cursor: 'pointer', transition: 'border-color 0.15s' }}
+                    style={{ padding: '14px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                   >
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#0056b3', display: 'block', marginBottom: '4px' }}>{item.name}</span>
-                    <span style={{ fontSize: '12px', color: '#64748b', display: 'block', lineHeight: 1.3 }}>{item.summary}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0056b3' }}>{item.name}</span>
+                      {item.badge && (
+                        <span style={{ fontSize: '11px', fontWeight: 700, backgroundColor: '#dcfce7', color: '#166534', padding: '1px 6px', borderRadius: '4px' }}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+                    <span style={{ fontSize: '12px', color: '#64748b', display: 'block', lineHeight: 1.4, marginBottom: '10px' }}>{item.summary}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <button 
+                        type="button"
+                        onClick={() => handleFillSearch(item.query, false)}
+                        style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                      >
+                        Fill this search
+                      </button>
+                      <button 
+                        type="button"
+                        onClick={() => handleFillSearch(item.query, true)}
+                        style={{ background: 'none', border: 'none', color: '#0056b3', fontSize: '12px', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                      >
+                        {item.badge ? `${item.badge}` : 'Search profiles'}
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
-
             </div>
 
           </div>
