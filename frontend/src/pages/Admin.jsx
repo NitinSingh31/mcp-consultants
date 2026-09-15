@@ -871,6 +871,51 @@ export default function Admin() {
               <span>Resdex Search</span>
             </Link>
 
+            {/* Post a Job Portal */}
+            <Link 
+              to="/admin/post-job" 
+              style={{ 
+                padding: '8px 16px', 
+                fontSize: '13px', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                backgroundColor: '#ff7a00',
+                border: '1px solid #e06900',
+                color: '#ffffff',
+                borderRadius: '8px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 2px 4px rgba(255, 122, 0, 0.3)'
+              }}
+              title="Post a new executive mandate / job vacancy (5-step portal)"
+            >
+              <Building2 size={14} />
+              <span>Post a Job</span>
+            </Link>
+
+            {/* Manage Jobs Portal */}
+            <Link 
+              to="/admin/jobs" 
+              style={{ 
+                padding: '8px 16px', 
+                fontSize: '13px', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#ffffff',
+                borderRadius: '8px',
+                fontWeight: 700,
+                textDecoration: 'none'
+              }}
+              title="Manage live job postings & applicant responses"
+            >
+              <FileText size={14} />
+              <span>Manage Jobs</span>
+            </Link>
+
             {/* Settings Modal Trigger */}
             <button 
               onClick={() => {

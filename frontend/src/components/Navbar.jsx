@@ -124,6 +124,11 @@ export default function Navbar() {
                     <span>Insights</span>
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink to="/jobs" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                    <span>Careers</span>
+                  </NavLink>
+                </li>
               </ul>
             </nav>
 
@@ -240,6 +245,15 @@ export default function Navbar() {
               <div className="mobile-link-inner">
                 <FileText size={18} className="mobile-nav-icon" />
                 <span>Insights</span>
+              </div>
+              <ChevronRight size={16} className="chevron" />
+            </NavLink>
+          </li>
+          <li className="mobile-nav-item">
+            <NavLink to="/jobs" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>
+              <div className="mobile-link-inner">
+                <Briefcase size={18} className="mobile-nav-icon" />
+                <span>Careers / Openings</span>
               </div>
               <ChevronRight size={16} className="chevron" />
             </NavLink>

@@ -100,6 +100,7 @@ export default function ResdexSearch() {
   // Navigation State
   const [activeNavTab, setActiveNavTab] = useState('resdex');
   const [activeSubTab, setActiveSubTab] = useState('search');
+  const [showJobsDropdown, setShowJobsDropdown] = useState(false);
 
   // Form Filter State (Matching Naukri Resdex layout)
   // 1. Client Autocomplete State
@@ -251,6 +252,9 @@ export default function ResdexSearch() {
         setShowMinSalaryDropdown(false);
         setShowMaxSalaryDropdown(false);
       }
+      if (!e.target.closest('.jobs-nav-dropdown-wrap')) {
+        setShowJobsDropdown(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -259,8 +263,38 @@ export default function ResdexSearch() {
   // Fetch Initial Data & Recent Searches
   useEffect(() => {
     fetchRecentSearches();
-    // Pre-execute a search to show available talent right away
-    handleSearch(false);
+
+    // Check if query params were passed from PostJob or ManageJobs (e.g. ?keywords=...&location=...)
+    const params = new URLSearchParams(window.location.search);
+    const kwParam = params.get('keywords');
+    const locParam = params.get('location');
+    const minExpParam = params.get('minExp');
+    const maxExpParam = params.get('maxExp');
+
+    if (kwParam || locParam || minExpParam || maxExpParam) {
+      if (kwParam) {
+        const kws = kwParam.split(',').map(s => s.trim()).filter(Boolean);
+        setSelectedKeywords(kws);
+      }
+      if (locParam) {
+        const locs = locParam.split(',').map(s => s.trim()).filter(Boolean);
+        setSelectedLocations(locs);
+        setCandidateLocation(locs.join(', '));
+      }
+      if (minExpParam) setMinExp(minExpParam);
+      if (maxExpParam) setMaxExp(maxExpParam);
+
+      // Trigger search with query params
+      handleSearch(true, {
+        keywords: kwParam ? kwParam.split(',').join(' ') : '',
+        location: locParam || '',
+        minExp: minExpParam || '',
+        maxExp: maxExpParam || ''
+      });
+    } else {
+      // Pre-execute a search to show available talent right away
+      handleSearch(false);
+    }
   }, []);
 
   const fetchRecentSearches = async () => {
@@ -391,23 +425,30 @@ export default function ResdexSearch() {
   };
 
   // Execute Search Function
-  const handleSearch = async (scrollToResults = true) => {
+  const handleSearch = async (scrollToResults = true, overrides = null) => {
     setSearching(true);
     try {
-      const activeKeywords = [...selectedKeywords, keywordInput.trim()].filter(Boolean).join(' ');
+      const activeKeywords = overrides?.keywords !== undefined
+        ? overrides.keywords
+        : [...selectedKeywords, keywordInput.trim()].filter(Boolean).join(' ');
       const activeCompanies = [...selectedCompanies, companyInput.trim()].filter(Boolean).join(' ');
       const activeDesignations = [...selectedDesignations, designationInput.trim()].filter(Boolean).join(' ');
+      const activeLocation = overrides?.location !== undefined
+        ? overrides.location
+        : (candidateLocation || candidateLocationInput);
+      const activeMinExp = overrides?.minExp !== undefined ? overrides.minExp : minExp;
+      const activeMaxExp = overrides?.maxExp !== undefined ? overrides.maxExp : maxExp;
 
       const payload = {
         keywords: activeKeywords,
         booleanMode,
         client: clientHiringFor,
-        minExp,
-        maxExp,
+        minExp: activeMinExp,
+        maxExp: activeMaxExp,
         minSalary,
         maxSalary,
         includeUnspecifiedSalary,
-        location: candidateLocation || candidateLocationInput,
+        location: activeLocation,
         relocateToLocations,
         excludeAnywhere: !!excludeAnywhere,
         department: selectedDepartment,
@@ -605,21 +646,109 @@ export default function ResdexSearch() {
 
             {/* Main Tabs */}
             <nav style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                onClick={() => setActiveNavTab('jobs')}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '18px 12px',
-                  fontSize: '14px',
-                  fontWeight: activeNavTab === 'jobs' ? 700 : 500,
-                  color: activeNavTab === 'jobs' ? '#0f172a' : '#475569',
-                  cursor: 'pointer',
-                  borderBottom: activeNavTab === 'jobs' ? '3px solid #ff4d4f' : '3px solid transparent'
-                }}
-              >
-                Jobs & Responses
-              </button>
+              
+              {/* Jobs & Responses with Dropdown */}
+              <div className="jobs-nav-dropdown-wrap" style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setShowJobsDropdown(prev => !prev)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: '18px 12px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: '#0f172a',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    borderBottom: '3px solid transparent'
+                  }}
+                >
+                  <span>Jobs & Responses</span>
+                  <ChevronDown size={14} style={{ color: '#64748b' }} />
+                </button>
+
+                {showJobsDropdown && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      width: '230px',
+                      backgroundColor: '#ffffff',
+                      boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+                      borderRadius: '8px',
+                      border: '1px solid #e2e8f0',
+                      padding: '8px',
+                      zIndex: 200,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px'
+                    }}
+                  >
+                    <Link
+                      to="/admin/post-job"
+                      onClick={() => setShowJobsDropdown(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 12px',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        color: '#0f172a',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        backgroundColor: '#f8fafc'
+                      }}
+                    >
+                      <Plus size={15} style={{ color: '#0056b3' }} />
+                      <span>Post a Hot Vacancy</span>
+                    </Link>
+
+                    <Link
+                      to="/admin/jobs"
+                      onClick={() => setShowJobsDropdown(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 12px',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        color: '#0f172a',
+                        fontSize: '13px',
+                        fontWeight: 600
+                      }}
+                    >
+                      <Briefcase size={15} style={{ color: '#475569' }} />
+                      <span>Manage Jobs & Responses</span>
+                    </Link>
+
+                    <Link
+                      to="/jobs"
+                      target="_blank"
+                      onClick={() => setShowJobsDropdown(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 12px',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        color: '#64748b',
+                        fontSize: '12px',
+                        fontWeight: 500,
+                        borderTop: '1px solid #f1f5f9'
+                      }}
+                    >
+                      <ExternalLink size={14} style={{ color: '#94a3b8' }} />
+                      <span>Public Career Board ↗</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               <button
                 onClick={() => setActiveNavTab('resdex')}
@@ -696,6 +825,27 @@ export default function ResdexSearch() {
                 N
               </div>
             </div>
+
+            {/* Post a Job CTA Button */}
+            <Link
+              to="/admin/post-job"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '7px 14px',
+                borderRadius: '8px',
+                backgroundColor: '#0056b3',
+                color: '#ffffff',
+                fontSize: '13px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 2px 4px rgba(0, 86, 179, 0.2)'
+              }}
+            >
+              <Plus size={15} />
+              <span>Post a Job</span>
+            </Link>
 
             {/* Return to Admin Portal Button */}
             <Link 

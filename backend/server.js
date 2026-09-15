@@ -13,6 +13,8 @@ const { UPLOADS_DIR } = require('./middleware/upload');
 const submissionRoutes = require('./routes/submissionRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const jobPostingRoutes = require('./routes/jobPostingRoutes');
+const { seedSampleJobPostings } = require('./controllers/jobPostingController');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +28,7 @@ app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use('/api', submissionRoutes);
 app.use('/api/candidates', candidateRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/jobs', jobPostingRoutes);
 
 // File downloads endpoint for uploaded CVs and job descriptions
 app.get('/uploads/:filename', (req, res) => {
@@ -70,6 +73,7 @@ async function startServer() {
   if (isConnected) {
     await seedDefaultAdmin();
     await seedSampleCandidates();
+    await seedSampleJobPostings();
   }
 
   app.listen(PORT, '0.0.0.0', () => {
