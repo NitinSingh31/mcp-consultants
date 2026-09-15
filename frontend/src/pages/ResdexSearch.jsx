@@ -873,7 +873,7 @@ export default function ResdexSearch() {
         </div>
       </header>
 
-      {/* 2. SUB-NAVIGATION TABS (Search candidates | Send NVite) */}
+      {/* 2. SUB-NAVIGATION TABS */}
       <div style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0' }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', gap: '32px' }}>
           <button
@@ -883,29 +883,13 @@ export default function ResdexSearch() {
               border: 'none',
               padding: '12px 4px',
               fontSize: '14px',
-              fontWeight: activeSubTab === 'search' ? 700 : 500,
-              color: activeSubTab === 'search' ? '#0056b3' : '#64748b',
+              fontWeight: 700,
+              color: '#0056b3',
               cursor: 'pointer',
-              borderBottom: activeSubTab === 'search' ? '2px solid #0056b3' : '2px solid transparent'
+              borderBottom: '2px solid #0056b3'
             }}
           >
             Search candidates
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('nvite')}
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: '12px 4px',
-              fontSize: '14px',
-              fontWeight: activeSubTab === 'nvite' ? 700 : 500,
-              color: activeSubTab === 'nvite' ? '#0056b3' : '#64748b',
-              cursor: 'pointer',
-              borderBottom: activeSubTab === 'nvite' ? '2px solid #0056b3' : '2px solid transparent'
-            }}
-          >
-            Send NVite
           </button>
         </div>
       </div>
