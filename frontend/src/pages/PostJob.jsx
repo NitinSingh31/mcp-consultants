@@ -28,10 +28,37 @@ import {
   filterSkills,
   filterDepartments,
   filterIndustries,
+  filterDesignations,
   filterHierarchicalLocations,
   SPECIAL_LOCATION_SCOPES
 } from '../data/resdexSuggestions';
 import HierarchicalLocationDropdown from '../components/HierarchicalLocationDropdown';
+
+// Helper to highlight matching letters/words in autocomplete suggestions
+function highlightMatch(text, query) {
+  if (!query || !query.trim() || !text) return text;
+  const cleanQuery = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${cleanQuery})`, 'gi');
+  const parts = text.split(regex);
+  return parts.map((part, index) =>
+    regex.test(part) ? (
+      <span
+        key={index}
+        style={{
+          color: '#0056b3',
+          backgroundColor: '#e0f2fe',
+          fontWeight: 800,
+          borderRadius: '2px',
+          padding: '0 2px'
+        }}
+      >
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
 
 export default function PostJob() {
   const navigate = useNavigate();
@@ -49,6 +76,7 @@ export default function PostJob() {
   const [hideCompany, setHideCompany] = useState(false);
   const [jobTitle, setJobTitle] = useState('Quality Engineer(QMS)');
   const [jobTitleError, setJobTitleError] = useState(false);
+  const [showTitleSuggestions, setShowTitleSuggestions] = useState(false);
   const [department, setDepartment] = useState('Quality Assurance - Other');
   const [showDeptDropdown, setShowDeptDropdown] = useState(false);
   const [employmentType, setEmploymentType] = useState('Full Time, Permanent');
@@ -170,6 +198,7 @@ Shikha (9888426060)`);
         setShowLocationSuggestions(false);
         setShowSkillSuggestions(false);
         setShowDeptDropdown(false);
+        setShowTitleSuggestions(false);
       }
       if (!e.target.closest('.jobs-menu-wrapper')) {
         setShowJobsMenu(false);
@@ -592,33 +621,197 @@ Shikha (9888426060)`);
                 </label>
               </div>
 
-              {/* Field 2: Job title */}
-              <div>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
-                  Job title <span style={{ color: '#ef4444' }}>*</span>
-                </label>
-                <input 
-                  type="text"
-                  placeholder="Enter job title e.g. Quality Engineer(QMS), Plant Head"
-                  value={jobTitle}
-                  onChange={(e) => {
-                    setJobTitle(e.target.value);
-                    if (jobTitleError) setJobTitleError(false);
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '11px 14px',
-                    borderRadius: '8px',
-                    border: jobTitleError ? '1.5px solid #ef4444' : '1px solid #cbd5e1',
-                    fontSize: '14px',
-                    outline: 'none'
-                  }}
-                />
+              {/* Field 2: Job title (WITH COMPREHENSIVE REAL-WORLD TITLES AUTOCOMPLETE) */}
+              <div className="postjob-autocomplete-wrapper" style={{ position: 'relative' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <label style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>
+                    Job title <span style={{ color: '#ef4444' }}>*</span>
+                  </label>
+                  <span style={{ fontSize: '11.5px', color: '#64748b' }}>
+                    Type any keyword to see matching real-world job titles
+                  </span>
+                </div>
+
+                <div style={{ position: 'relative' }}>
+                  <input 
+                    type="text"
+                    placeholder="Enter or search job title e.g. Quality Engineer(QMS), Plant Head, Mechanical Engineer..."
+                    value={jobTitle}
+                    onChange={(e) => {
+                      setJobTitle(e.target.value);
+                      setShowTitleSuggestions(true);
+                      if (jobTitleError) setJobTitleError(false);
+                    }}
+                    onFocus={() => setShowTitleSuggestions(true)}
+                    style={{
+                      width: '100%',
+                      padding: '11px 44px 11px 14px',
+                      borderRadius: '8px',
+                      border: jobTitleError ? '1.5px solid #ef4444' : showTitleSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                      fontSize: '14px',
+                      outline: 'none',
+                      boxShadow: showTitleSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
+                      transition: 'border-color 0.15s, box-shadow 0.15s'
+                    }}
+                  />
+
+                  {/* Right Icons: Clear button & Browse Chevron Toggle */}
+                  <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    {jobTitle && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setJobTitle('');
+                          setShowTitleSuggestions(true);
+                        }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
+                        title="Clear title"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setShowTitleSuggestions(!showTitleSuggestions)}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#64748b', display: 'flex', alignItems: 'center' }}
+                      title="Browse all available real-world job titles"
+                    >
+                      {showTitleSuggestions ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    </button>
+                  </div>
+                </div>
+
                 {jobTitleError && (
                   <span style={{ fontSize: '11.5px', color: '#ef4444', marginTop: '4px', display: 'block' }}>
-                    Please enter a job title
+                    Please enter or select a job title
                   </span>
                 )}
+
+                {/* Real-World Job Titles Autocomplete Dropdown */}
+                {showTitleSuggestions && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 28px rgba(0,0,0,0.14)',
+                    zIndex: 60,
+                    maxHeight: '320px',
+                    overflowY: 'auto'
+                  }}>
+                    {/* Header info */}
+                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11.5px', color: '#64748b', position: 'sticky', top: 0, zIndex: 10 }}>
+                      <span style={{ fontWeight: 700, color: '#0056b3' }}>
+                        {jobTitle.trim() ? `Related Job Titles matching "${jobTitle.trim()}"` : 'All Available Real-World Job Titles'} ({filterDesignations(jobTitle).length})
+                      </span>
+                      <span>Click to select</span>
+                    </div>
+
+                    {/* Titles List */}
+                    {filterDesignations(jobTitle).length === 0 ? (
+                      <div style={{ padding: '18px 14px', textAlign: 'center', color: '#64748b', fontSize: '13px' }}>
+                        No predefined title matches "<strong>{jobTitle}</strong>". You can still key this in and post your job!
+                      </div>
+                    ) : (
+                      filterDesignations(jobTitle).map((item, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => {
+                            setJobTitle(item.name);
+                            setShowTitleSuggestions(false);
+                            if (jobTitleError) setJobTitleError(false);
+                          }}
+                          style={{
+                            padding: '10px 14px',
+                            fontSize: '13px',
+                            cursor: 'pointer',
+                            borderBottom: '1px solid #f1f5f9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '12px',
+                            backgroundColor: jobTitle.toLowerCase() === item.name.toLowerCase() ? '#eff6ff' : '#ffffff',
+                            transition: 'background-color 0.1s'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (jobTitle.toLowerCase() !== item.name.toLowerCase()) {
+                              e.currentTarget.style.backgroundColor = '#f8fafc';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (jobTitle.toLowerCase() !== item.name.toLowerCase()) {
+                              e.currentTarget.style.backgroundColor = '#ffffff';
+                            }
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Briefcase size={14} style={{ color: '#0056b3', flexShrink: 0 }} />
+                            <span style={{ fontWeight: 600, color: '#0f172a' }}>
+                              {highlightMatch(item.name, jobTitle)}
+                            </span>
+                          </div>
+                          {item.category && (
+                            <span style={{
+                              fontSize: '11px',
+                              fontWeight: 600,
+                              color: '#475569',
+                              backgroundColor: '#f1f5f9',
+                              padding: '2px 8px',
+                              borderRadius: '10px',
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0
+                            }}>
+                              {item.category}
+                            </span>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+
+                {/* Popular Job Title Quick Chips */}
+                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>
+                  <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>Common Roles:</span>
+                  {[
+                    'Quality Engineer(QMS)',
+                    'Plant Head',
+                    'Mechanical Engineer',
+                    'Production Manager',
+                    'Maintenance Engineer - Mechanical',
+                    'Full Stack Developer',
+                    'HR Manager',
+                    'Supply Chain Manager',
+                    'Sales Manager - B2B'
+                  ].map((commonTitle, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        setJobTitle(commonTitle);
+                        setShowTitleSuggestions(false);
+                        if (jobTitleError) setJobTitleError(false);
+                      }}
+                      style={{
+                        background: jobTitle === commonTitle ? '#eff6ff' : '#f1f5f9',
+                        border: jobTitle === commonTitle ? '1px solid #93c5fd' : '1px solid #e2e8f0',
+                        color: jobTitle === commonTitle ? '#0056b3' : '#334155',
+                        borderRadius: '12px',
+                        padding: '2px 10px',
+                        fontSize: '11px',
+                        fontWeight: jobTitle === commonTitle ? 700 : 500,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease'
+                      }}
+                    >
+                      {commonTitle}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Field 3: Department */}
