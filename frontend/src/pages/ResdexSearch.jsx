@@ -766,21 +766,6 @@ export default function ResdexSearch() {
                 Resdex
               </button>
 
-              <button
-                onClick={() => setActiveNavTab('reports')}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '18px 12px',
-                  fontSize: '14px',
-                  fontWeight: activeNavTab === 'reports' ? 700 : 500,
-                  color: activeNavTab === 'reports' ? '#0f172a' : '#475569',
-                  cursor: 'pointer',
-                  borderBottom: activeNavTab === 'reports' ? '3px solid #ff4d4f' : '3px solid transparent'
-                }}
-              >
-                Reports
-              </button>
             </nav>
 
           </div>
@@ -897,16 +882,11 @@ export default function ResdexSearch() {
       {/* 3. MAIN WORKSPACE CONTAINER (2-Column Layout) */}
       <main style={{ maxWidth: '1440px', margin: '0 auto', padding: '24px 24px 100px' }}>
         
-        {/* Page Title & AI Assist Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+        {/* Page Title */}
+        <div style={{ marginBottom: '24px' }}>
           <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
             Search candidates
           </h1>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#f5f3ff', color: '#7c3aed', padding: '4px 12px', borderRadius: '16px', fontSize: '13px', fontWeight: 600, border: '1px solid #ddd6fe' }}>
-            <Sparkles size={14} />
-            <span>AI search assist</span>
-            <Info size={13} style={{ cursor: 'pointer' }} />
-          </div>
         </div>
 
         {/* 2-Column Grid */}
@@ -994,11 +974,6 @@ export default function ResdexSearch() {
                     ))}
                   </div>
                 )}
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '10px', color: '#7c3aed', fontSize: '12px', fontWeight: 600 }}>
-                <Sparkles size={13} />
-                <span>Get AI-powered results tailored to your client's hiring needs</span>
               </div>
             </div>
 
@@ -1217,36 +1192,7 @@ export default function ResdexSearch() {
                 )}
               </div>
 
-              {/* Quick Trending Skills Chips Ribbon (Instant 1-Click Addition) */}
-              <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b' }}>Quick Add:</span>
-                {['Fabrication', 'Six Sigma', 'CNC Machining', 'EV Powertrain', 'Battery Systems', 'AutoCAD', 'Blast Furnace', 'Plant Operations', 'Total Productive Maintenance (TPM)', 'Robotics'].map((quickSkill) => {
-                  const isAdded = selectedKeywords.includes(quickSkill);
-                  return (
-                    <button
-                      key={quickSkill}
-                      type="button"
-                      onClick={() => isAdded ? removeKeywordChip(quickSkill) : addKeywordChip(quickSkill)}
-                      style={{
-                        background: isAdded ? '#dbeafe' : '#f8fafc',
-                        border: isAdded ? '1px solid #93c5fd' : '1px solid #e2e8f0',
-                        color: isAdded ? '#1d4ed8' : '#475569',
-                        padding: '3px 10px',
-                        borderRadius: '12px',
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px'
-                      }}
-                    >
-                      {isAdded ? <Check size={11} /> : <Plus size={11} />}
-                      <span>{quickSkill}</span>
-                    </button>
-                  );
-                })}
-              </div>
+
 
               {/* Checkbox & Dropdown bar */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '14px' }}>

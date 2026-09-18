@@ -431,20 +431,6 @@ Shikha (9888426060)`);
               >
                 Resdex
               </Link>
-
-              <Link
-                to="/admin"
-                style={{
-                  padding: '18px 12px',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  color: '#475569',
-                  textDecoration: 'none',
-                  borderBottom: '3px solid transparent'
-                }}
-              >
-                Reports
-              </Link>
             </nav>
           </div>
 
