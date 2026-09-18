@@ -804,13 +804,6 @@ export default function ResdexSearch() {
               </span>
             </div>
 
-            {/* Recruiter Avatar */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px', borderLeft: '1px solid #e2e8f0' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#0f172a', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
-                N
-              </div>
-            </div>
-
             {/* Post a Job CTA Button */}
             <Link
               to="/admin/post-job"

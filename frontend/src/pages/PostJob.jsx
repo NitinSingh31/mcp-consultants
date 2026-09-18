@@ -443,9 +443,6 @@ Shikha (9888426060)`);
               <Briefcase size={14} />
               <span>Manage Jobs</span>
             </Link>
-            <div style={{ width: '34px', height: '34px', borderRadius: '50%', backgroundColor: '#0056b3', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '13px' }}>
-              N
-            </div>
           </div>
 
         </div>
@@ -522,19 +519,6 @@ Shikha (9888426060)`);
               </span>
             </div>
 
-          </div>
-
-          {/* Left Webinar Promo Card (Matches Screenshot) */}
-          <div style={{ backgroundColor: '#fffbeb', borderRadius: '12px', padding: '16px 18px', border: '1px solid #fef3c7' }}>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#92400e', display: 'block', marginBottom: '4px' }}>
-              Join our free MCP recruiter webinar
-            </span>
-            <p style={{ margin: '0 0 10px', fontSize: '11.5px', color: '#b45309', lineHeight: 1.4 }}>
-              Learn how to post jobs, write high-converting JDs, and match candidates on Resdex.
-            </p>
-            <a href="#webinar" style={{ fontSize: '11.5px', fontWeight: 700, color: '#b45309', textDecoration: 'none' }}>
-              Reserve your slot →
-            </a>
           </div>
 
         </aside>
