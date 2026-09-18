@@ -31,10 +31,10 @@ exports.postHiring = async (req, res) => {
       name: data.name || 'Anonymous',
       email: data.email || '',
       phone: data.phone || '',
-      company: data.company || '',
-      sector: data.sector || '',
-      leadership_level: data.leadership_level || '',
-      notes: data.notes || '',
+      company: data.company || 'Confidential Client',
+      sector: data.sector || 'Executive Search & Leadership',
+      leadership_level: data.leadership_level || 'Senior Leadership Mandate',
+      notes: data.notes || data.message || '',
       doc_filename: savedDocFilename,
       doc_original_name: originalDocName
     });

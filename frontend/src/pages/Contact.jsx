@@ -12,14 +12,15 @@ import {
   Phone,
   Mail,
   FileText,
-  X
+  X,
+  ArrowRight
 } from 'lucide-react';
 import FeedbackModal from '../components/FeedbackModal';
 import { apiUrl } from '../api';
 
-export default function Contact() {
+export default function Contact({ defaultTab }) {
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState('hiring');
+  const [activeTab, setActiveTab] = useState(defaultTab || 'hiring');
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ title: '', message: '' });
@@ -34,17 +35,17 @@ export default function Contact() {
       setActiveTab('hiring');
     } else if (tabParam === 'queries' || tabParam === 'inquiry' || tabParam === 'contact') {
       setActiveTab('queries');
+    } else if (defaultTab) {
+      setActiveTab(defaultTab);
     }
-  }, [location.search]);
+  }, [location.search, defaultTab]);
 
   // Form states
   const [hiringForm, setHiringForm] = useState({
     name: '',
-    email: '',
     phone: '',
+    email: '',
     company: '',
-    sector: 'Heavy Engineering & Capital Goods',
-    leadership_level: 'Chief Executive Officer (CEO)',
     notes: '',
     docFile: null
   });
@@ -69,18 +70,23 @@ export default function Contact() {
     cvFile: null
   });
 
-  // Handle Mandate submission
+  // Handle Mandate submission (I Am Hiring)
   const handleHiringSubmit = async (e) => {
     e.preventDefault();
+    if (!hiringForm.name || !hiringForm.phone || !hiringForm.email) {
+      alert('Please fill out all mandatory fields (Name, Mobile Number, and Email).');
+      return;
+    }
+
     setLoading(true);
     try {
       const formData = new FormData();
       formData.append('name', hiringForm.name);
       formData.append('email', hiringForm.email);
       formData.append('phone', hiringForm.phone);
-      formData.append('company', hiringForm.company);
-      formData.append('sector', hiringForm.sector);
-      formData.append('leadership_level', hiringForm.leadership_level);
+      formData.append('company', hiringForm.company || 'Confidential Enterprise');
+      formData.append('sector', 'Executive Search & Leadership Advisory');
+      formData.append('leadership_level', 'Executive Search Mandate');
       formData.append('notes', hiringForm.notes);
       if (hiringForm.docFile) {
         formData.append('cv', hiringForm.docFile);
@@ -94,24 +100,23 @@ export default function Contact() {
       if (data.success) {
         setModalData({
           title: 'Mandate Registered Successfully',
-          message: `Thank you, ${hiringForm.name}. Your executive search requirement for ${hiringForm.company} has been confidential recorded${hiringForm.docFile ? ' along with your attached document' : ''}. A Senior Practice Partner will contact you within 24 business hours.`
+          message: `Thank you, ${hiringForm.name}. Your mandate requirement${hiringForm.company ? ` for ${hiringForm.company}` : ''} has been confidentially recorded. A Senior Practice Partner will contact you within 24 business hours.`
         });
         setModalOpen(true);
         setHiringForm({
           name: '',
-          email: '',
           phone: '',
+          email: '',
           company: '',
-          sector: 'Heavy Engineering & Capital Goods',
-          leadership_level: 'Chief Executive Officer (CEO)',
           notes: '',
           docFile: null
         });
       } else {
-        alert(data.error || 'Failed to submit mandate.');
+        alert(data.error || 'Failed to submit mandate inquiry.');
       }
     } catch (err) {
-      alert('Network error connecting to server.');
+      console.error(err);
+      alert('Network error connecting to server. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -159,13 +164,14 @@ export default function Contact() {
         alert(data.error || 'Failed to submit candidate profile.');
       }
     } catch (err) {
+      console.error(err);
       alert('Network error connecting to server.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle General Inquiry submission (with optional resume upload)
+  // Handle General Inquiry submission
   const handleInquirySubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -188,7 +194,7 @@ export default function Contact() {
       if (data.success) {
         setModalData({
           title: 'Inquiry Transmitted Successfully',
-          message: `Thank you, ${inquiryForm.name}. Your inquiry and details${inquiryForm.cvFile ? ' (with your attached resume/document)' : ''} have been dispatched to our executive advisory desk.`
+          message: `Thank you, ${inquiryForm.name}. Your inquiry has been dispatched to our executive advisory desk.`
         });
         setModalOpen(true);
         setInquiryForm({
@@ -203,561 +209,745 @@ export default function Contact() {
         alert(data.error || 'Failed to send inquiry.');
       }
     } catch (err) {
+      console.error(err);
       alert('Network error connecting to server.');
     } finally {
       setLoading(false);
     }
   };
 
+  // Shared Form Input Styles matching ABC Consultants benchmark
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 16px',
+    borderRadius: '8px',
+    border: '1.5px solid #1e293b',
+    backgroundColor: '#ffffff',
+    fontSize: '15px',
+    color: '#0f172a',
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s, box-shadow 0.2s'
+  };
+
   return (
-    <div className="contact-page">
+    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       
-      {/* Page Hero */}
-      <section className="page-hero">
-        <div className="container">
-          <div className="breadcrumbs">
-            <Link to="/">Home</Link>
-            <span className="divider">&rsaquo;</span>
-            <span>Get in Touch</span>
-          </div>
-          <h1 className="page-hero-title">Partner with MCP CONSULTANTS</h1>
-          <p className="page-hero-subtitle">
-            Whether commissioning a confidential C-suite search, exploring board advisory, or submitting your executive credentials, we look forward to the conversation.
-          </p>
-        </div>
-      </section>
+      {/* Responsive Inline CSS */}
+      <style>{`
+        .contact-two-col-grid {
+          display: grid;
+          grid-template-columns: minmax(320px, 1fr) minmax(440px, 1.45fr);
+          gap: 64px;
+          align-items: start;
+        }
+        @media (max-width: 960px) {
+          .contact-two-col-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+        }
+        .contact-input-field:focus {
+          border-color: #002b66 !important;
+          box-shadow: 0 0 0 3px rgba(0, 43, 102, 0.12) !important;
+        }
+        .contact-submit-btn:hover {
+          background-color: #001f4d !important;
+          box-shadow: 0 6px 16px rgba(0, 43, 102, 0.25) !important;
+        }
+      `}</style>
 
-      {/* Main Form Section */}
-      <section className="contact-section" style={{ padding: '60px 0 100px' }}>
-        <div className="container">
-          
-          <div className="contact-tabs-wrapper">
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '36px 24px 80px' }}>
+        
+        {/* Breadcrumb Navigation */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#64748b', marginBottom: '24px' }}>
+          <Link to="/" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>Home</Link>
+          <span>&rsaquo;</span>
+          <span style={{ color: '#0f172a', fontWeight: '600' }}>
+            {activeTab === 'hiring' ? 'I Am Hiring' : activeTab === 'candidate' ? 'Seeking Leadership Roles' : 'General Queries'}
+          </span>
+        </div>
+
+        {/* Tab Switcher / Navigation Bar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '44px', flexWrap: 'wrap', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
+          <button
+            onClick={() => setActiveTab('hiring')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 22px',
+              borderRadius: '24px',
+              border: activeTab === 'hiring' ? '2px solid #002b66' : '1px solid #cbd5e1',
+              backgroundColor: activeTab === 'hiring' ? '#002b66' : '#ffffff',
+              color: activeTab === 'hiring' ? '#ffffff' : '#475569',
+              fontSize: '14px',
+              fontWeight: activeTab === 'hiring' ? '700' : '600',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <Building2 size={16} />
+            <span>I Am Hiring</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('candidate')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 22px',
+              borderRadius: '24px',
+              border: activeTab === 'candidate' ? '2px solid #002b66' : '1px solid #cbd5e1',
+              backgroundColor: activeTab === 'candidate' ? '#002b66' : '#ffffff',
+              color: activeTab === 'candidate' ? '#ffffff' : '#475569',
+              fontSize: '14px',
+              fontWeight: activeTab === 'candidate' ? '700' : '600',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <UserCheck size={16} />
+            <span>Seeking Leadership Roles</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('queries')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 22px',
+              borderRadius: '24px',
+              border: activeTab === 'queries' ? '2px solid #002b66' : '1px solid #cbd5e1',
+              backgroundColor: activeTab === 'queries' ? '#002b66' : '#ffffff',
+              color: activeTab === 'queries' ? '#ffffff' : '#475569',
+              fontSize: '14px',
+              fontWeight: activeTab === 'queries' ? '700' : '600',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <MessageSquare size={16} />
+            <span>General Queries</span>
+          </button>
+        </div>
+
+        {/* ================================================================= */}
+        {/* TAB 1: I AM HIRING (Exact Layout Matching ABC Consultants Benchmark) */}
+        {/* ================================================================= */}
+        {activeTab === 'hiring' && (
+          <div className="contact-two-col-grid">
             
-            {/* Tabs Navigation */}
-            <div className="contact-nav-tabs">
-              <button 
-                className={`tab-btn ${activeTab === 'hiring' ? 'active' : ''}`}
-                onClick={() => setActiveTab('hiring')}
-              >
-                <Building2 size={18} style={{ marginRight: '8px' }} />
-                <span>I Am Hiring</span>
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'candidate' ? 'active' : ''}`}
-                onClick={() => setActiveTab('candidate')}
-              >
-                <UserCheck size={18} style={{ marginRight: '8px' }} />
-                <span>Seeking Leadership Roles</span>
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'queries' ? 'active' : ''}`}
-                onClick={() => setActiveTab('queries')}
-              >
-                <MessageSquare size={18} style={{ marginRight: '8px' }} />
-                <span>General Queries</span>
-              </button>
+            {/* LEFT COLUMN: Contact Us */}
+            <div>
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '36px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif" }}>
+                Contact Us
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                
+                {/* Phone Number */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Phone size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+                      Phone Number
+                    </div>
+                    <a href="tel:+919888426060" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      +91 98 8842 6060
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Mail size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+                      Email
+                    </div>
+                    <a href="mailto:client@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      client@mcpconsultants.in
+                    </a>
+                  </div>
+                </div>
+
+                {/* Corporate Office */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                    <MapPin size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+                      Corporate Office
+                    </div>
+                    <div style={{ fontSize: '15px', color: '#334155', lineHeight: '1.6', fontWeight: '500' }}>
+                      4579 B, Sector 70, Mohali, Punjab<br />
+                      India 160071
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
-            <div className="contact-form-container">
+            {/* RIGHT COLUMN: Get in Touch Form with Geometric Watermark */}
+            <div style={{ position: 'relative' }}>
               
-              {/* Tab 1: Hiring Mandate */}
-              {activeTab === 'hiring' && (
-                <div className="form-pane active">
-                  <div className="form-intro">
-                    <h3>Commission a Leadership Search Mandate</h3>
-                    <p>Tell us about your organization and executive requirements. A Senior Practice Partner will contact you confidentially within 24 business hours.</p>
+              {/* Background Concentric Geometric Diamond Watermark */}
+              <div style={{ position: 'absolute', right: '-40px', bottom: '-40px', width: '480px', height: '480px', pointerEvents: 'none', zIndex: 0, opacity: 0.55 }}>
+                <svg viewBox="0 0 500 500" width="100%" height="100%" fill="none">
+                  <rect x="160" y="160" width="180" height="180" rx="36" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.35" />
+                  <rect x="120" y="120" width="260" height="260" rx="44" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.25" />
+                  <rect x="80" y="80" width="340" height="340" rx="52" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.18" />
+                  <rect x="40" y="40" width="420" height="420" rx="60" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.10" />
+                  <rect x="0" y="0" width="500" height="500" rx="68" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.05" />
+                </svg>
+              </div>
+
+              {/* Heading */}
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '36px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif", position: 'relative', zIndex: 1 }}>
+                Get in Touch
+              </h2>
+
+              {/* Form */}
+              <form onSubmit={handleHiringSubmit} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '22px' }}>
+                
+                {/* Row 1: Name & Mobile Number */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Name <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={hiringForm.name}
+                      onChange={e => setHiringForm({ ...hiringForm, name: e.target.value })}
+                    />
                   </div>
-
-                  <form className="mcp-form" onSubmit={handleHiringSubmit}>
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Full Name <span className="required">*</span></label>
-                        <input 
-                          type="text" 
-                          className="form-control" 
-                          required 
-                          placeholder="e.g. Vikramaditya Rao" 
-                          value={hiringForm.name}
-                          onChange={e => setHiringForm({ ...hiringForm, name: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Company / Enterprise <span className="required">*</span></label>
-                        <input 
-                          type="text" 
-                          className="form-control" 
-                          required 
-                          placeholder="e.g. Sterling Heavy Engineering Ltd" 
-                          value={hiringForm.company}
-                          onChange={e => setHiringForm({ ...hiringForm, company: e.target.value })}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Official Work Email <span className="required">*</span></label>
-                        <input 
-                          type="email" 
-                          className="form-control" 
-                          required 
-                          placeholder="name@company.com" 
-                          value={hiringForm.email}
-                          onChange={e => setHiringForm({ ...hiringForm, email: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Phone Number <span className="required">*</span></label>
-                        <input 
-                          type="tel" 
-                          className="form-control" 
-                          required 
-                          placeholder="+91 98765 43210" 
-                          value={hiringForm.phone}
-                          onChange={e => setHiringForm({ ...hiringForm, phone: e.target.value })}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Target Industry Sector <span className="required">*</span></label>
-                        <select 
-                          className="form-control" 
-                          value={hiringForm.sector}
-                          onChange={e => setHiringForm({ ...hiringForm, sector: e.target.value })}
-                        >
-                          <option>Heavy Engineering &amp; Capital Goods</option>
-                          <option>Industrial Automation &amp; Robotics</option>
-                          <option>Automotive &amp; EV Mobility</option>
-                          <option>Renewable Energy &amp; Power</option>
-                          <option>Metals, Mining &amp; Smelting</option>
-                          <option>Chemicals &amp; Specialty Polymers</option>
-                          <option>Aerospace &amp; Defense Production</option>
-                          <option>Packaging &amp; Converting</option>
-                        </select>
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Target Leadership Level <span className="required">*</span></label>
-                        <select 
-                          className="form-control" 
-                          value={hiringForm.leadership_level}
-                          onChange={e => setHiringForm({ ...hiringForm, leadership_level: e.target.value })}
-                        >
-                          <option>Chief Executive Officer (CEO)</option>
-                          <option>Managing Director (MD)</option>
-                          <option>Chief Operating Officer (COO)</option>
-                          <option>Chief Financial Officer (CFO)</option>
-                          <option>Chief Technology Officer (CTO)</option>
-                          <option>President / Business Head</option>
-                          <option>Independent Board Director</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label className="form-label">Mandate Brief &amp; Context</label>
-                      <textarea 
-                        className="form-control" 
-                        rows={4}
-                        placeholder="Briefly describe the strategic mandate, plant location, or business turnaround context..."
-                        value={hiringForm.notes}
-                        onChange={e => setHiringForm({ ...hiringForm, notes: e.target.value })}
-                      />
-                    </div>
-
-                    {/* Role Spec / JD Upload */}
-                    <div className="form-group">
-                      <label className="form-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span>Attach Role Specification / JD Brief (PDF / DOCX)</span>
-                        <span style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: '700' }}>Optional</span>
-                      </label>
-                      <div 
-                        className="file-upload-box"
-                        style={{
-                          border: hiringForm.docFile ? '2px solid var(--color-accent)' : '2px dashed var(--color-border-light)',
-                          padding: '24px 20px',
-                          borderRadius: 'var(--radius-md)',
-                          textAlign: 'center',
-                          backgroundColor: hiringForm.docFile ? 'rgba(196, 154, 69, 0.05)' : 'var(--color-bg-offwhite)',
-                          cursor: 'pointer',
-                          transition: 'all var(--transition-fast)'
-                        }}
-                        onClick={() => document.getElementById('hiringDocInput').click()}
-                      >
-                        <Upload size={28} color="var(--color-accent)" style={{ marginBottom: '6px' }} />
-                        <div style={{ fontWeight: '700', fontSize: '14px', color: 'var(--color-primary)' }}>
-                          {hiringForm.docFile ? hiringForm.docFile.name : 'Click to Browse or Attach JD / Mandate Brief'}
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                          Supported formats: PDF, DOCX, DOC (Max 15MB)
-                        </div>
-                        <input 
-                          type="file" 
-                          id="hiringDocInput" 
-                          accept=".pdf,.docx,.doc" 
-                          style={{ display: 'none' }}
-                          onChange={e => {
-                            if (e.target.files && e.target.files[0]) {
-                              setHiringForm({ ...hiringForm, docFile: e.target.files[0] });
-                            }
-                          }}
-                        />
-                      </div>
-                      {hiringForm.docFile && (
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#16a34a' }}>
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <CheckCircle size={14} /> Attached: {hiringForm.docFile.name} ({(hiringForm.docFile.size / 1024).toFixed(1)} KB)
-                          </span>
-                          <button 
-                            type="button" 
-                            onClick={(e) => { e.stopPropagation(); setHiringForm({ ...hiringForm, docFile: null }); }}
-                            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold' }}
-                          >
-                            Remove file
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    <button type="submit" className="btn btn-primary" disabled={loading} style={{ minWidth: '220px' }}>
-                      {loading ? <><Loader2 size={18} className="animate-spin" /><span>Submitting...</span></> : <span>Submit Search Mandate</span>}
-                    </button>
-                  </form>
-                </div>
-              )}
-
-              {/* Tab 2: Candidate Submission */}
-              {activeTab === 'candidate' && (
-                <div className="form-pane active">
-                  <div className="form-intro">
-                    <h3>Submit Your Leadership Credentials</h3>
-                    <p>We work with senior executives across industrial sectors. Your profile is handled with strict, non-attributable confidentiality.</p>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Mobile Number <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="tel" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={hiringForm.phone}
+                      onChange={e => setHiringForm({ ...hiringForm, phone: e.target.value })}
+                    />
                   </div>
-
-                  <form className="mcp-form" onSubmit={handleCandidateSubmit}>
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Full Name <span className="required">*</span></label>
-                        <input 
-                          type="text" 
-                          className="form-control" 
-                          required 
-                          placeholder="e.g. Sanyam Singla" 
-                          value={candidateForm.name}
-                          onChange={e => setCandidateForm({ ...candidateForm, name: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Current / Most Recent Designation <span className="required">*</span></label>
-                        <input 
-                          type="text" 
-                          className="form-control" 
-                          required 
-                          placeholder="e.g. VP Operations / Plant Head" 
-                          value={candidateForm.current_role}
-                          onChange={e => setCandidateForm({ ...candidateForm, current_role: e.target.value })}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Confidential Email <span className="required">*</span></label>
-                        <input 
-                          type="email" 
-                          className="form-control" 
-                          required 
-                          placeholder="personal@email.com" 
-                          value={candidateForm.email}
-                          onChange={e => setCandidateForm({ ...candidateForm, email: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Direct Phone Number <span className="required">*</span></label>
-                        <input 
-                          type="tel" 
-                          className="form-control" 
-                          required 
-                          placeholder="+91 98111 22233" 
-                          value={candidateForm.phone}
-                          onChange={e => setCandidateForm({ ...candidateForm, phone: e.target.value })}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Primary Industry Sector <span className="required">*</span></label>
-                        <select 
-                          className="form-control"
-                          value={candidateForm.sector}
-                          onChange={e => setCandidateForm({ ...candidateForm, sector: e.target.value })}
-                        >
-                          <option>Heavy Engineering &amp; Capital Goods</option>
-                          <option>Industrial Automation &amp; Robotics</option>
-                          <option>Automotive &amp; EV Mobility</option>
-                          <option>Renewable Energy &amp; Power</option>
-                          <option>Metals, Mining &amp; Smelting</option>
-                          <option>Chemicals &amp; Specialty Polymers</option>
-                          <option>Packaging &amp; Materials</option>
-                        </select>
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Total Experience <span className="required">*</span></label>
-                        <select 
-                          className="form-control"
-                          value={candidateForm.experience}
-                          onChange={e => setCandidateForm({ ...candidateForm, experience: e.target.value })}
-                        >
-                          <option>10 - 15 Years</option>
-                          <option>15 - 20 Years</option>
-                          <option>20 - 25 Years</option>
-                          <option>25+ Years (Board / Veteran)</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label className="form-label">LinkedIn Profile URL</label>
-                      <input 
-                        type="url" 
-                        className="form-control" 
-                        placeholder="https://linkedin.com/in/username" 
-                        value={candidateForm.linkedin_url}
-                        onChange={e => setCandidateForm({ ...candidateForm, linkedin_url: e.target.value })}
-                      />
-                    </div>
-
-                    {/* Resume Upload File Box */}
-                    <div className="form-group">
-                      <label className="form-label">Upload Executive CV / Resume (PDF / DOCX) <span className="required">*</span></label>
-                      <div 
-                        className="file-upload-box"
-                        style={{
-                          border: candidateForm.cvFile ? '2px solid var(--color-accent)' : '2px dashed var(--color-border-light)',
-                          padding: '30px',
-                          borderRadius: 'var(--radius-md)',
-                          textAlign: 'center',
-                          backgroundColor: candidateForm.cvFile ? 'rgba(196, 154, 69, 0.05)' : 'var(--color-bg-offwhite)',
-                          cursor: 'pointer',
-                          transition: 'all var(--transition-fast)'
-                        }}
-                        onClick={() => document.getElementById('cvFileInput').click()}
-                      >
-                        <Upload size={32} color="var(--color-accent)" style={{ marginBottom: '8px' }} />
-                        <div style={{ fontWeight: '600', fontSize: '15px' }}>
-                          {candidateForm.cvFile ? candidateForm.cvFile.name : 'Click to Browse or Drag Resume Here'}
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                          Supported formats: PDF, DOCX (Max 15MB)
-                        </div>
-                        <input 
-                          type="file" 
-                          id="cvFileInput" 
-                          accept=".pdf,.docx,.doc" 
-                          style={{ display: 'none' }}
-                          onChange={e => {
-                            if (e.target.files && e.target.files[0]) {
-                              setCandidateForm({ ...candidateForm, cvFile: e.target.files[0] });
-                            }
-                          }}
-                        />
-                      </div>
-                      {candidateForm.cvFile && (
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#16a34a' }}>
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <CheckCircle size={14} /> Attached: {candidateForm.cvFile.name} ({(candidateForm.cvFile.size / 1024).toFixed(1)} KB)
-                          </span>
-                          <button 
-                            type="button" 
-                            onClick={(e) => { e.stopPropagation(); setCandidateForm({ ...candidateForm, cvFile: null }); }}
-                            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold' }}
-                          >
-                            Remove file
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    <button type="submit" className="btn btn-primary" disabled={loading} style={{ minWidth: '220px' }}>
-                      {loading ? <><Loader2 size={18} className="animate-spin" /><span>Uploading Profile...</span></> : <span>Submit Executive Profile</span>}
-                    </button>
-                  </form>
                 </div>
-              )}
 
-              {/* Tab 3: Other Inquiries */}
-              {activeTab === 'queries' && (
-                <div className="form-pane active">
-                  <div className="form-intro">
-                    <h3>General Inquiries &amp; Advisory Desk</h3>
-                    <p>Have a question regarding corporate governance, speaker invitations, or general partnerships? Contact our advisory desk directly.</p>
+                {/* Row 2: Email & Company Name */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Email <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="email" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={hiringForm.email}
+                      onChange={e => setHiringForm({ ...hiringForm, email: e.target.value })}
+                    />
                   </div>
-
-                  <form className="mcp-form" onSubmit={handleInquirySubmit}>
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Full Name <span className="required">*</span></label>
-                        <input 
-                          type="text" 
-                          className="form-control" 
-                          required 
-                          placeholder="Your Name" 
-                          value={inquiryForm.name}
-                          onChange={e => setInquiryForm({ ...inquiryForm, name: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Email Address <span className="required">*</span></label>
-                        <input 
-                          type="email" 
-                          className="form-control" 
-                          required 
-                          placeholder="name@email.com" 
-                          value={inquiryForm.email}
-                          onChange={e => setInquiryForm({ ...inquiryForm, email: e.target.value })}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-grid-2">
-                      <div className="form-group">
-                        <label className="form-label">Phone Number</label>
-                        <input 
-                          type="tel" 
-                          className="form-control" 
-                          placeholder="+91" 
-                          value={inquiryForm.phone}
-                          onChange={e => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-label">Subject / Topic <span className="required">*</span></label>
-                        <select 
-                          className="form-control"
-                          value={inquiryForm.topic}
-                          onChange={e => setInquiryForm({ ...inquiryForm, topic: e.target.value })}
-                        >
-                          <option>Board Advisory &amp; Governance</option>
-                          <option>Fractional Leadership Inquiry</option>
-                          <option>Research &amp; Media Interview</option>
-                          <option>General Corporate Partnership</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label className="form-label">Message <span className="required">*</span></label>
-                      <textarea 
-                        className="form-control" 
-                        rows={4} 
-                        required 
-                        placeholder="Write your message here..."
-                        value={inquiryForm.message}
-                        onChange={e => setInquiryForm({ ...inquiryForm, message: e.target.value })}
-                      />
-                    </div>
-
-                    {/* Resume / Document Upload for Get In Touch / General Inquiries */}
-                    <div className="form-group">
-                      <label className="form-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span>Attach Resume / Profile Document (PDF / DOCX)</span>
-                        <span style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: '700' }}>Optional</span>
-                      </label>
-                      <div 
-                        className="file-upload-box"
-                        style={{
-                          border: inquiryForm.cvFile ? '2px solid var(--color-accent)' : '2px dashed var(--color-border-light)',
-                          padding: '24px 20px',
-                          borderRadius: 'var(--radius-md)',
-                          textAlign: 'center',
-                          backgroundColor: inquiryForm.cvFile ? 'rgba(196, 154, 69, 0.05)' : 'var(--color-bg-offwhite)',
-                          cursor: 'pointer',
-                          transition: 'all var(--transition-fast)'
-                        }}
-                        onClick={() => document.getElementById('inquiryCvInput').click()}
-                      >
-                        <Upload size={28} color="var(--color-accent)" style={{ marginBottom: '6px' }} />
-                        <div style={{ fontWeight: '700', fontSize: '14px', color: 'var(--color-primary)' }}>
-                          {inquiryForm.cvFile ? inquiryForm.cvFile.name : 'Click to Browse or Attach Resume / Document'}
-                        </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                          Supported formats: PDF, DOCX, DOC (Max 15MB)
-                        </div>
-                        <input 
-                          type="file" 
-                          id="inquiryCvInput" 
-                          accept=".pdf,.docx,.doc" 
-                          style={{ display: 'none' }}
-                          onChange={e => {
-                            if (e.target.files && e.target.files[0]) {
-                              setInquiryForm({ ...inquiryForm, cvFile: e.target.files[0] });
-                            }
-                          }}
-                        />
-                      </div>
-                      {inquiryForm.cvFile && (
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#16a34a' }}>
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <CheckCircle size={14} /> Attached: {inquiryForm.cvFile.name} ({(inquiryForm.cvFile.size / 1024).toFixed(1)} KB)
-                          </span>
-                          <button 
-                            type="button" 
-                            onClick={(e) => { e.stopPropagation(); setInquiryForm({ ...inquiryForm, cvFile: null }); }}
-                            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold' }}
-                          >
-                            Remove file
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    <button type="submit" className="btn btn-primary" disabled={loading} style={{ minWidth: '220px' }}>
-                      {loading ? <><Loader2 size={18} className="animate-spin" /><span>Sending...</span></> : <span>Send Inquiry</span>}
-                    </button>
-                  </form>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Company Name
+                    </label>
+                    <input 
+                      type="text" 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={hiringForm.company}
+                      onChange={e => setHiringForm({ ...hiringForm, company: e.target.value })}
+                    />
+                  </div>
                 </div>
-              )}
 
+                {/* Row 3: Leave us a Message */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                    Leave us a Message
+                  </label>
+                  <textarea 
+                    rows={4}
+                    className="contact-input-field"
+                    style={{ ...inputStyle, minHeight: '110px', resize: 'vertical' }}
+                    value={hiringForm.notes}
+                    onChange={e => setHiringForm({ ...hiringForm, notes: e.target.value })}
+                  />
+                </div>
+
+                {/* Optional JD / Spec Attachment Toggle */}
+                <div style={{ marginTop: '-4px' }}>
+                  <label 
+                    onClick={() => document.getElementById('hiringDocQuickInput').click()}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#0056b3', cursor: 'pointer', fontWeight: '600' }}
+                  >
+                    <Upload size={14} />
+                    <span>{hiringForm.docFile ? `Attached: ${hiringForm.docFile.name}` : '+ Attach JD or Role Brief (Optional)'}</span>
+                  </label>
+                  <input 
+                    type="file" 
+                    id="hiringDocQuickInput" 
+                    accept=".pdf,.docx,.doc" 
+                    style={{ display: 'none' }}
+                    onChange={e => {
+                      if (e.target.files && e.target.files[0]) {
+                        setHiringForm({ ...hiringForm, docFile: e.target.files[0] });
+                      }
+                    }}
+                  />
+                  {hiringForm.docFile && (
+                    <button 
+                      type="button"
+                      onClick={() => setHiringForm({ ...hiringForm, docFile: null })}
+                      style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '12px', marginLeft: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="contact-submit-btn"
+                    style={{
+                      backgroundColor: '#002b66',
+                      color: '#ffffff',
+                      padding: '14px 44px',
+                      borderRadius: '4px',
+                      border: 'none',
+                      fontSize: '14px',
+                      fontWeight: '800',
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      boxShadow: '0 4px 12px rgba(0, 43, 102, 0.2)',
+                      transition: 'all 0.2s ease',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        <span>SUBMITTING...</span>
+                      </>
+                    ) : (
+                      <span>SUBMIT</span>
+                    )}
+                  </button>
+                </div>
+
+              </form>
             </div>
+
           </div>
+        )}
 
-        </div>
-      </section>
+        {/* ================================================================= */}
+        {/* TAB 2: SEEKING LEADERSHIP ROLES (Candidate Submission)           */}
+        {/* ================================================================= */}
+        {activeTab === 'candidate' && (
+          <div className="contact-two-col-grid">
+            
+            {/* LEFT COLUMN: Contact Us */}
+            <div>
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '36px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif" }}>
+                Contact Us
+              </h2>
 
-      {/* Centered Mohali (HQ) Card */}
-      <section style={{ padding: '0 0 100px', backgroundColor: 'var(--color-bg-offwhite)' }}>
-        <div className="container">
-          <div className="section-header text-center" style={{ marginBottom: '30px' }}>
-            <h2 className="section-title">Our Presence in India</h2>
-            <p className="section-subtitle">Local search consultants grounded in key industrial and commercial hubs</p>
-          </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Phone size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Phone Number</div>
+                    <a href="tel:+919888426060" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      +91 98 8842 6060
+                    </a>
+                  </div>
+                </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{
-              background: '#ffffff',
-              padding: '36px 44px',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-border-light)',
-              maxWidth: '540px',
-              width: '100%',
-              textAlign: 'center',
-              boxShadow: 'var(--shadow-sm)',
-              borderTop: '3px solid var(--color-accent)'
-            }}>
-              <h3 style={{ fontSize: '20px', marginBottom: '12px', color: 'var(--color-primary)' }}>
-                Mohali (HQ)
-              </h3>
-              <p style={{ fontSize: '15px', color: 'var(--color-text-body)', lineHeight: '1.7', margin: '0 0 12px 0' }}>
-                4579 B, Sector 70, Mohali, Punjab<br />
-                <strong>T:</strong> <a href="tel:+919888426060" style={{ color: 'inherit', textDecoration: 'none' }}>+91 98 8842 6060</a>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Mail size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Email</div>
+                    <a href="mailto:client@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      client@mcpconsultants.in
+                    </a>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                    <MapPin size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Corporate Office</div>
+                    <div style={{ fontSize: '15px', color: '#334155', lineHeight: '1.6', fontWeight: '500' }}>
+                      4579 B, Sector 70, Mohali, Punjab<br />India 160071
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: Candidate Form */}
+            <div>
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '16px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif" }}>
+                Submit Your Credentials
+              </h2>
+              <p style={{ fontSize: '15px', color: '#64748b', marginBottom: '32px' }}>
+                We partner with senior executives across heavy engineering and industrial manufacturing. Your profile is held with strict, non-attributable confidentiality.
               </p>
-            </div>
-          </div>
 
-        </div>
-      </section>
+              <form onSubmit={handleCandidateSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Full Name <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={candidateForm.name}
+                      onChange={e => setCandidateForm({ ...candidateForm, name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Mobile Number <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="tel" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={candidateForm.phone}
+                      onChange={e => setCandidateForm({ ...candidateForm, phone: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Email Address <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="email" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={candidateForm.email}
+                      onChange={e => setCandidateForm({ ...candidateForm, email: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Current Role / Designation <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={candidateForm.current_role}
+                      onChange={e => setCandidateForm({ ...candidateForm, current_role: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Target Sector
+                    </label>
+                    <select 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={candidateForm.sector}
+                      onChange={e => setCandidateForm({ ...candidateForm, sector: e.target.value })}
+                    >
+                      <option>Heavy Engineering & Capital Goods</option>
+                      <option>Industrial Automation & Robotics</option>
+                      <option>Automotive & EV Mobility</option>
+                      <option>Renewable Energy & Power</option>
+                      <option>Metals, Mining & Smelting</option>
+                      <option>Chemicals & Specialty Polymers</option>
+                      <option>Aerospace & Defense Production</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Experience Bracket
+                    </label>
+                    <select 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={candidateForm.experience}
+                      onChange={e => setCandidateForm({ ...candidateForm, experience: e.target.value })}
+                    >
+                      <option>7 - 10 Years</option>
+                      <option>10 - 15 Years</option>
+                      <option>15 - 20 Years</option>
+                      <option>20+ Years</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* CV Upload */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                    Attach CV / Resume (PDF / DOCX)
+                  </label>
+                  <div 
+                    onClick={() => document.getElementById('candidateCvInput').click()}
+                    style={{
+                      border: candidateForm.cvFile ? '2px solid #002b66' : '2px dashed #cbd5e1',
+                      borderRadius: '8px',
+                      padding: '24px',
+                      textAlign: 'center',
+                      backgroundColor: '#f8fafc',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <Upload size={24} style={{ color: '#002b66', marginBottom: '6px' }} />
+                    <div style={{ fontSize: '14px', fontWeight: '700', color: '#0f172a' }}>
+                      {candidateForm.cvFile ? candidateForm.cvFile.name : 'Click to Browse or Upload Resume'}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
+                      PDF or DOCX (Max 15MB)
+                    </div>
+                    <input 
+                      type="file" 
+                      id="candidateCvInput" 
+                      accept=".pdf,.docx,.doc" 
+                      style={{ display: 'none' }}
+                      onChange={e => {
+                        if (e.target.files && e.target.files[0]) {
+                          setCandidateForm({ ...candidateForm, cvFile: e.target.files[0] });
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="contact-submit-btn"
+                    style={{
+                      backgroundColor: '#002b66',
+                      color: '#ffffff',
+                      padding: '14px 44px',
+                      borderRadius: '4px',
+                      border: 'none',
+                      fontSize: '14px',
+                      fontWeight: '800',
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      cursor: loading ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    {loading ? 'UPLOADING...' : 'SUBMIT PROFILE'}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* TAB 3: GENERAL QUERIES                                            */}
+        {/* ================================================================= */}
+        {activeTab === 'queries' && (
+          <div className="contact-two-col-grid">
+            
+            {/* LEFT COLUMN: Contact Us */}
+            <div>
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '36px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif" }}>
+                Contact Us
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Phone size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Phone Number</div>
+                    <a href="tel:+919888426060" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      +91 98 8842 6060
+                    </a>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Mail size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Email</div>
+                    <a href="mailto:client@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      client@mcpconsultants.in
+                    </a>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                    <MapPin size={24} style={{ color: '#002b66' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Corporate Office</div>
+                    <div style={{ fontSize: '15px', color: '#334155', lineHeight: '1.6', fontWeight: '500' }}>
+                      4579 B, Sector 70, Mohali, Punjab<br />India 160071
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: General Inquiries Form */}
+            <div>
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '16px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif" }}>
+                General Inquiries
+              </h2>
+              <p style={{ fontSize: '15px', color: '#64748b', marginBottom: '32px' }}>
+                For board advisory questions, speaker invitations, or general partnerships, connect with our central desk.
+              </p>
+
+              <form onSubmit={handleInquirySubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Full Name <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={inquiryForm.name}
+                      onChange={e => setInquiryForm({ ...inquiryForm, name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Email Address <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="email" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={inquiryForm.email}
+                      onChange={e => setInquiryForm({ ...inquiryForm, email: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Phone Number
+                    </label>
+                    <input 
+                      type="tel" 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={inquiryForm.phone}
+                      onChange={e => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Topic / Subject <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <select 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={inquiryForm.topic}
+                      onChange={e => setInquiryForm({ ...inquiryForm, topic: e.target.value })}
+                    >
+                      <option>Board Advisory & Governance</option>
+                      <option>Fractional CXO & Interim Inquiry</option>
+                      <option>Media & Research Collaboration</option>
+                      <option>Corporate Partnership</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                    Message <span style={{ color: '#dc2626' }}>*</span>
+                  </label>
+                  <textarea 
+                    rows={4}
+                    required
+                    className="contact-input-field"
+                    style={{ ...inputStyle, minHeight: '110px', resize: 'vertical' }}
+                    value={inquiryForm.message}
+                    onChange={e => setInquiryForm({ ...inquiryForm, message: e.target.value })}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="contact-submit-btn"
+                    style={{
+                      backgroundColor: '#002b66',
+                      color: '#ffffff',
+                      padding: '14px 44px',
+                      borderRadius: '4px',
+                      border: 'none',
+                      fontSize: '14px',
+                      fontWeight: '800',
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      cursor: loading ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    {loading ? 'SENDING...' : 'SEND INQUIRY'}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        )}
+
+      </div>
 
       {/* Success Modal */}
       <FeedbackModal 

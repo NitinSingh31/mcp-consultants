@@ -54,6 +54,9 @@ export default function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/i-am-hiring" element={<Contact />} />
+        <Route path="/i_am_hiring" element={<Contact />} />
+        <Route path="/contact-us" element={<Contact />} />
         <Route path="/jobs" element={<PublicJobs />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/resdex" element={<ResdexSearch />} />
