@@ -33,7 +33,7 @@ export default function Contact({ defaultTab }) {
       setActiveTab('candidate');
     } else if (tabParam === 'hiring' || tabParam === 'mandate' || tabParam === 'i-am-hiring') {
       setActiveTab('hiring');
-    } else if (tabParam === 'queries' || tabParam === 'inquiry' || tabParam === 'contact') {
+    } else if (tabParam === 'queries' || tabParam === 'inquiry' || tabParam === 'contact' || tabParam === 'other-queries' || tabParam === 'other') {
       setActiveTab('queries');
     } else if (defaultTab) {
       setActiveTab(defaultTab);
@@ -41,7 +41,7 @@ export default function Contact({ defaultTab }) {
   }, [location.search, defaultTab]);
 
   // Form states
-  // 1. Hiring Mandate Form State (Matching 1st Benchmark Screenshot)
+  // 1. Hiring Mandate Form State (Matching 1st Benchmark Screenshot: "I Am Hiring")
   const [hiringForm, setHiringForm] = useState({
     name: '',
     phone: '',
@@ -72,14 +72,14 @@ export default function Contact({ defaultTab }) {
     cvFile: null
   });
 
-  // 3. General Inquiries Form State
+  // 3. General Queries / Other Inquiries Form State (Matching 3rd Benchmark Screenshot: "I Have Other Queries")
   const [inquiryForm, setInquiryForm] = useState({
     name: '',
-    email: '',
     phone: '',
-    topic: 'Board Advisory & Governance',
-    message: '',
-    cvFile: null
+    email: '',
+    source: '',
+    company: '',
+    message: ''
   });
 
   // Handle Mandate submission (I Am Hiring)
@@ -216,20 +216,24 @@ export default function Contact({ defaultTab }) {
     }
   };
 
-  // Handle General Inquiry submission
+  // Handle General Queries / Other Inquiries submission (Matching 3rd Benchmark Screenshot)
   const handleInquirySubmit = async (e) => {
     e.preventDefault();
+    if (!inquiryForm.name || !inquiryForm.phone || !inquiryForm.email) {
+      alert('Please fill out all mandatory fields (Name, Mobile Number, and Email).');
+      return;
+    }
+
     setLoading(true);
     try {
       const formData = new FormData();
       formData.append('name', inquiryForm.name);
-      formData.append('email', inquiryForm.email);
       formData.append('phone', inquiryForm.phone);
-      formData.append('topic', inquiryForm.topic);
+      formData.append('email', inquiryForm.email);
+      formData.append('source', inquiryForm.source);
+      formData.append('company', inquiryForm.company);
+      formData.append('topic', inquiryForm.source ? `Heard via: ${inquiryForm.source}` : 'General Inquiry');
       formData.append('message', inquiryForm.message);
-      if (inquiryForm.cvFile) {
-        formData.append('cv', inquiryForm.cvFile);
-      }
 
       const res = await fetch(apiUrl('/api/inquiry'), {
         method: 'POST',
@@ -238,24 +242,24 @@ export default function Contact({ defaultTab }) {
       const data = await res.json();
       if (data.success) {
         setModalData({
-          title: 'Inquiry Transmitted Successfully',
-          message: `Thank you, ${inquiryForm.name}. Your inquiry has been dispatched to our executive advisory desk.`
+          title: 'Query Submitted Successfully',
+          message: `Thank you, ${inquiryForm.name}. Your inquiry has been received by our central desk. A member of our executive team will respond within 24 business hours.`
         });
         setModalOpen(true);
         setInquiryForm({
           name: '',
-          email: '',
           phone: '',
-          topic: 'Board Advisory & Governance',
-          message: '',
-          cvFile: null
+          email: '',
+          source: '',
+          company: '',
+          message: ''
         });
       } else {
         alert(data.error || 'Failed to send inquiry.');
       }
     } catch (err) {
       console.error(err);
-      alert('Network error connecting to server.');
+      alert('Network error connecting to server. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -326,7 +330,7 @@ export default function Contact({ defaultTab }) {
           <Link to="/" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>Home</Link>
           <span>&rsaquo;</span>
           <span style={{ color: '#0f172a', fontWeight: '600' }}>
-            {activeTab === 'hiring' ? 'I Am Hiring' : activeTab === 'candidate' ? 'I Am Seeking Leadership Roles' : 'General Queries'}
+            {activeTab === 'hiring' ? 'I Am Hiring' : activeTab === 'candidate' ? 'I Am Seeking Leadership Roles' : 'I Have Other Queries'}
           </span>
         </div>
 
@@ -392,7 +396,7 @@ export default function Contact({ defaultTab }) {
             }}
           >
             <MessageSquare size={16} />
-            <span>General Queries</span>
+            <span>I Have Other Queries</span>
           </button>
         </div>
 
@@ -409,8 +413,6 @@ export default function Contact({ defaultTab }) {
               </h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                
-                {/* Phone Number */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Phone size={24} style={{ color: '#002b66' }} />
@@ -425,7 +427,6 @@ export default function Contact({ defaultTab }) {
                   </div>
                 </div>
 
-                {/* Email */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Mail size={24} style={{ color: '#002b66' }} />
@@ -440,7 +441,6 @@ export default function Contact({ defaultTab }) {
                   </div>
                 </div>
 
-                {/* Corporate Office */}
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                     <MapPin size={24} style={{ color: '#002b66' }} />
@@ -455,14 +455,11 @@ export default function Contact({ defaultTab }) {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
 
             {/* RIGHT COLUMN: Get in Touch Form with Geometric Watermark */}
             <div style={{ position: 'relative' }}>
-              
-              {/* Background Concentric Geometric Diamond Watermark */}
               <div style={{ position: 'absolute', right: '-40px', bottom: '-40px', width: '480px', height: '480px', pointerEvents: 'none', zIndex: 0, opacity: 0.55 }}>
                 <svg viewBox="0 0 500 500" width="100%" height="100%" fill="none">
                   <rect x="160" y="160" width="180" height="180" rx="36" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.35" />
@@ -473,15 +470,11 @@ export default function Contact({ defaultTab }) {
                 </svg>
               </div>
 
-              {/* Heading */}
               <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '36px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif", position: 'relative', zIndex: 1 }}>
                 Get in Touch
               </h2>
 
-              {/* Form */}
               <form onSubmit={handleHiringSubmit} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '22px' }}>
-                
-                {/* Row 1: Name & Mobile Number */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
@@ -511,7 +504,6 @@ export default function Contact({ defaultTab }) {
                   </div>
                 </div>
 
-                {/* Row 2: Email & Company Name */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
@@ -540,7 +532,6 @@ export default function Contact({ defaultTab }) {
                   </div>
                 </div>
 
-                {/* Row 3: Leave us a Message */}
                 <div>
                   <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
                     Leave us a Message
@@ -554,7 +545,6 @@ export default function Contact({ defaultTab }) {
                   />
                 </div>
 
-                {/* Optional JD / Spec Attachment Toggle */}
                 <div style={{ marginTop: '-4px' }}>
                   <label 
                     onClick={() => document.getElementById('hiringDocQuickInput').click()}
@@ -585,7 +575,6 @@ export default function Contact({ defaultTab }) {
                   )}
                 </div>
 
-                {/* Submit Button */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
                   <button 
                     type="submit" 
@@ -619,7 +608,6 @@ export default function Contact({ defaultTab }) {
                     )}
                   </button>
                 </div>
-
               </form>
             </div>
 
@@ -627,12 +615,11 @@ export default function Contact({ defaultTab }) {
         )}
 
         {/* ================================================================= */}
-        {/* TAB 2: I AM SEEKING LEADERSHIP ROLES (Exact Layout Matching 2nd Benchmark Screenshot) */}
+        {/* TAB 2: I AM SEEKING LEADERSHIP ROLES (Exact 2nd Benchmark Screenshot) */}
         {/* ================================================================= */}
         {activeTab === 'candidate' && (
           <div style={{ position: 'relative', width: '100%' }}>
             
-            {/* Background Concentric Geometric Diamond Watermark on LEFT side */}
             <div style={{ position: 'absolute', left: '-80px', top: '40px', width: '500px', height: '500px', pointerEvents: 'none', zIndex: 0, opacity: 0.55 }}>
               <svg viewBox="0 0 500 500" width="100%" height="100%" fill="none">
                 <rect x="160" y="160" width="180" height="180" rx="36" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.35" />
@@ -643,12 +630,10 @@ export default function Contact({ defaultTab }) {
               </svg>
             </div>
 
-            {/* Centered Heading */}
             <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', textAlign: 'center', marginBottom: '44px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif", position: 'relative', zIndex: 1 }}>
               Submit your CV
             </h2>
 
-            {/* Candidate Form (3-Column Layout matching ABC Consultants benchmark) */}
             <form onSubmit={handleCandidateSubmit} style={{ position: 'relative', zIndex: 1, maxWidth: '1140px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
               
               <div className="candidate-three-col-grid">
@@ -1008,7 +993,7 @@ export default function Contact({ defaultTab }) {
         )}
 
         {/* ================================================================= */}
-        {/* TAB 3: GENERAL QUERIES                                            */}
+        {/* TAB 3: I HAVE OTHER QUERIES (Exact 3rd Benchmark Screenshot)       */}
         {/* ================================================================= */}
         {activeTab === 'queries' && (
           <div className="contact-two-col-grid">
@@ -1020,58 +1005,83 @@ export default function Contact({ defaultTab }) {
               </h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                
+                {/* Phone Number */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Phone size={24} style={{ color: '#002b66' }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Phone Number</div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+                      Phone Number
+                    </div>
                     <a href="tel:+919888426060" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
                       +91 98 8842 6060
                     </a>
                   </div>
                 </div>
 
+                {/* Email */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Mail size={24} style={{ color: '#002b66' }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Email</div>
-                    <a href="mailto:client@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
-                      client@mcpconsultants.in
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+                      Email
+                    </div>
+                    <a href="mailto:info@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      info@mcpconsultants.in
                     </a>
                   </div>
                 </div>
 
+                {/* Corporate Office */}
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                     <MapPin size={24} style={{ color: '#002b66' }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Corporate Office</div>
+                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+                      Corporate Office
+                    </div>
                     <div style={{ fontSize: '15px', color: '#334155', lineHeight: '1.6', fontWeight: '500' }}>
-                      4579 B, Sector 70, Mohali, Punjab<br />India 160071
+                      4579 B, Sector 70, Mohali, Punjab<br />
+                      India 160071
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
-            {/* RIGHT COLUMN: General Inquiries Form */}
-            <div>
-              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '16px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif" }}>
-                General Inquiries
-              </h2>
-              <p style={{ fontSize: '15px', color: '#64748b', marginBottom: '32px' }}>
-                For board advisory questions, speaker invitations, or corporate partnerships, connect with our leadership desk.
-              </p>
+            {/* RIGHT COLUMN: Get in Touch Form with Geometric Watermark */}
+            <div style={{ position: 'relative' }}>
+              
+              {/* Background Concentric Geometric Diamond Watermark */}
+              <div style={{ position: 'absolute', right: '-40px', bottom: '-40px', width: '480px', height: '480px', pointerEvents: 'none', zIndex: 0, opacity: 0.55 }}>
+                <svg viewBox="0 0 500 500" width="100%" height="100%" fill="none">
+                  <rect x="160" y="160" width="180" height="180" rx="36" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.35" />
+                  <rect x="120" y="120" width="260" height="260" rx="44" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.25" />
+                  <rect x="80" y="80" width="340" height="340" rx="52" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.18" />
+                  <rect x="40" y="40" width="420" height="420" rx="60" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.10" />
+                  <rect x="0" y="0" width="500" height="500" rx="68" transform="rotate(45 250 250)" stroke="#c49a45" strokeWidth="1.2" opacity="0.05" />
+                </svg>
+              </div>
 
-              <form onSubmit={handleInquirySubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Heading */}
+              <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#002b66', marginBottom: '36px', letterSpacing: '-0.5px', fontFamily: "'Mulish', sans-serif", position: 'relative', zIndex: 1 }}>
+                Get in Touch
+              </h2>
+
+              {/* Form matching ABC Consultants 3rd benchmark screenshot */}
+              <form onSubmit={handleInquirySubmit} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '22px' }}>
+                
+                {/* Row 1: Name & Mobile Number */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
-                      Full Name <span style={{ color: '#dc2626' }}>*</span>
+                      Name <span style={{ color: '#dc2626' }}>*</span>
                     </label>
                     <input 
                       type="text" 
@@ -1084,7 +1094,24 @@ export default function Contact({ defaultTab }) {
                   </div>
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
-                      Email Address <span style={{ color: '#dc2626' }}>*</span>
+                      Mobile Number <span style={{ color: '#dc2626' }}>*</span>
+                    </label>
+                    <input 
+                      type="tel" 
+                      required 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={inquiryForm.phone}
+                      onChange={e => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                {/* Row 2: Email & How did you hear about us? */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Email <span style={{ color: '#dc2626' }}>*</span>
                     </label>
                     <input 
                       type="email" 
@@ -1095,46 +1122,53 @@ export default function Contact({ defaultTab }) {
                       onChange={e => setInquiryForm({ ...inquiryForm, email: e.target.value })}
                     />
                   </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
-                      Phone Number
-                    </label>
-                    <input 
-                      type="tel" 
-                      className="contact-input-field"
-                      style={inputStyle}
-                      value={inquiryForm.phone}
-                      onChange={e => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
-                      Topic / Subject <span style={{ color: '#dc2626' }}>*</span>
+                      How did you hear about us?
                     </label>
                     <select 
                       className="contact-input-field"
                       style={inputStyle}
-                      value={inquiryForm.topic}
-                      onChange={e => setInquiryForm({ ...inquiryForm, topic: e.target.value })}
+                      value={inquiryForm.source}
+                      onChange={e => setInquiryForm({ ...inquiryForm, source: e.target.value })}
                     >
-                      <option>Board Advisory & Governance</option>
-                      <option>Fractional CXO & Interim Inquiry</option>
-                      <option>Media & Research Collaboration</option>
-                      <option>Corporate Partnership</option>
+                      <option value="">Please select</option>
+                      <option value="Word of mouth">Word of mouth</option>
+                      <option value="Google">Google</option>
+                      <option value="LinkedIn / Other social media">LinkedIn / Other social media</option>
+                      <option value="MCP Employee">MCP Employee</option>
+                      <option value="Friends & Family">Friends & Family</option>
+                      <option value="Website">Website</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Press & Media">Press & Media</option>
                     </select>
                   </div>
                 </div>
 
+                {/* Row 3: Company Name (in left column matching screenshot) */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Company Name
+                    </label>
+                    <input 
+                      type="text" 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={inquiryForm.company}
+                      onChange={e => setInquiryForm({ ...inquiryForm, company: e.target.value })}
+                    />
+                  </div>
+                  <div />
+                </div>
+
+                {/* Row 4: Leave us a Message */}
                 <div>
                   <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
-                    Message <span style={{ color: '#dc2626' }}>*</span>
+                    Leave us a Message
                   </label>
                   <textarea 
                     rows={4}
-                    required 
                     className="contact-input-field"
                     style={{ ...inputStyle, minHeight: '110px', resize: 'vertical' }}
                     value={inquiryForm.message}
@@ -1142,6 +1176,7 @@ export default function Contact({ defaultTab }) {
                   />
                 </div>
 
+                {/* Submit Button */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
                   <button 
                     type="submit" 
@@ -1157,10 +1192,22 @@ export default function Contact({ defaultTab }) {
                       fontWeight: '800',
                       letterSpacing: '1.5px',
                       textTransform: 'uppercase',
-                      cursor: loading ? 'not-allowed' : 'pointer'
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      boxShadow: '0 4px 12px rgba(0, 43, 102, 0.2)',
+                      transition: 'all 0.2s ease',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px'
                     }}
                   >
-                    {loading ? 'SENDING...' : 'SEND INQUIRY'}
+                    {loading ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        <span>SUBMITTING...</span>
+                      </>
+                    ) : (
+                      <span>SUBMIT</span>
+                    )}
                   </button>
                 </div>
               </form>
@@ -1170,6 +1217,79 @@ export default function Contact({ defaultTab }) {
         )}
 
       </div>
+
+      {/* ================================================================= */}
+      {/* SECTION: OUR OFFICES (Matching benchmark bottom section)          */}
+      {/* ================================================================= */}
+      <section style={{ backgroundColor: '#eaf3fc', padding: '60px 24px 80px', borderTop: '1px solid #dbeafe' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          
+          <div style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <h2 style={{ fontSize: '38px', fontWeight: '800', color: '#002b66', marginBottom: '10px', fontFamily: "'Mulish', sans-serif" }}>
+              Our offices
+            </h2>
+            <p style={{ fontSize: '16px', color: '#004080', fontWeight: '500', margin: 0 }}>
+              We operate out of pan-India offices and key industrial advisory hubs
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+            
+            {/* Office 1: Mohali HQ */}
+            <div style={{ backgroundColor: '#ffffff', padding: '32px 28px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <MapPin size={20} style={{ color: '#002b66' }} />
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#002b66', margin: 0 }}>
+                  Mohali (Corporate HQ)
+                </h3>
+              </div>
+              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px 0' }}>
+                4579 B, Sector 70, Mohali, Punjab 160071<br />
+                <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none' }}>+91 98 8842 6060</a><br />
+                <strong>Email:</strong> <a href="mailto:info@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none' }}>info@mcpconsultants.in</a>
+              </p>
+            </div>
+
+            {/* Office 2: Delhi NCR */}
+            <div style={{ backgroundColor: '#ffffff', padding: '32px 28px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <MapPin size={20} style={{ color: '#002b66' }} />
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#002b66', margin: 0 }}>
+                  Delhi NCR Liaison Desk
+                </h3>
+              </div>
+              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px 0' }}>
+                1st Floor, Eros Corporate Tower, Nehru Place, New Delhi 110019<br />
+                <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none' }}>+91 98 8842 6060</a><br />
+                <strong>Email:</strong> <a href="mailto:client@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none' }}>client@mcpconsultants.in</a>
+              </p>
+            </div>
+
+            {/* Office 3: Industrial Corridor */}
+            <div style={{ backgroundColor: '#ffffff', padding: '32px 28px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Building2 size={20} style={{ color: '#002b66' }} />
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#002b66', margin: 0 }}>
+                  Chandigarh / Baddi Hub
+                </h3>
+              </div>
+              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px 0' }}>
+                Industrial Corridor Practice Desk, Tri-city Region<br />
+                <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none' }}>+91 98 8842 6060</a><br />
+                <strong>Email:</strong> <a href="mailto:Recruiter.mcpconsultants@gmail.com" style={{ color: '#0056b3', textDecoration: 'none' }}>Recruiter.mcpconsultants@gmail.com</a>
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
 
       {/* Success Modal */}
       <FeedbackModal 

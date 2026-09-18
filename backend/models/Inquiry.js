@@ -4,8 +4,10 @@ const inquirySchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: String,
-  topic: { type: String, required: true },
-  message: { type: String, required: true },
+  company: String,
+  source: String,
+  topic: { type: String, default: 'General Query' },
+  message: { type: String, default: '' },
   cv_filename: String,
   cv_original_name: String,
   createdAt: { type: Date, default: Date.now }

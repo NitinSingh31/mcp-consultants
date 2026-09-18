@@ -59,6 +59,9 @@ export default function App() {
         <Route path="/i-am-seeking-leadership-roles" element={<Contact defaultTab="candidate" />} />
         <Route path="/i_am_seeking_leadership_roles" element={<Contact defaultTab="candidate" />} />
         <Route path="/seeking-leadership-roles" element={<Contact defaultTab="candidate" />} />
+        <Route path="/i-have-other-queries" element={<Contact defaultTab="queries" />} />
+        <Route path="/i_have_other_queries" element={<Contact defaultTab="queries" />} />
+        <Route path="/other-queries" element={<Contact defaultTab="queries" />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/jobs" element={<PublicJobs />} />
         <Route path="/admin" element={<Admin />} />
