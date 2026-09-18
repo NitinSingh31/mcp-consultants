@@ -1266,9 +1266,9 @@ export default function Admin() {
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>ID</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Candidate Name</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Contact Info</th>
-                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Current Role</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Role & Company</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Sector</th>
-                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Experience</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Exp & CTC</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>LinkedIn</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Attached CV</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Submitted At</th>
@@ -1282,6 +1282,11 @@ export default function Admin() {
                           </td>
                           <td style={{ padding: '14px 18px', fontWeight: 700, color: 'var(--color-primary, #0b1a2f)' }}>
                             {item.name}
+                            {(item.city || item.location) && (
+                              <div style={{ fontSize: '11px', color: '#0369a1', fontWeight: 600, marginTop: '2px' }}>
+                                📍 {item.city || item.location}
+                              </div>
+                            )}
                           </td>
                           <td style={{ padding: '14px 18px' }}>
                             <div style={{ fontSize: '12px' }}>
@@ -1289,16 +1294,28 @@ export default function Admin() {
                               {item.phone && <div style={{ color: '#64748b' }}>{item.phone}</div>}
                             </div>
                           </td>
-                          <td style={{ padding: '14px 18px', fontWeight: 700 }}>
-                            {item.current_role}
+                          <td style={{ padding: '14px 18px' }}>
+                            <div style={{ fontWeight: 700, color: 'var(--color-primary, #0b1a2f)' }}>
+                              {item.designation || item.current_role}
+                            </div>
+                            {item.company && (
+                              <div style={{ fontSize: '12px', color: '#64748b' }}>
+                                {item.company}
+                              </div>
+                            )}
                           </td>
                           <td style={{ padding: '14px 18px' }}>
                             <span style={{ display: 'inline-block', padding: '3px 8px', borderRadius: '12px', fontSize: '11px', fontWeight: 700, backgroundColor: 'rgba(11, 26, 47, 0.08)', color: 'var(--color-primary, #0b1a2f)' }}>
                               {item.sector}
                             </span>
                           </td>
-                          <td style={{ padding: '14px 18px', color: '#475569' }}>
-                            {item.experience}
+                          <td style={{ padding: '14px 18px', color: '#475569', fontSize: '13px' }}>
+                            <div>{item.experience}</div>
+                            {item.annual_ctc && (
+                              <div style={{ fontSize: '11px', color: '#16a34a', fontWeight: 700, marginTop: '2px' }}>
+                                ₹{item.annual_ctc} LPA
+                              </div>
+                            )}
                           </td>
                           <td style={{ padding: '14px 18px' }}>
                             {item.linkedin_url ? (
@@ -1319,7 +1336,7 @@ export default function Admin() {
                                 href={apiUrl(`/uploads/${item.cv_filename}`)} 
                                 download 
                                 style={{ 
-                                  display: 'inline-flex', 
+                                   display: 'inline-flex', 
                                   alignItems: 'center', 
                                   gap: '6px', 
                                   backgroundColor: 'rgba(196, 154, 69, 0.1)', 
@@ -1355,11 +1372,11 @@ export default function Admin() {
                       <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: 'var(--color-primary, #0b1a2f)' }}>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>ID</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Name</th>
-                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Email</th>
-                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Phone</th>
-                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Topic</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Contact Info</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Company</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Referral Source</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Message</th>
-                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Attached Resume / File</th>
+                        <th style={{ padding: '14px 18px', fontWeight: 800 }}>Attached File</th>
                         <th style={{ padding: '14px 18px', fontWeight: 800 }}>Submitted At</th>
                       </tr>
                     </thead>
@@ -1373,18 +1390,21 @@ export default function Admin() {
                             {item.name}
                           </td>
                           <td style={{ padding: '14px 18px' }}>
-                            <a href={`mailto:${item.email}`} style={{ color: 'inherit', textDecoration: 'none' }}>{item.email}</a>
+                            <div style={{ fontSize: '12px' }}>
+                              <a href={`mailto:${item.email}`} style={{ color: 'inherit', textDecoration: 'none' }}>{item.email}</a>
+                              {item.phone && <div style={{ color: '#64748b' }}>{item.phone}</div>}
+                            </div>
                           </td>
-                          <td style={{ padding: '14px 18px', color: '#64748b' }}>
-                            {item.phone || '-'}
+                          <td style={{ padding: '14px 18px', color: '#0f172a', fontWeight: 600 }}>
+                            {item.company || '-'}
                           </td>
                           <td style={{ padding: '14px 18px' }}>
-                            <span style={{ display: 'inline-block', padding: '3px 8px', borderRadius: '12px', fontSize: '11px', fontWeight: 700, backgroundColor: 'rgba(11, 26, 47, 0.08)', color: 'var(--color-primary, #0b1a2f)' }}>
-                              {item.topic}
+                            <span style={{ display: 'inline-block', padding: '3px 8px', borderRadius: '12px', fontSize: '11px', fontWeight: 700, backgroundColor: 'rgba(196, 154, 69, 0.15)', color: '#92400e' }}>
+                              {item.source || item.topic || 'General Query'}
                             </span>
                           </td>
-                          <td style={{ padding: '14px 18px', maxWidth: '300px', color: '#475569', lineHeight: 1.4 }}>
-                            {item.message}
+                          <td style={{ padding: '14px 18px', maxWidth: '280px', color: '#475569', lineHeight: 1.4 }}>
+                            {item.message || '-'}
                           </td>
                           <td style={{ padding: '14px 18px' }}>
                             {item.cv_filename ? (
@@ -1406,10 +1426,10 @@ export default function Admin() {
                                 }}
                               >
                                 <FileText size={14} color="var(--color-accent, #c49a45)" />
-                                <span>{item.cv_original_name || 'Download CV'}</span>
+                                <span>{item.cv_original_name || 'Download File'}</span>
                               </a>
                             ) : (
-                              <span style={{ color: '#94a3b8' }}>No File</span>
+                              <span style={{ color: '#94a3b8' }}>-</span>
                             )}
                           </td>
                           <td style={{ padding: '14px 18px', whiteSpace: 'nowrap', color: '#64748b', fontSize: '12px' }}>
