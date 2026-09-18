@@ -103,14 +103,32 @@ exports.postCandidate = async (req, res) => {
     const savedCvFilename = file ? (file.savedFilename || file.filename) : null;
     const originalCvName = file ? (file.originalName || file.originalname) : null;
 
+    const fullName = fields.name || `${fields.firstName || ''} ${fields.lastName || ''}`.trim() || 'Anonymous Candidate';
+    const skillsArray = typeof fields.skills === 'string' 
+      ? fields.skills.split(',').map(s => s.trim()).filter(Boolean)
+      : (Array.isArray(fields.skills) ? fields.skills : []);
+
     await CandidateModel.create({
-      name: fields.name || 'Anonymous',
+      name: fullName,
+      first_name: fields.firstName || '',
+      last_name: fields.lastName || '',
       email: fields.email || '',
       phone: fields.phone || '',
-      current_role: fields.current_role || '',
-      sector: fields.sector || '',
-      experience: fields.experience || '',
-      linkedin_url: fields.linkedin_url || '',
+      gender: fields.gender || '',
+      dob: fields.dob || '',
+      city: fields.city || '',
+      location: fields.city || fields.location || '',
+      company: fields.company || '',
+      designation: fields.designation || fields.current_role || '',
+      current_role: fields.designation || fields.current_role || 'Executive Leadership',
+      experience: fields.experience ? `${fields.experience} Years` : '10+ Years',
+      annual_ctc: fields.annual_ctc || fields.currentCtc || '',
+      degree: fields.degree || '',
+      institute: fields.institute || '',
+      function_area: fields.function || '',
+      sector: fields.industry || fields.sector || 'Heavy Engineering & Industrial',
+      key_skills: skillsArray,
+      ug_qualification: fields.degree || '',
       cv_filename: savedCvFilename,
       cv_original_name: originalCvName
     });
@@ -129,7 +147,7 @@ exports.postCandidate = async (req, res) => {
 
     // Trigger instant email alert with attached resume
     sendNotificationEmail({
-      subject: `👤 [New Candidate CV] ${fields.name || 'Executive'} - ${fields.current_role || 'Leadership Role'}`,
+      subject: `👤 [New Candidate CV] ${fullName} - ${fields.designation || fields.current_role || 'Leadership Role'}`,
       html: `
         <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
           <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -140,17 +158,20 @@ exports.postCandidate = async (req, res) => {
             <div style="padding: 24px;">
               <p style="font-size: 16px; margin-top: 0;">An executive candidate has submitted their resume:</p>
               <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b; width: 140px;"><strong>Candidate Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(fields.name)}</td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Current Role:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(fields.current_role)}</td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Industry Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.sector)}</td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Experience:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.experience)}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b; width: 140px;"><strong>Candidate Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(fullName)}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Designation / Role:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(fields.designation || fields.current_role || 'N/A')}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Company:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.company || 'N/A')}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>City / Location:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.city || 'N/A')}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Experience / CTC:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.experience ? fields.experience + ' Yrs' : 'N/A')} | CTC: ₹${escapeHtml(fields.currentCtc || fields.annual_ctc || 'N/A')}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Education / Institute:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.degree || 'N/A')} (${escapeHtml(fields.institute || 'N/A')})</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Function / Industry:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(fields.function || 'N/A')} | ${escapeHtml(fields.industry || fields.sector || 'N/A')}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Skills:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(skillsArray.join(', ') || 'N/A')}</td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="mailto:${escapeHtml(fields.email)}" style="color: #0b1a2f;">${escapeHtml(fields.email)}</a></td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(fields.phone)}" style="color: #0b1a2f;">${escapeHtml(fields.phone || 'N/A')}</a></td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>LinkedIn:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${fields.linkedin_url ? `<a href="${escapeHtml(fields.linkedin_url)}" target="_blank" style="color: #c49a45; font-weight: bold;">View LinkedIn Profile &rarr;</a>` : 'Not provided'}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Mobile:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(fields.phone)}" style="color: #0b1a2f;">${escapeHtml(fields.phone || 'N/A')}</a></td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Resume File:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${savedCvFilename ? '📎 ' + escapeHtml(originalCvName || savedCvFilename) + ' (Attached to this email)' : 'No file uploaded'}</td></tr>
               </table>
               <div style="margin-top: 24px; text-align: center;">
-                <a href="http://localhost:${PORT}/admin.html" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                <a href="http://localhost:${PORT}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
               </div>
             </div>
           </div>
