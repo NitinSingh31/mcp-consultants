@@ -28,6 +28,7 @@ import {
   filterSkills,
   filterDepartments,
   filterIndustries,
+  filterDesignations,
   filterHierarchicalLocations,
   SPECIAL_LOCATION_SCOPES
 } from '../data/resdexSuggestions';
@@ -49,6 +50,7 @@ export default function PostJob() {
   const [hideCompany, setHideCompany] = useState(false);
   const [jobTitle, setJobTitle] = useState('Quality Engineer(QMS)');
   const [jobTitleError, setJobTitleError] = useState(false);
+  const [showTitleSuggestions, setShowTitleSuggestions] = useState(false);
   const [department, setDepartment] = useState('Quality Assurance - Other');
   const [showDeptDropdown, setShowDeptDropdown] = useState(false);
   const [employmentType, setEmploymentType] = useState('Full Time, Permanent');
@@ -170,6 +172,7 @@ Shikha (9888426060)`);
         setShowLocationSuggestions(false);
         setShowSkillSuggestions(false);
         setShowDeptDropdown(false);
+        setShowTitleSuggestions(false);
       }
       if (!e.target.closest('.jobs-menu-wrapper')) {
         setShowJobsMenu(false);
@@ -592,32 +595,134 @@ Shikha (9888426060)`);
                 </label>
               </div>
 
-              {/* Field 2: Job title */}
-              <div>
+              {/* Field 2: Job title (WITH REAL-WORLD JOB TITLES AUTOCOMPLETE) */}
+              <div className="postjob-autocomplete-wrapper" style={{ position: 'relative' }}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
                   Job title <span style={{ color: '#ef4444' }}>*</span>
                 </label>
-                <input 
-                  type="text"
-                  placeholder="Enter job title e.g. Quality Engineer(QMS), Plant Head"
-                  value={jobTitle}
-                  onChange={(e) => {
-                    setJobTitle(e.target.value);
-                    if (jobTitleError) setJobTitleError(false);
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '11px 14px',
-                    borderRadius: '8px',
-                    border: jobTitleError ? '1.5px solid #ef4444' : '1px solid #cbd5e1',
-                    fontSize: '14px',
-                    outline: 'none'
-                  }}
-                />
+
+                <div style={{ position: 'relative' }}>
+                  <input 
+                    type="text"
+                    placeholder="Enter job title e.g. Quality Engineer(QMS), Plant Head"
+                    value={jobTitle}
+                    onChange={(e) => {
+                      setJobTitle(e.target.value);
+                      setShowTitleSuggestions(true);
+                      if (jobTitleError) setJobTitleError(false);
+                    }}
+                    onFocus={() => setShowTitleSuggestions(true)}
+                    style={{
+                      width: '100%',
+                      padding: '11px 40px 11px 14px',
+                      borderRadius: '8px',
+                      border: jobTitleError ? '1.5px solid #ef4444' : showTitleSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                      fontSize: '14px',
+                      outline: 'none',
+                      boxShadow: showTitleSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none'
+                    }}
+                  />
+
+                  {/* Right Icons: Clear & Toggle Dropdown */}
+                  <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    {jobTitle && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setJobTitle('');
+                          setShowTitleSuggestions(true);
+                        }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
+                        title="Clear title"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setShowTitleSuggestions(!showTitleSuggestions)}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#64748b', display: 'flex', alignItems: 'center' }}
+                      title="Browse job titles"
+                    >
+                      {showTitleSuggestions ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    </button>
+                  </div>
+                </div>
+
                 {jobTitleError && (
                   <span style={{ fontSize: '11.5px', color: '#ef4444', marginTop: '4px', display: 'block' }}>
                     Please enter a job title
                   </span>
+                )}
+
+                {/* Direct Titles Data Dropdown */}
+                {showTitleSuggestions && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.12)',
+                    zIndex: 60,
+                    maxHeight: '280px',
+                    overflowY: 'auto'
+                  }}>
+                    {(() => {
+                      const matches = filterDesignations(jobTitle);
+                      if (matches.length === 0) {
+                        return (
+                          <div style={{ padding: '14px 16px', fontSize: '13px', color: '#64748b', textAlign: 'center' }}>
+                            No predefined title matches "<strong>{jobTitle}</strong>".<br />
+                            <span style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px', display: 'inline-block' }}>
+                              You can keep and use this custom title.
+                            </span>
+                          </div>
+                        );
+                      }
+                      return matches.map((item, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => {
+                            setJobTitle(item.name);
+                            setShowTitleSuggestions(false);
+                            if (jobTitleError) setJobTitleError(false);
+                          }}
+                          style={{
+                            padding: '9px 14px',
+                            fontSize: '13px',
+                            cursor: 'pointer',
+                            borderBottom: '1px solid #f1f5f9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '12px',
+                            backgroundColor: jobTitle.toLowerCase() === item.name.toLowerCase() ? '#eff6ff' : '#ffffff'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (jobTitle.toLowerCase() !== item.name.toLowerCase()) {
+                              e.currentTarget.style.backgroundColor = '#f8fafc';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (jobTitle.toLowerCase() !== item.name.toLowerCase()) {
+                              e.currentTarget.style.backgroundColor = '#ffffff';
+                            }
+                          }}
+                        >
+                          <span style={{ fontWeight: 600, color: '#0f172a' }}>{item.name}</span>
+                          {item.category && (
+                            <span style={{ fontSize: '11px', color: '#64748b', backgroundColor: '#f1f5f9', padding: '2px 8px', borderRadius: '10px', whiteSpace: 'nowrap' }}>
+                              {item.category}
+                            </span>
+                          )}
+                        </div>
+                      ));
+                    })()}
+                  </div>
                 )}
               </div>
 
