@@ -24,6 +24,21 @@ app.use(cors());
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 
+// Health check endpoint for uptime and container health probes (Render, AWS, Docker)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    service: 'MCP CONSULTANTS API',
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(process.uptime()),
+    database: getIsMongoConnected() ? 'connected' : 'disconnected',
+    memory: {
+      rss: `${Math.round(process.memoryUsage().rss / 1024 / 1024)}MB`,
+      heapUsed: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`
+    }
+  });
+});
+
 // API Routes
 app.use('/api', submissionRoutes);
 app.use('/api/candidates', candidateRoutes);
@@ -48,7 +63,11 @@ const baseDir = fs.existsSync(FRONTEND_DIST) ? FRONTEND_DIST : (fs.existsSync(LO
 
 if (baseDir) {
   app.use(express.static(baseDir));
-  app.use((req, res) => {
+  app.use((req, res, next) => {
+    // If request starts with /api or /uploads, do not fall back to index.html
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      return res.status(404).json({ error: 'Not Found', message: `API endpoint ${req.method} ${req.originalUrl} not found.` });
+    }
     res.sendFile(path.join(baseDir, 'index.html'));
   });
 } else {
@@ -66,6 +85,20 @@ if (baseDir) {
     res.status(404).json({ error: 'Not Found', message: `Cannot ${req.method} ${req.originalUrl}` });
   });
 }
+
+// Global Express Error-Handling Middleware
+app.use((err, req, res, next) => {
+  console.error('Unhandled Server Error:', err);
+  if (res.headersSent) {
+    return next(err);
+  }
+  const statusCode = err.statusCode || err.status || 500;
+  res.status(statusCode).json({
+    success: false,
+    error: err.name || 'InternalServerError',
+    message: err.message || 'An unexpected server error occurred.'
+  });
+});
 
 // Server Startup
 async function startServer() {

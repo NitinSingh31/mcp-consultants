@@ -20,8 +20,20 @@ const storage = multer.diskStorage({
   }
 });
 
+const ALLOWED_EXTENSIONS = ['.pdf', '.doc', '.docx', '.rtf', '.txt', '.odt', '.jpg', '.jpeg', '.png'];
+
+const fileFilter = (req, file, cb) => {
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (ALLOWED_EXTENSIONS.includes(ext)) {
+    cb(null, true);
+  } else {
+    cb(new Error(`File type '${ext}' is not allowed. Supported formats: ${ALLOWED_EXTENSIONS.join(', ')}`), false);
+  }
+};
+
 const upload = multer({
   storage: storage,
+  fileFilter: fileFilter,
   limits: {
     fileSize: 25 * 1024 * 1024 // 25MB max file size
   }
