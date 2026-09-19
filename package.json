@@ -4,7 +4,7 @@
   "description": "MCP CONSULTANTS - Executive Search & Leadership Advisory (Frontend & Backend)",
   "private": true,
   "scripts": {
-    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "install:all": "npm install --prefix frontend --include=dev && npm install --prefix backend",
     "dev:frontend": "npm run dev --prefix frontend",
     "dev:backend": "npm run dev --prefix backend",
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,cyan\" \"npm run dev:backend\" \"npm run dev:frontend\"",
