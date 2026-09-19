@@ -3309,63 +3309,69 @@ export default function ResdexSearch() {
         right: 0,
         backgroundColor: '#ffffff',
         borderTop: '1px solid #e2e8f0',
-        padding: '14px 32px',
+        padding: '12px 0',
         boxShadow: '0 -4px 12px rgba(0,0,0,0.06)',
-        zIndex: 99,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        zIndex: 99
       }}>
-        
-        {/* Left window */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#475569' }}>
-          <span>Active in -</span>
-          <select 
-            value={activeWindow} 
-            onChange={(e) => setActiveWindow(e.target.value)}
-            style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none', backgroundColor: '#ffffff' }}
-          >
-            <option value="1 month">1 month</option>
-            <option value="3 months">3 months</option>
-            <option value="6 months">6 months</option>
-            <option value="1 year">1 year</option>
-            <option value="All">All Time</option>
-          </select>
+        <div style={{
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '0 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          boxSizing: 'border-box'
+        }}>
+          {/* Left window */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#475569' }}>
+            <span>Active in -</span>
+            <select 
+              value={activeWindow} 
+              onChange={(e) => setActiveWindow(e.target.value)}
+              style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none', backgroundColor: '#ffffff' }}
+            >
+              <option value="1 month">1 month</option>
+              <option value="3 months">3 months</option>
+              <option value="6 months">6 months</option>
+              <option value="1 year">1 year</option>
+              <option value="All">All Time</option>
+            </select>
+          </div>
+
+          {/* Center/Right Action Buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button
+              onClick={handleClearFilters}
+              style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+            >
+              Clear Filters
+            </button>
+
+            <button
+              onClick={() => handleSearch(true)}
+              disabled={searching}
+              style={{
+                backgroundColor: '#0056b3',
+                color: '#ffffff',
+                padding: '12px 36px',
+                borderRadius: '24px',
+                fontSize: '15px',
+                fontWeight: 800,
+                border: 'none',
+                cursor: searching ? 'not-allowed' : 'pointer',
+                boxShadow: '0 4px 6px -1px rgba(0, 86, 179, 0.3)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'background-color 0.15s'
+              }}
+            >
+              <Search size={16} />
+              <span>{searching ? 'Searching...' : 'Search candidates'}</span>
+            </button>
+          </div>
         </div>
-
-        {/* Center/Right Action Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button
-            onClick={handleClearFilters}
-            style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
-          >
-            Clear Filters
-          </button>
-
-          <button
-            onClick={() => handleSearch(true)}
-            disabled={searching}
-            style={{
-              backgroundColor: '#0056b3',
-              color: '#ffffff',
-              padding: '12px 36px',
-              borderRadius: '24px',
-              fontSize: '15px',
-              fontWeight: 800,
-              border: 'none',
-              cursor: searching ? 'not-allowed' : 'pointer',
-              boxShadow: '0 4px 6px -1px rgba(0, 86, 179, 0.3)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              transition: 'background-color 0.15s'
-            }}
-          >
-            <Search size={16} />
-            <span>{searching ? 'Searching...' : 'Search candidates'}</span>
-          </button>
-        </div>
-
       </footer>
 
       {/* Floating MCP Help Button */}
