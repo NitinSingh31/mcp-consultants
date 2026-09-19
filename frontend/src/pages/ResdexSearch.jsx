@@ -614,6 +614,19 @@ export default function ResdexSearch() {
     handleSearch(false);
   };
 
+  // Remove / Clear all matched candidates
+  const handleClearMatchedCandidates = () => {
+    setSearchResults([]);
+    setSearchExecuted(false);
+    setTotalMatches(0);
+  };
+
+  // Remove individual candidate from matched list
+  const handleRemoveSingleCandidate = (candId) => {
+    setSearchResults(prev => prev.filter(c => (c._id || c.id) !== candId));
+    setTotalMatches(prev => Math.max(0, prev - 1));
+  };
+
   // Filtered Autocomplete Lists
   const filteredSkills = filterSkills(keywordInput);
   const filteredCompanies = filterCompanies(companyInput);
@@ -3089,7 +3102,7 @@ export default function ResdexSearch() {
         {/* ============================================================= */}
         <div id="search-results-section" style={{ marginTop: '48px', paddingTop: '32px', borderTop: '2px dashed #cbd5e1' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: '0 0 4px 0' }}>
                 Matched Candidates
@@ -3102,11 +3115,44 @@ export default function ResdexSearch() {
               </p>
             </div>
 
-            {searchExecuted && (
-              <span style={{ backgroundColor: '#eff6ff', color: '#0056b3', border: '1px solid #bfdbfe', borderRadius: '20px', padding: '6px 14px', fontSize: '13px', fontWeight: 700 }}>
-                {searchResults.length} Total Matches
-              </span>
-            )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              {searchExecuted && (
+                <span style={{ backgroundColor: '#eff6ff', color: '#0056b3', border: '1px solid #bfdbfe', borderRadius: '20px', padding: '6px 14px', fontSize: '13px', fontWeight: 700 }}>
+                  {searchResults.length} Total Matches
+                </span>
+              )}
+
+              {(searchExecuted || searchResults.length > 0) && (
+                <button
+                  type="button"
+                  onClick={handleClearMatchedCandidates}
+                  style={{
+                    backgroundColor: '#fef2f2',
+                    color: '#dc2626',
+                    border: '1px solid #fecaca',
+                    borderRadius: '20px',
+                    padding: '6px 16px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 0.15s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#fee2e2';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#fef2f2';
+                  }}
+                  title="Remove all matched candidates"
+                >
+                  <Trash2 size={14} />
+                  <span>Remove Matched Candidates</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Results Grid */}
@@ -3281,12 +3327,43 @@ export default function ResdexSearch() {
                           <span>Profile Archived</span>
                         </button>
                       )}
+
+                      {/* Remove Candidate from Matched List */}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSingleCandidate(cand._id || cand.id)}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          border: '1px solid #fecaca',
+                          backgroundColor: '#fef2f2',
+                          color: '#dc2626',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          transition: 'background-color 0.15s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fee2e2'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fef2f2'}
+                        title="Remove candidate from matched list"
+                      >
+                        <Trash2 size={12} />
+                        <span>Remove</span>
+                      </button>
                     </div>
 
                   </div>
 
                 </div>
               ))}
+            </div>
+          ) : !searchExecuted ? (
+            <div style={{ padding: '48px', textAlign: 'center', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <p style={{ fontSize: '15px', fontWeight: 600, color: '#64748b', margin: '0 0 6px 0' }}>No active search results</p>
+              <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>Click "Search candidates" above or use the floating bottom bar to query candidates.</p>
             </div>
           ) : (
             <div style={{ padding: '60px', textAlign: 'center', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
@@ -3347,6 +3424,28 @@ export default function ResdexSearch() {
             >
               Clear Filters
             </button>
+
+            {searchResults.length > 0 && (
+              <button
+                type="button"
+                onClick={handleClearMatchedCandidates}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#dc2626',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+                title="Remove all matched candidates"
+              >
+                <Trash2 size={13} />
+                <span>Remove Matched Candidates ({searchResults.length})</span>
+              </button>
+            )}
 
             <button
               onClick={() => handleSearch(true)}
