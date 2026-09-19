@@ -915,26 +915,54 @@ export default function ResdexSearch() {
               <div style={{ position: 'relative' }}>
                 <input 
                   type="text" 
-                  placeholder="Add client/company you’re hiring for"
+                  placeholder="Add client/company you’re hiring for (e.g. Dell, Deloitte, Tata, Siemens)"
                   value={clientHiringFor}
                   onChange={(e) => {
                     setClientHiringFor(e.target.value);
                     setShowClientSuggestions(true);
                   }}
                   onFocus={() => setShowClientSuggestions(true)}
+                  onClick={() => setShowClientSuggestions(true)}
                   style={{
                     width: '100%',
-                    padding: '12px 14px',
+                    padding: '12px 42px 12px 14px',
                     borderRadius: '8px',
-                    border: '1px solid #cbd5e1',
+                    border: showClientSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
                     fontSize: '14px',
                     outline: 'none',
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    boxShadow: showClientSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none'
                   }}
                 />
 
+                {/* Right Icons: Clear & Toggle Dropdown */}
+                <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  {clientHiringFor && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setClientHiringFor('');
+                        setShowClientSuggestions(true);
+                      }}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
+                      title="Clear client"
+                    >
+                      <X size={14} />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowClientSuggestions(!showClientSuggestions)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#64748b', display: 'flex', alignItems: 'center' }}
+                    title="Browse all companies"
+                  >
+                    {showClientSuggestions ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </button>
+                </div>
+
                 {/* Client Autocomplete Dropdown */}
-                {showClientSuggestions && filteredClients.length > 0 && (
+                {showClientSuggestions && (
                   <div style={{
                     position: 'absolute',
                     top: 'calc(100% + 4px)',
@@ -945,39 +973,55 @@ export default function ResdexSearch() {
                     borderRadius: '8px',
                     boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
                     zIndex: 60,
-                    maxHeight: '240px',
+                    maxHeight: '280px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '8px 14px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      {clientHiringFor ? `Matching Clients "${clientHiringFor}"` : 'Top Executive Clients'}
-                    </div>
-                    {filteredClients.map((clientItem, i) => (
-                      <div
-                        key={i}
-                        onClick={() => {
-                          setClientHiringFor(clientItem.name);
-                          setShowClientSuggestions(false);
-                        }}
-                        style={{
-                          padding: '10px 14px',
-                          borderBottom: '1px solid #f1f5f9',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          cursor: 'pointer',
-                          transition: 'background-color 0.15s'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
-                      >
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
-                          {highlightMatch(clientItem.name, clientHiringFor)}
-                        </span>
-                        <span style={{ fontSize: '11px', backgroundColor: '#fef3c7', color: '#b45309', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
-                          {clientItem.sector}
+                    {filteredClients.length > 0 ? (
+                      filteredClients.map((clientItem, i) => (
+                        <div
+                          key={i}
+                          onClick={() => {
+                            setClientHiringFor(clientItem.name);
+                            setShowClientSuggestions(false);
+                          }}
+                          style={{
+                            padding: '10px 14px',
+                            borderBottom: '1px solid #f1f5f9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            cursor: 'pointer',
+                            gap: '12px',
+                            backgroundColor: clientHiringFor.toLowerCase() === clientItem.name.toLowerCase() ? '#eff6ff' : '#ffffff',
+                            transition: 'background-color 0.12s'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (clientHiringFor.toLowerCase() !== clientItem.name.toLowerCase()) {
+                              e.currentTarget.style.backgroundColor = '#f8fafc';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (clientHiringFor.toLowerCase() !== clientItem.name.toLowerCase()) {
+                              e.currentTarget.style.backgroundColor = '#ffffff';
+                            }
+                          }}
+                        >
+                          <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                            {highlightMatch(clientItem.name, clientHiringFor)}
+                          </span>
+                          <span style={{ fontSize: '11px', backgroundColor: '#fef3c7', color: '#b45309', padding: '2px 8px', borderRadius: '10px', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                            {clientItem.sector}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <div style={{ padding: '14px 16px', fontSize: '13px', color: '#64748b', textAlign: 'center' }}>
+                        No predefined company matches "<strong>{clientHiringFor}</strong>".<br />
+                        <span style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px', display: 'inline-block' }}>
+                          You can keep and search with this custom client name.
                         </span>
                       </div>
-                    ))}
+                    )}
                   </div>
                 )}
               </div>
