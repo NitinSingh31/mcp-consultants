@@ -108,6 +108,7 @@ export default function ResdexSearch() {
   const [showClientSuggestions, setShowClientSuggestions] = useState(false);
 
   // 2. Keywords Autocomplete & Chips State
+  const keywordInputRef = useRef(null);
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [keywordInput, setKeywordInput] = useState('');
   const [showKeywordSuggestions, setShowKeywordSuggestions] = useState(false);
@@ -1048,19 +1049,26 @@ export default function ResdexSearch() {
 
               {/* Tag Chips Container & Active Input */}
               <div style={{ position: 'relative' }}>
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '6px',
-                  alignItems: 'center',
-                  minHeight: '48px',
-                  padding: '6px 12px',
-                  borderRadius: '8px',
-                  border: showKeywordSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
-                  backgroundColor: '#ffffff',
-                  boxShadow: showKeywordSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
-                  transition: 'all 0.15s'
-                }}>
+                <div 
+                  onClick={() => {
+                    setShowKeywordSuggestions(true);
+                    keywordInputRef.current?.focus();
+                  }}
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '6px',
+                    alignItems: 'center',
+                    minHeight: '48px',
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: showKeywordSuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                    backgroundColor: '#ffffff',
+                    boxShadow: showKeywordSuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
+                    transition: 'all 0.15s',
+                    cursor: 'text'
+                  }}
+                >
                   
                   {/* Selected Keyword Tag Chips */}
                   {selectedKeywords.map((tag) => (
@@ -1078,11 +1086,15 @@ export default function ResdexSearch() {
                         alignItems: 'center',
                         gap: '6px'
                       }}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <span>{tag}</span>
                       <button
                         type="button"
-                        onClick={() => removeKeywordChip(tag)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeKeywordChip(tag);
+                        }}
                         style={{ background: 'none', border: 'none', color: '#0056b3', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
                       >
                         <X size={13} />
@@ -1092,6 +1104,7 @@ export default function ResdexSearch() {
 
                   {/* Typing input */}
                   <input 
+                    ref={keywordInputRef}
                     type="text" 
                     placeholder={selectedKeywords.length === 0 ? "Enter keywords like skills, designation and company" : "Add more skills..."}
                     value={keywordInput}
@@ -1100,6 +1113,10 @@ export default function ResdexSearch() {
                       setShowKeywordSuggestions(true);
                     }}
                     onFocus={() => setShowKeywordSuggestions(true)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowKeywordSuggestions(true);
+                    }}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && keywordInput.trim()) {
                         e.preventDefault();
@@ -1113,29 +1130,64 @@ export default function ResdexSearch() {
                       outline: 'none',
                       fontSize: '14px',
                       flex: 1,
-                      minWidth: '240px',
+                      minWidth: '220px',
                       padding: '6px 0',
                       backgroundColor: 'transparent',
                       color: '#0f172a'
                     }}
                   />
 
-                  {/* Clear all keywords if any */}
-                  {selectedKeywords.length > 0 && (
+                  {/* Right-side quick controls */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginLeft: 'auto' }}>
+                    {keywordInput && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setKeywordInput('');
+                          setShowKeywordSuggestions(true);
+                          keywordInputRef.current?.focus();
+                        }}
+                        style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }}
+                        title="Clear typing"
+                      >
+                        <X size={15} />
+                      </button>
+                    )}
                     <button
                       type="button"
-                      onClick={() => setSelectedKeywords([])}
-                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '4px', textDecoration: 'underline' }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowKeywordSuggestions(prev => !prev);
+                        if (!showKeywordSuggestions) {
+                          keywordInputRef.current?.focus();
+                        }
+                      }}
+                      style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }}
+                      title={showKeywordSuggestions ? "Close skills" : "Browse all skills"}
                     >
-                      Clear
+                      {showKeywordSuggestions ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </button>
-                  )}
+                    {selectedKeywords.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedKeywords([]);
+                        }}
+                        style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '11px', fontWeight: 600, cursor: 'pointer', padding: '4px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '3px' }}
+                        title="Remove all skill tags"
+                      >
+                        <Trash2 size={12} /> Clear
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* ========================================================= */}
-                {/* REAL NAUKRI RESDEX SKILLS AUTOCOMPLETE DROPDOWN          */}
+                {/* REAL RESDEX ALL-WORLD SKILLS AUTOCOMPLETE DROPDOWN       */}
                 {/* ========================================================= */}
-                {showKeywordSuggestions && filteredSkills.length > 0 && (
+                {showKeywordSuggestions && (
                   <div style={{
                     position: 'absolute',
                     top: 'calc(100% + 6px)',
@@ -1152,7 +1204,7 @@ export default function ResdexSearch() {
                     {/* Sticky Header bar */}
                     <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 10 }}>
                       <span>
-                        {keywordInput ? `Matching Skills (${filteredSkills.length}) for "${keywordInput}"` : `All Available Skills (${filteredSkills.length} Total from A–Z)`}
+                        {keywordInput ? `Matching Skills (${filteredSkills.length}) starting with "${keywordInput}"` : `All Available Skills in the World (${filteredSkills.length} Total from A–Z)`}
                       </span>
                       <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to add tag</span>
                     </div>
@@ -1183,6 +1235,7 @@ export default function ResdexSearch() {
                             } else {
                               setKeywordInput(letter.toLowerCase());
                             }
+                            keywordInputRef.current?.focus();
                           }}
                           style={{
                             border: 'none',
@@ -1202,42 +1255,63 @@ export default function ResdexSearch() {
                       ))}
                     </div>
 
-                    {/* Suggestions List */}
-                    {filteredSkills.map((skill, idx) => (
-                      <div
-                        key={idx}
-                        onClick={() => addKeywordChip(skill.name)}
-                        style={{
-                          padding: '11px 16px',
-                          borderBottom: '1px solid #f1f5f9',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          cursor: 'pointer',
-                          transition: 'background-color 0.12s'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
-                            {highlightMatch(skill.name, keywordInput)}
-                          </span>
-                          <span style={{ fontSize: '11px', backgroundColor: '#f3e8ff', color: '#7e22ce', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
-                            {skill.category}
+                    {/* Suggestions List or Empty State */}
+                    {filteredSkills.length > 0 ? (
+                      filteredSkills.map((skill, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => addKeywordChip(skill.name)}
+                          style={{
+                            padding: '11px 16px',
+                            borderBottom: '1px solid #f1f5f9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.12s'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
+                              {highlightMatch(skill.name, keywordInput)}
+                            </span>
+                            <span style={{ fontSize: '11px', backgroundColor: '#f3e8ff', color: '#7e22ce', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
+                              {skill.category}
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
+                            {skill.count}
                           </span>
                         </div>
-                        <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
-                          {skill.count}
-                        </span>
+                      ))
+                    ) : (
+                      <div style={{ padding: '24px 16px', textAlign: 'center' }}>
+                        <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                          No predefined skills starting with "{keywordInput}"
+                        </p>
+                        <p style={{ margin: '6px 0 0', fontSize: '12px', color: '#64748b' }}>
+                          Press <kbd style={{ padding: '2px 6px', background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '4px' }}>Enter</kbd> or{' '}
+                          <button
+                            type="button"
+                            onClick={() => addKeywordChip(keywordInput.trim())}
+                            style={{ background: 'none', border: 'none', color: '#0056b3', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}
+                          >
+                            click here
+                          </button>{' '}
+                          to add "{keywordInput}" as a custom skill tag.
+                        </p>
                       </div>
-                    ))}
+                    )}
 
                     {/* Footer bar */}
-                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
-                      <span>Showing all {filteredSkills.length} available skills • Scroll to browse A–Z</span>
-                      <span style={{ fontWeight: 600 }}>Type or click letters A–Z to jump</span>
-                    </div>
+                    {filteredSkills.length > 0 && (
+                      <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
+                        <span>Showing {filteredSkills.length} skills • Scroll to browse A–Z</span>
+                        <span style={{ fontWeight: 600 }}>Type or click letters A–Z to jump</span>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
