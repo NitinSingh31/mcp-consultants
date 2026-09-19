@@ -48,7 +48,7 @@ export default function PostJob() {
   const [company, setCompany] = useState('MCP Consultants');
   const [isEditingCompany, setIsEditingCompany] = useState(false);
   const [hideCompany, setHideCompany] = useState(false);
-  const [jobTitle, setJobTitle] = useState('Quality Engineer(QMS)');
+  const [jobTitle, setJobTitle] = useState('');
   const [jobTitleError, setJobTitleError] = useState(false);
   const [showTitleSuggestions, setShowTitleSuggestions] = useState(false);
   const [department, setDepartment] = useState('Quality Assurance - Other');
@@ -612,6 +612,7 @@ Shikha (9888426060)`);
                       if (jobTitleError) setJobTitleError(false);
                     }}
                     onFocus={() => setShowTitleSuggestions(true)}
+                    onClick={() => setShowTitleSuggestions(true)}
                     style={{
                       width: '100%',
                       padding: '11px 40px 11px 14px',
