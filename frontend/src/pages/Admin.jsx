@@ -1001,10 +1001,22 @@ export default function Admin() {
     <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#1e293b', fontFamily: 'var(--font-body)' }}>
       
       {/* Top Navbar */}
-      <header style={{ backgroundColor: 'var(--color-primary, #0b1a2f)', borderBottom: '2px solid var(--color-accent, #c49a45)', color: '#ffffff', padding: '16px 0' }}>
+      {/* Top Navbar */}
+      <header style={{ 
+        backgroundColor: '#0a1728', 
+        borderBottom: '1px solid rgba(196, 154, 69, 0.3)', 
+        color: '#ffffff', 
+        padding: '12px 0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 90,
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+        backdropFilter: 'blur(12px)'
+      }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+          {/* Left: Brand Identity */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <Link to="/" style={{ textDecoration: 'none', color: '#ffffff', display: 'flex', flexDirection: 'column' }}>
               <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, letterSpacing: '1.5px', fontSize: '18px', color: '#ffffff', lineHeight: 1.1 }}>
                 MCP <span style={{ color: 'var(--color-accent, #c49a45)' }}>CONSULTANTS</span>
@@ -1015,160 +1027,234 @@ export default function Admin() {
             </Link>
           </div>
 
-          {/* User Controls & Navigation */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-            
-            {/* Logged in Badge */}
-            <div style={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.08)', 
-              border: '1px solid rgba(255, 255, 255, 0.15)', 
-              padding: '6px 12px', 
-              borderRadius: '8px',
-              fontSize: '12px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}>
-              <Shield size={14} color="var(--color-accent, #c49a45)" />
-              <span style={{ color: '#94a3b8' }}>Admin:</span>
-              <strong style={{ color: '#ffffff' }}>{currentUser.username || 'admin'}</strong>
-            </div>
-
-            {/* Resdex Candidate Talent Search Button */}
+          {/* Center: Recruitment Module Suite */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '4px', 
+            backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+            border: '1px solid rgba(255, 255, 255, 0.1)', 
+            padding: '3px 4px', 
+            borderRadius: '9px' 
+          }}>
+            {/* Resdex Search */}
             <Link 
               to="/admin/resdex" 
+              className="admin-suite-btn"
               style={{ 
-                padding: '8px 16px', 
-                fontSize: '13px', 
+                padding: '6px 14px', 
+                fontSize: '12.5px', 
                 display: 'inline-flex', 
                 alignItems: 'center', 
-                gap: '8px', 
-                backgroundColor: '#0056b3',
-                border: '1px solid #004494',
-                color: '#ffffff',
-                borderRadius: '8px',
-                fontWeight: 700,
+                gap: '7px', 
+                color: '#e2e8f0',
+                borderRadius: '7px',
+                fontWeight: 600,
                 textDecoration: 'none',
-                boxShadow: '0 2px 4px rgba(0, 86, 179, 0.3)'
+                transition: 'all 0.2s ease'
               }}
-              title="Launch Candidate Talent Search Engine (Naukri Resdex layout)"
+              title="Launch Candidate Talent Search Engine"
             >
-              <Search size={14} />
+              <Search size={14} style={{ color: 'var(--color-accent, #c49a45)' }} />
               <span>Resdex Search</span>
             </Link>
 
-            {/* Post a Job Portal */}
+            {/* Manage Jobs */}
+            <Link 
+              to="/admin/jobs" 
+              className="admin-suite-btn"
+              style={{ 
+                padding: '6px 14px', 
+                fontSize: '12.5px', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '7px', 
+                color: '#e2e8f0',
+                borderRadius: '7px',
+                fontWeight: 600,
+                textDecoration: 'none',
+                transition: 'all 0.2s ease'
+              }}
+              title="Manage live job postings & applicant responses"
+            >
+              <FileText size={14} style={{ color: 'var(--color-accent, #c49a45)' }} />
+              <span>Manage Jobs</span>
+            </Link>
+
+            {/* Post a Job (Primary Action in module) */}
             <Link 
               to="/admin/post-job" 
               style={{ 
-                padding: '8px 16px', 
-                fontSize: '13px', 
+                padding: '6px 14px', 
+                fontSize: '12.5px', 
                 display: 'inline-flex', 
                 alignItems: 'center', 
-                gap: '8px', 
-                backgroundColor: '#ff7a00',
-                border: '1px solid #e06900',
-                color: '#ffffff',
-                borderRadius: '8px',
+                gap: '6px', 
+                background: 'linear-gradient(135deg, #c49a45 0%, #dfb45e 100%)',
+                color: '#0b1a2f',
+                borderRadius: '7px',
                 fontWeight: 700,
                 textDecoration: 'none',
-                boxShadow: '0 2px 4px rgba(255, 122, 0, 0.3)'
+                boxShadow: '0 2px 8px rgba(196, 154, 69, 0.35)',
+                transition: 'all 0.2s ease'
               }}
-              title="Post a new executive mandate / job vacancy (5-step portal)"
+              title="Post a new executive mandate / job vacancy"
             >
               <Building2 size={14} />
               <span>Post a Job</span>
             </Link>
+          </div>
 
-            {/* Manage Jobs Portal */}
-            <Link 
-              to="/admin/jobs" 
-              style={{ 
-                padding: '8px 16px', 
-                fontSize: '13px', 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: '#ffffff',
-                borderRadius: '8px',
-                fontWeight: 700,
-                textDecoration: 'none'
-              }}
-              title="Manage live job postings & applicant responses"
-            >
-              <FileText size={14} />
-              <span>Manage Jobs</span>
-            </Link>
-
-            {/* Settings Modal Trigger */}
-            <button 
-              onClick={() => {
-                setSettingsModalOpen(true);
-                setSettingsError('');
-                setSettingsMessage('');
-              }}
-              style={{ 
-                padding: '8px 14px', 
-                fontSize: '13px', 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '6px', 
-                cursor: 'pointer',
-                backgroundColor: 'rgba(196, 154, 69, 0.15)',
-                border: '1px solid var(--color-accent, #c49a45)',
-                color: 'var(--color-accent, #c49a45)',
-                borderRadius: '8px',
-                fontWeight: 700
-              }}
-              title="Change admin username, email, or password"
-            >
-              <Settings size={14} />
-              <span>Settings</span>
-            </button>
-
+          {/* Right: Quick Utilities & Admin Profile Capsule */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            
             {/* Refresh Data */}
             <button 
               onClick={() => fetchData(true)}
               disabled={refreshing}
-              className="btn btn-outline-white" 
-              style={{ padding: '8px 14px', fontSize: '13px', display: 'inline-flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
-            >
-              <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
-              <span>{refreshing ? 'Refreshing...' : 'Refresh'}</span>
-            </button>
-
-            {/* Sign Out */}
-            <button 
-              onClick={handleLogout}
+              className="admin-util-btn"
               style={{ 
-                padding: '8px 14px', 
-                fontSize: '13px', 
+                padding: '7px 12px', 
+                fontSize: '12px', 
                 display: 'inline-flex', 
                 alignItems: 'center', 
                 gap: '6px', 
                 cursor: 'pointer',
-                backgroundColor: 'transparent',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
-                color: '#f87171',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#cbd5e1',
                 borderRadius: '8px',
-                fontWeight: 600
+                fontWeight: 600,
+                transition: 'all 0.2s ease'
               }}
+              title="Refresh mandates, candidates & inquiries"
             >
-              <LogOut size={14} />
-              <span>Sign Out</span>
+              <RefreshCw size={13} className={refreshing ? 'animate-spin' : ''} />
+              <span>{refreshing ? 'Refreshing...' : 'Refresh'}</span>
             </button>
 
             {/* View Live Website */}
             <Link 
               to="/" 
-              className="btn btn-accent" 
-              style={{ padding: '8px 14px', fontSize: '13px', display: 'inline-flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
+              className="admin-util-btn"
+              style={{ 
+                padding: '7px 12px', 
+                fontSize: '12px', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '6px', 
+                textDecoration: 'none',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#cbd5e1',
+                borderRadius: '8px',
+                fontWeight: 600,
+                transition: 'all 0.2s ease'
+              }}
+              title="View Public Website"
             >
-              <ArrowLeft size={14} />
+              <ExternalLink size={13} />
               <span>Website</span>
             </Link>
+
+            {/* Subtle Divider */}
+            <div style={{ width: '1px', height: '22px', backgroundColor: 'rgba(255, 255, 255, 0.15)', margin: '0 2px' }} />
+
+            {/* Admin Profile Capsule */}
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '8px',
+              backgroundColor: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(196, 154, 69, 0.35)',
+              padding: '4px 6px 4px 10px',
+              borderRadius: '999px',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.18)'
+            }}>
+              {/* User Avatar with Shield and Status Indicator */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                <div style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #162b48, #0b1a2f)',
+                  border: '1px solid var(--color-accent, #c49a45)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--color-accent, #c49a45)'
+                }}>
+                  <Shield size={12} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#ffffff' }}>
+                    {currentUser.username || 'admin'}
+                  </span>
+                </div>
+                <span 
+                  style={{ 
+                    width: '6px', 
+                    height: '6px', 
+                    borderRadius: '50%', 
+                    backgroundColor: '#10b981', 
+                    boxShadow: '0 0 6px #10b981' 
+                  }} 
+                  title="Session active"
+                />
+              </div>
+
+              {/* Settings Action Button */}
+              <button 
+                onClick={() => {
+                  setSettingsModalOpen(true);
+                  setSettingsError('');
+                  setSettingsMessage('');
+                }}
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.08)', 
+                  border: 'none', 
+                  color: '#e2e8f0', 
+                  width: '28px', 
+                  height: '28px', 
+                  borderRadius: '50%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                title="Account Settings (Change username / password)"
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-accent, #c49a45)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'; }}
+              >
+                <Settings size={14} />
+              </button>
+
+              {/* Sign Out Action Button */}
+              <button 
+                onClick={handleLogout}
+                style={{ 
+                  background: 'rgba(239, 68, 68, 0.15)', 
+                  border: '1px solid rgba(239, 68, 68, 0.3)', 
+                  color: '#f87171', 
+                  padding: '4px 10px', 
+                  borderRadius: '999px', 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  gap: '5px', 
+                  fontSize: '11.5px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                title="Sign Out of Management Portal"
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.28)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)'; }}
+              >
+                <LogOut size={12} />
+                <span>Sign Out</span>
+              </button>
+            </div>
 
           </div>
 
