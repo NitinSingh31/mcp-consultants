@@ -410,31 +410,36 @@ export default function Admin() {
     return (
       <div style={{
         minHeight: '100vh',
-        backgroundColor: '#f0f0f1',
+        backgroundColor: '#f8fafc',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#2c3338',
+        color: '#1e293b',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif'
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            width: '74px',
-            height: '74px',
-            borderRadius: '50%',
-            backgroundColor: '#ffffff',
-            border: '2px solid #1d2327',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 16px',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
+            fontSize: '22px',
+            fontWeight: 800,
+            letterSpacing: '2.5px',
+            color: '#0b1a2f',
+            fontFamily: "'Cinzel', 'Times New Roman', Georgia, serif",
+            textTransform: 'uppercase',
+            marginBottom: '4px'
           }}>
-            <span style={{ fontSize: '28px', fontWeight: 900, color: '#1d2327', fontFamily: 'serif' }}>M</span>
-            <span style={{ fontSize: '8px', fontWeight: 800, letterSpacing: '1.2px', color: '#c49a45', marginTop: '2px' }}>MCP</span>
+            MCP <span style={{ color: '#c49a45' }}>CONSULTANTS</span>
           </div>
-          <RefreshCw size={20} className="animate-spin" style={{ color: '#2271b1', margin: '0 auto 10px' }} />
+          <div style={{
+            fontSize: '10px',
+            fontWeight: 700,
+            letterSpacing: '2px',
+            color: '#64748b',
+            textTransform: 'uppercase',
+            marginBottom: '16px'
+          }}>
+            Executive Search &bull; Leadership Advisory
+          </div>
+          <RefreshCw size={20} className="animate-spin" style={{ color: '#0b1a2f', margin: '0 auto 10px' }} />
           <p style={{ color: '#64748b', fontSize: '13px' }}>Verifying practice portal session...</p>
         </div>
       </div>
@@ -442,41 +447,52 @@ export default function Admin() {
   }
 
   // ---------------------------------------------------------------------------
-  // Screen B: Unauthenticated Sign In Panel (WordPress Style)
+  // Screen B: Unauthenticated Sign In Panel (Executive Bespoke Style)
   // ---------------------------------------------------------------------------
   if (!isAuthenticated) {
     return (
       <div style={{
         minHeight: '100vh',
-        backgroundColor: '#f0f0f1',
+        backgroundColor: '#f4f6f8',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '24px 16px',
+        padding: '32px 16px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
         boxSizing: 'border-box'
       }}>
         
-        {/* Brand Logo Crest */}
+        {/* Bespoke Brand Header (Clean typography, no generic circle icon) */}
         <div style={{ marginBottom: '24px', textAlign: 'center' }}>
           <Link to="/" title="Go to MCP Consultants" style={{ textDecoration: 'none', display: 'inline-block' }}>
             <div style={{
-              width: '84px',
-              height: '84px',
-              borderRadius: '50%',
-              backgroundColor: '#ffffff',
-              border: '2px solid #1d2327',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto'
+              fontSize: '24px',
+              fontWeight: 800,
+              letterSpacing: '3px',
+              color: '#0b1a2f',
+              fontFamily: "'Cinzel', 'Times New Roman', Georgia, serif",
+              textTransform: 'uppercase',
+              lineHeight: 1.2
             }}>
-              <span style={{ fontSize: '32px', fontWeight: 900, color: '#1d2327', lineHeight: 1, fontFamily: 'serif' }}>M</span>
-              <span style={{ fontSize: '8.5px', fontWeight: 800, letterSpacing: '1.5px', color: '#c49a45', marginTop: '3px' }}>MCP</span>
+              MCP <span style={{ color: '#c49a45' }}>CONSULTANTS</span>
             </div>
+            <div style={{
+              fontSize: '10.5px',
+              fontWeight: 700,
+              letterSpacing: '2px',
+              color: '#64748b',
+              textTransform: 'uppercase',
+              marginTop: '5px'
+            }}>
+              Practice Management Portal
+            </div>
+            <div style={{
+              width: '44px',
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, #c49a45, transparent)',
+              margin: '8px auto 0'
+            }} />
           </Link>
         </div>
 
@@ -484,14 +500,15 @@ export default function Admin() {
         {loginError && !isLostPasswordView && (
           <div style={{
             width: '100%',
-            maxWidth: '320px',
+            maxWidth: '350px',
             marginBottom: '16px',
             padding: '12px 14px',
             backgroundColor: '#ffffff',
-            borderLeft: '4px solid #d63638',
-            boxShadow: '0 1px 1px 0 rgba(0,0,0,0.08)',
+            borderLeft: '4px solid #dc2626',
+            borderRadius: '0 6px 6px 0',
+            boxShadow: '0 2px 8px rgba(220, 38, 38, 0.08), 0 1px 2px rgba(0,0,0,0.04)',
             fontSize: '13px',
-            color: '#3c434a',
+            color: '#991b1b',
             boxSizing: 'border-box',
             lineHeight: 1.4
           }}>
@@ -503,14 +520,15 @@ export default function Admin() {
         {isLostPasswordView && forgotError && (
           <div style={{
             width: '100%',
-            maxWidth: '320px',
+            maxWidth: '350px',
             marginBottom: '16px',
             padding: '12px 14px',
             backgroundColor: '#ffffff',
-            borderLeft: '4px solid #d63638',
-            boxShadow: '0 1px 1px 0 rgba(0,0,0,0.08)',
+            borderLeft: '4px solid #dc2626',
+            borderRadius: '0 6px 6px 0',
+            boxShadow: '0 2px 8px rgba(220, 38, 38, 0.08), 0 1px 2px rgba(0,0,0,0.04)',
             fontSize: '13px',
-            color: '#3c434a',
+            color: '#991b1b',
             boxSizing: 'border-box',
             lineHeight: 1.4
           }}>
@@ -521,14 +539,15 @@ export default function Admin() {
         {isLostPasswordView && forgotMessage && (
           <div style={{
             width: '100%',
-            maxWidth: '320px',
+            maxWidth: '350px',
             marginBottom: '16px',
             padding: '12px 14px',
             backgroundColor: '#ffffff',
-            borderLeft: '4px solid #00a32a',
-            boxShadow: '0 1px 1px 0 rgba(0,0,0,0.08)',
+            borderLeft: '4px solid #16a34a',
+            borderRadius: '0 6px 6px 0',
+            boxShadow: '0 2px 8px rgba(22, 163, 74, 0.08), 0 1px 2px rgba(0,0,0,0.04)',
             fontSize: '13px',
-            color: '#3c434a',
+            color: '#166534',
             boxSizing: 'border-box',
             lineHeight: 1.4
           }}>
@@ -536,22 +555,33 @@ export default function Admin() {
           </div>
         )}
 
-        {/* White Card Box */}
+        {/* Executive Card Box */}
         <div style={{
           width: '100%',
-          maxWidth: '320px',
+          maxWidth: '350px',
           backgroundColor: '#ffffff',
-          border: '1px solid #c3c4c7',
-          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-          padding: '26px 24px 34px',
+          borderRadius: '8px',
+          border: '1px solid #e2e8f0',
+          borderTop: '3px solid #c49a45',
+          boxShadow: '0 10px 25px -5px rgba(11, 26, 47, 0.08), 0 4px 10px -2px rgba(11, 26, 47, 0.04)',
+          padding: '28px 26px 32px',
           boxSizing: 'border-box'
         }}>
           {!isLostPasswordView ? (
             /* STANDARD LOGIN VIEW */
             <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column' }}>
               
+              <div style={{ marginBottom: '18px' }}>
+                <h2 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: 700, color: '#0b1a2f', letterSpacing: '-0.2px' }}>
+                  Sign In
+                </h2>
+                <p style={{ margin: 0, fontSize: '12.5px', color: '#64748b' }}>
+                  Authorized practice administrators & recruiters
+                </p>
+              </div>
+
               {/* Username or Email Address */}
-              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                 Username or Email Address
               </label>
               <input 
@@ -564,22 +594,22 @@ export default function Admin() {
                 autoFocus
                 style={{
                   width: '100%',
-                  fontSize: '16px',
-                  padding: '5px 10px',
-                  border: focusedField === 'identifier' ? '2px solid #2271b1' : '1px solid #8c8f94',
-                  borderRadius: '4px',
+                  fontSize: '15px',
+                  padding: '7px 11px',
+                  border: focusedField === 'identifier' ? '1.5px solid #0b1a2f' : '1px solid #cbd5e1',
+                  boxShadow: focusedField === 'identifier' ? '0 0 0 3px rgba(196, 154, 69, 0.18)' : 'none',
+                  borderRadius: '6px',
                   boxSizing: 'border-box',
-                  color: '#2c3338',
+                  color: '#0f172a',
                   backgroundColor: '#ffffff',
                   outline: 'none',
                   marginBottom: '16px',
-                  lineHeight: 1.4,
-                  transition: 'border-color 0.1s ease-in-out'
+                  transition: 'all 0.15s ease-in-out'
                 }}
               />
 
               {/* Password */}
-              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                 Password
               </label>
               <div style={{ position: 'relative', marginBottom: '16px' }}>
@@ -592,16 +622,16 @@ export default function Admin() {
                   onBlur={() => setFocusedField(null)}
                   style={{
                     width: '100%',
-                    fontSize: '16px',
-                    padding: '5px 36px 5px 10px',
-                    border: focusedField === 'password' ? '2px solid #2271b1' : '1px solid #8c8f94',
-                    borderRadius: '4px',
+                    fontSize: '15px',
+                    padding: '7px 36px 7px 11px',
+                    border: focusedField === 'password' ? '1.5px solid #0b1a2f' : '1px solid #cbd5e1',
+                    boxShadow: focusedField === 'password' ? '0 0 0 3px rgba(196, 154, 69, 0.18)' : 'none',
+                    borderRadius: '6px',
                     boxSizing: 'border-box',
-                    color: '#2c3338',
+                    color: '#0f172a',
                     backgroundColor: '#ffffff',
                     outline: 'none',
-                    lineHeight: 1.4,
-                    transition: 'border-color 0.1s ease-in-out'
+                    transition: 'all 0.15s ease-in-out'
                   }}
                 />
                 <button
@@ -615,63 +645,66 @@ export default function Admin() {
                     transform: 'translateY(-50%)',
                     background: 'none',
                     border: 'none',
-                    color: '#2271b1',
+                    color: '#64748b',
                     cursor: 'pointer',
-                    padding: '4px',
+                    padding: '6px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}
                 >
-                  {showLoginPassword ? <EyeOff size={16} color="#2271b1" /> : <Eye size={16} color="#2271b1" />}
+                  {showLoginPassword ? <EyeOff size={16} color="#0b1a2f" /> : <Eye size={16} color="#64748b" />}
                 </button>
               </div>
 
               {/* Security Code Display */}
-              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '4px', lineHeight: 1.5, fontWeight: 400 }}>
-                Security Code:
-              </label>
-              <div style={{
-                backgroundColor: '#f0f0f1',
-                border: '1px solid #dcdcde',
-                borderRadius: '4px',
-                padding: '8px 12px',
-                textAlign: 'center',
-                fontSize: '20px',
-                fontWeight: 700,
-                color: '#1d2327',
-                letterSpacing: '6px',
-                marginBottom: '16px',
-                userSelect: 'none',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <span>{securityCode}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                  Security Verification Code
+                </label>
                 <button 
                   type="button" 
                   onClick={generateSecurityCode}
-                  title="Generate new security code"
+                  title="Generate new code"
                   style={{
-                    position: 'absolute',
-                    right: '8px',
                     background: 'none',
                     border: 'none',
-                    color: '#64748b',
+                    color: '#c49a45',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
                     cursor: 'pointer',
-                    padding: '4px',
                     display: 'flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    gap: '4px',
+                    padding: 0
                   }}
                 >
-                  <RefreshCw size={13} />
+                  <RefreshCw size={11} />
+                  <span>Refresh</span>
                 </button>
               </div>
 
+              <div style={{
+                backgroundColor: '#f8fafc',
+                border: '1px dashed #cbd5e1',
+                borderRadius: '6px',
+                padding: '9px 14px',
+                textAlign: 'center',
+                fontSize: '22px',
+                fontWeight: 800,
+                color: '#0b1a2f',
+                fontFamily: 'monospace, Courier, sans-serif',
+                letterSpacing: '8px',
+                marginBottom: '14px',
+                userSelect: 'none',
+                boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.03)'
+              }}>
+                {securityCode}
+              </div>
+
               {/* Enter the security code */}
-              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
-                Enter the security code:
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                Enter the code above
               </label>
               <input 
                 type="text"
@@ -681,78 +714,61 @@ export default function Admin() {
                 onFocus={() => setFocusedField('security')}
                 onBlur={() => setFocusedField(null)}
                 autoComplete="off"
+                placeholder="Type the 3-digit code"
                 style={{
                   width: '100%',
-                  fontSize: '16px',
-                  padding: '5px 10px',
-                  border: focusedField === 'security' ? '2px solid #2271b1' : '1px solid #8c8f94',
-                  borderRadius: '4px',
+                  fontSize: '15px',
+                  padding: '7px 11px',
+                  border: focusedField === 'security' ? '1.5px solid #0b1a2f' : '1px solid #cbd5e1',
+                  boxShadow: focusedField === 'security' ? '0 0 0 3px rgba(196, 154, 69, 0.18)' : 'none',
+                  borderRadius: '6px',
                   boxSizing: 'border-box',
-                  color: '#2c3338',
+                  color: '#0f172a',
                   backgroundColor: '#ffffff',
                   outline: 'none',
                   marginBottom: '18px',
-                  lineHeight: 1.4,
-                  transition: 'border-color 0.1s ease-in-out'
+                  transition: 'all 0.15s ease-in-out'
                 }}
               />
 
               {/* Bottom Row: Remember Me & Log In button */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '2px' }}>
-                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#3c434a', cursor: 'pointer', userSelect: 'none' }}>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', color: '#475569', cursor: 'pointer', userSelect: 'none' }}>
                   <input 
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
                     style={{
-                      width: '16px',
-                      height: '16px',
-                      border: '1px solid #8c8f94',
-                      borderRadius: '2px',
+                      width: '15px',
+                      height: '15px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '3px',
                       cursor: 'pointer',
-                      accentColor: '#2271b1',
+                      accentColor: '#0b1a2f',
                       margin: 0
                     }}
                   />
                   <span>Remember Me</span>
-                  <span 
-                    title="Keep me signed in on this computer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '15px',
-                      height: '15px',
-                      borderRadius: '50%',
-                      backgroundColor: '#3c434a',
-                      color: '#ffffff',
-                      fontSize: '10px',
-                      fontWeight: 700,
-                      cursor: 'help'
-                    }}
-                  >
-                    ?
-                  </span>
                 </label>
 
                 <button
                   type="submit"
                   disabled={loginLoading}
                   style={{
-                    backgroundColor: '#2271b1',
+                    backgroundColor: '#0b1a2f',
                     color: '#ffffff',
                     border: 'none',
-                    borderRadius: '4px',
-                    padding: '6px 18px',
+                    borderRadius: '6px',
+                    padding: '8px 20px',
                     fontSize: '13.5px',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     cursor: loginLoading ? 'not-allowed' : 'pointer',
-                    lineHeight: '20px',
-                    boxShadow: '0 1px 0 #2271b1',
+                    letterSpacing: '0.4px',
+                    boxShadow: '0 2px 4px rgba(11, 26, 47, 0.2)',
                     transition: 'background-color 0.15s ease-in-out'
                   }}
-                  onMouseEnter={(e) => { if (!loginLoading) e.currentTarget.style.backgroundColor = '#135e96'; }}
-                  onMouseLeave={(e) => { if (!loginLoading) e.currentTarget.style.backgroundColor = '#2271b1'; }}
+                  onMouseEnter={(e) => { if (!loginLoading) e.currentTarget.style.backgroundColor = '#162c4b'; }}
+                  onMouseLeave={(e) => { if (!loginLoading) e.currentTarget.style.backgroundColor = '#0b1a2f'; }}
                 >
                   {loginLoading ? 'Logging In...' : 'Log In'}
                 </button>
@@ -762,14 +778,23 @@ export default function Admin() {
           ) : (
             /* LOST PASSWORD VIEW */
             <div>
+              <div style={{ marginBottom: '16px' }}>
+                <h2 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: 700, color: '#0b1a2f' }}>
+                  Password Recovery
+                </h2>
+                <p style={{ margin: 0, fontSize: '12.5px', color: '#64748b' }}>
+                  Reset your administrator credentials
+                </p>
+              </div>
+
               {forgotStep === 1 ? (
                 <form onSubmit={handleRequestOtp} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <p style={{ fontSize: '13px', color: '#3c434a', margin: '0 0 16px', lineHeight: 1.5 }}>
-                    Please enter your username or email address. You will receive an OTP code to create a new password.
+                  <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 16px', lineHeight: 1.5 }}>
+                    Enter your registered administrator email. A secure 6-digit verification code will be dispatched to your inbox.
                   </p>
 
-                  <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
-                    Username or Email Address
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    Registered Work Email
                   </label>
                   <input 
                     type="email"
@@ -780,16 +805,15 @@ export default function Admin() {
                     placeholder="Recruiter.mcpconsultants@gmail.com"
                     style={{
                       width: '100%',
-                      fontSize: '16px',
-                      padding: '5px 10px',
-                      border: '1px solid #8c8f94',
-                      borderRadius: '4px',
+                      fontSize: '15px',
+                      padding: '7px 11px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '6px',
                       boxSizing: 'border-box',
-                      color: '#2c3338',
+                      color: '#0f172a',
                       backgroundColor: '#ffffff',
                       outline: 'none',
-                      marginBottom: '18px',
-                      lineHeight: 1.4
+                      marginBottom: '18px'
                     }}
                   />
 
@@ -798,32 +822,31 @@ export default function Admin() {
                       type="submit"
                       disabled={forgotLoading}
                       style={{
-                        backgroundColor: '#2271b1',
+                        backgroundColor: '#0b1a2f',
                         color: '#ffffff',
                         border: 'none',
-                        borderRadius: '4px',
-                        padding: '6px 18px',
+                        borderRadius: '6px',
+                        padding: '8px 20px',
                         fontSize: '13.5px',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         cursor: forgotLoading ? 'not-allowed' : 'pointer',
-                        lineHeight: '20px',
-                        boxShadow: '0 1px 0 #2271b1',
+                        boxShadow: '0 2px 4px rgba(11, 26, 47, 0.2)',
                         transition: 'background-color 0.15s ease-in-out'
                       }}
-                      onMouseEnter={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#135e96'; }}
-                      onMouseLeave={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#2271b1'; }}
+                      onMouseEnter={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#162c4b'; }}
+                      onMouseLeave={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#0b1a2f'; }}
                     >
-                      {forgotLoading ? 'Sending...' : 'Get New Password'}
+                      {forgotLoading ? 'Sending...' : 'Send Verification Code'}
                     </button>
                   </div>
                 </form>
               ) : (
                 <form onSubmit={handleResetPassword} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <p style={{ fontSize: '13px', color: '#3c434a', margin: '0 0 16px', lineHeight: 1.5 }}>
-                    Enter the 6-digit OTP dispatched to <strong>{forgotEmail}</strong> and your new password.
+                  <p style={{ fontSize: '13px', color: '#475569', margin: '0 0 16px', lineHeight: 1.5 }}>
+                    Enter the 6-digit OTP code sent to <strong>{forgotEmail}</strong> and your new password.
                   </p>
 
-                  <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                     6-Digit Security OTP
                   </label>
                   <input 
@@ -837,22 +860,21 @@ export default function Admin() {
                     style={{
                       width: '100%',
                       fontSize: '18px',
-                      padding: '5px 10px',
-                      border: '1px solid #8c8f94',
-                      borderRadius: '4px',
+                      padding: '7px 11px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '6px',
                       boxSizing: 'border-box',
-                      color: '#2c3338',
+                      color: '#0f172a',
                       backgroundColor: '#ffffff',
                       outline: 'none',
                       marginBottom: '16px',
                       letterSpacing: '4px',
-                      textAlign: 'center',
-                      lineHeight: 1.4
+                      textAlign: 'center'
                     }}
                   />
 
-                  <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
-                    New Password
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    New Password (Min 6 characters)
                   </label>
                   <input 
                     type="password"
@@ -860,19 +882,18 @@ export default function Admin() {
                     minLength={6}
                     value={forgotNewPassword}
                     onChange={(e) => setForgotNewPassword(e.target.value)}
-                    placeholder="Min. 6 characters"
+                    placeholder="••••••••••••"
                     style={{
                       width: '100%',
-                      fontSize: '16px',
-                      padding: '5px 10px',
-                      border: '1px solid #8c8f94',
-                      borderRadius: '4px',
+                      fontSize: '15px',
+                      padding: '7px 11px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '6px',
                       boxSizing: 'border-box',
-                      color: '#2c3338',
+                      color: '#0f172a',
                       backgroundColor: '#ffffff',
                       outline: 'none',
-                      marginBottom: '18px',
-                      lineHeight: 1.4
+                      marginBottom: '18px'
                     }}
                   />
 
@@ -881,22 +902,21 @@ export default function Admin() {
                       type="submit"
                       disabled={forgotLoading}
                       style={{
-                        backgroundColor: '#2271b1',
+                        backgroundColor: '#0b1a2f',
                         color: '#ffffff',
                         border: 'none',
-                        borderRadius: '4px',
-                        padding: '6px 18px',
+                        borderRadius: '6px',
+                        padding: '8px 20px',
                         fontSize: '13.5px',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         cursor: forgotLoading ? 'not-allowed' : 'pointer',
-                        lineHeight: '20px',
-                        boxShadow: '0 1px 0 #2271b1',
+                        boxShadow: '0 2px 4px rgba(11, 26, 47, 0.2)',
                         transition: 'background-color 0.15s ease-in-out'
                       }}
-                      onMouseEnter={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#135e96'; }}
-                      onMouseLeave={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#2271b1'; }}
+                      onMouseEnter={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#162c4b'; }}
+                      onMouseLeave={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#0b1a2f'; }}
                     >
-                      {forgotLoading ? 'Updating...' : 'Save Password'}
+                      {forgotLoading ? 'Updating...' : 'Save New Password'}
                     </button>
                   </div>
                 </form>
@@ -906,8 +926,8 @@ export default function Admin() {
         </div>
 
         {/* Links Outside Login Card */}
-        <div style={{ width: '100%', maxWidth: '320px', marginTop: '16px', fontSize: '13px', color: '#50575e', boxSizing: 'border-box' }}>
-          <p style={{ margin: '0 0 12px' }}>
+        <div style={{ width: '100%', maxWidth: '350px', marginTop: '16px', fontSize: '13px', color: '#64748b', boxSizing: 'border-box', textAlign: 'center' }}>
+          <p style={{ margin: '0 0 10px' }}>
             {!isLostPasswordView ? (
               <button
                 type="button"
@@ -921,13 +941,13 @@ export default function Admin() {
                   background: 'none',
                   border: 'none',
                   padding: 0,
-                  color: '#50575e',
+                  color: '#64748b',
                   fontSize: '13px',
                   textDecoration: 'none',
                   cursor: 'pointer'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#2271b1'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = '#50575e'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#0b1a2f'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; }}
               >
                 Lost your password?
               </button>
@@ -943,15 +963,15 @@ export default function Admin() {
                   background: 'none',
                   border: 'none',
                   padding: 0,
-                  color: '#50575e',
+                  color: '#64748b',
                   fontSize: '13px',
                   textDecoration: 'none',
                   cursor: 'pointer'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#2271b1'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = '#50575e'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#0b1a2f'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; }}
               >
-                &larr; Log In
+                &larr; Back to Sign In
               </button>
             )}
           </p>
@@ -959,13 +979,13 @@ export default function Admin() {
             <Link 
               to="/" 
               style={{ 
-                color: '#50575e', 
+                color: '#64748b', 
                 textDecoration: 'none' 
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#2271b1'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#50575e'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#0b1a2f'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; }}
             >
-              &larr; Go to MCP Consultants
+              &larr; Return to MCP Consultants
             </Link>
           </p>
         </div>
