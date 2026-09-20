@@ -53,8 +53,24 @@ export default function ManageJobs() {
     }
   };
 
-  const handleDeleteJob = async (id) => {
-    if (!window.confirm('Are you sure you want to remove this job posting?')) return;
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      const res = await fetch(apiUrl(`/api/jobs/${id}`), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setJobs(prevJobs => prevJobs.map(j => j._id === id ? { ...j, status: newStatus } : j));
+      }
+    } catch (err) {
+      console.error('Error updating job status:', err);
+    }
+  };
+
+  const handleDeleteJob = async (id, title) => {
+    if (!window.confirm(`Are you sure you want to remove "${title || 'this job posting'}"?\n\nThis will permanently delete the mandate and immediately remove it from the public Careers page.`)) return;
     try {
       await fetch(apiUrl(`/api/jobs/${id}`), { method: 'DELETE' });
       setJobs(jobs.filter(j => j._id !== id));
@@ -269,9 +285,26 @@ export default function ManageJobs() {
                         <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#0f172a' }}>
                           {job.title}
                         </h3>
-                        <span style={{ fontSize: '11px', fontWeight: 700, backgroundColor: job.status === 'Active' ? '#dcfce7' : '#f1f5f9', color: job.status === 'Active' ? '#166534' : '#475569', padding: '2px 8px', borderRadius: '4px' }}>
-                          {job.status}
-                        </span>
+                        <select
+                          value={job.status || 'Active'}
+                          onChange={(e) => handleStatusChange(job._id, e.target.value)}
+                          title="Change status: Active jobs appear on the public Careers page. Paused or Closed jobs are automatically hidden."
+                          style={{
+                            fontSize: '11.5px',
+                            fontWeight: 700,
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            border: job.status === 'Active' ? '1px solid #86efac' : (job.status === 'Paused' ? '1px solid #fde68a' : '1px solid #cbd5e1'),
+                            backgroundColor: job.status === 'Active' ? '#f0fdf4' : (job.status === 'Paused' ? '#fffbeb' : '#f8fafc'),
+                            color: job.status === 'Active' ? '#166534' : (job.status === 'Paused' ? '#92400e' : '#475569'),
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                        >
+                          <option value="Active">🟢 Active (Live on Careers)</option>
+                          <option value="Paused">🟡 Paused (Hidden from Careers)</option>
+                          <option value="Closed">⚪ Closed (Hidden from Careers)</option>
+                        </select>
                         <span style={{ fontSize: '11px', color: '#64748b' }}>
                           Ref: <strong>{job.referenceCode || 'MCP-2026-091'}</strong>
                         </span>
@@ -291,11 +324,25 @@ export default function ManageJobs() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <button
                         type="button"
-                        onClick={() => handleDeleteJob(job._id)}
-                        style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '6px' }}
-                        title="Delete job"
+                        onClick={() => handleDeleteJob(job._id, job.title)}
+                        style={{
+                          background: '#fff1f2',
+                          border: '1px solid #fecdd3',
+                          color: '#e11d48',
+                          cursor: 'pointer',
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          transition: 'all 0.2s ease'
+                        }}
+                        title="Permanently remove this job from both Admin Portal and Careers page"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={14} />
+                        <span>Delete</span>
                       </button>
                     </div>
                   </div>
