@@ -799,24 +799,6 @@ export default function ResdexSearch() {
               />
             </div>
 
-            <button title="Recent Search History" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: '6px' }}>
-              <History size={18} />
-            </button>
-
-            <button title="Saved Searches" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: '6px' }}>
-              <Bookmark size={18} />
-            </button>
-
-            {/* Notification with Badge */}
-            <div style={{ position: 'relative' }}>
-              <button title="Notifications" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: '6px' }}>
-                <Bell size={18} />
-              </button>
-              <span style={{ position: 'absolute', top: '2px', right: '2px', backgroundColor: '#ef4444', color: '#ffffff', fontSize: '10px', fontWeight: 800, width: '15px', height: '15px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                5
-              </span>
-            </div>
-
             {/* Post a Job CTA Button */}
             <Link
               to="/admin/post-job"
