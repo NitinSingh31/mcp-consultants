@@ -440,7 +440,7 @@ export default function Admin() {
             Executive Search &bull; Leadership Advisory
           </div>
           <RefreshCw size={20} className="animate-spin" style={{ color: '#0b1a2f', margin: '0 auto 10px' }} />
-          <p style={{ color: '#64748b', fontSize: '13px' }}>Verifying practice portal session...</p>
+          <p style={{ color: '#64748b', fontSize: '13px' }}>Verifying management portal session...</p>
         </div>
       </div>
     );
@@ -485,7 +485,7 @@ export default function Admin() {
               textTransform: 'uppercase',
               marginTop: '5px'
             }}>
-              Practice Management Portal
+              Management Portal
             </div>
             <div style={{
               width: '44px',
@@ -576,7 +576,7 @@ export default function Admin() {
                   Sign In
                 </h2>
                 <p style={{ margin: 0, fontSize: '12.5px', color: '#64748b' }}>
-                  Authorized practice administrators & recruiters
+                  Authorized administrators & recruiters
                 </p>
               </div>
 
