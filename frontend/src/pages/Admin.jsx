@@ -37,6 +37,21 @@ export default function Admin() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [securityCode, setSecurityCode] = useState('116');
+  const [securityInput, setSecurityInput] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [focusedField, setFocusedField] = useState('identifier');
+  const [isLostPasswordView, setIsLostPasswordView] = useState(false);
+
+  const generateSecurityCode = () => {
+    const code = Math.floor(100 + Math.random() * 900).toString();
+    setSecurityCode(code);
+    return code;
+  };
+
+  useEffect(() => {
+    generateSecurityCode();
+  }, []);
 
   // Forgot Password Modal State
   const [forgotModalOpen, setForgotModalOpen] = useState(false);
@@ -166,6 +181,14 @@ export default function Admin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError('');
+
+    if (!securityInput || securityInput.trim() !== securityCode) {
+      setLoginError('The security code entered is incorrect.');
+      generateSecurityCode();
+      setSecurityInput('');
+      return;
+    }
+
     setLoginLoading(true);
 
     try {
@@ -180,7 +203,9 @@ export default function Admin() {
 
       const json = await res.json();
       if (!res.ok || !json.success) {
-        throw new Error(json.error || 'Invalid credentials.');
+        generateSecurityCode();
+        setSecurityInput('');
+        throw new Error(json.error || `The password you entered for the username "${loginForm.identifier}" is incorrect.`);
       }
 
       localStorage.setItem('mcp_admin_token', json.token);
@@ -383,428 +408,567 @@ export default function Admin() {
   // ---------------------------------------------------------------------------
   if (authChecking) {
     return (
-      <div style={{ minHeight: '100vh', backgroundColor: '#0b1a2f', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff' }}>
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#f0f0f1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#2c3338',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif'
+      }}>
         <div style={{ textAlign: 'center' }}>
-          <div className="logo-symbol" style={{ width: '48px', height: '48px', fontSize: '24px', margin: '0 auto 16px' }}>M</div>
-          <RefreshCw size={24} className="animate-spin" style={{ color: 'var(--color-accent, #c49a45)', margin: '0 auto 12px' }} />
-          <p style={{ color: '#94a3b8', fontSize: '14px', letterSpacing: '0.5px' }}>Verifying Practice Portal Security...</p>
+          <div style={{
+            width: '74px',
+            height: '74px',
+            borderRadius: '50%',
+            backgroundColor: '#ffffff',
+            border: '2px solid #1d2327',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 16px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
+          }}>
+            <span style={{ fontSize: '28px', fontWeight: 900, color: '#1d2327', fontFamily: 'serif' }}>M</span>
+            <span style={{ fontSize: '8px', fontWeight: 800, letterSpacing: '1.2px', color: '#c49a45', marginTop: '2px' }}>MCP</span>
+          </div>
+          <RefreshCw size={20} className="animate-spin" style={{ color: '#2271b1', margin: '0 auto 10px' }} />
+          <p style={{ color: '#64748b', fontSize: '13px' }}>Verifying practice portal session...</p>
         </div>
       </div>
     );
   }
 
   // ---------------------------------------------------------------------------
-  // Screen B: Unauthenticated Executive Login Gate
+  // Screen B: Unauthenticated Sign In Panel (WordPress Style)
   // ---------------------------------------------------------------------------
   if (!isAuthenticated) {
     return (
-      <div style={{ 
-        minHeight: '100vh', 
-        backgroundColor: '#0b1a2f', 
-        background: 'radial-gradient(circle at 50% 20%, rgba(196, 154, 69, 0.12) 0%, rgba(11, 26, 47, 0.98) 60%), #0b1a2f',
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        padding: '24px',
-        fontFamily: 'var(--font-body)'
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#f0f0f1',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px 16px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        boxSizing: 'border-box'
       }}>
         
-        <div style={{
-          width: '100%',
-          maxWidth: '440px',
-          backgroundColor: '#ffffff',
-          borderRadius: '16px',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(196, 154, 69, 0.25)',
-          overflow: 'hidden'
-        }}>
-          
-          {/* Header Banner */}
-          <div style={{ 
-            backgroundColor: '#0b1a2f', 
-            borderBottom: '3px solid var(--color-accent, #c49a45)', 
-            padding: '28px 24px', 
-            textAlign: 'center',
-            color: '#ffffff'
-          }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(196, 154, 69, 0.15)', border: '1px solid var(--color-accent, #c49a45)', color: 'var(--color-accent, #c49a45)', marginBottom: '12px' }}>
-              <ShieldCheck size={26} />
+        {/* Brand Logo Crest */}
+        <div style={{ marginBottom: '24px', textAlign: 'center' }}>
+          <Link to="/" title="Go to MCP Consultants" style={{ textDecoration: 'none', display: 'inline-block' }}>
+            <div style={{
+              width: '84px',
+              height: '84px',
+              borderRadius: '50%',
+              backgroundColor: '#ffffff',
+              border: '2px solid #1d2327',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto'
+            }}>
+              <span style={{ fontSize: '32px', fontWeight: 900, color: '#1d2327', lineHeight: 1, fontFamily: 'serif' }}>M</span>
+              <span style={{ fontSize: '8.5px', fontWeight: 800, letterSpacing: '1.5px', color: '#c49a45', marginTop: '3px' }}>MCP</span>
             </div>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 800, letterSpacing: '1px', margin: '0 0 4px', color: '#ffffff' }}>
-              MCP CONSULTANTS
-            </h2>
-            <p style={{ color: 'var(--color-accent, #c49a45)', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.2px', margin: 0 }}>
-              Practice Portal &bull; Executive Sign In
-            </p>
-          </div>
-
-          {/* Form Content */}
-          <div style={{ padding: '32px 28px' }}>
-            
-            <p style={{ fontSize: '13px', color: '#64748b', textAlign: 'center', marginTop: 0, marginBottom: '22px' }}>
-              Sign in with your administrator username or email to access client mandates, talent resumes, and practice data.
-            </p>
-
-            {loginError && (
-              <div style={{ 
-                backgroundColor: 'rgba(239, 68, 68, 0.08)', 
-                border: '1px solid rgba(239, 68, 68, 0.3)', 
-                borderRadius: '8px', 
-                padding: '10px 14px', 
-                marginBottom: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                color: '#dc2626',
-                fontSize: '13px'
-              }}>
-                <AlertCircle size={16} style={{ flexShrink: 0 }} />
-                <span>{loginError}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                  Username or Work Email
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <User size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                  <input 
-                    type="text"
-                    required
-                    value={loginForm.identifier}
-                    onChange={(e) => setLoginForm({ ...loginForm, identifier: e.target.value })}
-                    placeholder="admin or recruiter@mcpconsultants.com"
-                    style={{
-                      width: '100%',
-                      padding: '10px 12px 10px 38px',
-                      borderRadius: '8px',
-                      border: '1px solid #cbd5e1',
-                      fontSize: '14px',
-                      backgroundColor: '#f8fafc',
-                      color: '#0f172a',
-                      outline: 'none',
-                      transition: 'border-color 0.2s'
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155' }}>
-                    Password
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setForgotModalOpen(true);
-                      setForgotStep(1);
-                      setForgotError('');
-                      setForgotMessage('');
-                    }}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: 'var(--color-accent, #c49a45)',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      padding: 0
-                    }}
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
-                <div style={{ position: 'relative' }}>
-                  <Lock size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                  <input 
-                    type={showLoginPassword ? 'text' : 'password'}
-                    required
-                    value={loginForm.password}
-                    onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                    placeholder="••••••••••••"
-                    style={{
-                      width: '100%',
-                      padding: '10px 38px 10px 38px',
-                      borderRadius: '8px',
-                      border: '1px solid #cbd5e1',
-                      fontSize: '14px',
-                      backgroundColor: '#f8fafc',
-                      color: '#0f172a',
-                      outline: 'none',
-                      transition: 'border-color 0.2s'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    style={{
-                      position: 'absolute',
-                      right: '12px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'none',
-                      border: 'none',
-                      color: '#94a3b8',
-                      cursor: 'pointer',
-                      padding: 0,
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}
-                  >
-                    {showLoginPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loginLoading}
-                className="btn btn-primary"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: 800,
-                  letterSpacing: '0.5px',
-                  marginTop: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  cursor: loginLoading ? 'not-allowed' : 'pointer'
-                }}
-              >
-                {loginLoading ? (
-                  <>
-                    <RefreshCw size={16} className="animate-spin" />
-                    <span>Authenticating...</span>
-                  </>
-                ) : (
-                  <>
-                    <Key size={16} />
-                    <span>Sign In to Practice Portal</span>
-                  </>
-                )}
-              </button>
-
-            </form>
-
-            {/* Public website back link */}
-            <div style={{ marginTop: '24px', textAlign: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '18px' }}>
-              <Link 
-                to="/" 
-                style={{ 
-                  color: '#64748b', 
-                  fontSize: '13px', 
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                }}
-              >
-                <ArrowLeft size={14} />
-                <span>Return to Public Website</span>
-              </Link>
-            </div>
-
-          </div>
+          </Link>
         </div>
 
-        {/* Forgot Password OTP Modal */}
-        {forgotModalOpen && (
+        {/* Error Notice */}
+        {loginError && !isLostPasswordView && (
           <div style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(11, 26, 47, 0.75)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px'
+            width: '100%',
+            maxWidth: '320px',
+            marginBottom: '16px',
+            padding: '12px 14px',
+            backgroundColor: '#ffffff',
+            borderLeft: '4px solid #d63638',
+            boxShadow: '0 1px 1px 0 rgba(0,0,0,0.08)',
+            fontSize: '13px',
+            color: '#3c434a',
+            boxSizing: 'border-box',
+            lineHeight: 1.4
           }}>
-            <div style={{
-              width: '100%',
-              maxWidth: '460px',
-              backgroundColor: '#ffffff',
-              borderRadius: '16px',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4)',
-              overflow: 'hidden'
-            }}>
+            <strong>Error:</strong> {loginError}
+          </div>
+        )}
+
+        {/* Lost Password Error / Success Notices */}
+        {isLostPasswordView && forgotError && (
+          <div style={{
+            width: '100%',
+            maxWidth: '320px',
+            marginBottom: '16px',
+            padding: '12px 14px',
+            backgroundColor: '#ffffff',
+            borderLeft: '4px solid #d63638',
+            boxShadow: '0 1px 1px 0 rgba(0,0,0,0.08)',
+            fontSize: '13px',
+            color: '#3c434a',
+            boxSizing: 'border-box',
+            lineHeight: 1.4
+          }}>
+            <strong>Error:</strong> {forgotError}
+          </div>
+        )}
+
+        {isLostPasswordView && forgotMessage && (
+          <div style={{
+            width: '100%',
+            maxWidth: '320px',
+            marginBottom: '16px',
+            padding: '12px 14px',
+            backgroundColor: '#ffffff',
+            borderLeft: '4px solid #00a32a',
+            boxShadow: '0 1px 1px 0 rgba(0,0,0,0.08)',
+            fontSize: '13px',
+            color: '#3c434a',
+            boxSizing: 'border-box',
+            lineHeight: 1.4
+          }}>
+            {forgotMessage}
+          </div>
+        )}
+
+        {/* White Card Box */}
+        <div style={{
+          width: '100%',
+          maxWidth: '320px',
+          backgroundColor: '#ffffff',
+          border: '1px solid #c3c4c7',
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
+          padding: '26px 24px 34px',
+          boxSizing: 'border-box'
+        }}>
+          {!isLostPasswordView ? (
+            /* STANDARD LOGIN VIEW */
+            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column' }}>
               
-              <div style={{ backgroundColor: '#0b1a2f', padding: '20px 24px', borderBottom: '2px solid var(--color-accent, #c49a45)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#ffffff' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Key size={20} color="var(--color-accent, #c49a45)" />
-                  <h3 style={{ margin: 0, fontSize: '16px', fontFamily: 'var(--font-heading)', color: '#ffffff' }}>
-                    {forgotStep === 1 ? 'Reset Portal Password' : 'Verify Code & Set Password'}
-                  </h3>
-                </div>
-                <button 
-                  onClick={() => setForgotModalOpen(false)}
-                  style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '20px', cursor: 'pointer' }}
+              {/* Username or Email Address */}
+              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                Username or Email Address
+              </label>
+              <input 
+                type="text"
+                required
+                value={loginForm.identifier}
+                onChange={(e) => setLoginForm({ ...loginForm, identifier: e.target.value })}
+                onFocus={() => setFocusedField('identifier')}
+                onBlur={() => setFocusedField(null)}
+                autoFocus
+                style={{
+                  width: '100%',
+                  fontSize: '16px',
+                  padding: '5px 10px',
+                  border: focusedField === 'identifier' ? '2px solid #2271b1' : '1px solid #8c8f94',
+                  borderRadius: '4px',
+                  boxSizing: 'border-box',
+                  color: '#2c3338',
+                  backgroundColor: '#ffffff',
+                  outline: 'none',
+                  marginBottom: '16px',
+                  lineHeight: 1.4,
+                  transition: 'border-color 0.1s ease-in-out'
+                }}
+              />
+
+              {/* Password */}
+              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                Password
+              </label>
+              <div style={{ position: 'relative', marginBottom: '16px' }}>
+                <input 
+                  type={showLoginPassword ? 'text' : 'password'}
+                  required
+                  value={loginForm.password}
+                  onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                  onFocus={() => setFocusedField('password')}
+                  onBlur={() => setFocusedField(null)}
+                  style={{
+                    width: '100%',
+                    fontSize: '16px',
+                    padding: '5px 36px 5px 10px',
+                    border: focusedField === 'password' ? '2px solid #2271b1' : '1px solid #8c8f94',
+                    borderRadius: '4px',
+                    boxSizing: 'border-box',
+                    color: '#2c3338',
+                    backgroundColor: '#ffffff',
+                    outline: 'none',
+                    lineHeight: 1.4,
+                    transition: 'border-color 0.1s ease-in-out'
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowLoginPassword(!showLoginPassword)}
+                  title={showLoginPassword ? 'Hide password' : 'Show password'}
+                  style={{
+                    position: 'absolute',
+                    right: '6px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    color: '#2271b1',
+                    cursor: 'pointer',
+                    padding: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
                 >
-                  &times;
+                  {showLoginPassword ? <EyeOff size={16} color="#2271b1" /> : <Eye size={16} color="#2271b1" />}
                 </button>
               </div>
 
-              <div style={{ padding: '24px' }}>
-                
-                {forgotError && (
-                  <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', padding: '10px', marginBottom: '16px', color: '#dc2626', fontSize: '13px' }}>
-                    {forgotError}
-                  </div>
-                )}
-
-                {forgotMessage && (
-                  <div style={{ backgroundColor: 'rgba(34, 197, 94, 0.08)', border: '1px solid rgba(34, 197, 94, 0.3)', borderRadius: '8px', padding: '10px', marginBottom: '16px', color: '#16a34a', fontSize: '13px' }}>
-                    {forgotMessage}
-                  </div>
-                )}
-
-                {forgotStep === 1 ? (
-                  <form onSubmit={handleRequestOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
-                      Enter the registered administrator email address. We will dispatch a 6-digit one-time verification code to your inbox.
-                    </p>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                        Registered Admin Email
-                      </label>
-                      <input 
-                        type="email"
-                        required
-                        value={forgotEmail}
-                        onChange={(e) => setForgotEmail(e.target.value)}
-                        placeholder="recruiter@mcpconsultants.com"
-                        style={{
-                          width: '100%',
-                          padding: '10px 12px',
-                          borderRadius: '8px',
-                          border: '1px solid #cbd5e1',
-                          fontSize: '14px'
-                        }}
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={forgotLoading}
-                      className="btn btn-primary"
-                      style={{
-                        padding: '12px',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontWeight: 700,
-                        cursor: forgotLoading ? 'not-allowed' : 'pointer'
-                      }}
-                    >
-                      {forgotLoading ? 'Sending Security Code...' : 'Send Verification Code'}
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleResetPassword} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
-                      Enter the 6-digit OTP code sent to <strong>{forgotEmail}</strong> and choose your new password.
-                    </p>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                        6-Digit Security Code
-                      </label>
-                      <input 
-                        type="text"
-                        required
-                        maxLength={6}
-                        value={forgotOtp}
-                        onChange={(e) => setForgotOtp(e.target.value.trim())}
-                        placeholder="123456"
-                        style={{
-                          width: '100%',
-                          padding: '10px 12px',
-                          borderRadius: '8px',
-                          border: '2px dashed var(--color-accent, #c49a45)',
-                          fontSize: '22px',
-                          fontWeight: 800,
-                          textAlign: 'center',
-                          letterSpacing: '6px'
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                        New Password (Min 6 characters)
-                      </label>
-                      <div style={{ position: 'relative' }}>
-                        <input 
-                          type={showForgotNewPassword ? 'text' : 'password'}
-                          required
-                          minLength={6}
-                          value={forgotNewPassword}
-                          onChange={(e) => setForgotNewPassword(e.target.value)}
-                          placeholder="••••••••••••"
-                          style={{
-                            width: '100%',
-                            padding: '10px 38px 10px 12px',
-                            borderRadius: '8px',
-                            border: '1px solid #cbd5e1',
-                            fontSize: '14px'
-                          }}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowForgotNewPassword(!showForgotNewPassword)}
-                          style={{
-                            position: 'absolute',
-                            right: '12px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            background: 'none',
-                            border: 'none',
-                            color: '#94a3b8',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          {showForgotNewPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                        </button>
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={forgotLoading}
-                      className="btn btn-primary"
-                      style={{
-                        padding: '12px',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontWeight: 700,
-                        cursor: forgotLoading ? 'not-allowed' : 'pointer'
-                      }}
-                    >
-                      {forgotLoading ? 'Updating Password...' : 'Confirm & Log In'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setForgotStep(1)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: '#64748b',
-                        fontSize: '12px',
-                        cursor: 'pointer',
-                        textAlign: 'center'
-                      }}
-                    >
-                      &larr; Re-enter email address
-                    </button>
-                  </form>
-                )}
-
+              {/* Security Code Display */}
+              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '4px', lineHeight: 1.5, fontWeight: 400 }}>
+                Security Code:
+              </label>
+              <div style={{
+                backgroundColor: '#f0f0f1',
+                border: '1px solid #dcdcde',
+                borderRadius: '4px',
+                padding: '8px 12px',
+                textAlign: 'center',
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#1d2327',
+                letterSpacing: '6px',
+                marginBottom: '16px',
+                userSelect: 'none',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <span>{securityCode}</span>
+                <button 
+                  type="button" 
+                  onClick={generateSecurityCode}
+                  title="Generate new security code"
+                  style={{
+                    position: 'absolute',
+                    right: '8px',
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748b',
+                    cursor: 'pointer',
+                    padding: '4px',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                >
+                  <RefreshCw size={13} />
+                </button>
               </div>
+
+              {/* Enter the security code */}
+              <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                Enter the security code:
+              </label>
+              <input 
+                type="text"
+                required
+                value={securityInput}
+                onChange={(e) => setSecurityInput(e.target.value)}
+                onFocus={() => setFocusedField('security')}
+                onBlur={() => setFocusedField(null)}
+                autoComplete="off"
+                style={{
+                  width: '100%',
+                  fontSize: '16px',
+                  padding: '5px 10px',
+                  border: focusedField === 'security' ? '2px solid #2271b1' : '1px solid #8c8f94',
+                  borderRadius: '4px',
+                  boxSizing: 'border-box',
+                  color: '#2c3338',
+                  backgroundColor: '#ffffff',
+                  outline: 'none',
+                  marginBottom: '18px',
+                  lineHeight: 1.4,
+                  transition: 'border-color 0.1s ease-in-out'
+                }}
+              />
+
+              {/* Bottom Row: Remember Me & Log In button */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '2px' }}>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#3c434a', cursor: 'pointer', userSelect: 'none' }}>
+                  <input 
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    style={{
+                      width: '16px',
+                      height: '16px',
+                      border: '1px solid #8c8f94',
+                      borderRadius: '2px',
+                      cursor: 'pointer',
+                      accentColor: '#2271b1',
+                      margin: 0
+                    }}
+                  />
+                  <span>Remember Me</span>
+                  <span 
+                    title="Keep me signed in on this computer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '15px',
+                      height: '15px',
+                      borderRadius: '50%',
+                      backgroundColor: '#3c434a',
+                      color: '#ffffff',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      cursor: 'help'
+                    }}
+                  >
+                    ?
+                  </span>
+                </label>
+
+                <button
+                  type="submit"
+                  disabled={loginLoading}
+                  style={{
+                    backgroundColor: '#2271b1',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    padding: '6px 18px',
+                    fontSize: '13.5px',
+                    fontWeight: 600,
+                    cursor: loginLoading ? 'not-allowed' : 'pointer',
+                    lineHeight: '20px',
+                    boxShadow: '0 1px 0 #2271b1',
+                    transition: 'background-color 0.15s ease-in-out'
+                  }}
+                  onMouseEnter={(e) => { if (!loginLoading) e.currentTarget.style.backgroundColor = '#135e96'; }}
+                  onMouseLeave={(e) => { if (!loginLoading) e.currentTarget.style.backgroundColor = '#2271b1'; }}
+                >
+                  {loginLoading ? 'Logging In...' : 'Log In'}
+                </button>
+              </div>
+
+            </form>
+          ) : (
+            /* LOST PASSWORD VIEW */
+            <div>
+              {forgotStep === 1 ? (
+                <form onSubmit={handleRequestOtp} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: '13px', color: '#3c434a', margin: '0 0 16px', lineHeight: 1.5 }}>
+                    Please enter your username or email address. You will receive an OTP code to create a new password.
+                  </p>
+
+                  <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                    Username or Email Address
+                  </label>
+                  <input 
+                    type="email"
+                    required
+                    value={forgotEmail}
+                    onChange={(e) => setForgotEmail(e.target.value)}
+                    autoFocus
+                    placeholder="Recruiter.mcpconsultants@gmail.com"
+                    style={{
+                      width: '100%',
+                      fontSize: '16px',
+                      padding: '5px 10px',
+                      border: '1px solid #8c8f94',
+                      borderRadius: '4px',
+                      boxSizing: 'border-box',
+                      color: '#2c3338',
+                      backgroundColor: '#ffffff',
+                      outline: 'none',
+                      marginBottom: '18px',
+                      lineHeight: 1.4
+                    }}
+                  />
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <button
+                      type="submit"
+                      disabled={forgotLoading}
+                      style={{
+                        backgroundColor: '#2271b1',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '6px 18px',
+                        fontSize: '13.5px',
+                        fontWeight: 600,
+                        cursor: forgotLoading ? 'not-allowed' : 'pointer',
+                        lineHeight: '20px',
+                        boxShadow: '0 1px 0 #2271b1',
+                        transition: 'background-color 0.15s ease-in-out'
+                      }}
+                      onMouseEnter={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#135e96'; }}
+                      onMouseLeave={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#2271b1'; }}
+                    >
+                      {forgotLoading ? 'Sending...' : 'Get New Password'}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <form onSubmit={handleResetPassword} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: '13px', color: '#3c434a', margin: '0 0 16px', lineHeight: 1.5 }}>
+                    Enter the 6-digit OTP dispatched to <strong>{forgotEmail}</strong> and your new password.
+                  </p>
+
+                  <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                    6-Digit Security OTP
+                  </label>
+                  <input 
+                    type="text"
+                    required
+                    maxLength={6}
+                    value={forgotOtp}
+                    onChange={(e) => setForgotOtp(e.target.value.trim())}
+                    autoFocus
+                    placeholder="123456"
+                    style={{
+                      width: '100%',
+                      fontSize: '18px',
+                      padding: '5px 10px',
+                      border: '1px solid #8c8f94',
+                      borderRadius: '4px',
+                      boxSizing: 'border-box',
+                      color: '#2c3338',
+                      backgroundColor: '#ffffff',
+                      outline: 'none',
+                      marginBottom: '16px',
+                      letterSpacing: '4px',
+                      textAlign: 'center',
+                      lineHeight: 1.4
+                    }}
+                  />
+
+                  <label style={{ display: 'block', fontSize: '14px', color: '#2c3338', marginBottom: '2px', lineHeight: 1.5, fontWeight: 400 }}>
+                    New Password
+                  </label>
+                  <input 
+                    type="password"
+                    required
+                    minLength={6}
+                    value={forgotNewPassword}
+                    onChange={(e) => setForgotNewPassword(e.target.value)}
+                    placeholder="Min. 6 characters"
+                    style={{
+                      width: '100%',
+                      fontSize: '16px',
+                      padding: '5px 10px',
+                      border: '1px solid #8c8f94',
+                      borderRadius: '4px',
+                      boxSizing: 'border-box',
+                      color: '#2c3338',
+                      backgroundColor: '#ffffff',
+                      outline: 'none',
+                      marginBottom: '18px',
+                      lineHeight: 1.4
+                    }}
+                  />
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <button
+                      type="submit"
+                      disabled={forgotLoading}
+                      style={{
+                        backgroundColor: '#2271b1',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '6px 18px',
+                        fontSize: '13.5px',
+                        fontWeight: 600,
+                        cursor: forgotLoading ? 'not-allowed' : 'pointer',
+                        lineHeight: '20px',
+                        boxShadow: '0 1px 0 #2271b1',
+                        transition: 'background-color 0.15s ease-in-out'
+                      }}
+                      onMouseEnter={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#135e96'; }}
+                      onMouseLeave={(e) => { if (!forgotLoading) e.currentTarget.style.backgroundColor = '#2271b1'; }}
+                    >
+                      {forgotLoading ? 'Updating...' : 'Save Password'}
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* Links Outside Login Card */}
+        <div style={{ width: '100%', maxWidth: '320px', marginTop: '16px', fontSize: '13px', color: '#50575e', boxSizing: 'border-box' }}>
+          <p style={{ margin: '0 0 12px' }}>
+            {!isLostPasswordView ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLostPasswordView(true);
+                  setForgotStep(1);
+                  setForgotError('');
+                  setForgotMessage('');
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  color: '#50575e',
+                  fontSize: '13px',
+                  textDecoration: 'none',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#2271b1'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#50575e'; }}
+              >
+                Lost your password?
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLostPasswordView(false);
+                  setForgotError('');
+                  setForgotMessage('');
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  color: '#50575e',
+                  fontSize: '13px',
+                  textDecoration: 'none',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#2271b1'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#50575e'; }}
+              >
+                &larr; Log In
+              </button>
+            )}
+          </p>
+          <p style={{ margin: 0 }}>
+            <Link 
+              to="/" 
+              style={{ 
+                color: '#50575e', 
+                textDecoration: 'none' 
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#2271b1'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#50575e'; }}
+            >
+              &larr; Go to MCP Consultants
+            </Link>
+          </p>
+        </div>
 
       </div>
     );
