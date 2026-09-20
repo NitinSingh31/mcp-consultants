@@ -1224,66 +1224,36 @@ export default function Contact({ defaultTab }) {
       <section style={{ backgroundColor: '#eaf3fc', padding: '60px 24px 80px', borderTop: '1px solid #dbeafe' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           
-          <div style={{ textAlign: 'center', marginBottom: '44px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <h2 style={{ fontSize: '38px', fontWeight: '800', color: '#002b66', marginBottom: '10px', fontFamily: "'Mulish', sans-serif" }}>
-              Our offices
+              Our Corporate Headquarters
             </h2>
             <p style={{ fontSize: '16px', color: '#004080', fontWeight: '500', margin: 0 }}>
-              We operate out of pan-India offices and key industrial advisory hubs
+              Operating our executive search and leadership advisory practice out of Mohali, Punjab
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          <div style={{ maxWidth: '560px', margin: '0 auto' }}>
             
-            {/* Office 1: Mohali HQ */}
-            <div style={{ backgroundColor: '#ffffff', padding: '32px 28px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <MapPin size={20} style={{ color: '#002b66' }} />
-                </div>
-                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#002b66', margin: 0 }}>
-                  Mohali (Corporate HQ)
-                </h3>
+            {/* Office: Mohali HQ */}
+            <div style={{ backgroundColor: '#ffffff', padding: '36px 32px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.05)', textAlign: 'center' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#e8f2fc', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <MapPin size={24} style={{ color: '#002b66' }} />
               </div>
-              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px 0' }}>
-                4579 B, Sector 70, Mohali, Punjab 160071<br />
-                <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none' }}>+91 98 8842 6060</a><br />
-                <strong>Email:</strong> <a href="mailto:info@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none' }}>info@mcpconsultants.in</a>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#002b66', margin: '0 0 12px 0' }}>
+                Mohali (Corporate HQ)
+              </h3>
+              <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.7', margin: '0 0 16px 0' }}>
+                4579 B, Sector 70, Mohali, Punjab 160071
               </p>
-            </div>
-
-            {/* Office 2: Delhi NCR */}
-            <div style={{ backgroundColor: '#ffffff', padding: '32px 28px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <MapPin size={20} style={{ color: '#002b66' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14.5px', color: '#334155' }}>
+                <div>
+                  <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>+91 98 8842 6060</a>
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#002b66', margin: 0 }}>
-                  Delhi NCR Liaison Desk
-                </h3>
-              </div>
-              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px 0' }}>
-                1st Floor, Eros Corporate Tower, Nehru Place, New Delhi 110019<br />
-                <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none' }}>+91 98 8842 6060</a><br />
-                <strong>Email:</strong> <a href="mailto:client@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none' }}>client@mcpconsultants.in</a>
-              </p>
-            </div>
-
-            {/* Office 3: Industrial Corridor */}
-            <div style={{ backgroundColor: '#ffffff', padding: '32px 28px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Building2 size={20} style={{ color: '#002b66' }} />
+                <div>
+                  <strong>Email:</strong> <a href="mailto:info@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>info@mcpconsultants.in</a>
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#002b66', margin: 0 }}>
-                  Chandigarh / Baddi Hub
-                </h3>
               </div>
-              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 12px 0' }}>
-                Industrial Corridor Practice Desk, Tri-city Region<br />
-                <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none' }}>+91 98 8842 6060</a><br />
-                <strong>Email:</strong> <a href="mailto:Recruiter.mcpconsultants@gmail.com" style={{ color: '#0056b3', textDecoration: 'none' }}>Recruiter.mcpconsultants@gmail.com</a>
-              </p>
             </div>
 
           </div>
