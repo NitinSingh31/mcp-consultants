@@ -80,12 +80,8 @@ export default function Navbar() {
         <div className="container">
           <div className="header-wrapper">
             
-            {/* Brand Logo */}
+            {/* Brand Wordmark */}
             <Link to="/" className="brand-logo" aria-label="MCP CONSULTANTS Home">
-              <div className="logo-symbol-wrapper">
-                <span className="logo-symbol">M</span>
-                <span className="logo-pulse" />
-              </div>
               <div className="brand-text">
                 <div className="brand-name">
                   MCP <span className="highlight">CONSULTANTS</span>
@@ -170,9 +166,6 @@ export default function Navbar() {
         {/* Mobile Header */}
         <div className="mobile-menu-header">
           <div className="brand-logo mobile-brand">
-            <div className="logo-symbol-wrapper">
-              <span className="logo-symbol">M</span>
-            </div>
             <div className="brand-text">
               <div className="brand-name" style={{ fontSize: '18px' }}>
                 MCP <span className="highlight">CONSULTANTS</span>

@@ -13,7 +13,6 @@ export default function Footer() {
           {/* Column 1: Brand Manifesto */}
           <div className="footer-brand">
             <Link to="/" className="brand-logo footer-logo">
-              <div className="logo-symbol">M</div>
               <div className="brand-text">
                 <span className="brand-name">MCP <span className="highlight">CONSULTANTS</span></span>
                 <span className="brand-tagline">Protect. Shape. Advance</span>

@@ -1005,10 +1005,12 @@ export default function Admin() {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <Link to="/" style={{ textDecoration: 'none', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div className="logo-symbol" style={{ width: '36px', height: '36px', fontSize: '18px' }}>M</div>
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, letterSpacing: '1px', fontSize: '18px' }}>
-                MCP CONSULTANTS
+            <Link to="/" style={{ textDecoration: 'none', color: '#ffffff', display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, letterSpacing: '1.5px', fontSize: '18px', color: '#ffffff', lineHeight: 1.1 }}>
+                MCP <span style={{ color: 'var(--color-accent, #c49a45)' }}>CONSULTANTS</span>
+              </span>
+              <span style={{ fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)', marginTop: '2px' }}>
+                Management Portal
               </span>
             </Link>
           </div>

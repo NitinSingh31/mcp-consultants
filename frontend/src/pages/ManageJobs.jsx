@@ -106,14 +106,13 @@ export default function ManageJobs() {
         <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 24px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <Link to="/admin/resdex" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(135deg, #0056b3, #0077ff)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontWeight: '900', fontSize: '16px' }}>
-                M
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '-0.5px', color: '#0056b3', lineHeight: 1 }}>mcp</span>
-                <span style={{ fontSize: '10px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', color: '#64748b' }}>hiring</span>
-              </div>
+            <Link to="/admin/resdex" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '1px', color: '#0b1a2f', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>
+                MCP <span style={{ color: '#c49a45' }}>CONSULTANTS</span>
+              </span>
+              <span style={{ fontSize: '9.5px', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', color: '#64748b', marginTop: '2px' }}>
+                Hiring &amp; Talent Portal
+              </span>
             </Link>
 
             <nav style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
