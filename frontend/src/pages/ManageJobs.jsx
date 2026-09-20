@@ -306,14 +306,14 @@ export default function ManageJobs() {
                           <option value="Closed">⚪ Closed (Hidden from Careers)</option>
                         </select>
                         <span style={{ fontSize: '11px', color: '#64748b' }}>
-                          Ref: <strong>{job.referenceCode || 'MCP-2026-091'}</strong>
+                          Ref: <strong>{job.referenceCode || 'N/A'}</strong>
                         </span>
                       </div>
 
                       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '13px', color: '#475569' }}>
                         <span>🏢 {job.hideCompany ? 'Confidential Client' : job.company}</span>
                         <span>•</span>
-                        <span>📍 {(job.locations || []).join(', ') || 'Baddi'}</span>
+                        <span>📍 {(job.locations || []).join(', ') || 'Pan India'}</span>
                         <span>•</span>
                         <span>💼 {job.workExperienceMin} - {job.workExperienceMax} Years</span>
                         <span>•</span>

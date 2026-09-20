@@ -7,14 +7,12 @@ const fs = require('fs');
 const { connectMongoDB, getIsMongoConnected } = require('./config/db');
 const { mailTransporter, NOTIFICATION_EMAILS } = require('./config/mailer');
 const { seedDefaultAdmin } = require('./seeds/adminSeed');
-const { seedSampleCandidates } = require('./seeds/candidateSeed');
 const { UPLOADS_DIR } = require('./middleware/upload');
 
 const submissionRoutes = require('./routes/submissionRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const jobPostingRoutes = require('./routes/jobPostingRoutes');
-const { seedSampleJobPostings } = require('./controllers/jobPostingController');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -105,8 +103,6 @@ async function startServer() {
   const isConnected = await connectMongoDB();
   if (isConnected) {
     await seedDefaultAdmin();
-    await seedSampleCandidates();
-    await seedSampleJobPostings();
   }
 
   app.listen(PORT, '0.0.0.0', () => {

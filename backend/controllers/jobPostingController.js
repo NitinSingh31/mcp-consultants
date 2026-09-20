@@ -21,10 +21,10 @@ async function calculateResdexMatchCount(job) {
     if (orConditions.length === 0) return 0;
 
     const count = await Candidate.countDocuments({ $or: orConditions });
-    return Math.max(count, 3); // realistic candidate count
+    return count;
   } catch (err) {
     console.error('Error calculating match count:', err.message);
-    return 14;
+    return 0;
   }
 }
 
@@ -241,73 +241,7 @@ exports.applyToJob = async (req, res) => {
   }
 };
 
-// 7. Seed Initial Sample Job (Matches user's exact screenshot!)
+// 7. Seed Initial Sample Job (Disabled - clean production state)
 exports.seedSampleJobPostings = async () => {
-  try {
-    const count = await JobPosting.countDocuments();
-    if (count === 0) {
-      const sample = new JobPosting({
-        title: 'Quality Engineer(QMS)',
-        company: 'MCP Consultants',
-        hideCompany: false,
-        department: 'Quality Assurance - Other',
-        employmentType: 'Full Time, Permanent',
-        workExperienceMin: 7,
-        workExperienceMax: 12,
-        workMode: 'In office',
-        salaryType: 'Total CTC',
-        salaryMin: '4.00',
-        salaryMax: '7.50',
-        hideSalary: false,
-        locations: ['Baddi'],
-        relocateToLocations: true,
-        vacancies: 1,
-        skills: [
-          { name: 'Quality Control', mandatory: true },
-          { name: 'Quality Inspection', mandatory: false },
-          { name: 'Quality Check', mandatory: true },
-          { name: 'Quality Audit', mandatory: false },
-          { name: 'QMS', mandatory: true },
-          { name: 'ISO', mandatory: true },
-          { name: 'IATF', mandatory: true },
-          { name: 'Quality System Management', mandatory: false },
-          { name: 'Customer Quality', mandatory: false },
-          { name: 'Process Quality', mandatory: false },
-          { name: 'Gear Manufacturing', mandatory: false }
-        ],
-        education: [
-          'Diploma - Mechanical Engineering',
-          'B.Tech/B.E. - Mechanical Engineering'
-        ],
-        industry: 'Industrial Equipment / Machinery',
-        jobDescription: `We require candidate for the position of Quality Engineer-QMS who should have experience in gears industry.
-T-EXP: 7-12 yrs
-CTC: 4.00 Lacs - 7.50 Lacs
-Location: Baddi
-
-Interested candidates may contact undersigned:
-Shikha (9888426060)`,
-        candidateProfile: 'Candidate must have strong exposure to IATF 16949, ISO 9001 audits, and gear manufacturing quality inspection.',
-        perks: 'Performance Bonus, Health Insurance, Transportation Support',
-        screeningQuestions: [
-          'What is your current CTC in Lacs per annum?',
-          'What is your expected CTC in Lacs per annum?',
-          'What is your notice period?',
-          'How many years of experience do you have in Quality Control / QMS?',
-          'Are you currently residing in Baddi or willing to relocate to Baddi?'
-        ],
-        isWalkIn: false,
-        collaborators: ['Shallu.mcpconsultants@gmail.com', 'Shikha.mcpconsultants@gmail.com'],
-        responseEmailPolicy: 'As a daily summary',
-        referenceCode: 'MCP-2026-091',
-        status: 'Active',
-        viewsCount: 38,
-        applicationsCount: 7
-      });
-      await sample.save();
-      console.log('🎯 Seeded sample job posting: Quality Engineer(QMS) - Baddi matching Naukri screenshot.');
-    }
-  } catch (err) {
-    console.error('Error seeding job posting:', err.message);
-  }
+  // No sample jobs are seeded.
 };

@@ -51,19 +51,19 @@ export default function PostJob() {
   const [jobTitle, setJobTitle] = useState('');
   const [jobTitleError, setJobTitleError] = useState(false);
   const [showTitleSuggestions, setShowTitleSuggestions] = useState(false);
-  const [department, setDepartment] = useState('Quality Assurance - Other');
+  const [department, setDepartment] = useState('');
   const [showDeptDropdown, setShowDeptDropdown] = useState(false);
   const [employmentType, setEmploymentType] = useState('Full Time, Permanent');
-  const [workExperienceMin, setWorkExperienceMin] = useState(7);
-  const [workExperienceMax, setWorkExperienceMax] = useState(12);
+  const [workExperienceMin, setWorkExperienceMin] = useState(0);
+  const [workExperienceMax, setWorkExperienceMax] = useState(5);
   const [workMode, setWorkMode] = useState('In office');
   const [salaryType, setSalaryType] = useState('Total CTC');
-  const [salaryMin, setSalaryMin] = useState('4.00');
-  const [salaryMax, setSalaryMax] = useState('7.50');
+  const [salaryMin, setSalaryMin] = useState('');
+  const [salaryMax, setSalaryMax] = useState('');
   const [hideSalary, setHideSalary] = useState(false);
   
   // Locations (Hierarchical chips)
-  const [locations, setLocations] = useState(['Baddi']);
+  const [locations, setLocations] = useState([]);
   const [locationInput, setLocationInput] = useState('');
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const [relocateToLocations, setRelocateToLocations] = useState(true);
@@ -72,63 +72,28 @@ export default function PostJob() {
   // -------------------------------------------------------------
   // STEP 2: Preferred Candidate Details State
   // -------------------------------------------------------------
-  const [skills, setSkills] = useState([
-    { name: 'Quality Control', mandatory: true },
-    { name: 'Quality Inspection', mandatory: false },
-    { name: 'Quality Check', mandatory: true },
-    { name: 'Quality Audit', mandatory: false },
-    { name: 'QMS', mandatory: true },
-    { name: 'ISO', mandatory: true },
-    { name: 'IATF', mandatory: true },
-    { name: 'Quality System Management', mandatory: false },
-    { name: 'Customer Quality', mandatory: false },
-    { name: 'Process Quality', mandatory: false },
-    { name: 'Incoming Quality', mandatory: false },
-    { name: 'Line Inspection', mandatory: false },
-    { name: 'In Process Quality', mandatory: false },
-    { name: 'Customer Audits', mandatory: false },
-    { name: 'Final Quality', mandatory: false },
-    { name: 'gears', mandatory: false },
-    { name: 'Gear Manufacturing', mandatory: false },
-    { name: 'Gear Box', mandatory: false },
-    { name: 'Quality', mandatory: true }
-  ]);
+  const [skills, setSkills] = useState([]);
   const [skillInput, setSkillInput] = useState('');
   const [showSkillSuggestions, setShowSkillSuggestions] = useState(false);
 
-  const [education, setEducation] = useState([
-    'Diploma - Mechanical Engineering',
-    'B.Tech/B.E. - Mechanical Engineering'
-  ]);
+  const [education, setEducation] = useState([]);
   const [educationInput, setEducationInput] = useState('');
   const [premiumBTech, setPremiumBTech] = useState(false);
-  const [candidateIndustry, setCandidateIndustry] = useState('Industrial Equipment / Machinery');
+  const [candidateIndustry, setCandidateIndustry] = useState('');
 
   // -------------------------------------------------------------
   // STEP 3: Job Description State
   // -------------------------------------------------------------
-  const [jobDescription, setJobDescription] = useState(`We require candidate for the position of Quality Engineer-QMS who should have experience in gears industry.
-T-EXP: 7-12 yrs
-CTC: 4.00 Lacs - 7.50 Lacs
-Location: Baddi
-
-Interested candidates may contact undersigned:
-Shikha (9888426060)`);
+  const [jobDescription, setJobDescription] = useState('');
   const [showCandidateProfileBlock, setShowCandidateProfileBlock] = useState(false);
-  const [candidateProfile, setCandidateProfile] = useState('Candidate must have strong exposure to IATF 16949, ISO 9001 audits, and gear manufacturing quality inspection.');
+  const [candidateProfile, setCandidateProfile] = useState('');
   const [showPerksBlock, setShowPerksBlock] = useState(false);
-  const [perks, setPerks] = useState('Performance Bonus, Health Insurance, Transportation Support');
+  const [perks, setPerks] = useState('');
 
   // -------------------------------------------------------------
   // STEP 4: Screening Questions State
   // -------------------------------------------------------------
-  const [screeningQuestions, setScreeningQuestions] = useState([
-    'What is your current CTC in Lacs per annum?',
-    'What is your expected CTC in Lacs per annum?',
-    'What is your notice period?',
-    'How many years of experience do you have in Quality Control / QMS?',
-    'Are you currently residing in Baddi or willing to relocate to Baddi?'
-  ]);
+  const [screeningQuestions, setScreeningQuestions] = useState([]);
   const [customQuestionInput, setCustomQuestionInput] = useState('');
   const [showAddCustomQuestion, setShowAddCustomQuestion] = useState(false);
 
@@ -150,10 +115,10 @@ Shikha (9888426060)`);
   // STEP 5: Advanced Options State
   // -------------------------------------------------------------
   const [isWalkIn, setIsWalkIn] = useState(false);
-  const [collaborators, setCollaborators] = useState(['Shallu.mcpconsultants@gmail.com', 'Shikha.mcpconsultants@gmail.com']);
+  const [collaborators, setCollaborators] = useState(['Recruiter.mcpconsultants@gmail.com']);
   const [responseEmailPolicy, setResponseEmailPolicy] = useState('As a daily summary');
-  const [referenceCode, setReferenceCode] = useState('MCP-2026-091');
-  const [showReferenceCodeInput, setShowReferenceCodeInput] = useState(true);
+  const [referenceCode, setReferenceCode] = useState('');
+  const [showReferenceCodeInput, setShowReferenceCodeInput] = useState(false);
   const [scheduleRefresh, setScheduleRefresh] = useState(false);
 
   // -------------------------------------------------------------
@@ -162,7 +127,7 @@ Shikha (9888426060)`);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [createdJob, setCreatedJob] = useState(null);
-  const [resdexMatchCount, setResdexMatchCount] = useState(24);
+  const [resdexMatchCount, setResdexMatchCount] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
 
   // Outside click listener
@@ -289,7 +254,7 @@ Shikha (9888426060)`);
       const data = await res.json();
       if (data.success) {
         setCreatedJob(data.job);
-        setResdexMatchCount(data.matchingCandidatesCount || 24);
+        setResdexMatchCount(data.matchingCandidatesCount || 0);
         setSuccessModalOpen(true);
       } else {
         alert(data.message || 'Error posting job.');
@@ -298,13 +263,13 @@ Shikha (9888426060)`);
       console.error('Error posting job:', err);
       // Demo fallback in case offline
       setCreatedJob({
-        _id: 'demo-job-id',
+        _id: 'offline-preview',
         title: jobTitle,
         locations,
         skills,
-        referenceCode: referenceCode || 'MCP-2026-091'
+        referenceCode: referenceCode || (`MCP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`)
       });
-      setResdexMatchCount(24);
+      setResdexMatchCount(0);
       setSuccessModalOpen(true);
     } finally {
       setIsSubmitting(false);
@@ -313,21 +278,23 @@ Shikha (9888426060)`);
 
   // WhatsApp Share text generator
   const getWhatsAppShareText = () => {
-    const locText = locations.join(', ') || 'Baddi';
+    const locText = locations.join(', ') || 'Pan India';
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://mcpconsultants.in';
     return encodeURIComponent(
       `🚀 *Urgent Opening via MCP Consultants*\n\n` +
       `📌 *Role:* ${jobTitle}\n` +
       `🏢 *Company:* ${hideCompany ? 'Leading Industrial Multinational (Confidential Mandate)' : company}\n` +
       `📍 *Location:* ${locText}\n` +
       `💼 *Experience:* ${workExperienceMin}-${workExperienceMax} Years\n` +
-      `💰 *CTC:* ${salaryMin}-${salaryMax} Lacs\n` +
+      `💰 *CTC:* ${salaryMin ? `${salaryMin}-${salaryMax} Lacs` : 'Best in Industry'}\n` +
       `🔑 *Key Skills:* ${skills.slice(0, 5).map(s => s.name).join(', ')}\n\n` +
-      `Interested candidates can connect directly with Shikha (9888426060) or apply at: http://localhost:5173/jobs`
+      `Interested candidates can apply directly at: ${baseUrl}/jobs`
     );
   };
 
   const copyShareLink = () => {
-    const link = `http://localhost:5173/jobs`;
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://mcpconsultants.in';
+    const link = `${baseUrl}/jobs`;
     navigator.clipboard.writeText(link);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
