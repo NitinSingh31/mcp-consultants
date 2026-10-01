@@ -441,20 +441,6 @@ export default function Contact({ defaultTab }) {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <MapPin size={24} style={{ color: '#002b66' }} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
-                      Corporate Office
-                    </div>
-                    <div style={{ fontSize: '15px', color: '#334155', lineHeight: '1.6', fontWeight: '500' }}>
-                      4579 B, Sector 70, Mohali, Punjab<br />
-                      India 160071
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -1033,22 +1019,6 @@ export default function Contact({ defaultTab }) {
                     <a href="mailto:info@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
                       info@mcpconsultants.in
                     </a>
-                  </div>
-                </div>
-
-                {/* Corporate Office */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#e8f2fc', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <MapPin size={24} style={{ color: '#002b66' }} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
-                      Corporate Office
-                    </div>
-                    <div style={{ fontSize: '15px', color: '#334155', lineHeight: '1.6', fontWeight: '500' }}>
-                      4579 B, Sector 70, Mohali, Punjab<br />
-                      India 160071
-                    </div>
                   </div>
                 </div>
 
