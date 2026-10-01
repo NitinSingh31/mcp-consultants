@@ -2294,39 +2294,362 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   About Page
+   About Page - Executive Styling System
    ========================================================================== */
-.about-legacy-section {
-  padding: 90px 0;
+
+/* 1. Quick Stats Ribbon under Hero */
+.about-stats-ribbon {
+  background: #071527;
+  border-bottom: 1px solid rgba(196, 154, 69, 0.25);
+  padding: 24px 0;
 }
 
-.legacy-grid {
+.about-stats-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 60px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.about-stat-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  border-left: 2px solid rgba(196, 154, 69, 0.35);
+}
+
+.about-stat-item:first-child {
+  border-left: none;
+}
+
+.about-stat-number {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.about-stat-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+.about-stat-sub {
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* 2. Introduction Narrative */
+.about-intro-section {
+  padding: 90px 0;
+  background-color: #ffffff;
+}
+
+.about-intro-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
   align-items: center;
 }
 
-.legacy-text-block p {
+.about-narrative-text p {
   font-size: 16px;
   line-height: 1.8;
   color: var(--color-text-body);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
-.legacy-quote-card {
-  background: var(--color-bg-warm);
-  border-left: 4px solid var(--color-accent);
-  padding: 24px 30px;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  margin: 30px 0;
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 700;
+.about-narrative-text strong {
   color: var(--color-primary);
+}
+
+.about-feature-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.about-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--color-text-dark);
+  font-weight: 600;
+}
+
+.about-blueprint-card {
+  background: linear-gradient(145deg, #0b1a2f 0%, #112239 100%);
+  border: 1px solid rgba(196, 154, 69, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  color: #ffffff;
+  box-shadow: 0 16px 36px rgba(11, 26, 47, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-blueprint-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196, 154, 69, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 3. Message from Managing Director */
+.md-message-section {
+  padding: 100px 0;
+  background-color: var(--color-bg-offwhite);
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.md-message-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  border-top: 4px solid var(--color-accent);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.md-profile-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.md-portrait-frame {
+  width: 220px;
+  height: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.md-portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.md-name {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.md-role {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.md-firm {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.md-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.md-quote-lead {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--color-primary);
+  line-height: 1.55;
+  margin-bottom: 24px;
+  position: relative;
+  padding-left: 20px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.md-body-text {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--color-text-body);
+}
+
+.md-body-text p {
+  margin-bottom: 16px;
+}
+
+.md-signoff {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* 4. Vision & Mission Section */
+.vision-mission-section {
+  padding: 100px 0;
+  background: linear-gradient(180deg, #071527 0%, #0b1a2f 100%);
+  color: #ffffff;
+  position: relative;
+}
+
+.vision-mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 48px;
+}
+
+.vm-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(196, 154, 69, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.vm-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(196, 154, 69, 0.6);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.vm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 14px;
+}
+
+.vm-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.vm-statement {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.vm-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.vm-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.5;
 }
 
+/* 5. Why MCP Section */
+.why-mcp-section {
+  padding: 100px 0;
+  background-color: #ffffff;
+}
+
+.why-mcp-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.why-card {
+  background: var(--color-bg-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.why-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 43, 102, 0.08);
+  border-color: rgba(196, 154, 69, 0.4);
+  background: #ffffff;
+}
+
+.why-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(196, 154, 69, 0.12);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.why-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.why-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-text-body);
+}
+
+/* 6. Leadership Section */
 .leadership-section {
   padding: 90px 0;
   background-color: var(--color-bg-offwhite);
@@ -2392,6 +2715,36 @@ button, input, textarea, select {
   font-size: 14px;
   color: var(--color-text-body);
   line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .about-intro-grid {
+    grid-template-columns: 1fr;
+  }
+  .md-message-card {
+    grid-template-columns: 1fr;
+    padding: 36px 28px;
+  }
+  .vision-mission-grid {
+    grid-template-columns: 1fr;
+  }
+  .why-mcp-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .why-mcp-cards-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ==========================================================================
