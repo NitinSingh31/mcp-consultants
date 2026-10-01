@@ -4610,11 +4610,11 @@ export const INDUSTRIES_DATABASE = [
   { name: 'Precision Tooling, Dies & CNC Machining', tags: 'VMC, 5-Axis, Moulds, Press Tools, Metrology' },
   { name: 'Mining, Mineral Processing & Bulk Handling', tags: 'Iron Ore, Coal, Smelting, Conveyors, Extraction' },
   { name: 'Electronics & Semiconductor Manufacturing (EMS)', tags: 'PCBA, SMT, Microcontrollers, Smart Meters' },
-  { name: 'Pharmaceuticals, Life Sciences & Medical Devices', tags: 'Formulations, API, Cleanrooms, cGMP, Bio-reactors' },
+  { name: 'Pharmaceuticals, APIs & Life Sciences', tags: 'Formulations, Active Pharmaceutical Ingredients, USFDA, cGMP, Bio-reactors, Injectables, Medical Devices' },
   { name: 'Cement, Building Materials & Glass', tags: 'Kiln Operations, Clinker, Float Glass, Refractories' },
   { name: 'Logistics, Warehousing & Supply Chain Services', tags: '3PL, Cold Chain, WMS, Freight Forwarding, Multimodal' },
   { name: 'Pulp, Paper & Industrial Packaging', tags: 'Corrugated Packaging, Specialty Paper, Flexible Films' },
-  { name: 'Textile Machinery & Technical Synthetic Fibers', tags: 'Spinning, Weaving, Non-Woven, Technical Textiles' },
+  { name: 'Textiles, Technical Fabrics & Apparel', tags: 'Spinning, Weaving, Non-Woven, Technical Textiles, Garments, Apparel Manufacturing' },
   { name: 'Water Treatment, Desalination & ZLD EPC', tags: 'Effluent Treatment, Reverse Osmosis, Zero Liquid Discharge' }
 ];
 

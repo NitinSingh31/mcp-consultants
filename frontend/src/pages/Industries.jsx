@@ -12,7 +12,9 @@ import {
   Box, 
   Search, 
   ArrowRight,
-  ShieldAlert
+  ShieldAlert,
+  Pill,
+  Shirt
 } from 'lucide-react';
 
 export default function Industries() {
@@ -27,6 +29,22 @@ export default function Industries() {
       icon: Factory,
       description: "Precision search for Managing Directors, VP Operations, and Plant Heads across turbine manufacturing, heavy machinery, boilermakers, and mining capital equipment.",
       roles: ["Chief Operating Officer (COO)", "Plant General Manager", "VP Heavy Fabrication", "Head of Quality & Metallurgy"]
+    },
+    {
+      id: "pharmaceuticals-life-sciences",
+      name: "Pharmaceuticals, APIs & Life Sciences",
+      category: "pharma",
+      icon: Pill,
+      description: "Appointing proven leadership for USFDA/MHRA-compliant formulation plants, Active Pharmaceutical Ingredient (API) synthesis, sterile injectables, biosimilars, and contract manufacturing (CDMO).",
+      roles: ["President / Head of Global Formulations", "VP Active Pharmaceutical Ingredients (API)", "Head of Regulatory Affairs & USFDA Quality", "Chief Scientific Officer (CSO) / R&D Director"]
+    },
+    {
+      id: "textiles-apparel",
+      name: "Textiles, Technical Fabrics & Apparel",
+      category: "textiles",
+      icon: Shirt,
+      description: "Executive search across high-capacity spinning mills, technical non-woven textiles, automated garmenting clusters, synthetic polymer fibers, and sustainable processing plants.",
+      roles: ["Chief Executive Officer (Textiles & Apparel)", "VP Spinning & Processing Operations", "Head of Technical Textiles & Geotextiles", "Director of Global Sourcing & Supply Chain"]
     },
     {
       id: "automation-robotics",
@@ -89,6 +107,8 @@ export default function Industries() {
   const categories = [
     { id: 'all', label: 'All Sectors' },
     { id: 'heavy', label: 'Heavy Engineering & Auto' },
+    { id: 'pharma', label: 'Pharmaceuticals & Life Sciences' },
+    { id: 'textiles', label: 'Textiles & Apparel' },
     { id: 'automation', label: 'Automation & Industry 4.0' },
     { id: 'energy', label: 'Energy, Power & CleanTech' },
     { id: 'materials', label: 'Process & Materials' }

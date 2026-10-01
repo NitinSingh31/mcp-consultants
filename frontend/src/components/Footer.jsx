@@ -47,8 +47,9 @@ export default function Footer() {
               <li><Link to="/industries">Heavy Manufacturing &amp; EPC</Link></li>
               <li><Link to="/industries">Industrial Automation &amp; Robotics</Link></li>
               <li><Link to="/industries">Automotive &amp; Electric Mobility</Link></li>
-              <li><Link to="/industries">Renewables, Power &amp; Utilities</Link></li>
-              <li><Link to="/industries">Chemicals &amp; Advanced Materials</Link></li>
+              <li><Link to="/industries">Pharmaceuticals &amp; Life Sciences</Link></li>
+              <li><Link to="/industries">Textiles &amp; Technical Fabrics</Link></li>
+              <li><Link to="/industries">Renewables, Power &amp; Chemicals</Link></li>
             </ul>
           </div>
 
