@@ -9,6 +9,7 @@ import {
   MapPin, 
   ShieldCheck, 
   ChevronRight,
+  ChevronDown,
   Briefcase,
   Layers,
   FileText,
@@ -20,6 +21,9 @@ import {
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [workforceSubmenuOpen, setWorkforceSubmenuOpen] = useState(false);
+  const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -30,9 +34,11 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile drawer on route change
+  // Close mobile drawer and dropdowns on route change
   useEffect(() => {
     setMobileMenuOpen(false);
+    setServicesDropdownOpen(false);
+    setWorkforceSubmenuOpen(false);
   }, [location]);
 
   // Prevent background scrolling when mobile menu is open
@@ -110,10 +116,64 @@ export default function Navbar() {
                     <span>Industries</span>
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                <li 
+                  className="nav-item has-dropdown"
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => {
+                    setServicesDropdownOpen(false);
+                    setWorkforceSubmenuOpen(false);
+                  }}
+                >
                   <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                    <span>Services</span>
+                    <span>Our Services</span>
+                    <ChevronDown size={13} className="nav-chevron" />
                   </NavLink>
+
+                  {/* Dropdown Menu matching Reference Design */}
+                  <div className={`nav-services-dropdown ${servicesDropdownOpen ? 'open' : ''}`}>
+                    <div 
+                      className="dropdown-item has-submenu"
+                      onMouseEnter={() => setWorkforceSubmenuOpen(true)}
+                      onMouseLeave={() => setWorkforceSubmenuOpen(false)}
+                    >
+                      <Link to="/services#workforce-management" className="dropdown-link-row">
+                        <span>Workforce Management</span>
+                        <ChevronRight size={13} className="submenu-arrow" />
+                      </Link>
+
+                      {/* Sub-menu Flyout */}
+                      <div className={`nav-services-submenu ${workforceSubmenuOpen ? 'open' : ''}`}>
+                        <Link to="/services#workforce-management" className="submenu-link-item">
+                          Temporary Staffing Solution
+                        </Link>
+                        <Link to="/services#workforce-management" className="submenu-link-item">
+                          Recruitment (IT &amp; Non-IT)
+                        </Link>
+                        <Link to="/services#workforce-management" className="submenu-link-item">
+                          NAPS
+                        </Link>
+                        <Link to="/services#workforce-management" className="submenu-link-item">
+                          Payroll Management
+                        </Link>
+                      </div>
+                    </div>
+
+                    <Link to="/services#power-sector" className="dropdown-link-row">
+                      <span>Power Sector</span>
+                    </Link>
+                    <Link to="/services#retail-ev" className="dropdown-link-row">
+                      <span>Retail &amp; EV</span>
+                    </Link>
+                    <Link to="/services#hospitality" className="dropdown-link-row">
+                      <span>Hospitality</span>
+                    </Link>
+                    <Link to="/services#skill-development" className="dropdown-link-row">
+                      <span>Skill Development &amp; Education</span>
+                    </Link>
+                    <Link to="/services#facility-management" className="dropdown-link-row">
+                      <span>Facility Management &amp; BPO</span>
+                    </Link>
+                  </div>
                 </li>
                 <li className="nav-item">
                   <NavLink to="/insights" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
@@ -225,13 +285,58 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li className="mobile-nav-item">
-            <NavLink to="/services" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>
+            <div 
+              className="mobile-nav-link" 
+              style={{ justifyContent: 'space-between', cursor: 'pointer' }}
+              onClick={() => setMobileServicesExpanded(!mobileServicesExpanded)}
+            >
               <div className="mobile-link-inner">
                 <Briefcase size={18} className="mobile-nav-icon" />
-                <span>Services</span>
+                <span>Our Services</span>
               </div>
-              <ChevronRight size={16} className="chevron" />
-            </NavLink>
+              <ChevronDown 
+                size={16} 
+                className="chevron" 
+                style={{ transform: mobileServicesExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }} 
+              />
+            </div>
+
+            {mobileServicesExpanded && (
+              <div className="mobile-submenu-list" style={{ paddingLeft: '28px', background: 'rgba(255,255,255,0.03)', borderLeft: '2px solid var(--color-accent)', margin: '6px 0 10px 14px' }}>
+                <Link to="/services#workforce-management" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                  Workforce Management
+                </Link>
+                <div style={{ paddingLeft: '14px', marginBottom: '8px', borderLeft: '1px dashed rgba(255,255,255,0.2)' }}>
+                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                    • Temporary Staffing Solution
+                  </Link>
+                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                    • Recruitment (IT &amp; Non-IT)
+                  </Link>
+                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                    • NAPS
+                  </Link>
+                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                    • Payroll Management
+                  </Link>
+                </div>
+                <Link to="/services#power-sector" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                  Power Sector
+                </Link>
+                <Link to="/services#retail-ev" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                  Retail &amp; EV
+                </Link>
+                <Link to="/services#hospitality" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                  Hospitality
+                </Link>
+                <Link to="/services#skill-development" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                  Skill Development &amp; Education
+                </Link>
+                <Link to="/services#facility-management" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                  Facility Management &amp; BPO
+                </Link>
+              </div>
+            )}
           </li>
           <li className="mobile-nav-item">
             <NavLink to="/insights" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>

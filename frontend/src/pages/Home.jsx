@@ -288,80 +288,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. All-Weather Allies - Services Showcase */}
-      <section className="services-showcase-section">
+      {/* 4. Our Services Section (Replaces All-Weather Leadership Allies per Reference Design) */}
+      <section className="our-services-home-section" id="our-services">
         <div className="container">
           
-          <div className="section-header text-center" style={{ maxWidth: '800px', margin: '0 auto 48px' }}>
-            <span className="section-tag">PRACTICE CAPABILITIES</span>
-            <h2 className="section-title">All-Weather Leadership Allies</h2>
-            <p className="section-desc">
-              Comprehensive executive search and leadership advisory solutions tailored for high-growth industrial groups, listed conglomerates, and promoter-led enterprises.
-            </p>
+          <div className="our-services-home-header">
+            <h2 className="our-services-home-title">Our Services</h2>
           </div>
 
-          <div className="services-grid">
-            
-            <div className="service-card">
-              <div>
-                <div className="service-card-header">
-                  <Target className="service-card-icon" size={32} />
-                  <span className="service-number">01</span>
+          <div className="our-services-home-grid">
+            {[
+              {
+                id: 'workforce-management',
+                title: 'Workforce Management',
+                image: '/images/workforce-management.jpg',
+                link: '/services#workforce-management'
+              },
+              {
+                id: 'power-sector',
+                title: 'Power Sector',
+                image: '/images/power-sector.jpg',
+                link: '/services#power-sector'
+              },
+              {
+                id: 'retail-ev',
+                title: 'Retail & EV',
+                image: '/images/retail-ev.jpg',
+                link: '/services#retail-ev'
+              },
+              {
+                id: 'hospitality',
+                title: 'Hospitality',
+                image: '/images/hospitality.jpg',
+                link: '/services#hospitality'
+              },
+              {
+                id: 'skill-development',
+                title: 'Skill Development & Education',
+                image: '/images/skill-development.jpg',
+                link: '/services#skill-development'
+              },
+              {
+                id: 'facility-management',
+                title: 'Facility Management & BPO',
+                image: '/images/facility-management.jpg',
+                link: '/services#facility-management'
+              }
+            ].map((service) => (
+              <div key={service.id} className="service-photo-card">
+                <div className="service-photo-card-img-wrap">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="service-photo-card-img" 
+                    loading="lazy"
+                  />
                 </div>
-                <h3>Retained Executive Search</h3>
-                <p>Exclusive, confidential CXO and Managing Director search mandates executed with forensic precision, proprietary talent maps, and deep sector intelligence.</p>
-              </div>
-              <Link to="/services#executive-search" className="service-link">
-                <span>Commission Search</span>
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            <div className="service-card">
-              <div>
-                <div className="service-card-header">
-                  <Users className="service-card-icon" size={32} />
-                  <span className="service-number">02</span>
+                <div className="service-photo-card-body">
+                  <h3 className="service-photo-card-title">{service.title}</h3>
+                  <Link to={service.link} className="btn-service-readmore">
+                    Read More
+                  </Link>
                 </div>
-                <h3>Fractional CXO &amp; Interim</h3>
-                <p>Battle-tested interim COOs, CFOs, and Transformation Directors deployable within 48 hours for rapid turnaround, plant scale-ups, and crisis stewardship.</p>
               </div>
-              <Link to="/services#fractional-cxo" className="service-link">
-                <span>Deploy Interim Leader</span>
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            <div className="service-card">
-              <div>
-                <div className="service-card-header">
-                  <Building2 className="service-card-icon" size={32} />
-                  <span className="service-number">03</span>
-                </div>
-                <h3>Board Advisory &amp; Governance</h3>
-                <p>Appointing visionary Independent Directors, Board Chairs, and conducting boardroom effectiveness, NRC succession mapping, and ESG alignment reviews.</p>
-              </div>
-              <Link to="/services#board-advisory" className="service-link">
-                <span>Consult Board Advisory</span>
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            <div className="service-card">
-              <div>
-                <div className="service-card-header">
-                  <Briefcase className="service-card-icon" size={32} />
-                  <span className="service-number">04</span>
-                </div>
-                <h3>Talent Diagnostics &amp; Audit</h3>
-                <p>Psychometric benchmarking, 360-degree confidential leadership appraisals, executive compensation audits, and promoter succession roadmaps.</p>
-              </div>
-              <Link to="/services#talent-advisory" className="service-link">
-                <span>Request Diagnostic</span>
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-
+            ))}
           </div>
 
         </div>
