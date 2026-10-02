@@ -302,37 +302,37 @@ export default function Home() {
                 id: 'workforce-management',
                 title: 'Workforce Management',
                 image: '/images/workforce-management.jpg',
-                link: '/services#workforce-management'
+                link: '/services?service=workforce-management'
               },
               {
                 id: 'power-sector',
                 title: 'Power Sector',
                 image: '/images/power-sector.jpg',
-                link: '/services#power-sector'
+                link: '/services?service=power-sector'
               },
               {
                 id: 'retail-ev',
                 title: 'Retail & EV',
                 image: '/images/retail-ev.jpg',
-                link: '/services#retail-ev'
+                link: '/services?service=retail-ev'
               },
               {
                 id: 'hospitality',
                 title: 'Hospitality',
                 image: '/images/hospitality.jpg',
-                link: '/services#hospitality'
+                link: '/services?service=hospitality'
               },
               {
                 id: 'skill-development',
                 title: 'Skill Development & Education',
                 image: '/images/skill-development.jpg',
-                link: '/services#skill-development'
+                link: '/services?service=skill-development'
               },
               {
                 id: 'facility-management',
                 title: 'Facility Management & BPO',
                 image: '/images/facility-management.jpg',
-                link: '/services#facility-management'
+                link: '/services?service=facility-management'
               }
             ].map((service) => (
               <div key={service.id} className="service-photo-card">

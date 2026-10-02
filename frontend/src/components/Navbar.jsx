@@ -136,41 +136,41 @@ export default function Navbar() {
                       onMouseEnter={() => setWorkforceSubmenuOpen(true)}
                       onMouseLeave={() => setWorkforceSubmenuOpen(false)}
                     >
-                      <Link to="/services#workforce-management" className="dropdown-link-row">
+                      <Link to="/services?service=workforce-management" className="dropdown-link-row">
                         <span>Workforce Management</span>
                         <ChevronRight size={13} className="submenu-arrow" />
                       </Link>
 
                       {/* Sub-menu Flyout */}
                       <div className={`nav-services-submenu ${workforceSubmenuOpen ? 'open' : ''}`}>
-                        <Link to="/services#workforce-management" className="submenu-link-item">
+                        <Link to="/services?service=workforce-management&sub=temporary-staffing" className="submenu-link-item">
                           Temporary Staffing Solution
                         </Link>
-                        <Link to="/services#workforce-management" className="submenu-link-item">
+                        <Link to="/services?service=workforce-management&sub=recruitment" className="submenu-link-item">
                           Recruitment (IT &amp; Non-IT)
                         </Link>
-                        <Link to="/services#workforce-management" className="submenu-link-item">
+                        <Link to="/services?service=workforce-management&sub=naps" className="submenu-link-item">
                           NAPS
                         </Link>
-                        <Link to="/services#workforce-management" className="submenu-link-item">
+                        <Link to="/services?service=workforce-management&sub=payroll" className="submenu-link-item">
                           Payroll Management
                         </Link>
                       </div>
                     </div>
 
-                    <Link to="/services#power-sector" className="dropdown-link-row">
+                    <Link to="/services?service=power-sector" className="dropdown-link-row">
                       <span>Power Sector</span>
                     </Link>
-                    <Link to="/services#retail-ev" className="dropdown-link-row">
+                    <Link to="/services?service=retail-ev" className="dropdown-link-row">
                       <span>Retail &amp; EV</span>
                     </Link>
-                    <Link to="/services#hospitality" className="dropdown-link-row">
+                    <Link to="/services?service=hospitality" className="dropdown-link-row">
                       <span>Hospitality</span>
                     </Link>
-                    <Link to="/services#skill-development" className="dropdown-link-row">
+                    <Link to="/services?service=skill-development" className="dropdown-link-row">
                       <span>Skill Development &amp; Education</span>
                     </Link>
-                    <Link to="/services#facility-management" className="dropdown-link-row">
+                    <Link to="/services?service=facility-management" className="dropdown-link-row">
                       <span>Facility Management &amp; BPO</span>
                     </Link>
                   </div>
@@ -303,36 +303,36 @@ export default function Navbar() {
 
             {mobileServicesExpanded && (
               <div className="mobile-submenu-list" style={{ paddingLeft: '28px', background: 'rgba(255,255,255,0.03)', borderLeft: '2px solid var(--color-accent)', margin: '6px 0 10px 14px' }}>
-                <Link to="/services#workforce-management" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                <Link to="/services?service=workforce-management" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
                   Workforce Management
                 </Link>
                 <div style={{ paddingLeft: '14px', marginBottom: '8px', borderLeft: '1px dashed rgba(255,255,255,0.2)' }}>
-                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                  <Link to="/services?service=workforce-management&sub=temporary-staffing" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
                     • Temporary Staffing Solution
                   </Link>
-                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                  <Link to="/services?service=workforce-management&sub=recruitment" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
                     • Recruitment (IT &amp; Non-IT)
                   </Link>
-                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                  <Link to="/services?service=workforce-management&sub=naps" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
                     • NAPS
                   </Link>
-                  <Link to="/services#workforce-management" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
+                  <Link to="/services?service=workforce-management&sub=payroll" style={{ display: 'block', padding: '4px 0', color: '#94a3b8', fontSize: '12px', textDecoration: 'none' }}>
                     • Payroll Management
                   </Link>
                 </div>
-                <Link to="/services#power-sector" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                <Link to="/services?service=power-sector" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
                   Power Sector
                 </Link>
-                <Link to="/services#retail-ev" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                <Link to="/services?service=retail-ev" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
                   Retail &amp; EV
                 </Link>
-                <Link to="/services#hospitality" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                <Link to="/services?service=hospitality" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
                   Hospitality
                 </Link>
-                <Link to="/services#skill-development" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                <Link to="/services?service=skill-development" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
                   Skill Development &amp; Education
                 </Link>
-                <Link to="/services#facility-management" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
+                <Link to="/services?service=facility-management" className="mobile-sub-link" style={{ display: 'block', padding: '8px 0', color: '#cbd5e1', fontSize: '13.5px', textDecoration: 'none' }}>
                   Facility Management &amp; BPO
                 </Link>
               </div>
