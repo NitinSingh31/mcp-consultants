@@ -325,7 +325,7 @@ export default function Home() {
                 </div>
                 <div className="metric-separator"></div>
                 <div className="about-metric-item">
-                  <div className="metric-val">2</div>
+                  <div className="metric-val">20+</div>
                   <div className="metric-lbl">Core Industries</div>
                 </div>
                 <div className="metric-separator"></div>
