@@ -452,15 +452,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Why MCP CONSULTANTS Differentiators */}
-      <section className="why-mcp-section">
+      {/* 6. Comprehensive Talent Solutions (Full-Spectrum Capabilities) */}
+      <section className="why-mcp-section" id="capabilities">
         <div className="container">
           
           <div className="section-header text-center" style={{ maxWidth: '820px', margin: '0 auto 48px' }}>
-            <span className="section-tag">THE MCP ADVANTAGE</span>
-            <h2 className="section-title">Why Promoters Choose Retained Advisory</h2>
+            <span className="section-tag">FULL-SPECTRUM TALENT CAPABILITIES</span>
+            <h2 className="section-title">Comprehensive Talent Solutions for Modern Industry</h2>
             <p className="section-desc">
-              Conventional recruitment agencies flood your inbox with unvetted resumes. We operate as your confidential boardroom search partner with rigorous forensic vetting.
+              From specialized shopfloor engineers to plant managers and corporate leaders, we provide tailored recruitment models to scale your business.
             </p>
           </div>
 
@@ -468,34 +468,34 @@ export default function Home() {
             
             <div className="why-mcp-card">
               <div className="why-mcp-icon">
-                <Target size={24} />
+                <Briefcase size={24} />
               </div>
-              <h3>Partner-Led Execution</h3>
-              <p>Every mandate is spearheaded directly by a Senior Practice Partner. Your boardroom search is never delegated to junior associates.</p>
+              <h3>Permanent Recruitment</h3>
+              <p>Long-term talent acquisition for core engineering, operations, finance, and corporate management aligned with your organizational culture.</p>
             </div>
 
             <div className="why-mcp-card">
               <div className="why-mcp-icon">
                 <Factory size={24} />
               </div>
-              <h3>Deep Industrial Roots</h3>
-              <p>We do not recruit generic profiles. Our consultants possess hands-on domain knowledge across heavy engineering, robotics, steel, and plant operations.</p>
+              <h3>Technical &amp; Plant Staffing</h3>
+              <p>Sourcing specialized technicians, press shop supervisors, CNC operators, QA/QC specialists, and maintenance engineers for high-output manufacturing.</p>
             </div>
 
             <div className="why-mcp-card">
               <div className="why-mcp-icon">
-                <Shield size={24} />
+                <Target size={24} />
               </div>
-              <h3>Forensic Track Record Audits</h3>
-              <p>Beyond standard CVs: we conduct confidential 360-degree peer references, regulatory checks, and culture alignment appraisals before presentation.</p>
+              <h3>Mid-to-Senior Placements</h3>
+              <p>Appointing experienced Plant Heads, Production Managers, DGM/GM Operations, and functional leads who drive operational excellence.</p>
             </div>
 
             <div className="why-mcp-card">
               <div className="why-mcp-icon">
-                <Award size={24} />
+                <Compass size={24} />
               </div>
-              <h3>1-Year Placement Guarantee</h3>
-              <p>We stay invested throughout the leader's first 365 days, providing transition coaching to ensure strategic milestones are met seamlessly.</p>
+              <h3>Pan-India Reach</h3>
+              <p>Mobilizing dependable talent across Northern India industrial corridors and major manufacturing, pharma, and automotive clusters nationwide.</p>
             </div>
 
           </div>
