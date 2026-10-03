@@ -435,8 +435,8 @@ export default function Contact({ defaultTab }) {
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
                       Email
                     </div>
-                    <a href="mailto:client@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
-                      client@mcpconsultants.in
+                    <a href="mailto:Shikha.mcpconsultants@gmail.com" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      Shikha.mcpconsultants@gmail.com
                     </a>
                   </div>
                 </div>
@@ -1016,8 +1016,8 @@ export default function Contact({ defaultTab }) {
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
                       Email
                     </div>
-                    <a href="mailto:info@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
-                      info@mcpconsultants.in
+                    <a href="mailto:Shikha.mcpconsultants@gmail.com" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      Shikha.mcpconsultants@gmail.com
                     </a>
                   </div>
                 </div>
@@ -1221,7 +1221,7 @@ export default function Contact({ defaultTab }) {
                   <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>+91 98 8842 6060</a>
                 </div>
                 <div>
-                  <strong>Email:</strong> <a href="mailto:info@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>info@mcpconsultants.in</a>
+                  <strong>Email:</strong> <a href="mailto:Shikha.mcpconsultants@gmail.com" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>Shikha.mcpconsultants@gmail.com</a>
                 </div>
               </div>
             </div>
