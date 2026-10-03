@@ -15,7 +15,7 @@ export default function Footer() {
             <Link to="/" className="brand-logo footer-logo">
               <div className="brand-text">
                 <span className="brand-name">MCP <span className="highlight">CONSULTANTS</span></span>
-                <span className="brand-tagline">Protect. Shape. Advance</span>
+                <span className="brand-tagline">TALENT • PEOPLE • GROWTH</span>
               </div>
             </Link>
             <p className="footer-desc">

@@ -89,7 +89,7 @@ export default function About() {
             <span className="divider">&rsaquo;</span>
             <span>About Us</span>
           </div>
-          <h1 className="page-hero-title">Protect. Shape. Advance.</h1>
+          <h1 className="page-hero-title">Talent. People. Growth.</h1>
           <p className="page-hero-subtitle">
             A boutique leadership advisory and executive search firm anchored in the conviction that transformational industrial enterprises require visionary, uncompromising leaders.
           </p>
@@ -101,9 +101,9 @@ export default function About() {
         <div className="container">
           <div className="about-stats-grid">
             <div className="about-stat-item">
-              <span className="about-stat-number">35+ Years</span>
+              <span className="about-stat-number">20+ Years</span>
               <span className="about-stat-label">Advisory Heritage</span>
-              <span className="about-stat-sub">Serving 3 generations of promoters</span>
+              <span className="about-stat-sub">Two decades of recruitment excellence</span>
             </div>
             <div className="about-stat-item">
               <span className="about-stat-number">1,450+</span>

@@ -963,6 +963,281 @@ button, input, textarea, select {
    ========================================================================== */
 
 /* ==========================================================================
+   Modern Split Hero (Reference Demo Picture 2)
+   High-conversion executive recruitment hero with photo & floating badge
+   ========================================================================== */
+.hero-split-section {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(135deg, #071120 0%, #0d1e38 50%, #081324 100%);
+  padding: 80px 0 70px 0;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-split-section::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 155, 60, 0.12) 0%, rgba(13, 30, 56, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-split-container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 56px;
+}
+
+.hero-split-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-split-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 6px 14px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #E5C07B;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.hero-badge-dot {
+  color: #D4AF37;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.hero-split-title {
+  font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  margin: 0 0 20px 0;
+  font-family: inherit;
+}
+
+.hero-split-title .title-accent {
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #C5A028 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-split-desc {
+  font-size: 1.08rem;
+  line-height: 1.68;
+  color: #BAC7D5;
+  max-width: 530px;
+  margin: 0 0 32px 0;
+}
+
+.hero-split-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 38px;
+}
+
+.btn-hero-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+  color: #071120 !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 13px 26px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-hero-gold:hover {
+  background: linear-gradient(135deg, #E5C07B 0%, #D4AF37 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(212, 175, 55, 0.5);
+  color: #050b14 !important;
+}
+
+.btn-hero-translucent {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.btn-hero-translucent:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+}
+
+.hero-split-metrics {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-metric-num {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hero-metric-label {
+  font-size: 0.76rem;
+  color: #8E9BAE;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hero-metric-sep {
+  width: 1px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hero-split-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-split-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  background: #0d1e38;
+}
+
+.hero-split-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-split-card:hover .hero-split-img {
+  transform: scale(1.02);
+}
+
+.hero-floating-glass-card {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: rgba(7, 17, 32, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 4px solid #D4AF37;
+  border-radius: 12px;
+  padding: 18px 22px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  z-index: 2;
+}
+
+.floating-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+}
+
+.floating-card-desc {
+  font-size: 0.84rem;
+  color: #BAC7D5;
+  margin: 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 992px) {
+  .hero-split-section {
+    padding: 60px 0 50px 0;
+  }
+  .hero-split-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-split-img {
+    height: 380px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-split-title {
+    font-size: 2.2rem;
+  }
+  .hero-split-metrics {
+    gap: 16px;
+  }
+  .hero-metric-num {
+    font-size: 1.4rem;
+  }
+  .hero-floating-glass-card {
+    position: relative;
+    inset: auto;
+    margin: 16px;
+    border-radius: 10px;
+  }
+  .hero-split-img {
+    height: 280px;
+  }
+}
+
+/* ==========================================================================
    Hero Slider - High-Contrast Executive Presentation
    ========================================================================== */
 .hero-slider-section {

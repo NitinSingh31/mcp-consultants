@@ -67,7 +67,7 @@ export default function Navbar() {
                   MCP <span className="highlight">CONSULTANTS</span>
                 </div>
                 <div className="brand-tagline">
-                  Protect. Shape. Advance
+                  TALENT • PEOPLE • GROWTH
                 </div>
               </div>
             </Link>
@@ -204,7 +204,7 @@ export default function Navbar() {
               <div className="brand-name" style={{ fontSize: '18px' }}>
                 MCP <span className="highlight">CONSULTANTS</span>
               </div>
-              <div className="brand-tagline">Protect. Shape. Advance</div>
+              <div className="brand-tagline">TALENT • PEOPLE • GROWTH</div>
             </div>
           </div>
 

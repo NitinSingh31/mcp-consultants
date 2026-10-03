@@ -53,7 +53,7 @@ export default function Home() {
     },
     {
       subtitle: "FRACTIONAL CXO & BOARD SUCCESSION",
-      title: "Protect. Shape. Advance.",
+      title: "Talent • People • Growth",
       description: "Agile leadership solutions for enterprises undergoing rapid turnaround, plant scale-ups, and generational succession.",
       ctaText: "Deploy Interim Leaders",
       ctaLink: "/services#fractional-cxo",
@@ -106,67 +106,146 @@ export default function Home() {
     return () => clearInterval(heroTimer);
   }, [heroSlides.length]);
 
+  // REVERSIBLE SAFETY TOGGLE: Set to false at any time to instantly restore the original slider!
+  const SHOW_SPLIT_HERO = true;
+
   return (
     <div className="home-page">
       
-      {/* 1. Hero Slider */}
-      <section className="hero-slider-section">
-        {heroSlides.map((slide, idx) => (
-          <div 
-            key={idx}
-            className={`hero-slide ${idx === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `url('${slide.bgImage}')` }}
-          >
-            <div className="container">
-              <div className="hero-content">
-                <div className="hero-badge">
-                  <Shield size={14} className="badge-icon" />
-                  <span>{slide.subtitle}</span>
+      {SHOW_SPLIT_HERO ? (
+        /* 1. Modern Split Hero (Exact Match to Demo Reference Picture 2) */
+        <section className="hero-split-section">
+          <div className="container hero-split-container">
+            <div className="hero-split-grid">
+              
+              {/* Left Column: Headline, Narrative & CTAs */}
+              <div className="hero-split-content">
+                <div className="hero-split-badge">
+                  <span className="hero-badge-dot">•</span>
+                  <span>20+ YEARS OF RECRUITMENT EXCELLENCE</span>
                 </div>
-                <h1 className="hero-title">{slide.title}</h1>
-                <p className="hero-desc">{slide.description}</p>
-                <div className="hero-cta-group">
-                  <Link to={slide.ctaLink} className="btn btn-hero-accent btn-lg">
-                    <span>{slide.ctaText}</span>
-                    <ArrowRight size={18} />
+                
+                <h1 className="hero-split-title">
+                  People who <br />
+                  <span className="title-accent">power business.</span>
+                </h1>
+                
+                <p className="hero-split-desc">
+                  MCP Consultants connects businesses with dependable, skilled and industry-ready talent — with deep recruitment experience across pharmaceutical, sheet metal and automobile sectors.
+                </p>
+
+                <div className="hero-split-actions">
+                  <Link to="/contact" className="btn btn-hero-gold">
+                    <span>Find the Right Talent</span>
+                    <ArrowRight size={16} />
                   </Link>
-                  <Link to={slide.secondaryLink} className="btn btn-outline-white btn-lg">
-                    <span>{slide.secondaryText}</span>
+                  <Link to="/services" className="btn btn-hero-translucent">
+                    <span>Explore Our Expertise</span>
                   </Link>
+                </div>
+
+                {/* Bottom Highlight Metrics from Demo Picture 2 */}
+                <div className="hero-split-metrics">
+                  <div className="hero-metric-item">
+                    <span className="hero-metric-num">20+</span>
+                    <span className="hero-metric-label">Years Experience</span>
+                  </div>
+                  <div className="hero-metric-sep"></div>
+                  <div className="hero-metric-item">
+                    <span className="hero-metric-num">20+</span>
+                    <span className="hero-metric-label">Core Industries</span>
+                  </div>
+                  <div className="hero-metric-sep"></div>
+                  <div className="hero-metric-item">
+                    <span className="hero-metric-num">Long-term</span>
+                    <span className="hero-metric-label">Client Relationships</span>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Right Column: Large Rounded Photo with Inset Floating Card */}
+              <div className="hero-split-visual">
+                <div className="hero-split-card">
+                  <img 
+                    src="/images/hero-split-office.jpg" 
+                    alt="MCP Consultants Modern Collaborative Office" 
+                    className="hero-split-img"
+                  />
+                  
+                  {/* Floating Badge (Exact match to Demo Picture 2) */}
+                  <div className="hero-floating-glass-card">
+                    <h3 className="floating-card-title">Connecting talent with opportunity</h3>
+                    <p className="floating-card-desc">
+                      Specialised recruitment for businesses that value the right people.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      ) : (
+        /* 1. Preserved Hero Slider (Can be toggled back on anytime) */
+        <section className="hero-slider-section">
+          {heroSlides.map((slide, idx) => (
+            <div 
+              key={idx}
+              className={`hero-slide ${idx === currentSlide ? 'active' : ''}`}
+              style={{ backgroundImage: `url('${slide.bgImage}')` }}
+            >
+              <div className="container">
+                <div className="hero-content">
+                  <div className="hero-badge">
+                    <Shield size={14} className="badge-icon" />
+                    <span>{slide.subtitle}</span>
+                  </div>
+                  <h1 className="hero-title">{slide.title}</h1>
+                  <p className="hero-desc">{slide.description}</p>
+                  <div className="hero-cta-group">
+                    <Link to={slide.ctaLink} className="btn btn-hero-accent btn-lg">
+                      <span>{slide.ctaText}</span>
+                      <ArrowRight size={18} />
+                    </Link>
+                    <Link to={slide.secondaryLink} className="btn btn-outline-white btn-lg">
+                      <span>{slide.secondaryText}</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
 
-        {/* Slide Controls */}
-        <div className="slider-controls">
-          <button 
-            className="slider-arrow prev" 
-            onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
-            aria-label="Previous Slide"
-          >
-            <ChevronLeft size={22} />
-          </button>
-          <div className="slider-dots">
-            {heroSlides.map((_, i) => (
-              <button 
-                key={i} 
-                className={`slider-dot ${i === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(i)}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
+          {/* Slide Controls */}
+          <div className="slider-controls">
+            <button 
+              className="slider-arrow prev" 
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft size={22} />
+            </button>
+            <div className="slider-dots">
+              {heroSlides.map((_, i) => (
+                <button 
+                  key={i} 
+                  className={`slider-dot ${i === currentSlide ? 'active' : ''}`}
+                  onClick={() => setCurrentSlide(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button 
+              className="slider-arrow next" 
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+              aria-label="Next Slide"
+            >
+              <ChevronRight size={22} />
+            </button>
           </div>
-          <button 
-            className="slider-arrow next" 
-            onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
-            aria-label="Next Slide"
-          >
-            <ChevronRight size={22} />
-          </button>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 2. Executive Trust Ribbon */}
       <div className="hero-trust-ribbon">
