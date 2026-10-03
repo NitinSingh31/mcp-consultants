@@ -307,14 +307,32 @@ export default function Home() {
 
               {/* Action Buttons */}
               <div className="about-demo-actions">
-                <Link to="/contact" className="btn btn-primary">
-                  <span>Find the Right Talent</span>
+                <Link to="/about" className="btn btn-primary">
+                  <span>About Our Firm</span>
                   <ArrowRight size={15} />
                 </Link>
                 <Link to="/services" className="btn-intro-outline">
                   <span>Explore Our Expertise</span>
                   <ArrowRight size={14} />
                 </Link>
+              </div>
+
+              {/* Key Industry Metrics Strip (From Demo Reference) */}
+              <div className="about-demo-metrics-strip">
+                <div className="about-metric-item">
+                  <div className="metric-val">20+</div>
+                  <div className="metric-lbl">Years Experience</div>
+                </div>
+                <div className="metric-separator"></div>
+                <div className="about-metric-item">
+                  <div className="metric-val">2</div>
+                  <div className="metric-lbl">Core Industries</div>
+                </div>
+                <div className="metric-separator"></div>
+                <div className="about-metric-item">
+                  <div className="metric-val">Long-term</div>
+                  <div className="metric-lbl">Client Relationships</div>
+                </div>
               </div>
 
             </div>

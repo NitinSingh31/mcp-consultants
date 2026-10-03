@@ -1493,6 +1493,45 @@ button, input, textarea, select {
   flex-wrap: wrap;
 }
 
+/* Key Metrics Strip (from Demo Reference) */
+.about-demo-metrics-strip {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid #e7e0d5;
+  width: 100%;
+}
+
+.about-metric-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-metric-item .metric-val {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 800;
+  color: #0c1e33;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.about-metric-item .metric-lbl {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+.metric-separator {
+  width: 1px;
+  height: 38px;
+  background-color: #e2dbce;
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
   .about-demo-grid {
@@ -1524,6 +1563,18 @@ button, input, textarea, select {
   .about-demo-pillars-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+  .about-demo-metrics-strip {
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 26px;
+    padding-top: 20px;
+  }
+  .metric-separator {
+    display: none;
+  }
+  .about-metric-item .metric-val {
+    font-size: 24px;
   }
 }
 
