@@ -177,8 +177,8 @@ export default function Home() {
                 <Award size={20} />
               </div>
               <div className="trust-ribbon-text">
-                <strong>35+ Years Heritage</strong>
-                <span>Pioneering industrial search since 1989</span>
+                <strong>20+ Years Heritage</strong>
+                <span>Pioneering industrial search &amp; advisory</span>
               </div>
             </div>
 
@@ -418,17 +418,17 @@ export default function Home() {
             
             <div className="stat-card">
               <div className="stat-number-wrap">
-                <StatCounter end={35} suffix="+" />
+                <StatCounter end={20} suffix="+" />
               </div>
-              <div className="stat-label">Years of Advisory Heritage</div>
-              <div className="stat-desc">Serving 3 generations of promoters</div>
+              <div className="stat-label">Years Advisory Heritage</div>
+              <div className="stat-desc">Serving leading promoters &amp; enterprises</div>
             </div>
 
             <div className="stat-card">
               <div className="stat-number-wrap">
                 <StatCounter end={1450} suffix="+" />
               </div>
-              <div className="stat-label">CXO &amp; Board Placements</div>
+              <div className="stat-label">CXO &amp; Leadership Placements</div>
               <div className="stat-desc">Transformational leaders across India</div>
             </div>
 
@@ -444,8 +444,8 @@ export default function Home() {
               <div className="stat-number-wrap">
                 <StatCounter end={20} suffix="+" />
               </div>
-              <div className="stat-label">Dedicated Industrial Verticals</div>
-              <div className="stat-desc">Deep sector manufacturing pods</div>
+              <div className="stat-label">Core Industrial Verticals</div>
+              <div className="stat-desc">Deep sector manufacturing expertise</div>
             </div>
 
           </div>
