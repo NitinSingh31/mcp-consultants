@@ -21,7 +21,8 @@ import {
   Star,
   Layers,
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Settings
 } from 'lucide-react';
 import StatCounter from '../components/StatCounter';
 
@@ -84,18 +85,18 @@ export default function Home() {
   ];
 
   const industrySectors = [
-    { name: "Heavy Engineering & Capital Goods", icon: Factory, placements: "MD, COO, Plant Heads" },
-    { name: "Industrial Automation & Robotics", icon: Cpu, placements: "VP R&D, Tech Directors" },
-    { name: "Automotive & EV Mobility", icon: Zap, placements: "Chief Engineers, Ops Heads" },
-    { name: "Renewable Energy & Clean Tech", icon: TrendingUp, placements: "Project Directors, CFOs" },
-    { name: "Metals, Mining & Steel", icon: Layers, placements: "Site Directors, Supply VP" },
-    { name: "Chemicals & Process Polymers", icon: Sparkles, placements: "EHS Directors, Plant VPs" },
-    { name: "Cement & Building Materials", icon: Building2, placements: "Cluster Heads, Sales CXOs" },
-    { name: "Aerospace & Defense Production", icon: Shield, placements: "Quality VPs, Program MDs" },
-    { name: "Power Generation & Grid Systems", icon: Zap, placements: "Grid Heads, Asset Leads" },
-    { name: "Supply Chain, Ports & Logistics", icon: Compass, placements: "Chief Logistics Officers" },
-    { name: "Packaging & Advanced Materials", icon: Factory, placements: "Business Unit MDs" },
-    { name: "Infrastructure & Mega EPC Projects", icon: Target, placements: "Project VPs, Legal Heads" }
+    { name: "Heavy Engineering & Capital Goods", icon: Factory, placements: "Plant Heads, VP Ops", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" },
+    { name: "Sheet Metal & Precision Fabrication", icon: Settings, placements: "Tooling Leads, Plant VPs", image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" },
+    { name: "Pharmaceuticals, APIs & Life Sciences", icon: Factory, placements: "Formulation Leads, QA Heads", image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" },
+    { name: "Automotive & Electric Mobility", icon: Zap, placements: "Chief Engineers, Ops Heads", image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" },
+    { name: "Industrial Automation & Robotics", icon: Cpu, placements: "VP R&D, Tech Directors", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80" },
+    { name: "Renewable Energy & Clean Tech", icon: TrendingUp, placements: "Project Directors, CFOs", image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=600&q=80" },
+    { name: "Metals, Mining & Steel", icon: Layers, placements: "Site Directors, Supply VP", image: "https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&w=600&q=80" },
+    { name: "Chemicals & Process Polymers", icon: Sparkles, placements: "EHS Directors, Plant VPs", image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80" },
+    { name: "Textiles & Technical Apparel", icon: Factory, placements: "Plant GM, Sourcing VPs", image: "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=600&q=80" },
+    { name: "Aerospace & Defense Production", icon: Shield, placements: "Quality VPs, Program MDs", image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80" },
+    { name: "Power Generation & Grid Systems", icon: Zap, placements: "Grid Heads, Asset Leads", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80" },
+    { name: "Packaging & Advanced Materials", icon: Factory, placements: "Business Unit MDs", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" }
   ];
 
   useEffect(() => {
@@ -520,8 +521,11 @@ export default function Home() {
               const SectorIcon = sector.icon;
               return (
                 <Link to="/industries" key={i} className="industry-pill-card">
-                  <div className="pill-icon-box">
-                    <SectorIcon size={20} />
+                  <div className="pill-thumb-box">
+                    <img src={sector.image} alt={sector.name} className="pill-thumb-img" loading="lazy" />
+                    <div className="pill-thumb-icon-overlay">
+                      <SectorIcon size={14} />
+                    </div>
                   </div>
                   <div className="pill-info">
                     <span className="pill-title">{sector.name}</span>
