@@ -216,111 +216,112 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 3. Company Introduction: Strategic Workforce & Leadership Solutions */}
-      <section className="home-intro-section" id="about-intro">
-        <div className="container">
-          <div className="home-intro-grid">
+      {/* 3. Company Introduction: Experience that understands your industry (Per Demo Picture) */}
+      <section className="about-demo-intro-section" id="about-intro">
+        
+        {/* Sleek Sector Ticker Bar (Matching top of Demo Picture 1) */}
+        <div className="demo-ticker-bar">
+          <div className="container demo-ticker-container">
+            <span className="demo-ticker-left">Trusted recruitment expertise for 20+ years</span>
+            <div className="demo-ticker-tags">
+              <span>PHARMA</span>
+              <span className="ticker-dot">•</span>
+              <span>SHEET METAL</span>
+              <span className="ticker-dot">•</span>
+              <span>AUTOMOBILE</span>
+              <span className="ticker-dot">•</span>
+              <span>POWER SECTOR</span>
+              <span className="ticker-dot">•</span>
+              <span>RETAIL &amp; EV</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="container about-demo-main-container">
+          <div className="about-demo-grid">
             
-            {/* Left Column: Authoritative Introduction Narrative */}
-            <div className="home-intro-content">
-              <span className="section-tag">WELCOME TO MCP CONSULTANTS</span>
-              <h2 className="home-intro-title">
-                Empowering Indian Industry with Strategic Workforce &amp; Leadership Solutions
-              </h2>
-              <p className="home-intro-lead">
-                Headquartered in Mohali, Punjab, MCP Consultants is a premier workforce solutions and human capital advisory firm backed by over three decades of institutional trust. We partner with India’s leading industrial conglomerates, high-growth commercial enterprises, and emerging innovators to source, deploy, and nurture the talent that drives sustainable operational excellence.
-              </p>
-              <p className="home-intro-body">
-                From high-stakes retained executive searches and board advisory to large-scale workforce staffing across Power, Retail &amp; EV, Hospitality, and Manufacturing corridors, our dedicated practices deliver agile talent deployment with 100% statutory labor compliance.
-              </p>
-              
-              <div className="home-intro-actions">
-                <Link to="/services" className="btn btn-primary">
-                  <span>Explore Our Services</span>
-                  <ArrowRight size={16} />
-                </Link>
-                <Link to="/about" className="btn-intro-outline">
-                  <span>About Our Firm</span>
-                  <ArrowRight size={14} />
-                </Link>
+            {/* Left Column: Rounded Feature Photo with Inset 20+ Badge */}
+            <div className="about-demo-photo-col">
+              <div className="about-demo-photo-card">
+                <img 
+                  src="/images/about-intro-team.jpg" 
+                  alt="MCP Consultants Team" 
+                  className="about-demo-img"
+                  loading="lazy"
+                />
+                
+                {/* Inset Badge matching Demo Picture 1 */}
+                <div className="about-demo-stat-badge">
+                  <div className="stat-badge-num">20+</div>
+                  <div className="stat-badge-label">Years of industry experience</div>
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Corporate Highlights & Trust Card */}
-            <div className="home-intro-card-wrap">
-              <div className="home-intro-card">
+            {/* Right Column: Narrative & 2x2 Feature Grid */}
+            <div className="about-demo-content-col">
+              <span className="about-demo-tag">ABOUT MCP CONSULTANTS</span>
+              <h2 className="about-demo-title">
+                Experience that understands your industry.
+              </h2>
+              <p className="about-demo-desc">
+                For over two decades, MCP Consultants has helped organisations build teams that support their operational and business goals. Our approach combines recruitment expertise with an understanding of the specialised workforce requirements of industrial, manufacturing, and pharmaceutical businesses.
+              </p>
+
+              {/* 2x2 Pillars Grid */}
+              <div className="about-demo-pillars-grid">
                 
-                <div className="intro-card-header">
-                  <div className="intro-card-badge-tag">INSTITUTIONAL TRUST</div>
-                  <h3 className="intro-card-title">Why Enterprises Partner with MCP</h3>
+                <div className="about-demo-pillar-item">
+                  <div className="pillar-num-badge">01</div>
+                  <div className="pillar-text-wrap">
+                    <h4>Industry Understanding</h4>
+                    <p>Recruitment aligned to the realities of specialised sectors.</p>
+                  </div>
                 </div>
 
-                <div className="intro-pillars-list">
-                  
-                  <div className="intro-pillar-item">
-                    <div className="intro-pillar-icon-box">
-                      <Award size={20} />
-                    </div>
-                    <div className="intro-pillar-info">
-                      <h4>35+ Years Advisory Heritage</h4>
-                      <p>A trusted talent ally serving three generations of promoters and corporate boards across India.</p>
-                    </div>
+                <div className="about-demo-pillar-item">
+                  <div className="pillar-num-badge">02</div>
+                  <div className="pillar-text-wrap">
+                    <h4>Quality Talent</h4>
+                    <p>Focused sourcing and screening for relevant profiles.</p>
                   </div>
-
-                  <div className="intro-pillar-item">
-                    <div className="intro-pillar-icon-box">
-                      <Layers size={20} />
-                    </div>
-                    <div className="intro-pillar-info">
-                      <h4>6 Dedicated Core Practices</h4>
-                      <p>Deep sectoral expertise across Power, Retail &amp; EV, Workforce Staffing, Hospitality, Education, and Facility BPO.</p>
-                    </div>
-                  </div>
-
-                  <div className="intro-pillar-item">
-                    <div className="intro-pillar-icon-box">
-                      <Zap size={20} />
-                    </div>
-                    <div className="intro-pillar-info">
-                      <h4>Rapid 48–72h Deployment SLA</h4>
-                      <p>High-velocity talent mobilization supported by an active pipeline of 50,000+ pre-screened professionals.</p>
-                    </div>
-                  </div>
-
-                  <div className="intro-pillar-item">
-                    <div className="intro-pillar-icon-box">
-                      <ShieldCheck size={20} />
-                    </div>
-                    <div className="intro-pillar-info">
-                      <h4>100% Statutory Labor Compliance</h4>
-                      <p>Fully audited compliance across PF, ESIC, NAPS apprenticeships, minimum wages, and Factories Act regulations.</p>
-                    </div>
-                  </div>
-
                 </div>
 
-                <div className="intro-card-footer">
-                  <div className="intro-footer-stat">
-                    <strong>50,000+</strong>
-                    <span>Talents Mobilized</span>
+                <div className="about-demo-pillar-item">
+                  <div className="pillar-num-badge">03</div>
+                  <div className="pillar-text-wrap">
+                    <h4>Long-Term Focus</h4>
+                    <p>Relationships built around consistency and trust.</p>
                   </div>
-                  <div className="intro-footer-divider"></div>
-                  <div className="intro-footer-stat">
-                    <strong>20+</strong>
-                    <span>Sectors Served</span>
-                  </div>
-                  <div className="intro-footer-divider"></div>
-                  <div className="intro-footer-stat">
-                    <strong>99.98%</strong>
-                    <span>Audit Reliability</span>
+                </div>
+
+                <div className="about-demo-pillar-item">
+                  <div className="pillar-num-badge">04</div>
+                  <div className="pillar-text-wrap">
+                    <h4>Responsive Support</h4>
+                    <p>Clear communication from requirement to placement.</p>
                   </div>
                 </div>
 
               </div>
+
+              {/* Action Buttons */}
+              <div className="about-demo-actions">
+                <Link to="/contact" className="btn btn-primary">
+                  <span>Find the Right Talent</span>
+                  <ArrowRight size={15} />
+                </Link>
+                <Link to="/services" className="btn-intro-outline">
+                  <span>Explore Our Expertise</span>
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
+
             </div>
 
           </div>
         </div>
+
       </section>
 
       {/* 4. Our Services Section (Replaces All-Weather Leadership Allies per Reference Design) */}
