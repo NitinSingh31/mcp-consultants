@@ -20,7 +20,8 @@ import {
   Lock,
   Star,
   Layers,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from 'lucide-react';
 import StatCounter from '../components/StatCounter';
 
@@ -215,76 +216,110 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 3. Core Manifesto: Protect. Shape. Advance */}
-      <section className="manifesto-section">
+      {/* 3. Company Introduction: Strategic Workforce & Leadership Solutions */}
+      <section className="home-intro-section" id="about-intro">
         <div className="container">
-          
-          <div className="manifesto-intro">
-            <span className="section-tag">OUR ESSENCE</span>
-            <h2 className="section-title">A Higher Benchmark in Executive Search</h2>
-            <p className="section-desc">
-              In an era of industrial transformation, the wrong executive hire is a multi-crore risk. MCP CONSULTANTS was founded on an unyielding principle: to be the boardroom’s trusted ally in appraising, securing, and integrating leaders who turn industrial complexity into lasting market leadership.
-            </p>
-          </div>
-
-          <div className="manifesto-pillars">
+          <div className="home-intro-grid">
             
-            <div className="pillar-card">
-              <div className="pillar-card-top">
-                <div className="pillar-icon"><Shield size={28} /></div>
-                <div className="pillar-num">01</div>
-              </div>
-              <h3>PROTECT</h3>
-              <span className="pillar-subtitle">Institutional Safeguarding &amp; Risk Mitigation</span>
-              <p>
-                Safeguarding institutional reputation and shareholder capital through rigorous 360-degree forensic reference audits, track-record integrity verification, and boardroom confidentiality.
+            {/* Left Column: Authoritative Introduction Narrative */}
+            <div className="home-intro-content">
+              <span className="section-tag">WELCOME TO MCP CONSULTANTS</span>
+              <h2 className="home-intro-title">
+                Empowering Indian Industry with Strategic Workforce &amp; Leadership Solutions
+              </h2>
+              <p className="home-intro-lead">
+                Headquartered in Mohali, Punjab, MCP Consultants is a premier workforce solutions and human capital advisory firm backed by over three decades of institutional trust. We partner with India’s leading industrial conglomerates, high-growth commercial enterprises, and emerging innovators to source, deploy, and nurture the talent that drives sustainable operational excellence.
               </p>
-              <div>
-                <span className="pillar-badge">
-                  <CheckCircle2 size={14} color="var(--color-accent)" />
-                  <span>100% Forensic Audit Guarantee</span>
-                </span>
+              <p className="home-intro-body">
+                From high-stakes retained executive searches and board advisory to large-scale workforce staffing across Power, Retail &amp; EV, Hospitality, and Manufacturing corridors, our dedicated practices deliver agile talent deployment with 100% statutory labor compliance.
+              </p>
+              
+              <div className="home-intro-actions">
+                <Link to="/services" className="btn btn-primary">
+                  <span>Explore Our Services</span>
+                  <ArrowRight size={16} />
+                </Link>
+                <Link to="/about" className="btn-intro-outline">
+                  <span>About Our Firm</span>
+                  <ArrowRight size={14} />
+                </Link>
               </div>
             </div>
 
-            <div className="pillar-card">
-              <div className="pillar-card-top">
-                <div className="pillar-icon"><Compass size={28} /></div>
-                <div className="pillar-num">02</div>
-              </div>
-              <h3>SHAPE</h3>
-              <span className="pillar-subtitle">Architecting Industry 4.0 Leadership</span>
-              <p>
-                Architecting leadership benches that thrive in automation, Industry 4.0, decarbonization, smart manufacturing plants, and supply-chain recalibration across India.
-              </p>
-              <div>
-                <span className="pillar-badge">
-                  <CheckCircle2 size={14} color="var(--color-accent)" />
-                  <span>40+ Greenfield Plant Scale-Ups</span>
-                </span>
-              </div>
-            </div>
+            {/* Right Column: Corporate Highlights & Trust Card */}
+            <div className="home-intro-card-wrap">
+              <div className="home-intro-card">
+                
+                <div className="intro-card-header">
+                  <div className="intro-card-badge-tag">INSTITUTIONAL TRUST</div>
+                  <h3 className="intro-card-title">Why Enterprises Partner with MCP</h3>
+                </div>
 
-            <div className="pillar-card">
-              <div className="pillar-card-top">
-                <div className="pillar-icon"><TrendingUp size={28} /></div>
-                <div className="pillar-num">03</div>
-              </div>
-              <h3>ADVANCE</h3>
-              <span className="pillar-subtitle">Accelerating Enterprise Value &amp; Succession</span>
-              <p>
-                Propelling sustainable growth, capital expansion, and operational agility by appointing visionary Managing Directors and Board Chairs who deliver enduring enterprise value.
-              </p>
-              <div>
-                <span className="pillar-badge">
-                  <CheckCircle2 size={14} color="var(--color-accent)" />
-                  <span>Avg. 18-Month ROI Impact</span>
-                </span>
+                <div className="intro-pillars-list">
+                  
+                  <div className="intro-pillar-item">
+                    <div className="intro-pillar-icon-box">
+                      <Award size={20} />
+                    </div>
+                    <div className="intro-pillar-info">
+                      <h4>35+ Years Advisory Heritage</h4>
+                      <p>A trusted talent ally serving three generations of promoters and corporate boards across India.</p>
+                    </div>
+                  </div>
+
+                  <div className="intro-pillar-item">
+                    <div className="intro-pillar-icon-box">
+                      <Layers size={20} />
+                    </div>
+                    <div className="intro-pillar-info">
+                      <h4>6 Dedicated Core Practices</h4>
+                      <p>Deep sectoral expertise across Power, Retail &amp; EV, Workforce Staffing, Hospitality, Education, and Facility BPO.</p>
+                    </div>
+                  </div>
+
+                  <div className="intro-pillar-item">
+                    <div className="intro-pillar-icon-box">
+                      <Zap size={20} />
+                    </div>
+                    <div className="intro-pillar-info">
+                      <h4>Rapid 48–72h Deployment SLA</h4>
+                      <p>High-velocity talent mobilization supported by an active pipeline of 50,000+ pre-screened professionals.</p>
+                    </div>
+                  </div>
+
+                  <div className="intro-pillar-item">
+                    <div className="intro-pillar-icon-box">
+                      <ShieldCheck size={20} />
+                    </div>
+                    <div className="intro-pillar-info">
+                      <h4>100% Statutory Labor Compliance</h4>
+                      <p>Fully audited compliance across PF, ESIC, NAPS apprenticeships, minimum wages, and Factories Act regulations.</p>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="intro-card-footer">
+                  <div className="intro-footer-stat">
+                    <strong>50,000+</strong>
+                    <span>Talents Mobilized</span>
+                  </div>
+                  <div className="intro-footer-divider"></div>
+                  <div className="intro-footer-stat">
+                    <strong>20+</strong>
+                    <span>Sectors Served</span>
+                  </div>
+                  <div className="intro-footer-divider"></div>
+                  <div className="intro-footer-stat">
+                    <strong>99.98%</strong>
+                    <span>Audit Reliability</span>
+                  </div>
+                </div>
+
               </div>
             </div>
 
           </div>
-
         </div>
       </section>
 
