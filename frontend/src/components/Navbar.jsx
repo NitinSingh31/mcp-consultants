@@ -55,32 +55,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Utility Bar (Executive Tier 1 Style) */}
-      <div className="navbar-top-bar">
-        <div className="container navbar-top-container">
-          
-          <div className="top-bar-left">
-            <a href="tel:+919888426060" className="top-bar-item">
-              <Phone size={13} className="top-icon" />
-              <span>+91 98 8842 6060</span>
-            </a>
-            <span className="top-bar-divider">|</span>
-            <a href="mailto:Recruiter.mcpconsultants@gmail.com" className="top-bar-item">
-              <Mail size={13} className="top-icon" />
-              <span>Recruiter.mcpconsultants@gmail.com</span>
-            </a>
-          </div>
-
-          <div className="top-bar-right">
-            <div className="top-bar-item">
-              <MapPin size={13} className="top-icon" />
-              <span>Mohali HQ, Punjab</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
       {/* Main Sticky Header */}
       <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container">
