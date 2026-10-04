@@ -32,33 +32,33 @@ export default function Home() {
 
   const heroSlides = [
     {
-      subtitle: "EXECUTIVE SEARCH & LEADERSHIP ADVISORY",
-      title: "Building the Leadership Bench for Indian Industry",
-      description: "We partner with visionary boardrooms and industrial conglomerates to appoint transformational CXOs, Managing Directors, and Board Advisory leaders.",
-      ctaText: "Commission a Search",
+      subtitle: "20+ YEARS OF RECRUITMENT EXCELLENCE",
+      title: "People Who Power Business.",
+      description: "Connecting businesses with dependable, skilled, and industry-ready talent across India's key industrial and manufacturing sectors.",
+      ctaText: "Find the Right Talent",
       ctaLink: "/contact",
-      secondaryText: "Explore Practices",
-      secondaryLink: "/industries",
+      secondaryText: "Explore Our Expertise",
+      secondaryLink: "/services",
       bgImage: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=80"
     },
     {
-      subtitle: "ALL-WEATHER TALENT ALLIES",
-      title: "Precision Executive Search Across 20+ Industrial Sectors",
-      description: "From heavy engineering and smart factories to renewable energy and advanced robotics, we pinpoint leaders who turn capital into lasting industrial advantage.",
-      ctaText: "Explore Industries",
+      subtitle: "CROSS-SECTOR SPECIALIZATION",
+      title: "Precision Talent for Core Industries",
+      description: "Deep recruitment expertise across Pharmaceutical & Life Sciences, Sheet Metal & Fabrication, Automotive, and Heavy Engineering.",
+      ctaText: "Explore 20+ Industries",
       ctaLink: "/industries",
       secondaryText: "Our Methodology",
       secondaryLink: "/services",
       bgImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80"
     },
     {
-      subtitle: "FRACTIONAL CXO & BOARD SUCCESSION",
-      title: "Talent • People • Growth",
-      description: "Agile leadership solutions for enterprises undergoing rapid turnaround, plant scale-ups, and generational succession.",
-      ctaText: "Deploy Interim Leaders",
-      ctaLink: "/services#fractional-cxo",
-      secondaryText: "Board Advisory",
-      secondaryLink: "/services#board-advisory",
+      subtitle: "FULL-SPECTRUM HIRING SOLUTIONS",
+      title: "Permanent, Technical & Executive Hiring",
+      description: "From factory plant heads and technical specialists to mid-to-senior leadership appointments with trusted Pan-India execution.",
+      ctaText: "Partner With MCP",
+      ctaLink: "/contact",
+      secondaryText: "About Our Firm",
+      secondaryLink: "/about",
       bgImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
     }
   ];
@@ -106,8 +106,8 @@ export default function Home() {
     return () => clearInterval(heroTimer);
   }, [heroSlides.length]);
 
-  // REVERSIBLE SAFETY TOGGLE: Set to false at any time to instantly restore the original slider!
-  const SHOW_SPLIT_HERO = true;
+  // TOGGLE: false activates the multi-slide carousel hero, true activates the split hero
+  const SHOW_SPLIT_HERO = false;
 
   return (
     <div className="home-page">
