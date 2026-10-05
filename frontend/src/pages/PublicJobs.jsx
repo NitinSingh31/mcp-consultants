@@ -115,13 +115,13 @@ export default function PublicJobs() {
       <section style={{ backgroundColor: '#0f172a', color: '#ffffff', padding: '60px 24px', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: '#38bdf8', display: 'inline-block', marginBottom: '10px' }}>
-            Executive Search & Career Opportunities
+            Workforce, Technical & Leadership Careers
           </span>
           <h1 style={{ margin: '0 0 12px', fontSize: '36px', fontWeight: 800, letterSpacing: '-0.5px' }}>
-            Explore Active Mandates with MCP Consultants
+            Explore Active Opportunities with MCP Group
           </h1>
           <p style={{ margin: 0, fontSize: '15px', color: '#94a3b8', lineHeight: 1.6 }}>
-            Browse curated leadership and engineering opportunities across industrial manufacturing, automotive, pharma, and heavy engineering.
+            Discover career opportunities across Pharmaceuticals, Power, Automobiles, Textiles, Facility Management, BPO and Corporate functions with India's leading workforce partner.
           </p>
         </div>
       </section>

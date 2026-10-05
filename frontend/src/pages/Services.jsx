@@ -3,10 +3,6 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'reac
 import { 
   Users, 
   Zap, 
-  ShoppingBag, 
-  Coffee, 
-  GraduationCap, 
-  Building, 
   CheckCircle2, 
   ArrowRight, 
   ArrowLeft,
@@ -16,7 +12,13 @@ import {
   Clock,
   Award,
   PhoneCall,
-  Sparkles
+  Sparkles,
+  Building2,
+  GraduationCap,
+  Layers,
+  Settings,
+  Shield,
+  HeartHandshake
 } from 'lucide-react';
 
 const servicesData = [
@@ -24,21 +26,21 @@ const servicesData = [
     id: 'workforce-management',
     title: 'Workforce Management',
     image: '/images/workforce-management.jpg',
-    badge: 'TALENT & CONTINGENT WORKFORCE',
-    tagline: 'End-to-End Contingent Staffing, Multi-Tier Recruitment & Regulatory Compliance',
-    shortDesc: 'Flexible, high-caliber contingent staffing deployed across manufacturing plants, warehousing hubs, and corporate offices with 100% labor law compliance.',
-    overview: 'MCP Consultants delivers agile, audit-ready workforce management frameworks engineered for industrial enterprises, manufacturing corridors, and fast-scaling corporate hubs. From flexi-staffing ramp-ups for seasonal peaks to permanent technical recruitment and nationwide statutory payroll execution, our workforce practice eliminates operational bottlenecks while safeguarding clients against regulatory exposure.',
-    secondaryOverview: 'With deep talent pipelines across Tier-1, Tier-2, and industrial belt locations, we support fast ramp-ups of shopfloor personnel, technical supervisors, and corporate back-office teams under strict Service Level Agreements (SLAs).',
+    badge: 'CORE SOLUTION 01',
+    tagline: 'End-to-End Workforce Deployment, Staffing, Payroll & Workforce Administration',
+    shortDesc: 'End-to-end workforce deployment, staffing, payroll and workforce administration for industrial and corporate enterprises.',
+    overview: 'MCP Group delivers agile, audit-ready workforce management frameworks engineered for industrial manufacturing belts, supply chain corridors, and fast-scaling corporate hubs. From flexi-staffing ramp-ups for seasonal peaks to permanent technical staffing and nationwide statutory payroll execution, our workforce practice eliminates operational bottlenecks.',
+    secondaryOverview: 'With a pan-India network of nearly 50,000 associates, we mobilize vetted shopfloor personnel, technical supervisors, and corporate back-office teams under strict Service Level Agreements (SLAs).',
     stats: [
-      { label: 'Payroll & Compliance Accuracy', value: '99.98%' },
+      { label: 'Payroll & Compliance Accuracy', value: '100%' },
       { label: 'Turnaround Deployment SLA', value: '48-72 Hrs' },
       { label: 'Statutory Labor Audit Pass Rate', value: '100%' },
-      { label: 'Active Talent Pipeline', value: '50,000+' }
+      { label: 'Active Associates Deployed', value: '50,000+' }
     ],
     subItems: [
       {
-        name: 'Temporary Staffing Solution',
-        desc: 'Flexible, high-caliber contingent workforce deployed across industrial plants, assembly lines, warehousing hubs, and corporate back-offices.',
+        name: 'Temporary & Contingent Staffing',
+        desc: 'Flexible, high-caliber contingent workforce deployed across industrial plants, assembly lines, warehousing hubs, and corporate offices.',
         points: [
           'On-demand ramp-up from 50 to 1,000+ vetted shopfloor & clerical associates',
           'Complete statutory management (PF, ESIC, PT, Gratuity, Bonus, and Factories Act)',
@@ -46,300 +48,273 @@ const servicesData = [
         ]
       },
       {
-        name: 'Recruitment (IT & Non-IT)',
-        desc: 'Multi-tiered lateral talent acquisition spanning cutting-edge software engineering, plant automation, and core manufacturing functions.',
+        name: 'Payroll Management & Administration',
+        desc: 'Zero-defect automated corporate payroll execution, statutory filing, and employee self-service management.',
         points: [
-          'IT: Cloud architects, full-stack engineers, cybersecurity, and data analysts',
-          'Non-IT: Plant heads, maintenance engineers, supply chain leads, and quality auditors',
-          'Rigorous two-stage technical vetting and verified background reference verification'
+          'Automated monthly salary computation, tax withholdings, and instant bank disbursement',
+          'Digitized employee self-service for payslips, PF passbooks, and Form 16',
+          'Monthly statutory challan generation and comprehensive audit documentation'
         ]
       },
       {
-        name: 'NAPS (National Apprenticeship Promotion Scheme)',
-        desc: 'Turnkey operationalization of government-backed apprenticeship programs to build a resilient, highly trained grassroots talent pipeline.',
+        name: 'NAPS Apprenticeship Programs',
+        desc: 'Turnkey operationalization of government-backed National Apprenticeship Promotion Scheme programs.',
         points: [
           'Candidate sourcing, portal registration, contract generation, and compliance',
-          'Seamless stipend disbursement and quarterly reimbursement claims with NSDC/RDSDE',
+          'Seamless stipend disbursement and quarterly reimbursement claims with NSDC',
           'Curriculum-aligned on-the-job training modules driving shopfloor productivity'
         ]
       },
       {
-        name: 'Payroll Management & Compliance',
-        desc: 'Zero-defect corporate payroll execution, statutory filing, and employee self-service management for workforces of any scale.',
+        name: 'On-Site Workforce Administration',
+        desc: 'End-to-end personnel management, attendance logging, grievance resolution, and operational compliance at client premises.',
         points: [
-          'Automated monthly salary computation, tax withholdings, and instant bank disbursement',
-          'Digitized employee self-service (ESS) portal for payslips, tax declarations, and Form 16',
-          'Monthly statutory challan generation and comprehensive audit documentation'
+          'Biometric and facial recognition attendance integration',
+          'EHS and safety gear compliance enforcement on shopfloors',
+          'Continuous performance monitoring and multi-shift supervisory coordination'
         ]
       }
     ]
   },
   {
-    id: 'power-sector',
-    title: 'Power Sector',
-    image: '/images/power-sector.jpg',
-    badge: 'ENERGY & INFRASTRUCTURE',
-    tagline: 'High-Voltage Transmission, Substation Engineering, Utilities & Clean Renewables',
-    shortDesc: 'Specialized talent and engineering leadership for transmission lines, utility-scale solar/wind, smart grid modernization, and plant operations.',
-    overview: 'India’s rapid industrial expansion and clean energy transition demand specialized engineering acuity. MCP Consultants’ Power Sector practice partners with leading generation utilities, transmission concessionaires, and clean energy developers to build battle-tested engineering, commissioning, and operational teams across conventional and renewable energy frontiers.',
-    secondaryOverview: 'Whether mobilizing project directors for 765kV greenfield substations or sourcing battery energy storage (BESS) specialists, we deliver professionals with verified track records in heavy capital project execution.',
+    id: 'hr-services',
+    title: 'Human Resource Services',
+    image: '/images/about-intro-team.jpg',
+    badge: 'CORE SOLUTION 02',
+    tagline: 'Specialized Recruitment, Talent Acquisition, HR Support & Employee Management',
+    shortDesc: 'Specialized recruitment, lateral talent acquisition, HR operational support and employee management.',
+    overview: 'MCP Group’s Human Resource Services practice partners with organizations to identify, attract, and retain the right people. From specialized engineering and shopfloor supervisors to corporate managers and functional heads, we deliver structured recruitment with verified track records.',
+    secondaryOverview: 'We also support organizations in establishing robust HR operational policies, employee lifecycle frameworks, and performance appraisal structures.',
     stats: [
-      { label: 'Transmission Line Commissioning', value: '400kV & 765kV' },
-      { label: 'Renewable Portfolios Supported', value: '15+ GW' },
-      { label: 'Plant Availability Track Record', value: '99.5%+' },
-      { label: 'Specialized Technical Database', value: '12,000+' }
+      { label: 'Client Mandate Success Rate', value: '98%' },
+      { label: 'Interview-to-Selection Ratio', value: '3:1' },
+      { label: 'Talent Network Reach', value: 'Pan-India' },
+      { label: 'Corporate Clients Served', value: '500+' }
     ],
     subItems: [
       {
-        name: 'Transmission & Distribution (T&D)',
-        desc: 'Turnkey project directors and technical leads for high-voltage transmission lines, tower erection, and grid interconnects.',
+        name: 'Lateral & Technical Recruitment',
+        desc: 'Multi-tiered recruitment for core engineering, production, quality, maintenance, and technical plant functions.',
         points: [
-          '765kV / 400kV / 220kV GIS and AIS substation project managers and commissioning leads',
-          'Overhead transmission line EPC leads and Right-of-Way (RoW) clearance specialists',
-          'System protection, relay coordination, and SCADA automation engineers'
+          'Tooling specialists, CNC leads, QA/QC managers, and maintenance engineers',
+          'Rigorous two-stage technical vetting and verified background check',
+          'Fast-track delivery across manufacturing corridors nationwide'
         ]
       },
       {
-        name: 'Renewable Energy EPC (Solar, Wind & BESS)',
-        desc: 'Comprehensive engineering, procurement, and construction staffing for utility-scale solar, wind farms, and hybrid storage systems.',
+        name: 'Mid-to-Senior & Executive Placements',
+        desc: 'Appointing experienced functional leaders, Plant Heads, DGM/GM Operations, and business unit heads.',
         points: [
-          'Solar PV plant design leads, balance-of-plant (BOP) managers, and tracker specialists',
-          'Wind turbine generator (WTG) installation heads and microgrid integration leads',
-          'Battery Energy Storage System (BESS) containerization and power conversion engineers'
+          'Confidential mapping of passive, high-performing industry leaders',
+          'In-depth appraisal of past operational turnarounds and margin impact',
+          'Structured onboarding support to ensure long-term retention'
         ]
       },
       {
-        name: 'Plant Operations & Maintenance (O&M)',
-        desc: 'Round-the-clock plant leadership ensuring maximum commercial availability and stringent heat rate/efficiency standards.',
+        name: 'HR Policy & Operational Support',
+        desc: 'Designing standardized human resource policies, employee handbooks, and compliance-ready operational frameworks.',
         points: [
-          'Station directors and shift-charge engineers ensuring continuous 99.5%+ uptime',
-          'Certified vibration analysts, thermographers, and preventative maintenance crews',
-          'EHS compliance, factory inspectorate clearances, and environmental monitoring'
-        ]
-      },
-      {
-        name: 'Grid Modernization & Smart Metering',
-        desc: 'Digital transformation leaders upgrading India’s distribution network with IoT and automated metering infrastructure.',
-        points: [
-          'Advanced Metering Infrastructure (AMI) and Smart Meter deployment project leads',
-          'Meter Data Management (MDM) architects and cloud IoT integration specialists',
-          'PPA negotiation, tariff petition, and regulatory compliance advisory'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'retail-ev',
-    title: 'Retail & EV',
-    image: '/images/retail-ev.jpg',
-    badge: 'CONSUMER COMMERCE & GREEN MOBILITY',
-    tagline: 'Modern Retail Operations, Omnichannel Logistics & Electric Vehicle Powertrain Tech',
-    shortDesc: 'Powering India’s hyper-growth consumer retail sectors and next-generation electric mobility ecosystems with specialized leadership and operational teams.',
-    overview: 'Bridging the twin engines of modern commerce and green mobility. We provide specialized talent solutions for India’s tier-1 retail conglomerates and next-generation electric vehicle manufacturers, covering everything from high-footfall hypermarket operations to advanced battery management systems (BMS).',
-    secondaryOverview: 'Our Retail & EV practice understands the distinct operational tempo of fast-moving consumer sectors and the deep technical specifications required for automotive electrification.',
-    stats: [
-      { label: 'Retail Stores Staffed', value: '1,200+' },
-      { label: 'EV Tech Patents Represented', value: '45+' },
-      { label: 'FMCG Fill-Rate Optimization', value: '98.5%' },
-      { label: 'Automotive Engineers Mapped', value: '18,000+' }
-    ],
-    subItems: [
-      {
-        name: 'Hypermarket & Supermarket Retail Operations',
-        desc: 'Store leadership, visual merchandising, and front-line operations teams driving footfall conversion and customer loyalty.',
-        points: [
-          'Store General Managers, Department Heads, and Regional Operations Directors',
-          'Inventory control, shrinkage prevention, and high-velocity stock turn managers',
-          'Cashiering, customer desk staff, and visual merchandising specialists'
-        ]
-      },
-      {
-        name: 'Electric Vehicle (EV) Engineering',
-        desc: 'Pioneering automotive talent for electric two-wheelers, three-wheelers, commercial buses, and passenger EVs.',
-        points: [
-          'PMSM motor design, inverter hardware engineers, and powertrain simulation experts',
-          'Battery Management Systems (BMS): Cell testing, thermal management, and firmware',
-          'Vehicle homologation, ARAI/ICAT certification, and functional safety (ISO 26262)'
-        ]
-      },
-      {
-        name: 'Omnichannel & Cold Chain Logistics',
-        desc: 'Supply chain architects, dark store networks, and temperature-controlled logistics for grocery and perishable goods.',
-        points: [
-          'Fulfillment center operations heads and micro-warehouse network managers',
-          'Cold-chain fleet controllers, temperature datalogger auditors, and route optimizers',
-          'ERP/WMS integration specialists reducing warehouse order turnaround time'
-        ]
-      },
-      {
-        name: 'EV Charging Infrastructure & Networks',
-        desc: 'Turnkey project deployment leads for public fast-charging corridors and commercial fleet depot charging hubs.',
-        points: [
-          'Site acquisition managers and commercial host agreement negotiators',
-          'DC fast-charger electrical commissioning leads and grid tie-in specialists',
-          'Cloud CMS (Charge Point Management System) software developers and NOC operators'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'hospitality',
-    title: 'Hospitality',
-    image: '/images/hospitality.jpg',
-    badge: 'LUXURY & SERVICE STEWARDSHIP',
-    tagline: 'Elite Hotel Operations, Banqueting & MICE, Culinary Leadership & Executive Dining',
-    shortDesc: 'Delivering exceptional leadership and operational staff for luxury hotel brands, boutique resorts, corporate dining, and fine-dining banqueting.',
-    overview: 'In luxury hospitality, brand equity is defined entirely by human delivery. MCP Consultants represents luxury hotel chains, boutique heritage resorts, corporate dining facilities, and convention centers, sourcing exceptional leadership and front-line service professionals who turn every guest touchpoint into an unforgettable experience.',
-    secondaryOverview: 'From five-star General Managers who command P&L profitability to master executive chefs and banquet coordinators, we understand the subtle art of luxury service execution.',
-    stats: [
-      { label: '5-Star Hospitality Placements', value: '3,500+' },
-      { label: 'Guest Satisfaction Index', value: '99.2%' },
-      { label: 'Mega-Event Banqueting Staffed', value: '500+' },
-      { label: 'Culinary Specialists Network', value: '8,000+' }
-    ],
-    subItems: [
-      {
-        name: 'Luxury Hotel & Resort General Management',
-        desc: 'Visionary General Managers and Operations Heads with proven records in RevPAR optimization and five-star brand standards.',
-        points: [
-          'General Managers commanding full P&L, ADR growth, and asset enhancement',
-          'Resident Managers, Front Office Directors, and Executive Housekeepers',
-          'Concierge teams trained in Les Clefs d’Or international luxury hospitality standards'
-        ]
-      },
-      {
-        name: 'Banqueting, MICE & Event Stewardship',
-        desc: 'Event directors and convention banquet leaders orchestrating high-volume destination weddings, summits, and corporate galas.',
-        points: [
-          'Banquet sales directors, catering coordinators, and protocol managers',
-          'High-volume event staffing with immaculate grooming and synchronized service',
-          'Audio-visual staging, seating layout optimization, and guest movement logistics'
-        ]
-      },
-      {
-        name: 'Executive Dining & Corporate Hospitality',
-        desc: 'Bespoke corporate guest house management, boardroom dining, and VIP executive lounge stewardship.',
-        points: [
-          'Executive corporate chefs curating tailored healthy and gourmet executive menus',
-          'Corporate dining room supervisors ensuring prompt, discreet executive service',
-          'Full-service facility stewardship for promoter villas and corporate guest retreats'
-        ]
-      },
-      {
-        name: 'Food & Beverage Operations Excellence',
-        desc: 'Multi-outlet F&B directors managing menu engineering, beverage curation, food hygiene audits, and high operating margins.',
-        points: [
-          'F&B Directors controlling food cost percentages while elevating culinary presentation',
-          'Sommeliers, mixologists, and specialty restaurant head chefs',
-          'Strict adherence to HACCP, FSSAI, and global food safety hygiene protocols'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'skill-development',
-    title: 'Skill Development & Education',
-    image: '/images/skill-development.jpg',
-    badge: 'LEARNING & INDUSTRIAL READINESS',
-    tagline: 'Corporate Leadership Coaching, Shopfloor Upskilling & Institutional Capacity Building',
-    shortDesc: 'Bridging the industrial employability gap through certified skill enhancement programs, executive coaching, and vocational initiatives.',
-    overview: 'Bridging the divide between academic output and shopfloor readiness. Our Skill Development & Education practice develops and executes targeted corporate training, technical certifications, apprenticeship programs, and campus-to-corporate bridge curricula for Indian enterprises.',
-    secondaryOverview: 'We empower manufacturing clusters and service organizations to upskill their human capital, reduce machine downtime, and cultivate future leaders from within.',
-    stats: [
-      { label: 'Professionals Trained', value: '40,000+' },
-      { label: 'Curriculum Modules Benchmarked', value: '120+' },
-      { label: 'Shopfloor Productivity Gain', value: '+24%' },
-      { label: 'Placement Conversion Rate', value: '88%' }
-    ],
-    subItems: [
-      {
-        name: 'Corporate Leadership & Executive Coaching',
-        desc: 'Tailored management development programs (MDP) and executive mentoring for first-time managers through C-suite officers.',
-        points: [
-          '1-on-1 executive coaching on boardroom presence, strategic vision, and conflict resolution',
-          'High-potential (HiPo) leadership accelerator bootcamps for senior managers',
-          'Change management and cross-functional team alignment workshops'
-        ]
-      },
-      {
-        name: 'Technical & Shopfloor Skill Enhancement',
-        desc: 'Hands-on CNC, robotics, PLC automation, and safety (OSHA) certifications for modern manufacturing shopfloors.',
-        points: [
-          'Hands-on training in 5-axis CNC machining, precision welding, and tooling setup',
-          'Industrial IoT, PLC/SCADA programming, and automated robotics maintenance',
-          'Six Sigma Green/Black Belt, Lean Manufacturing, and 5S workplace audits'
-        ]
-      },
-      {
-        name: 'Campus-to-Corporate Readiness Programs',
-        desc: 'Industry-integrated bridge curricula, finishing schools, and communication bootcamps for engineering and management graduates.',
-        points: [
-          'Finishing school modules covering corporate etiquette, business writing, and client facing',
-          'Aptitude, logical reasoning, and technical interview preparation pipelines',
-          'Industry mock projects evaluated by practicing corporate directors'
-        ]
-      },
-      {
-        name: 'Government & CSR Skill Initiatives',
-        desc: 'Turnkey execution of PMKVY, DDU-GKY, and CSR-funded vocational training programs with verified placement tracking.',
-        points: [
-          'Accredited vocational center setup, lab equipment mobilization, and mobilization drives',
-          'Assessment coordination with sector skill councils (SSCs) and certified diplomas',
-          'Direct industry placement tie-ups with regional manufacturing clusters'
+          'Custom HR policy formulation aligned with state and central labor laws',
+          'Standardized job descriptions, grading matrices, and compensation benchmarking',
+          'Transparent grievance redressal and employee engagement mechanisms'
         ]
       }
     ]
   },
   {
     id: 'facility-management',
-    title: 'Facility Management & BPO',
+    title: 'Facility Management',
     image: '/images/facility-management.jpg',
-    badge: 'WORKPLACE INFRASTRUCTURE & SHARED SERVICES',
-    tagline: 'Integrated Facility Management (IFM), Business Process Outsourcing & Workplace Infrastructure',
-    shortDesc: 'Comprehensive property upkeep, mechanical/electrical maintenance, corporate administrative support, and front-line contact center operations.',
-    overview: 'Operational resilience relies on flawless day-to-day facility administration and customer support infrastructure. MCP Consultants delivers single-source Integrated Facility Management (IFM) and high-touch BPO operations for corporate campuses, IT parks, data centers, and multi-location retail chains.',
-    secondaryOverview: 'We maintain uptime across critical electrical, HVAC, and data infrastructure while delivering scalable customer support solutions that protect corporate brand equity.',
+    badge: 'CORE SOLUTION 03',
+    tagline: 'Professional Facility, Housekeeping, Security Support & Operational Services',
+    shortDesc: 'Professional facility, mechanized housekeeping, security support and operational services.',
+    overview: 'Clean, safe, and well-managed premises are vital for industrial productivity and corporate reputation. MCP Group provides comprehensive soft and hard facility management services covering corporate offices, commercial campuses, and manufacturing factories.',
+    secondaryOverview: 'Our trained facility personnel operate under strict hygiene, safety, and SLA protocols with mechanized cleaning tools and eco-friendly consumables.',
     stats: [
-      { label: 'Commercial Sq. Ft. Managed', value: '18M+' },
-      { label: 'Critical Infrastructure Uptime', value: '99.99%' },
-      { label: 'Customer Query Resolution SLA', value: '< 2 Hrs' },
-      { label: 'Trained Facility Personnel', value: '15,000+' }
+      { label: 'Premises Maintained', value: '15M+ Sq.Ft.' },
+      { label: 'SLA Adherence Rate', value: '99.4%' },
+      { label: 'Trained Facility Staff', value: '8,000+' },
+      { label: 'Quality Standards', value: 'ISO 9001:2008' }
     ],
     subItems: [
       {
-        name: 'Integrated Facility Management (IFM)',
-        desc: 'Single-source stewardship of corporate campuses, IT parks, and factories covering MEP, HVAC, cleaning, and green initiatives.',
+        name: 'Mechanized Industrial Housekeeping',
+        desc: 'Advanced mechanized cleaning, sanitization, and waste management for factory shopfloors and cleanrooms.',
         points: [
-          'Hard Services: 24/7 preventative maintenance of chillers, DG sets, and UPS systems',
-          'Soft Services: Mechanized housekeeping, sanitization, facade cleaning, and waste management',
-          'Energy audits, IoT sensor tracking, and LEED / ESG compliance reporting'
+          'Ride-on scrubbers, high-pressure washers, and industrial vacuum systems',
+          'Strict compliance with pharma GMP and food processing hygiene norms',
+          'Environmentally sustainable cleaning chemicals and consumables'
         ]
       },
       {
-        name: 'Business Process Outsourcing (BPO)',
-        desc: 'Scalable domestic and international customer care teams, back-office data processing, and technical support desks.',
+        name: 'Corporate Facility Management',
+        desc: 'Front-office management, pantry services, mailroom logistics, and daily upkeep of corporate offices.',
         points: [
-          'Multilingual omnichannel customer care (Voice, Email, Chat, and WhatsApp)',
-          'Technical helpdesks with automated ticketing and Level 1/2 troubleshooting',
-          'High-volume back-office processing, KYC verification, and document indexing'
+          'Trained pantry stewards, receptionists, and office support staff',
+          'Vendor coordination, consumable inventory management, and hygiene audits',
+          'Preventative maintenance of plumbing, electrical, and HVAC fixtures'
         ]
       },
       {
-        name: 'Corporate Security & Surveillance',
-        desc: 'Trained manned security guards, CCTV surveillance command center operators, and executive protection personnel.',
+        name: 'Physical Security & Manned Guarding',
+        desc: 'Vetted, disciplined security personnel, access control management, and premises surveillance.',
         points: [
-          'Licensed security guards, gatehouse management, and automated visitor tracking',
-          'Centralized CCTV surveillance monitoring and rapid incident response protocols',
-          'Comprehensive fire safety drills, emergency evacuation planning, and perimeter control'
+          'Background-verified security guards, supervisors, and gate controllers',
+          'Material in/out register maintenance and visitor pass management',
+          'Emergency response drills, fire safety monitoring, and perimeter patrols'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'bpo-solutions',
+    title: 'BPO & Business Process Solutions',
+    image: '/images/hero-split-office.jpg',
+    badge: 'CORE SOLUTION 04',
+    tagline: 'Scalable Business Process & Support Solutions Designed for Operational Efficiency',
+    shortDesc: 'Scalable business process and support solutions designed for operational efficiency.',
+    overview: 'MCP Group’s BPO practice provides scalable back-office and customer support solutions that allow organizations to streamline non-core operations, reduce fixed overheads, and improve service delivery.',
+    secondaryOverview: 'Operating with modern IT infrastructure, data security protocols, and multi-lingual voice/chat capabilities, we help clients enhance operational responsiveness.',
+    stats: [
+      { label: 'First-Contact Resolution', value: '94%+' },
+      { label: 'Data Accuracy Rate', value: '99.8%' },
+      { label: 'Multi-Lingual Coverage', value: '8+ Languages' },
+      { label: 'Uptime Availability', value: '99.9%' }
+    ],
+    subItems: [
+      {
+        name: 'Customer Support & Helpdesk',
+        desc: 'Multi-channel customer engagement including inbound voice, email, chat, and ticketing support.',
+        points: [
+          '24/7 or shift-based customer service teams with customized call scripts',
+          'Omnichannel CRM integration and real-time SLA tracking dashboards',
+          'Quality assurance auditing, call calibration, and customer CSAT monitoring'
         ]
       },
       {
-        name: 'Environment, Health & Safety (EHS) Compliance',
-        desc: 'Audited workplace sanitation, fire safety compliance, waste management, and LEED / ESG green building governance.',
+        name: 'Back-Office Data & Document Processing',
+        desc: 'High-speed data entry, document verification, claims processing, and digital archiving.',
         points: [
-          'Statutory workplace safety audits, pollution control clearances, and hazardous waste disposal',
-          'Indoor air quality monitoring, ergonomics assessments, and occupational health clinics',
-          'Zero-accident safety culture implementation and regular mock emergency drills'
+          'KYC document verification, OCR digitization, and database deduplication',
+          'Invoice processing, ledger reconciliation, and vendor voucher verification',
+          'Strict information security, confidentiality, and data protection standards'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'skill-development',
+    title: 'Skill Development',
+    image: '/images/skill-development.jpg',
+    badge: 'CORE SOLUTION 05',
+    tagline: 'Industry-Oriented Training & Skill Programs That Prepare People for Tomorrow’s Jobs',
+    shortDesc: 'Industry-oriented training and skill development programs that prepare people for tomorrow’s jobs.',
+    overview: 'India’s economic growth depends on a workforce equipped with modern, practical capabilities. MCP Group conducts structured skill development initiatives aligned with National Skill Development Corporation (NSDC) and sector skill council standards.',
+    secondaryOverview: 'We collaborate with state governments, corporate CSR initiatives, and industrial clusters to transform youth into job-ready professionals.',
+    stats: [
+      { label: 'Candidates Trained', value: '35,000+' },
+      { label: 'Post-Training Placement', value: '82%+' },
+      { label: 'Training Centers Operated', value: '25+' },
+      { label: 'Industry Sectors Covered', value: '12+' }
+    ],
+    subItems: [
+      {
+        name: 'Vocational & Technical Training',
+        desc: 'Hands-on training in machine operation, CNC basics, automotive assembly, welding, and electrical systems.',
+        points: [
+          'Curricula developed in consultation with industrial plant supervisors',
+          'Modern equipment labs simulating actual manufacturing environments',
+          'Certifications aligned with National Skills Qualifications Framework (NSQF)'
+        ]
+      },
+      {
+        name: 'Corporate CSR Skill Initiatives',
+        desc: 'Executing turnkey skill development and livelihood generation projects for corporate CSR programs.',
+        points: [
+          'Mobilization of candidates from rural and underserved communities',
+          'End-to-end training delivery, assessment, and wage-linked placement',
+          'Transparent impact assessment reports and audit-ready documentation'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'education',
+    title: 'Education Solutions',
+    image: '/images/hospitality.jpg',
+    badge: 'CORE SOLUTION 06',
+    tagline: 'Workforce & Education Solutions Focused on Employability, Skills & Future Readiness',
+    shortDesc: 'Workforce and education solutions focused on employability, skills and future readiness.',
+    overview: 'Bridging the divide between academic degree programs and real-world workplace requirements. MCP Group partners with colleges, universities, and polytechnics to enhance student employability through experiential learning and industry apprenticeships.',
+    secondaryOverview: 'We empower educational institutions with job-market insights, guest faculty from industry, and campus placement drives.',
+    stats: [
+      { label: 'Educational Partners', value: '40+' },
+      { label: 'Students Upskilled', value: '20,000+' },
+      { label: 'Campus Drives Organized', value: '150+' },
+      { label: 'Corporate Hiring Partners', value: '500+' }
+    ],
+    subItems: [
+      {
+        name: 'Campus-to-Corporate Employability',
+        desc: 'Structured modules covering professional communication, workplace etiquette, digital literacy, and interview prep.',
+        points: [
+          'Interactive behavioral training designed to build workplace confidence',
+          'Mock technical interviews and aptitude assessment frameworks',
+          'Direct access to recruitment drives across MCP’s 500+ client network'
+        ]
+      },
+      {
+        name: 'Institutional Apprenticeship Partnerships',
+        desc: 'Integrating NAPS/NATS apprenticeships into college final-semester curricula for immediate job placement.',
+        points: [
+          'Government stipend support integration for graduating students',
+          'Practical shopfloor and office immersion with verified enterprises',
+          'High conversion rate of apprentices into permanent employee roles'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'compliance-management',
+    title: 'Compliance Management',
+    image: '/images/power-sector.jpg',
+    badge: 'CORE SOLUTION 07',
+    tagline: 'Structured, Process-Driven Solutions Helping Organizations Meet Statutory & Regulatory Requirements',
+    shortDesc: 'Structured, process-driven solutions helping organizations meet statutory and regulatory requirements.',
+    overview: 'Operating in India requires rigorous adherence to multi-state labor laws, statutory acts, and regulatory filings. MCP Group’s compliance practice delivers comprehensive statutory audits, registration management, and monthly filings.',
+    secondaryOverview: 'As an ISO 9001:2008 certified organization, we protect employers from statutory penalties, factory inspectorate notices, and legal vulnerabilities.',
+    stats: [
+      { label: 'Statutory Compliance Record', value: '100%' },
+      { label: 'Audits Passed Without Penalty', value: '500+' },
+      { label: 'State Labor Acts Covered', value: 'All 28 States' },
+      { label: 'Quality Certification', value: 'ISO 9001:2008' }
+    ],
+    subItems: [
+      {
+        name: 'PF, ESIC & Statutory Returns',
+        desc: 'End-to-end execution of Provident Fund, ESIC, Professional Tax, and Labor Welfare Fund monthly filings.',
+        points: [
+          'Timely monthly challan generation and verified electronic remittance',
+          'Resolution of employee UAN, claim settlements, and transfer grievances',
+          'Preparation of annual and half-yearly statutory returns'
+        ]
+      },
+      {
+        name: 'Factories Act & Contract Labor (CLRA) Licenses',
+        desc: 'Procurement, renewal, and management of Contract Labour Regulation & Abolition (CLRA) licenses.',
+        points: [
+          'Principal Employer registration certificates (Form I) and contractor licenses',
+          'Maintenance of mandatory statutory registers (Form XII, XIII, XIV, XVI, XVII)',
+          'Representation and assistance during labor department and statutory inspections'
+        ]
+      },
+      {
+        name: 'Comprehensive Labor Compliance Audits',
+        desc: 'Third-party forensic audits evaluating existing contractor compliance and statutory risk exposure.',
+        points: [
+          'Detailed gap analysis across minimum wages, overtime, and working hours',
+          'Contractor audit scorecards and corrective action plans (CAP)',
+          'Executive management summary safeguarding board of directors from liability'
         ]
       }
     ]
@@ -421,7 +396,7 @@ export default function Services() {
                   }}
                 >
                   <ArrowLeft size={15} />
-                  <span>All Services</span>
+                  <span>All Solutions</span>
                 </button>
               </div>
 
@@ -460,7 +435,7 @@ export default function Services() {
                 <span className="section-tag" style={{ marginBottom: '12px', display: 'inline-block' }}>
                   {activeService.badge}
                 </span>
-                <h1 style={{ fontSize: '38px', color: '#0b5cab', fontWeight: '800', margin: '8px 0 16px', letterSpacing: '-0.5px' }}>
+                <h1 style={{ fontSize: '38px', color: 'var(--color-primary)', fontWeight: '800', margin: '8px 0 16px', letterSpacing: '-0.5px' }}>
                   {activeService.title}
                 </h1>
                 <p style={{ fontSize: '18px', fontWeight: '600', color: 'var(--color-primary)', marginBottom: '20px', lineHeight: '1.4' }}>
@@ -478,23 +453,23 @@ export default function Services() {
               <div style={{ 
                 borderRadius: '10px', 
                 overflow: 'hidden', 
-                boxShadow: '0 12px 35px rgba(0,0,0,0.12)', 
-                maxHeight: '440px',
-                position: 'relative' 
+                maxHeight: '440px', 
+                boxShadow: '0 12px 30px rgba(0, 0, 0, 0.12)', 
+                marginBottom: '50px' 
               }}>
                 <img 
                   src={activeService.image} 
                   alt={activeService.title} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', maxHeight: '440px', display: 'block' }}
+                  style={{ width: '100%', height: '420px', objectFit: 'cover', display: 'block' }}
                 />
               </div>
 
-              {/* Key Statistics Grid */}
+              {/* Metrics Bar */}
               <div style={{ 
                 display: 'grid', 
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
                 gap: '20px', 
-                marginTop: '36px' 
+                marginBottom: '40px' 
               }}>
                 {activeService.stats.map((stat, idx) => (
                   <div 
@@ -507,7 +482,7 @@ export default function Services() {
                       textAlign: 'center' 
                     }}
                   >
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#0b5cab', marginBottom: '6px' }}>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--color-accent)', marginBottom: '6px' }}>
                       {stat.value}
                     </div>
                     <div style={{ fontSize: '12.5px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
@@ -520,13 +495,13 @@ export default function Services() {
             </div>
           </section>
 
-          {/* Key Practice Pillars for this Specific Service */}
+          {/* Key Capabilities for this Specific Service */}
           <section style={{ padding: '70px 0', backgroundColor: '#f1f6fb' }}>
             <div className="container">
               
               <div className="section-header text-center" style={{ maxWidth: '800px', margin: '0 auto 48px' }}>
-                <span className="section-tag">PRACTICE CAPABILITIES</span>
-                <h2 className="section-title">Core Service Offerings</h2>
+                <span className="section-tag">SOLUTION CAPABILITIES</span>
+                <h2 className="section-title">Core Service Deliverables</h2>
                 <p className="section-desc">
                   Detailed breakdown of capabilities, deliverables, and operational execution under {activeService.title}.
                 </p>
@@ -553,8 +528,8 @@ export default function Services() {
                           width: '32px', 
                           height: '32px', 
                           borderRadius: '50%', 
-                          background: 'rgba(11,92,171,0.1)', 
-                          color: '#0b5cab', 
+                          background: 'rgba(212, 175, 55, 0.15)', 
+                          color: 'var(--color-accent)', 
                           display: 'flex', 
                           alignItems: 'center', 
                           justifyContent: 'center', 
@@ -563,7 +538,7 @@ export default function Services() {
                         }}>
                           0{idx + 1}
                         </span>
-                        <CheckCircle2 size={18} color="#0b5cab" />
+                        <CheckCircle2 size={18} color="var(--color-accent)" />
                       </div>
 
                       <h3 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--color-primary)', marginBottom: '10px' }}>
@@ -615,13 +590,13 @@ export default function Services() {
               }}>
                 <div style={{ maxWidth: '650px' }}>
                   <span style={{ color: 'var(--color-accent)', fontSize: '12px', fontWeight: '800', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                    PARTNER WITH MCP
+                    PARTNER WITH MCP GROUP
                   </span>
                   <h3 style={{ fontSize: '26px', color: '#ffffff', fontWeight: '800', margin: '8px 0 10px' }}>
                     Need customized support in {activeService.title}?
                   </h3>
                   <p style={{ fontSize: '14.5px', color: '#cbd5e1', lineHeight: '1.6', margin: 0 }}>
-                    Our sector leads are ready to structure tailored staffing, compliance, or technical talent solutions within your timelines.
+                    Our sector leads are ready to structure tailored staffing, compliance, facility, or workforce solutions within your timelines.
                   </p>
                 </div>
 
@@ -643,7 +618,7 @@ export default function Services() {
                       cursor: 'pointer'
                     }}
                   >
-                    View All Services
+                    View All Solutions
                   </button>
                 </div>
               </div>
@@ -654,7 +629,7 @@ export default function Services() {
       ) : (
 
         /* =========================================================================
-            VIEW B: ALL SERVICES 6-CARD GRID (Matching Reference Screenshot)
+            VIEW B: ALL SERVICES 7-CARD GRID (Section 04: What We Do)
             ========================================================================= */
         <div className="all-services-view">
           
@@ -666,22 +641,29 @@ export default function Services() {
                 <span className="divider">&rsaquo;</span>
                 <span>Our Services</span>
               </div>
-              <h1 className="page-hero-title">Our Services &amp; Practice Capabilities</h1>
+              <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
+                04 — WHAT WE DO
+              </span>
+              <h1 className="page-hero-title">One Group. Multiple Solutions. One Standard of Excellence.</h1>
               <p className="page-hero-subtitle">
-                Delivering workforce management, sectoral recruitment, technical staffing, and leadership advisory across India's fastest-growing industries.
+                MCP Group offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations across India.
               </p>
             </div>
           </section>
 
-          {/* 6-Card Services Grid (Matching Reference Screenshot) */}
-          <section className="our-services-home-section" style={{ backgroundColor: '#ffffff' }}>
+          {/* 7-Card Services Grid */}
+          <section className="our-services-home-section" style={{ backgroundColor: '#ffffff', padding: '80px 0' }}>
             <div className="container">
               
               <div className="our-services-home-header">
-                <h2 className="our-services-home-title">Our Services</h2>
+                <span className="section-tag" style={{ color: 'var(--color-accent)' }}>INTEGRATED WORKFORCE PORTFOLIO</span>
+                <h2 className="our-services-home-title">Our Core Solution Verticals</h2>
+                <p style={{ color: '#64748b', maxWidth: '750px', margin: '12px auto 0', fontSize: '15px' }}>
+                  Click on any service to explore detailed practice capabilities, operational SLAs, and case deliverables.
+                </p>
               </div>
 
-              <div className="our-services-home-grid">
+              <div className="our-services-home-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
                 {servicesData.map((service) => (
                   <div key={service.id} className="service-photo-card">
                     <div className="service-photo-card-img-wrap">
@@ -693,12 +675,19 @@ export default function Services() {
                       />
                     </div>
                     <div className="service-photo-card-body">
-                      <h3 className="service-photo-card-title">{service.title}</h3>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-accent)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                        {service.badge}
+                      </span>
+                      <h3 className="service-photo-card-title" style={{ marginTop: '4px' }}>{service.title}</h3>
+                      <p style={{ fontSize: '13.5px', color: '#64748b', lineHeight: 1.5, margin: '8px 0 16px 0' }}>
+                        {service.shortDesc}
+                      </p>
                       <button 
                         onClick={() => handleSelectService(service.id)}
                         className="btn-service-readmore"
                       >
-                        Read More
+                        <span>Explore Capabilities</span>
+                        <ArrowRight size={14} />
                       </button>
                     </div>
                   </div>
@@ -708,35 +697,35 @@ export default function Services() {
             </div>
           </section>
 
-          {/* The MCP Search Methodology */}
+          {/* The MCP Delivery & Compliance Architecture */}
           <section style={{ backgroundColor: '#f3f7fb', padding: '80px 0', borderTop: '1px solid #e2e8f0' }}>
             <div className="container">
               <div className="section-header text-center">
-                <span className="section-tag">OUR METHODOLOGY</span>
-                <h2 className="section-title">The 4-Stage Search Architecture</h2>
-                <p className="section-subtitle">A disciplined, outcome-driven framework ensuring guaranteed delivery success</p>
+                <span className="section-tag">DELIVERY EXCELLENCE</span>
+                <h2 className="section-title">The 4-Stage Workforce Architecture</h2>
+                <p className="section-subtitle">A disciplined, compliance-first framework ensuring reliable, scalable execution</p>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', marginTop: '40px' }}>
                 <div style={{ background: '#ffffff', padding: '30px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                   <div style={{ color: 'var(--color-accent)', fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>01</div>
-                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Contextualize &amp; Scope</h3>
-                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>Immersion into strategic objectives, operational culture, governance philosophy, and mandate specifics.</p>
+                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Assessment &amp; Scope</h3>
+                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>Understanding job descriptions, plant shift timings, statutory wage rules, and SLA requirements.</p>
                 </div>
                 <div style={{ background: '#ffffff', padding: '30px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                   <div style={{ color: 'var(--color-accent)', fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>02</div>
-                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Market Mapping</h3>
-                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>Forensic mapping of top passive leaders across competitors, adjacent ecosystems, and global peers.</p>
+                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Mobilization &amp; Vetting</h3>
+                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>Screening candidates across our 50,000+ talent network with police and identity checks.</p>
                 </div>
                 <div style={{ background: '#ffffff', padding: '30px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                   <div style={{ color: 'var(--color-accent)', fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>03</div>
-                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Forensic Vetting</h3>
-                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>360-degree non-attributable references, past plant efficiency audits, and psychometric leadership appraisals.</p>
+                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Statutory Onboarding</h3>
+                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>100% PF/ESIC enrollment, safety gear distribution, appointment documentation, and EHS briefing.</p>
                 </div>
                 <div style={{ background: '#ffffff', padding: '30px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                   <div style={{ color: 'var(--color-accent)', fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>04</div>
-                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>Integration &amp; SLA</h3>
-                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>Structured check-ins during the first 100 days ensuring seamless cultural alignment and immediate impact.</p>
+                  <h3 style={{ fontSize: '18px', marginBottom: '10px', color: 'var(--color-primary)' }}>On-Site SLA Stewardship</h3>
+                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>Dedicated relationship coordinators, biometric attendance, instant payroll, and monthly compliance audit logs.</p>
                 </div>
               </div>
             </div>

@@ -7,14 +7,16 @@ import {
   Truck, 
   Layers, 
   Settings, 
-  Plane, 
-  Flame, 
-  Box, 
   Search, 
   ArrowRight,
-  ShieldAlert,
   Pill,
-  Shirt
+  Shirt,
+  Building2,
+  Users,
+  ShoppingBag,
+  ShieldCheck,
+  Award,
+  Sparkles
 } from 'lucide-react';
 
 export default function Industries() {
@@ -23,120 +25,124 @@ export default function Industries() {
 
   const industriesData = [
     {
-      id: "heavy-engineering",
-      name: "Heavy Engineering & Capital Goods",
-      category: "heavy",
-      icon: Factory,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
-      description: "Precision recruitment for Managing Directors, VP Operations, and Plant Heads across turbine manufacturing, heavy machinery, boilermakers, and mining capital equipment.",
-      roles: ["Chief Operating Officer (COO)", "Plant General Manager", "VP Heavy Fabrication", "Head of Quality & Metallurgy"]
+      id: "pharmaceuticals",
+      name: "Pharmaceuticals & Life Sciences",
+      category: "pharma",
+      icon: Pill,
+      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
+      tagline: "Specialized workforce solutions for one of India's most critical industries.",
+      description: "Delivering GMP-trained workforce, API chemical operators, formulation technicians, and regulatory compliance leaders for USFDA/MHRA-compliant manufacturing complexes and sterile packaging hubs.",
+      roles: ["Formulation & API Plant Associates", "QA/QC Microbiologists & Analysts", "Production Shift In-Charge", "Regulatory Affairs & EHS Officers"]
+    },
+    {
+      id: "power-energy",
+      name: "Power & Energy",
+      category: "energy",
+      icon: Zap,
+      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80",
+      tagline: "Workforce and operational support for India's evolving energy sector.",
+      description: "Mobilizing certified high-voltage technicians, solar/wind EPC installation crews, substation commissioning staff, and round-the-clock plant operations & maintenance teams.",
+      roles: ["Substation & T&D Linesmen", "Solar PV Installation Crews", "Thermal/Hydro Shift Engineers", "Grid Safety & Asset Controllers"]
+    },
+    {
+      id: "automobiles-ev",
+      name: "Automobiles & Electric Mobility",
+      category: "automotive",
+      icon: Truck,
+      image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80",
+      tagline: "Skilled manpower and workforce management for India's automotive ecosystem.",
+      description: "Supporting OEM assembly lines, Tier-1 ancillary vendors, press shop tooling, robotic paint booths, and next-generation EV battery pack assembly with trained associates.",
+      roles: ["Assembly Line Operators", "CNC & Press Tooling Supervisors", "EV Battery Pack Technicians", "Quality Inspectors (PDI/Line)"]
+    },
+    {
+      id: "textiles-apparel",
+      name: "Textiles & Manufacturing",
+      category: "textiles",
+      icon: Shirt,
+      image: "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
+      tagline: "Workforce solutions supporting India's textile and manufacturing industries.",
+      description: "Comprehensive workforce deployment across high-speed spinning mills, automated weaving sheds, chemical dyeing units, garment finishing lines, and technical apparel complexes.",
+      roles: ["Spinning & Loom Operators", "Finishing & Garment Tailors", "Dyeing Process Supervisors", "Textile Plant Maintenance Techs"]
+    },
+    {
+      id: "electronics-electricals",
+      name: "Electronics & Electricals",
+      category: "electronics",
+      icon: Cpu,
+      image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
+      tagline: "Talent and workforce solutions for rapidly evolving technology-driven industries.",
+      description: "Supplying precision assembly staff for Surface Mount Technology (SMT) cleanrooms, consumer electronics manufacturing, switchgear production, and PCB component soldering.",
+      roles: ["SMT & PCB Assembly Associates", "Testing & Calibration Techs", "Component Sourcing Leads", "Electro-Mechanical QA Officers"]
+    },
+    {
+      id: "retail-ev",
+      name: "Retail & Modern Commerce",
+      category: "retail",
+      icon: ShoppingBag,
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      tagline: "Future-ready workforce solutions for India's expanding retail and modern commerce.",
+      description: "Staffing hypermarkets, modern trade supermarkets, dark stores, and fulfillment hubs with store floor staff, cashiering teams, inventory controllers, and logistics personnel.",
+      roles: ["Store Associates & Cashiers", "Inventory & Stock Controllers", "Warehouse Pickers & Packers", "Visual Merchandising Leads"]
+    },
+    {
+      id: "hospitality",
+      name: "Hospitality & Corporate Facilities",
+      category: "hospitality",
+      icon: Users,
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+      tagline: "Professional manpower and operational support for hospitality businesses.",
+      description: "Trained front-office stewards, housekeeping associates, culinary kitchen assistants, banqueting teams, and pantry staff for premier hotels, clubs, and corporate dining facilities.",
+      roles: ["Front Office & Guest Stewards", "Housekeeping Associates", "Pantry & Banquet Service Crew", "Facility Shift Supervisors"]
+    },
+    {
+      id: "government-public-sector",
+      name: "Government & Public Sector",
+      category: "government",
+      icon: ShieldCheck,
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+      tagline: "Compliance-driven workforce solutions for public-sector requirements.",
+      description: "Fully statutory-compliant manpower deployment, data entry operations, administrative assistance, and facility upkeep for municipal bodies, PSU enterprises, and state authorities.",
+      roles: ["Administrative Support Staff", "Data Entry Operators (DEO)", "Public Facility Caretakers", "Statutory Compliance Officers"]
     },
     {
       id: "sheet-metal-fabrication",
       name: "Sheet Metal & Precision Fabrication",
-      category: "heavy",
+      category: "automotive",
       icon: Settings,
       image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
-      description: "Recruitment for CNC press brake operations, laser cutting centers, robotic welding lines, progressive stamping toolrooms, and high-volume press shops.",
-      roles: ["Press Shop General Manager", "Tooling & Die Design Specialist", "Head of Laser & CNC Operations", "Fabrication Quality Lead"]
+      tagline: "Recruitment and technical staffing for high-output fabrication centers.",
+      description: "Staffing CNC press brake operations, laser cutting centers, robotic welding lines, progressive stamping toolrooms, and automotive sheet metal component lines.",
+      roles: ["Press Shop Line Supervisors", "Tool & Die Maintenance Leads", "Laser & CNC Operators", "Welding & Fabrication Quality Leads"]
     },
     {
-      id: "pharmaceuticals-life-sciences",
-      name: "Pharmaceuticals, APIs & Life Sciences",
-      category: "pharma",
-      icon: Pill,
-      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
-      description: "Appointing proven leadership for USFDA/MHRA-compliant formulation plants, Active Pharmaceutical Ingredient (API) synthesis, sterile injectables, biosimilars, and contract manufacturing (CDMO).",
-      roles: ["President / Head of Global Formulations", "VP Active Pharmaceutical Ingredients (API)", "Head of Regulatory Affairs & USFDA Quality", "Chief Scientific Officer (CSO) / R&D Director"]
-    },
-    {
-      id: "automotive-ev",
-      name: "Automotive, Electric Mobility & Ancillaries",
-      category: "heavy",
-      icon: Truck,
-      image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80",
-      description: "Partnering with Tier-1 automotive component suppliers and EV pioneers in powertrain design, battery pack assembly, chassis manufacturing, and high-volume press shops.",
-      roles: ["President Automotive Division", "VP Powertrain & EV Systems", "Plant Head Body-in-White", "Chief Procurement Officer"]
-    },
-    {
-      id: "automation-robotics",
-      name: "Industrial Automation, Robotics & IoT",
-      category: "automation",
-      icon: Cpu,
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
-      description: "Appointing digital manufacturing pioneers in PLC/SCADA integration, warehouse robotics, automated guided vehicles (AGVs), and smart factory turnarounds.",
-      roles: ["VP Smart Factory Systems", "Head of Robotics Engineering", "Chief Technology Officer (CTO)", "Director of Automation Sales"]
-    },
-    {
-      id: "power-renewables",
-      name: "Renewable Energy, Solar & CleanTech",
-      category: "energy",
-      icon: Zap,
-      image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80",
-      description: "Building engineering and management teams for utility-scale solar parks, onshore wind farms, green hydrogen plants, and gigawatt battery energy storage projects.",
-      roles: ["CEO Renewables Platform", "VP Solar EPC & Delivery", "Chief Technical Officer", "Head of Regulatory & Tariffs"]
-    },
-    {
-      id: "metals-steel",
-      name: "Metals, Mining & Steel Production",
-      category: "materials",
-      icon: Flame,
-      image: "https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&w=800&q=80",
-      description: "Recruitment for blast furnace operations, electric arc furnaces, non-ferrous smelters, open-cast mines, and mineral processing plants across India.",
-      roles: ["Executive Director Steel Mill", "VP Smelting & Refining", "Head of Mine Planning", "Chief Sustainability Officer"]
-    },
-    {
-      id: "chemicals-polymers",
-      name: "Chemicals, Petrochemicals & Polymers",
-      category: "materials",
-      icon: Layers,
-      image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80",
-      description: "Senior leadership mandates across continuous-process chemical plants, specialty polymers, agrochemicals, and green chemistry complexes.",
-      roles: ["Managing Director Process Plant", "VP Health, Safety & Environment", "Head of Petrochemical R&D", "Site Director"]
-    },
-    {
-      id: "textiles-apparel",
-      name: "Textiles, Technical Fabrics & Apparel",
-      category: "textiles",
-      icon: Shirt,
-      image: "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
-      description: "Executive search across high-capacity spinning mills, technical non-woven textiles, automated garmenting clusters, synthetic polymer fibers, and sustainable processing plants.",
-      roles: ["Chief Executive Officer (Textiles & Apparel)", "VP Spinning & Processing Operations", "Head of Technical Textiles & Geotextiles", "Director of Global Sourcing & Supply Chain"]
-    },
-    {
-      id: "aerospace-defense",
-      name: "Aerospace, Defense & Precision Machining",
-      category: "heavy",
-      icon: Plane,
-      image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
-      description: "Recruitment for Make-in-India defense manufacturing, precision aero-structures, avionics assembly, and tactical systems contractors.",
-      roles: ["President Defense Programs", "VP Precision Machining", "Head of Aerospace Quality (AS9100)", "Director of Government Offset Contracts"]
-    },
-    {
-      id: "packaging-materials",
-      name: "Packaging, Paper & Industrial Materials",
-      category: "materials",
-      icon: Box,
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
-      description: "Appointing operational leaders in high-speed flexible packaging, corrugated boxes, recycled paper mills, and barrier films.",
-      roles: ["COO Packaging Operations", "VP High-Speed Converting", "Plant Head Extrusion", "National Supply Chain Director"]
+      id: "heavy-engineering",
+      name: "Heavy Engineering & Capital Goods",
+      category: "automotive",
+      icon: Factory,
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+      tagline: "Workforce deployment for heavy capital goods and equipment manufacturing.",
+      description: "Mobilizing certified welders, machinists, structural fitters, and crane operators across turbine fabrication, industrial boiler manufacturing, and mining machinery complexes.",
+      roles: ["Certified 6G/TIG Welders", "Heavy Machine Operators", "Plant Assembly Technicians", "Safety & Rigging Supervisors"]
     }
   ];
 
   const categories = [
-    { id: 'all', label: 'All Sectors' },
-    { id: 'heavy', label: 'Heavy Engineering & Auto' },
-    { id: 'pharma', label: 'Pharmaceuticals & Life Sciences' },
-    { id: 'textiles', label: 'Textiles & Apparel' },
-    { id: 'automation', label: 'Automation & Industry 4.0' },
-    { id: 'energy', label: 'Energy, Power & CleanTech' },
-    { id: 'materials', label: 'Process & Materials' }
+    { id: 'all', label: 'All Industries' },
+    { id: 'pharma', label: 'Pharmaceuticals' },
+    { id: 'energy', label: 'Power & Energy' },
+    { id: 'automotive', label: 'Automobiles & EV' },
+    { id: 'textiles', label: 'Textiles' },
+    { id: 'electronics', label: 'Electronics & Electricals' },
+    { id: 'retail', label: 'Retail & Modern Commerce' },
+    { id: 'hospitality', label: 'Hospitality' },
+    { id: 'government', label: 'Government & PSU' }
   ];
 
   const filteredIndustries = industriesData.filter(ind => {
     const matchesCategory = activeCategory === 'all' || ind.category === activeCategory;
     const matchesSearch = ind.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           ind.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          ind.tagline.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           ind.roles.some(r => r.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
@@ -150,11 +156,14 @@ export default function Industries() {
           <div className="breadcrumbs">
             <Link to="/">Home</Link>
             <span className="divider">&rsaquo;</span>
-            <span>Industry Sectors</span>
+            <span>Industries We Serve</span>
           </div>
-          <h1 className="page-hero-title">Industrial Practices &amp; Sector Intelligence</h1>
+          <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
+            05 — INDUSTRIES WE SERVE
+          </span>
+          <h1 className="page-hero-title">Expertise Across India’s Growth Industries.</h1>
           <p className="page-hero-subtitle">
-            We concentrate our executive search capabilities exclusively on core engineering, automation, energy, and process manufacturing ecosystems.
+            Our sector-focused teams understand the unique workforce, operational and compliance requirements of different industries across India.
           </p>
         </div>
       </section>
@@ -180,7 +189,7 @@ export default function Industries() {
                     background: activeCategory === cat.id ? 'var(--color-primary)' : '#ffffff',
                     color: activeCategory === cat.id ? '#ffffff' : 'var(--color-text-dark)',
                     fontWeight: '600',
-                    fontSize: '14px',
+                    fontSize: '13.5px',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease'
                   }}
@@ -195,7 +204,7 @@ export default function Industries() {
               <Search size={18} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
               <input 
                 type="text"
-                placeholder="Search sector or role..."
+                placeholder="Search sectors, skills or roles..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 style={{
@@ -245,12 +254,18 @@ export default function Industries() {
 
                     {/* Card Content */}
                     <div style={{ padding: '24px 26px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                         <div style={{ width: '42px', height: '42px', borderRadius: '10px', background: 'rgba(196, 154, 69, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9a6a2f', flexShrink: 0 }}>
                           <IconComponent size={22} />
                         </div>
-                        <h3 style={{ fontSize: '18px', color: '#0c1e33', fontWeight: '800', margin: 0, lineHeight: 1.3 }}>{ind.name}</h3>
+                        <div>
+                          <h3 style={{ fontSize: '18px', color: '#0c1e33', fontWeight: '800', margin: 0, lineHeight: 1.3 }}>{ind.name}</h3>
+                        </div>
                       </div>
+
+                      <p style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-accent)', marginBottom: '8px' }}>
+                        {ind.tagline}
+                      </p>
 
                       <p style={{ fontSize: '13.5px', color: '#475569', lineHeight: '1.6', marginBottom: '20px', flexGrow: 1 }}>
                         {ind.description}
@@ -258,7 +273,7 @@ export default function Industries() {
 
                       <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px', marginTop: 'auto' }}>
                         <div style={{ fontSize: '11.5px', fontWeight: '800', textTransform: 'uppercase', color: '#9a6a2f', marginBottom: '8px', letterSpacing: '0.8px' }}>
-                          Typical Placements:
+                          Key Roles Deployed:
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 18px 0', fontSize: '13px', color: '#1e293b', lineHeight: '1.75' }}>
                           {ind.roles.map((r, i) => (
@@ -269,8 +284,8 @@ export default function Industries() {
                           ))}
                         </ul>
 
-                        <Link to="/contact" className="btn btn-outline-primary" style={{ width: '100%', justifyContent: 'center', padding: '10px', borderRadius: '6px', fontWeight: '700' }}>
-                          <span>Commission Mandate</span>
+                        <Link to={`/contact?industry=${encodeURIComponent(ind.name)}`} className="btn btn-outline-primary" style={{ width: '100%', justifyContent: 'center', padding: '10px', borderRadius: '6px', fontWeight: '700' }}>
+                          <span>Request Workforce Solutions</span>
                           <ArrowRight size={14} />
                         </Link>
                       </div>

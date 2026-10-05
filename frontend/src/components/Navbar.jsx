@@ -61,13 +61,13 @@ export default function Navbar() {
           <div className="header-wrapper">
             
             {/* Brand Wordmark */}
-            <Link to="/" className="brand-logo" aria-label="MCP CONSULTANTS Home">
+            <Link to="/" className="brand-logo" aria-label="MCP GROUP Home">
               <div className="brand-text">
                 <div className="brand-name">
-                  MCP <span className="highlight">CONSULTANTS</span>
+                  MCP <span className="highlight">GROUP</span>
                 </div>
                 <div className="brand-tagline">
-                  TALENT • PEOPLE • GROWTH
+                  Empowering People • Powering Businesses
                 </div>
               </div>
             </Link>
@@ -103,7 +103,7 @@ export default function Navbar() {
                     <ChevronDown size={13} className="nav-chevron" />
                   </NavLink>
 
-                  {/* Dropdown Menu matching Reference Design */}
+                  {/* Dropdown Menu - 7 Core MCP Group Verticals */}
                   <div className={`nav-services-dropdown ${servicesDropdownOpen ? 'open' : ''}`}>
                     <div 
                       className="dropdown-item has-submenu"
@@ -124,7 +124,7 @@ export default function Navbar() {
                           Recruitment (IT &amp; Non-IT)
                         </Link>
                         <Link to="/services?service=workforce-management&sub=naps" className="submenu-link-item">
-                          NAPS
+                          NAPS Apprenticeship
                         </Link>
                         <Link to="/services?service=workforce-management&sub=payroll" className="submenu-link-item">
                           Payroll Management
@@ -132,20 +132,23 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    <Link to="/services?service=power-sector" className="dropdown-link-row">
-                      <span>Power Sector</span>
-                    </Link>
-                    <Link to="/services?service=retail-ev" className="dropdown-link-row">
-                      <span>Retail &amp; EV</span>
-                    </Link>
-                    <Link to="/services?service=hospitality" className="dropdown-link-row">
-                      <span>Hospitality</span>
-                    </Link>
-                    <Link to="/services?service=skill-development" className="dropdown-link-row">
-                      <span>Skill Development &amp; Education</span>
+                    <Link to="/services?service=hr-services" className="dropdown-link-row">
+                      <span>Human Resource Services</span>
                     </Link>
                     <Link to="/services?service=facility-management" className="dropdown-link-row">
-                      <span>Facility Management &amp; BPO</span>
+                      <span>Facility Management</span>
+                    </Link>
+                    <Link to="/services?service=bpo-solutions" className="dropdown-link-row">
+                      <span>BPO &amp; Business Process</span>
+                    </Link>
+                    <Link to="/services?service=skill-development" className="dropdown-link-row">
+                      <span>Skill Development</span>
+                    </Link>
+                    <Link to="/services?service=education" className="dropdown-link-row">
+                      <span>Education Solutions</span>
+                    </Link>
+                    <Link to="/services?service=compliance-management" className="dropdown-link-row">
+                      <span>Compliance Management</span>
                     </Link>
                   </div>
                 </li>
@@ -202,9 +205,9 @@ export default function Navbar() {
           <div className="brand-logo mobile-brand">
             <div className="brand-text">
               <div className="brand-name" style={{ fontSize: '18px' }}>
-                MCP <span className="highlight">CONSULTANTS</span>
+                MCP <span className="highlight">GROUP</span>
               </div>
-              <div className="brand-tagline">TALENT • PEOPLE • GROWTH</div>
+              <div className="brand-tagline">Empowering People • Powering Businesses</div>
             </div>
           </div>
 

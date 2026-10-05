@@ -32,8 +32,10 @@ exports.postHiring = async (req, res) => {
       email: data.email || '',
       phone: data.phone || '',
       company: data.company || 'Confidential Client',
-      sector: data.sector || 'Executive Search & Leadership',
-      leadership_level: data.leadership_level || 'Senior Leadership Mandate',
+      service_type: data.service_type || 'Workforce Management',
+      sector: data.sector || 'Industrial & Corporate',
+      workforce_size: data.workforce_size || '',
+      leadership_level: data.leadership_level || 'General Workforce / Staffing',
       notes: data.notes || data.message || '',
       doc_filename: savedDocFilename,
       doc_original_name: originalDocName
@@ -53,23 +55,23 @@ exports.postHiring = async (req, res) => {
 
     // Trigger instant email alert to the recruitment team
     sendNotificationEmail({
-      subject: `🚨 [New Mandate] ${data.leadership_level || 'Leadership'} Search - ${data.company || 'Enterprise Client'}`,
+      subject: `🚨 [New Client Inquiry] ${data.service_type || data.leadership_level || 'Workforce Solution'} - ${data.company || 'Enterprise Client'}`,
       html: `
         <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
           <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <div style="background: #0b1a2f; padding: 20px 24px; border-bottom: 3px solid #c49a45;">
-              <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP CONSULTANTS</h2>
-              <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">New Leadership Search Mandate</p>
+              <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP GROUP</h2>
+              <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">New Workforce &amp; Staffing Inquiry</p>
             </div>
             <div style="padding: 24px;">
-              <p style="font-size: 16px; margin-top: 0;">A client has submitted a new executive hiring mandate via the website:</p>
+              <p style="font-size: 16px; margin-top: 0;">A client has submitted a new workforce requirement via the website:</p>
               <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b; width: 140px;"><strong>Client Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.name)}</td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Company:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold;">${escapeHtml(data.company)}</td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Work Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="mailto:${escapeHtml(data.email)}" style="color: #0b1a2f;">${escapeHtml(data.email)}</a></td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><a href="tel:${escapeHtml(data.phone)}" style="color: #0b1a2f;">${escapeHtml(data.phone || 'N/A')}</a></td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Industry Sector:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.sector)}</td></tr>
-                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Role Level:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #c49a45; font-weight: bold;">${escapeHtml(data.leadership_level)}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Service Required:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #002b66; font-weight: bold;">${escapeHtml(data.service_type || 'Workforce Management')}</td></tr>
+                <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Workforce Scale:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #c49a45; font-weight: bold;">${escapeHtml(data.workforce_size || 'N/A')}</td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Notes:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(data.notes || 'None')}</td></tr>
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Attached Document:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${savedDocFilename ? '📎 ' + escapeHtml(originalDocName || savedDocFilename) + ' (Attached to this email)' : 'No file attached'}</td></tr>
               </table>
@@ -152,7 +154,7 @@ exports.postCandidate = async (req, res) => {
         <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
           <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <div style="background: #0b1a2f; padding: 20px 24px; border-bottom: 3px solid #c49a45;">
-              <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP CONSULTANTS</h2>
+              <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP GROUP</h2>
               <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">New Candidate Profile &amp; Attached CV</p>
             </div>
             <div style="padding: 24px;">
@@ -232,7 +234,7 @@ exports.postInquiry = async (req, res) => {
         <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px; color: #0b1a2f;">
           <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <div style="background: #0b1a2f; padding: 20px 24px; border-bottom: 3px solid #c49a45;">
-              <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP CONSULTANTS</h2>
+              <h2 style="color: #ffffff; margin: 0; font-size: 20px; letter-spacing: 0.5px;">MCP GROUP</h2>
               <p style="color: #c49a45; margin: 4px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">General Contact Inquiry</p>
             </div>
             <div style="padding: 24px;">

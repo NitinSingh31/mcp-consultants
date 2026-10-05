@@ -14,42 +14,51 @@ export default function Footer() {
           <div className="footer-brand">
             <Link to="/" className="brand-logo footer-logo">
               <div className="brand-text">
-                <span className="brand-name">MCP <span className="highlight">CONSULTANTS</span></span>
-                <span className="brand-tagline">TALENT • PEOPLE • GROWTH</span>
+                <span className="brand-name">MCP <span className="highlight">GROUP</span></span>
+                <span className="brand-tagline">Empowering People. Powering Businesses. Building India.</span>
               </div>
             </Link>
             <p className="footer-desc">
-              Pioneering executive search and leadership talent advisory across India’s core engineering, industrial automation, and manufacturing sectors.
+              Founded in 2007 in Chandigarh, MCP Group is an ISO 9001:2008 certified Human Resource and Workforce Management organization with nearly 50,000 associates and 500+ clients across India.
             </p>
-            <div style={{ marginTop: '16px' }}>
-              <Link to="/admin" style={{ fontSize: '12px', color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '0.05em' }}>
+                <Shield size={14} />
+                <span>ISO 9001:2008 CERTIFIED ORGANIZATION</span>
+              </div>
+              <Link to="/admin" style={{ fontSize: '12px', color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <span>Executive Practice Portal (Admin)</span>
-                <ArrowUpRight size={14} />
+                <ArrowUpRight size={13} />
               </Link>
             </div>
           </div>
 
-          {/* Column 2: Core Practices */}
+          {/* Column 2: Core Solutions */}
           <div>
-            <h4 className="footer-heading">Services</h4>
+            <h4 className="footer-heading">Our Solutions</h4>
             <ul className="footer-nav-list">
-              <li><Link to="/services#executive-search">Executive Search</Link></li>
-              <li><Link to="/services#fractional-cxo">Fractional CXO &amp; Interim</Link></li>
-              <li><Link to="/services#board-advisory">Board Advisory &amp; Governance</Link></li>
-              <li><Link to="/services#talent-advisory">Talent Diagnostics &amp; Audit</Link></li>
+              <li><Link to="/services?service=workforce-management">Workforce Management</Link></li>
+              <li><Link to="/services?service=hr-services">Human Resource Services</Link></li>
+              <li><Link to="/services?service=facility-management">Facility Management</Link></li>
+              <li><Link to="/services?service=bpo-solutions">BPO &amp; Business Process</Link></li>
+              <li><Link to="/services?service=skill-development">Skill Development</Link></li>
+              <li><Link to="/services?service=education">Education Solutions</Link></li>
+              <li><Link to="/services?service=compliance-management">Compliance Management</Link></li>
             </ul>
           </div>
 
           {/* Column 3: Industries */}
           <div>
-            <h4 className="footer-heading">Industries</h4>
+            <h4 className="footer-heading">Industries We Serve</h4>
             <ul className="footer-nav-list">
-              <li><Link to="/industries">Heavy Manufacturing &amp; EPC</Link></li>
-              <li><Link to="/industries">Industrial Automation &amp; Robotics</Link></li>
-              <li><Link to="/industries">Automotive &amp; Electric Mobility</Link></li>
               <li><Link to="/industries">Pharmaceuticals &amp; Life Sciences</Link></li>
-              <li><Link to="/industries">Textiles &amp; Technical Fabrics</Link></li>
-              <li><Link to="/industries">Renewables, Power &amp; Chemicals</Link></li>
+              <li><Link to="/industries">Power &amp; Energy</Link></li>
+              <li><Link to="/industries">Automobiles &amp; EV</Link></li>
+              <li><Link to="/industries">Textiles &amp; Manufacturing</Link></li>
+              <li><Link to="/industries">Electronics &amp; Electricals</Link></li>
+              <li><Link to="/industries">Retail &amp; Modern Commerce</Link></li>
+              <li><Link to="/industries">Hospitality</Link></li>
+              <li><Link to="/industries">Government &amp; Public Sector</Link></li>
             </ul>
           </div>
 
@@ -60,7 +69,7 @@ export default function Footer() {
               
               <div className="footer-contact-item">
                 <MapPin size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                <span><strong>Head Office:</strong> 4579 B, Sector 70, Mohali, Punjab</span>
+                <span><strong>Head Office:</strong> 4579 B, Sector 70, Mohali, Punjab (Chandigarh Tricity)</span>
               </div>
 
               <div className="footer-contact-item">
@@ -95,10 +104,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <div>
-            &copy; {new Date().getFullYear()} MCP CONSULTANTS. All rights reserved. Grounded in industrial excellence.
+            &copy; {new Date().getFullYear()} MCP GROUP. All rights reserved. Empowering People. Powering Businesses. Building India.
           </div>
           <div className="footer-legal-links">
-            <Link to="/about">About Firm</Link>
+            <Link to="/about">About Group</Link>
             <span>|</span>
             <Link to="/contact">Privacy Policy</Link>
             <span>|</span>

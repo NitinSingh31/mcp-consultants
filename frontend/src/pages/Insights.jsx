@@ -1,36 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, Download, TrendingUp, BookOpen, ArrowRight } from 'lucide-react';
+import { FileText, Download, TrendingUp, BookOpen, ArrowRight, ShieldCheck, Users, Award } from 'lucide-react';
 
 export default function Insights() {
   const reports = [
     {
-      title: "India CXO Remuneration & Incentive Trends 2026",
-      category: "Compensation Benchmarking",
+      title: "India Statutory Compliance & Labor Law Landscape 2026",
+      category: "Statutory Compliance",
       date: "Q2 2026",
-      description: "Comprehensive executive compensation analysis across 180+ listed manufacturing conglomerates. Covers long-term incentive plans (LTIPs), phantom stocks, and retention structures.",
-      readTime: "18 min read"
+      description: "An operational guide to navigating the 4 Labor Codes, Contract Labour (R&A) Act, EPF, ESIC, and minimum wage variations across industrial manufacturing corridors.",
+      readTime: "16 min read"
     },
     {
-      title: "The Industrial COO: Navigating Smart Manufacturing & Automation",
-      category: "Operational Leadership",
+      title: "Pharmaceutical & Cleanroom Staffing: Technical Competency & cGMP Compliance",
+      category: "Pharmaceuticals",
       date: "Q1 2026",
-      description: "How top industrial Chief Operating Officers are integrating automated guided vehicles, predictive maintenance, and decarbonization to double EBITDA margins.",
+      description: "How leading pharma formulation and API manufacturing units in Baddi, Mohali, and Hyderabad achieve zero-deviation staffing in sterile environments.",
+      readTime: "14 min read"
+    },
+    {
+      title: "Power, EV & Green Energy: Addressing the Industrial Technical Deficit",
+      category: "Energy & Mobility",
+      date: "Market Whitepaper",
+      description: "Deep dive into multi-state workforce mobilization, high-voltage certified technician deployment, and retention strategies for wind, solar, and EV battery plants.",
       readTime: "12 min read"
     },
     {
-      title: "Board Succession in Promoted & Family-Run Conglomerates",
-      category: "Board Governance",
-      date: "Annual Whitepaper",
-      description: "Best practices for smooth generational transitions, structuring advisory councils, and hiring the first non-family Chief Executive Officer.",
+      title: "Next-Gen Facility Management: SLA Engineering & Industrial Safety",
+      category: "Facility Management",
+      date: "Annual Study",
+      description: "Examining how mechanized cleaning, IoT-driven asset maintenance, and integrated EHS protocols reduce industrial downtime and enhance compliance audits.",
       readTime: "15 min read"
     },
     {
-      title: "Renewable Energy & Battery Storage: C-Suite Talent Scarcity",
-      category: "CleanTech Leadership",
-      date: "Market Intelligence",
-      description: "An in-depth talent market report exploring executive compensation, cross-industry hiring, and global talent repatriation in solar, wind, and green hydrogen.",
-      readTime: "10 min read"
+      title: "Apprenticeship Models (NAPS/NATS) for High-Volume Manufacturing",
+      category: "Skill Development",
+      date: "Special Brief",
+      description: "Frameworks for bridging the skill gap in precision fabrication, textiles, and automotive assembly through government-certified apprenticeship programs.",
+      readTime: "11 min read"
+    },
+    {
+      title: "Boardroom & Plant Leadership Succession in Indian Conglomerates",
+      category: "HR & Leadership Advisory",
+      date: "Leadership Advisory",
+      description: "Best practices for smooth leadership transitions, hiring unit heads, and aligning operational leadership with long-term enterprise growth.",
+      readTime: "13 min read"
     }
   ];
 
@@ -45,22 +59,25 @@ export default function Insights() {
             <span className="divider">&rsaquo;</span>
             <span>Insights &amp; Whitepapers</span>
           </div>
-          <h1 className="page-hero-title">Executive Insights &amp; Market Intelligence</h1>
+          <h1 className="page-hero-title">Workforce Insights &amp; Compliance Intelligence</h1>
           <p className="page-hero-subtitle">
-            Authoritative whitepapers, compensation benchmarks, and boardroom succession research produced by our industry practice leaders.
+            Authoritative whitepapers, statutory compliance guides, and workforce benchmarks produced by MCP Group's 19+ years of industry practice leadership.
           </p>
         </div>
       </section>
 
       {/* Reports Grid */}
-      <section style={{ padding: '80px 0' }}>
+      <section style={{ padding: '80px 0', background: 'var(--color-bg-light)' }}>
         <div className="container">
           <div className="section-header text-center">
-            <span className="section-tag">FLAGSHIP STUDIES</span>
-            <h2 className="section-title">Leadership Research &amp; Salary Surveys</h2>
+            <span className="section-tag">MCP GROUP KNOWLEDGE REPOSITORY</span>
+            <h2 className="section-title">Industry Research, Compliance &amp; Operational Benchmarks</h2>
+            <p className="section-subtitle" style={{ maxWidth: '720px', margin: '14px auto 0' }}>
+              Actionable insights derived from deploying and managing 50,000+ associates across 500+ enterprise clients nationwide.
+            </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '30px', marginTop: '40px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '30px', marginTop: '48px' }}>
             {reports.map((rep, i) => (
               <div key={i} style={{ background: '#ffffff', padding: '32px', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-light)', boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
@@ -79,7 +96,7 @@ export default function Insights() {
                 <div style={{ borderTop: '1px solid var(--color-border-light)', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>{rep.readTime}</span>
                   <Link to="/contact" className="btn-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: 'var(--color-accent)', fontWeight: '700', fontSize: '13px' }}>
-                    <span>Request Study Copy</span>
+                    <span>Request Copy</span>
                     <ArrowRight size={14} />
                   </Link>
                 </div>

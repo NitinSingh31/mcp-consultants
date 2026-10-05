@@ -47,6 +47,8 @@ export default function Contact({ defaultTab }) {
     phone: '',
     email: '',
     company: '',
+    service_type: 'Workforce Management',
+    workforce_size: '50-200 Associates',
     notes: '',
     docFile: null
   });
@@ -96,9 +98,11 @@ export default function Contact({ defaultTab }) {
       formData.append('name', hiringForm.name);
       formData.append('email', hiringForm.email);
       formData.append('phone', hiringForm.phone);
-      formData.append('company', hiringForm.company || 'Confidential Enterprise');
-      formData.append('sector', 'Executive Search & Leadership Advisory');
-      formData.append('leadership_level', 'Executive Search Mandate');
+      formData.append('company', hiringForm.company || 'Enterprise Client');
+      formData.append('service_type', hiringForm.service_type || 'Workforce Management');
+      formData.append('workforce_size', hiringForm.workforce_size || '');
+      formData.append('sector', 'Industrial & Corporate');
+      formData.append('leadership_level', hiringForm.service_type || 'Workforce Solutions');
       formData.append('notes', hiringForm.notes);
       if (hiringForm.docFile) {
         formData.append('cv', hiringForm.docFile);
@@ -111,8 +115,8 @@ export default function Contact({ defaultTab }) {
       const data = await res.json();
       if (data.success) {
         setModalData({
-          title: 'Mandate Registered Successfully',
-          message: `Thank you, ${hiringForm.name}. Your mandate requirement${hiringForm.company ? ` for ${hiringForm.company}` : ''} has been confidentially recorded. A Senior Practice Partner will contact you within 24 business hours.`
+          title: 'Inquiry Registered Successfully',
+          message: `Thank you, ${hiringForm.name}. Your workforce requirement${hiringForm.company ? ` for ${hiringForm.company}` : ''} has been recorded. An MCP Group practice lead will contact you within 24 business hours.`
         });
         setModalOpen(true);
         setHiringForm({
@@ -120,11 +124,13 @@ export default function Contact({ defaultTab }) {
           phone: '',
           email: '',
           company: '',
+          service_type: 'Workforce Management',
+          workforce_size: '50-200 Associates',
           notes: '',
           docFile: null
         });
       } else {
-        alert(data.error || 'Failed to submit mandate inquiry.');
+        alert(data.error || 'Failed to submit inquiry.');
       }
     } catch (err) {
       console.error(err);
@@ -515,6 +521,46 @@ export default function Contact({ defaultTab }) {
                       value={hiringForm.company}
                       onChange={e => setHiringForm({ ...hiringForm, company: e.target.value })}
                     />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Service Required
+                    </label>
+                    <select 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={hiringForm.service_type}
+                      onChange={e => setHiringForm({ ...hiringForm, service_type: e.target.value })}
+                    >
+                      <option value="Workforce Management">Workforce Management</option>
+                      <option value="HR Services & Executive Search">HR Services & Executive Search</option>
+                      <option value="Facility Management">Facility Management</option>
+                      <option value="BPO & Business Process Outsourcing">BPO & Business Process Outsourcing</option>
+                      <option value="Skill Development & Training">Skill Development & Training</option>
+                      <option value="Education Solutions">Education Solutions</option>
+                      <option value="Compliance Management">Compliance Management</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#0f172a', marginBottom: '8px' }}>
+                      Estimated Workforce / Scale
+                    </label>
+                    <select 
+                      className="contact-input-field"
+                      style={inputStyle}
+                      value={hiringForm.workforce_size}
+                      onChange={e => setHiringForm({ ...hiringForm, workforce_size: e.target.value })}
+                    >
+                      <option value="10-50 Associates">10 - 50 Associates</option>
+                      <option value="50-200 Associates">50 - 200 Associates</option>
+                      <option value="200-500 Associates">200 - 500 Associates</option>
+                      <option value="500-1000+ Associates">500 - 1000+ Associates</option>
+                      <option value="Leadership / Specialist Mandate">Leadership / Specialist Mandate</option>
+                      <option value="General Enterprise Advisory">General Enterprise Advisory</option>
+                    </select>
                   </div>
                 </div>
 
