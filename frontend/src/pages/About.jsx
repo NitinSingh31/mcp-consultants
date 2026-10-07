@@ -141,7 +141,7 @@ export default function About() {
             
             {/* Left Narrative */}
             <div className="about-narrative-text">
-              <span className="section-tag">01 — WHO WE ARE</span>
+              <span className="section-tag">WHO WE ARE</span>
               <h2 className="section-title" style={{ fontSize: '34px', marginBottom: '20px', lineHeight: 1.25 }}>
                 Building India’s Workforce. Strengthening India’s Businesses.
               </h2>
@@ -237,7 +237,7 @@ export default function About() {
         <div className="container">
           
           <div className="section-header text-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <span className="section-tag" style={{ color: 'var(--color-accent)' }}>02 &amp; 03 — STRATEGIC ANCHORS</span>
+            <span className="section-tag" style={{ color: 'var(--color-accent)' }}>STRATEGIC ANCHORS</span>
             <h2 className="section-title" style={{ color: '#ffffff' }}>Our Vision &amp; Our Mission</h2>
             <p className="section-subtitle" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
               The foundational convictions guiding every workforce deployment, partnership, and operational standard
@@ -250,7 +250,7 @@ export default function About() {
             <div className="vm-card">
               <div className="vm-badge">
                 <Compass size={16} />
-                <span>02 — OUR VISION</span>
+                <span>OUR VISION</span>
               </div>
               <h3 className="vm-title">To Become India’s Most Trusted Workforce &amp; Business Solutions Partner</h3>
               <p className="vm-statement">
@@ -284,7 +284,7 @@ export default function About() {
             <div className="vm-card">
               <div className="vm-badge">
                 <Target size={16} />
-                <span>03 — OUR MISSION</span>
+                <span>OUR MISSION</span>
               </div>
               <h3 className="vm-title">People at the Centre. Excellence in Everything.</h3>
               <p className="vm-statement">
@@ -325,7 +325,7 @@ export default function About() {
         <div className="container">
           
           <div className="section-header text-center" style={{ maxWidth: '780px', margin: '0 auto 48px' }}>
-            <span className="section-tag">07 — OUR LEADERSHIP</span>
+            <span className="section-tag">OUR LEADERSHIP</span>
             <h2 className="section-title">Leadership With Vision. Growth With Purpose.</h2>
             <p className="section-subtitle">
               Pioneering a professionally managed, people-centric workforce organization
@@ -401,7 +401,7 @@ export default function About() {
       <section style={{ padding: '80px 0', background: 'var(--color-bg-light)' }}>
         <div className="container">
           <div className="section-header text-center" style={{ maxWidth: '780px', margin: '0 auto 56px' }}>
-            <span className="section-tag">08 — OUR JOURNEY</span>
+            <span className="section-tag">OUR JOURNEY</span>
             <h2 className="section-title">From Chandigarh to a Pan-India Workforce Network</h2>
             <p className="section-subtitle">
               Nearly two decades of consistent growth, continuous innovation, and enduring client partnerships
@@ -441,7 +441,7 @@ export default function About() {
         <div className="container">
           
           <div className="section-header text-center" style={{ maxWidth: '820px', margin: '0 auto 20px' }}>
-            <span className="section-tag">06 — WHY MCP</span>
+            <span className="section-tag">WHY MCP</span>
             <h2 className="section-title">Why Leading Organizations Choose MCP</h2>
             <p className="section-desc">
               Organizations today need more than people. They need speed, compliance, technology, reliability and strategic workforce thinking.
@@ -470,7 +470,7 @@ export default function About() {
       <section style={{ padding: '80px 0', backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
         <div className="container">
           <div className="section-header text-center" style={{ maxWidth: '750px', margin: '0 auto 40px' }}>
-            <span className="section-tag">10 — QUALITY &amp; COMPLIANCE</span>
+            <span className="section-tag">QUALITY &amp; COMPLIANCE</span>
             <h2 className="section-title">Built on Trust. Driven by Compliance.</h2>
             <p className="section-desc">
               MCP Group follows structured processes designed to deliver consistent quality and operational reliability.
@@ -542,7 +542,7 @@ export default function About() {
             
             {/* The MCP Difference */}
             <div>
-              <span className="section-tag">12 — THE MCP DIFFERENCE</span>
+              <span className="section-tag">THE MCP DIFFERENCE</span>
               <h2 className="section-title" style={{ fontSize: '32px', marginBottom: '16px' }}>
                 More Than Manpower.
               </h2>
@@ -572,7 +572,7 @@ export default function About() {
 
             {/* Partnership Promise */}
             <div style={{ background: '#ffffff', padding: '36px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 8px 24px rgba(0,0,0,0.05)' }}>
-              <span className="section-tag">13 — OUR PARTNERSHIP PROMISE</span>
+              <span className="section-tag">OUR PARTNERSHIP PROMISE</span>
               <h3 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-primary)', margin: '8px 0 16px 0' }}>
                 Your Workforce. Our Responsibility.
               </h3>

@@ -159,7 +159,7 @@ export default function Industries() {
             <span>Industries We Serve</span>
           </div>
           <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
-            05 — INDUSTRIES WE SERVE
+            INDUSTRIES WE SERVE
           </span>
           <h1 className="page-hero-title">Expertise Across India’s Growth Industries.</h1>
           <p className="page-hero-subtitle">

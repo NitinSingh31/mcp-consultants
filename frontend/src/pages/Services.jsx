@@ -642,7 +642,7 @@ export default function Services() {
                 <span>Our Services</span>
               </div>
               <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
-                04 — WHAT WE DO
+                WHAT WE DO
               </span>
               <h1 className="page-hero-title">One Group. Multiple Solutions. One Standard of Excellence.</h1>
               <p className="page-hero-subtitle">

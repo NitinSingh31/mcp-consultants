@@ -342,7 +342,7 @@ export default function Home() {
 
             {/* Right Column: Narrative & 4 Pillars */}
             <div className="about-demo-content-col">
-              <span className="about-demo-tag">01 — WHO WE ARE</span>
+              <span className="about-demo-tag">WHO WE ARE</span>
               <h2 className="about-demo-title">
                 Building India’s Workforce. Strengthening India’s Businesses.
               </h2>
@@ -430,7 +430,7 @@ export default function Home() {
           
           <div className="our-services-home-header">
             <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
-              04 — WHAT WE DO
+              WHAT WE DO
             </span>
             <h2 className="our-services-home-title">One Group. Multiple Solutions. One Standard of Excellence.</h2>
             <p style={{ color: '#BAC7D5', maxWidth: '750px', margin: '12px auto 0', fontSize: '15px' }}>
@@ -562,7 +562,7 @@ export default function Home() {
         <div className="container">
           
           <div className="section-header text-center" style={{ maxWidth: '820px', margin: '0 auto 48px' }}>
-            <span className="section-tag">06 — WHY MCP</span>
+            <span className="section-tag">WHY MCP</span>
             <h2 className="section-title">Why Leading Organizations Choose MCP</h2>
             <p className="section-desc">
               The workforce industry is changing. Organizations today need more than people — they need speed, compliance, technology, reliability and strategic workforce thinking.
@@ -629,7 +629,7 @@ export default function Home() {
         <div className="container">
           
           <div className="section-header text-center" style={{ maxWidth: '800px', margin: '0 auto 48px' }}>
-            <span className="section-tag">05 — INDUSTRIES WE SERVE</span>
+            <span className="section-tag">INDUSTRIES WE SERVE</span>
             <h2 className="section-title">Expertise Across India’s Growth Industries</h2>
             <p className="section-desc">
               Our sector-focused teams understand the unique workforce, operational and compliance requirements of different industries.
@@ -671,7 +671,7 @@ export default function Home() {
       <section className="md-message-section" style={{ padding: '80px 0', background: 'var(--color-bg-light)' }}>
         <div className="container">
           <div className="section-header text-center" style={{ maxWidth: '780px', margin: '0 auto 48px' }}>
-            <span className="section-tag">07 — OUR LEADERSHIP</span>
+            <span className="section-tag">OUR LEADERSHIP</span>
             <h2 className="section-title">Leadership With Vision. Growth With Purpose.</h2>
           </div>
 
