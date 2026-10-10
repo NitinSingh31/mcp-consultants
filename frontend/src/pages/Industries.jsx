@@ -28,6 +28,7 @@ export default function Industries() {
       id: "pharmaceuticals",
       name: "Pharmaceuticals & Life Sciences",
       category: "pharma",
+      badge: "Pharmaceuticals",
       icon: Pill,
       image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
       tagline: "Specialized workforce solutions for one of India's most critical industries.",
@@ -38,6 +39,7 @@ export default function Industries() {
       id: "power-energy",
       name: "Power & Energy",
       category: "energy",
+      badge: "Power & Energy",
       icon: Zap,
       image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80",
       tagline: "Workforce and operational support for India's evolving energy sector.",
@@ -48,6 +50,7 @@ export default function Industries() {
       id: "automobiles-ev",
       name: "Automobiles & Electric Mobility",
       category: "automotive",
+      badge: "Automobiles & EV",
       icon: Truck,
       image: "/images/automobiles-electric-mobility.jpg",
       tagline: "Skilled manpower and workforce management for India's automotive ecosystem.",
@@ -58,6 +61,7 @@ export default function Industries() {
       id: "textiles-apparel",
       name: "Textiles & Manufacturing",
       category: "textiles",
+      badge: "Textiles & Manufacturing",
       icon: Shirt,
       image: "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=800&q=80",
       tagline: "Workforce solutions supporting India's textile and manufacturing industries.",
@@ -68,6 +72,7 @@ export default function Industries() {
       id: "electronics-electricals",
       name: "Electronics & Electricals",
       category: "electronics",
+      badge: "Electronics & Electricals",
       icon: Cpu,
       image: "/images/electronics-electricals.jpg",
       tagline: "Talent and workforce solutions for rapidly evolving technology-driven industries.",
@@ -78,6 +83,7 @@ export default function Industries() {
       id: "retail-ev",
       name: "Retail & Modern Commerce",
       category: "retail",
+      badge: "Retail & Commerce",
       icon: ShoppingBag,
       image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
       tagline: "Future-ready workforce solutions for India's expanding retail and modern commerce.",
@@ -88,6 +94,7 @@ export default function Industries() {
       id: "hospitality",
       name: "Hospitality & Corporate Facilities",
       category: "hospitality",
+      badge: "Hospitality & Facilities",
       icon: Users,
       image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
       tagline: "Professional manpower and operational support for hospitality businesses.",
@@ -98,6 +105,7 @@ export default function Industries() {
       id: "government-public-sector",
       name: "Government & Public Sector",
       category: "government",
+      badge: "Government & PSU",
       icon: ShieldCheck,
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
       tagline: "Compliance-driven workforce solutions for public-sector requirements.",
@@ -107,7 +115,8 @@ export default function Industries() {
     {
       id: "sheet-metal-fabrication",
       name: "Sheet Metal & Precision Fabrication",
-      category: "automotive",
+      category: "fabrication",
+      badge: "Precision Fabrication",
       icon: Settings,
       image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
       tagline: "Recruitment and technical staffing for high-output fabrication centers.",
@@ -117,7 +126,8 @@ export default function Industries() {
     {
       id: "heavy-engineering",
       name: "Heavy Engineering & Capital Goods",
-      category: "automotive",
+      category: "heavy-engineering",
+      badge: "Heavy Engineering",
       icon: Factory,
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
       tagline: "Workforce deployment for heavy capital goods and equipment manufacturing.",
@@ -135,7 +145,9 @@ export default function Industries() {
     { id: 'electronics', label: 'Electronics & Electricals' },
     { id: 'retail', label: 'Retail & Modern Commerce' },
     { id: 'hospitality', label: 'Hospitality' },
-    { id: 'government', label: 'Government & PSU' }
+    { id: 'government', label: 'Government & PSU' },
+    { id: 'fabrication', label: 'Precision Fabrication' },
+    { id: 'heavy-engineering', label: 'Heavy Engineering' }
   ];
 
   const filteredIndustries = industriesData.filter(ind => {
@@ -248,7 +260,7 @@ export default function Industries() {
                       
                       {/* Floating Sector Badge */}
                       <div style={{ position: 'absolute', top: '14px', right: '14px', background: 'rgba(12, 30, 51, 0.88)', backdropFilter: 'blur(8px)', color: '#dfb45e', padding: '4px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: '700', letterSpacing: '0.8px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.15)' }}>
-                        {categories.find(c => c.id === ind.category)?.label?.split(' ')[0] || 'Sector'}
+                        {ind.badge || categories.find(c => c.id === ind.category)?.label || 'Sector'}
                       </div>
                     </div>
 
