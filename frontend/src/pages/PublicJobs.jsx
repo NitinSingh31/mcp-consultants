@@ -100,7 +100,14 @@ export default function PublicJobs() {
       if (!matchesTitle && !matchesSkills) return false;
     }
     if (selectedLocation !== 'All') {
-      if (!j.locations || !j.locations.includes(selectedLocation)) return false;
+      if (!j.locations || j.locations.length === 0) return false;
+      const target = selectedLocation.toLowerCase().trim();
+      const matchesLoc = j.locations.some(loc => {
+        if (!loc) return false;
+        const clean = loc.toLowerCase().trim();
+        return clean.includes(target) || target.includes(clean);
+      });
+      if (!matchesLoc) return false;
     }
     if (selectedDepartment !== 'All') {
       if (j.department !== selectedDepartment) return false;
@@ -143,18 +150,70 @@ export default function PublicJobs() {
             />
           </div>
 
-          <div style={{ minWidth: '180px' }}>
+          <div style={{ minWidth: '220px' }}>
             <select
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
-              style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13.5px', backgroundColor: '#ffffff' }}
+              style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13.5px', backgroundColor: '#ffffff', color: '#0f172a' }}
             >
               <option value="All">All Locations</option>
-              <option value="Baddi">Baddi</option>
-              <option value="Mohali">Mohali</option>
-              <option value="Chandigarh">Chandigarh</option>
-              <option value="Pune">Pune</option>
-              <option value="Pan India">Pan India</option>
+
+              <optgroup label="Tricity & Northern Industrial Belt">
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Mohali">Mohali (SAS Nagar)</option>
+                <option value="Panchkula">Panchkula</option>
+                <option value="Baddi">Baddi (HP)</option>
+                <option value="Nalagarh">Nalagarh (HP)</option>
+                <option value="Solan">Solan (HP)</option>
+                <option value="Paonta Sahib">Paonta Sahib (HP)</option>
+                <option value="Kala Amb">Kala Amb (HP)</option>
+                <option value="Ludhiana">Ludhiana (Punjab)</option>
+                <option value="Jalandhar">Jalandhar (Punjab)</option>
+                <option value="Amritsar">Amritsar (Punjab)</option>
+                <option value="Haridwar">Haridwar (Uttarakhand)</option>
+                <option value="Dehradun">Dehradun (Uttarakhand)</option>
+                <option value="Pantnagar">Pantnagar / Rudrapur</option>
+              </optgroup>
+
+              <optgroup label="Delhi NCR & North">
+                <option value="Delhi NCR">Delhi NCR</option>
+                <option value="Gurugram">Gurugram / Gurgaon</option>
+                <option value="Noida">Noida / Greater Noida</option>
+                <option value="Faridabad">Faridabad</option>
+                <option value="Neemrana">Neemrana / Bhiwadi</option>
+                <option value="Jaipur">Jaipur (Rajasthan)</option>
+              </optgroup>
+
+              <optgroup label="Western & Central Hubs">
+                <option value="Mumbai">Mumbai</option>
+                <option value="Navi Mumbai">Navi Mumbai / Thane</option>
+                <option value="Pune">Pune (Chakan / Bhosari)</option>
+                <option value="Nashik">Nashik</option>
+                <option value="Aurangabad">Aurangabad (Chhatrapati Sambhajinagar)</option>
+                <option value="Ahmedabad">Ahmedabad (Sanand)</option>
+                <option value="Vadodara">Vadodara</option>
+                <option value="Surat">Surat</option>
+                <option value="Vapi">Vapi / Ankleshwar / Dahej</option>
+                <option value="Indore">Indore / Pithampur</option>
+                <option value="Bhopal">Bhopal</option>
+              </optgroup>
+
+              <optgroup label="Southern & Eastern Tech/Manufacturing">
+                <option value="Bengaluru">Bengaluru / Bangalore</option>
+                <option value="Hyderabad">Hyderabad / Secunderabad</option>
+                <option value="Chennai">Chennai / Sriperumbudur</option>
+                <option value="Hosur">Hosur</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Sri City">Sri City</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Visakhapatnam">Visakhapatnam</option>
+                <option value="Kolkata">Kolkata</option>
+              </optgroup>
+
+              <optgroup label="Flexible & Nationwide">
+                <option value="Pan India">Pan India</option>
+                <option value="Remote">Remote / Hybrid</option>
+              </optgroup>
             </select>
           </div>
 
