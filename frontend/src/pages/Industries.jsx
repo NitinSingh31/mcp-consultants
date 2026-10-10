@@ -49,7 +49,7 @@ export default function Industries() {
       name: "Automobiles & Electric Mobility",
       category: "automotive",
       icon: Truck,
-      image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80",
+      image: "/images/automobiles-electric-mobility.jpg",
       tagline: "Skilled manpower and workforce management for India's automotive ecosystem.",
       description: "Supporting OEM assembly lines, Tier-1 ancillary vendors, press shop tooling, robotic paint booths, and next-generation EV battery pack assembly with trained associates.",
       roles: ["Assembly Line Operators", "CNC & Press Tooling Supervisors", "EV Battery Pack Technicians", "Quality Inspectors (PDI/Line)"]
@@ -69,7 +69,7 @@ export default function Industries() {
       name: "Electronics & Electricals",
       category: "electronics",
       icon: Cpu,
-      image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
+      image: "/images/electronics-electricals.jpg",
       tagline: "Talent and workforce solutions for rapidly evolving technology-driven industries.",
       description: "Supplying precision assembly staff for Surface Mount Technology (SMT) cleanrooms, consumer electronics manufacturing, switchgear production, and PCB component soldering.",
       roles: ["SMT & PCB Assembly Associates", "Testing & Calibration Techs", "Component Sourcing Leads", "Electro-Mechanical QA Officers"]

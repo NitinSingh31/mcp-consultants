@@ -87,9 +87,9 @@ export default function Home() {
   const industrySectors = [
     { name: "Pharmaceuticals", icon: Factory, placements: "Formulation, API & QA/QC", image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" },
     { name: "Power & Energy", icon: Zap, placements: "Transmission, Solar, O&M", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80" },
-    { name: "Automobiles & EV", icon: Settings, placements: "Assembly, Tooling & EV Tech", image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" },
+    { name: "Automobiles & EV", icon: Settings, placements: "Assembly, Tooling & EV Tech", image: "/images/automobiles-electric-mobility.jpg" },
     { name: "Textiles & Manufacturing", icon: Layers, placements: "Spinning, Apparel & Plant Ops", image: "https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=600&q=80" },
-    { name: "Electronics & Electricals", icon: Cpu, placements: "Hardware, SMT & Tech Talent", image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80" },
+    { name: "Electronics & Electricals", icon: Cpu, placements: "Hardware, SMT & Tech Talent", image: "/images/electronics-electricals.jpg" },
     { name: "Retail & EV", icon: TrendingUp, placements: "Store Ops, Logistics & Mobility", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" },
     { name: "Hospitality", icon: Users, placements: "Guest Relations & Operations", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" },
     { name: "Government & Public Sector", icon: ShieldCheck, placements: "Compliance-Driven Manpower", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" }
