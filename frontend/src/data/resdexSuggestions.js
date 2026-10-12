@@ -2598,30 +2598,193 @@ export const COMPANIES_DATABASE = [
 // INDUSTRIES DATABASE (Covering Comprehensive Industrial Practices)
 // =========================================================================
 export const INDUSTRIES_DATABASE = [
-  { name: 'Heavy Engineering & Capital Goods', tags: 'Boilers, Pressure Vessels, Turbines, Heat Exchangers' },
-  { name: 'Automotive & Electric Vehicles (EV)', tags: 'OEMs, Tier-1, Battery Packs, Powertrains, EV Charging' },
-  { name: 'Steel, Metallurgy & Foundry Casting', tags: 'Blast Furnace, Rolling Mills, Forging, Induction Melting' },
-  { name: 'Renewable Energy, Solar & CleanTech', tags: 'Solar PV, Wind Turbines, Green Hydrogen, Energy Storage' },
-  { name: 'Aerospace & Defence Manufacturing', tags: 'Avionics, Composites, Defence Offsets, UAV Systems' },
-  { name: 'Industrial Automation, Robotics & SCADA', tags: 'PLC, SCADA, Cobots, Industry 4.0, IIoT, Drives' },
-  { name: 'Power Generation, Transmission & Distribution', tags: 'Thermal, Hydro, Substations, HV Switchgear, Grid' },
-  { name: 'Chemicals, Specialty Chemicals & Petrochemicals', tags: 'Refining, Polymers, Fertilizers, Chlor-Alkali' },
-  { name: 'Infrastructure, PEB & Construction Equipment', tags: 'Pre-Engineered Buildings, Earthmoving, Metro EPC' },
-  { name: 'Precision Tooling, Dies & CNC Machining', tags: 'VMC, 5-Axis, Moulds, Press Tools, Metrology' },
-  { name: 'Mining, Mineral Processing & Bulk Handling', tags: 'Iron Ore, Coal, Smelting, Conveyors, Extraction' },
-  { name: 'Electronics & Semiconductor Manufacturing (EMS)', tags: 'PCBA, SMT, Microcontrollers, Smart Meters' },
-  { name: 'Pharmaceuticals, APIs & Life Sciences', tags: 'Formulations, Active Pharmaceutical Ingredients, USFDA, cGMP, Bio-reactors, Injectables, Medical Devices' },
-  { name: 'Cement, Building Materials & Glass', tags: 'Kiln Operations, Clinker, Float Glass, Refractories' },
-  { name: 'Logistics, Warehousing & Supply Chain Services', tags: '3PL, Cold Chain, WMS, Freight Forwarding, Multimodal' },
-  { name: 'Pulp, Paper & Industrial Packaging', tags: 'Corrugated Packaging, Specialty Paper, Flexible Films' },
-  { name: 'Textiles, Technical Fabrics & Apparel', tags: 'Spinning, Weaving, Non-Woven, Technical Textiles, Garments, Apparel Manufacturing' },
-  { name: 'Water Treatment, Desalination & ZLD EPC', tags: 'Effluent Treatment, Reverse Osmosis, Zero Liquid Discharge' }
+  {
+    "name": "IT & Software Services",
+    "category": "Technology",
+    "tags": "Software Development, SaaS, Cloud, Web, Enterprise Tech",
+    "count": "24,500 candidates"
+  },
+  {
+    "name": "Internet, E-Commerce & Startups",
+    "category": "Technology",
+    "tags": "Online Marketplaces, D2C, Quick Commerce, Tech Platforms",
+    "count": "11,800 candidates"
+  },
+  {
+    "name": "Artificial Intelligence & Data Science",
+    "category": "Technology",
+    "tags": "Machine Learning, GenAI, Big Data, Business Intelligence",
+    "count": "8,400 candidates"
+  },
+  {
+    "name": "Telecommunications & 5G",
+    "category": "Telecom",
+    "tags": "Mobile Networks, Fiber Broadband, Telecom Infrastructure, 5G",
+    "count": "7,200 candidates"
+  },
+  {
+    "name": "Electronics & Hardware (EMS)",
+    "category": "Electronics",
+    "tags": "Consumer Electronics, PCBA, Switchgear, Semiconductors",
+    "count": "9,600 candidates"
+  },
+  {
+    "name": "Automotive & Electric Vehicles (EV)",
+    "category": "Automotive",
+    "tags": "OEMs, Auto Components, EV Battery, Powertrains, 2-Wheelers",
+    "count": "16,200 candidates"
+  },
+  {
+    "name": "Manufacturing & Heavy Engineering",
+    "category": "Manufacturing",
+    "tags": "Industrial Machinery, Capital Goods, Machine Tools, Equipment",
+    "count": "17,800 candidates"
+  },
+  {
+    "name": "Precision Engineering & Tooling",
+    "category": "Manufacturing",
+    "tags": "CNC Machining, Dies & Moulds, Sheet Metal, Fabrication",
+    "count": "9,100 candidates"
+  },
+  {
+    "name": "Aerospace & Defence",
+    "category": "Defence",
+    "tags": "Aviation, Defence Equipment, UAVs, Drones, Space Tech",
+    "count": "5,200 candidates"
+  },
+  {
+    "name": "Industrial Automation & Robotics",
+    "category": "Automation",
+    "tags": "PLC, SCADA, Industry 4.0, Cobots, Process Controls",
+    "count": "7,900 candidates"
+  },
+  {
+    "name": "Metals, Steel & Mining",
+    "category": "Mining & Metals",
+    "tags": "Steel Plants, Forging, Foundry, Aluminium, Extraction",
+    "count": "11,400 candidates"
+  },
+  {
+    "name": "Pharmaceuticals & Biotechnology",
+    "category": "Pharma",
+    "tags": "Formulations, APIs, Generic Drugs, cGMP, Vaccine R&D",
+    "count": "14,300 candidates"
+  },
+  {
+    "name": "Healthcare & Hospitals",
+    "category": "Healthcare",
+    "tags": "Hospital Administration, Clinics, Nursing, Medical Diagnostics",
+    "count": "10,200 candidates"
+  },
+  {
+    "name": "Medical Devices & Diagnostics",
+    "category": "Healthcare",
+    "tags": "Diagnostic Equipment, Surgical Implants, Medical Supplies",
+    "count": "5,400 candidates"
+  },
+  {
+    "name": "Power & Renewable Energy",
+    "category": "Energy",
+    "tags": "Solar Energy, Wind Power, Green Hydrogen, Power Grid, Thermal",
+    "count": "12,600 candidates"
+  },
+  {
+    "name": "Oil, Gas & Petrochemicals",
+    "category": "Energy",
+    "tags": "Refining, Natural Gas, Exploration, Petrochemicals, Polymers",
+    "count": "8,800 candidates"
+  },
+  {
+    "name": "Chemicals & Specialty Chemicals",
+    "category": "Chemicals",
+    "tags": "Agrochemicals, Specialty Chemicals, Pigments, Coatings",
+    "count": "9,400 candidates"
+  },
+  {
+    "name": "Construction, Real Estate & Infrastructure",
+    "category": "Real Estate",
+    "tags": "Civil Construction, Residential, Commercial, Highways, EPC",
+    "count": "13,700 candidates"
+  },
+  {
+    "name": "Environmental & Water Treatment",
+    "category": "Environment",
+    "tags": "Water Treatment, Waste Recycling, Zero Liquid Discharge (ZLD)",
+    "count": "4,900 candidates"
+  },
+  {
+    "name": "FMCG & Consumer Packaged Goods",
+    "category": "Consumer",
+    "tags": "Packaged Foods, Beverages, Personal Care, Dairy, Home Care",
+    "count": "12,900 candidates"
+  },
+  {
+    "name": "Retail, Supermarkets & Luxury",
+    "category": "Retail",
+    "tags": "Department Stores, Fashion Retail, Hypermarkets, D2C Outlets",
+    "count": "9,700 candidates"
+  },
+  {
+    "name": "Textiles, Apparel & Fashion",
+    "category": "Textiles",
+    "tags": "Garment Manufacturing, Fabrics, Yarn, Technical Textiles",
+    "count": "8,500 candidates"
+  },
+  {
+    "name": "Food Processing & Agriculture",
+    "category": "Agriculture",
+    "tags": "Agri-Business, Cold Chain, Seeds, Food Processing, Dairy",
+    "count": "7,800 candidates"
+  },
+  {
+    "name": "Packaging, Paper & Printing",
+    "category": "Packaging",
+    "tags": "Corrugated Packaging, Flexible Films, Paper, Printing",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "Banking, Financial Services & Insurance (BFSI)",
+    "category": "BFSI",
+    "tags": "Retail Banking, NBFCs, Wealth Management, Insurance",
+    "count": "18,900 candidates"
+  },
+  {
+    "name": "Fintech & Digital Payments",
+    "category": "Fintech",
+    "tags": "Payment Gateways, Neobanks, Lending Apps, InsurTech",
+    "count": "7,500 candidates"
+  },
+  {
+    "name": "Logistics, Supply Chain & Warehousing",
+    "category": "Logistics",
+    "tags": "Freight Forwarding, 3PL, Warehousing, Express Courier",
+    "count": "12,100 candidates"
+  },
+  {
+    "name": "Consulting, Legal & Professional Services",
+    "category": "Services",
+    "tags": "Management Consulting, Auditing, Corporate Law, Tax Advisory",
+    "count": "8,600 candidates"
+  },
+  {
+    "name": "Education, EdTech & Training",
+    "category": "Education",
+    "tags": "Universities, Online Learning, Schools, Skill Training",
+    "count": "7,100 candidates"
+  },
+  {
+    "name": "Media, Entertainment & Advertising",
+    "category": "Media",
+    "tags": "Digital Marketing, Television, OTT, Publishing, Public Relations",
+    "count": "6,800 candidates"
+  },
+  {
+    "name": "Hospitality, Travel & Tourism",
+    "category": "Hospitality",
+    "tags": "Hotels, Resorts, Airline Travel, Restaurants, Tourism",
+    "count": "7,900 candidates"
+  }
 ];
-
-// =========================================================================
-// SMART AUTOCOMPLETE RANKING & FILTERING ALGORITHMS
-// Prioritizes: Starts-With Match > Word Starts-With Match > Substring Match
-// =========================================================================
 
 export function filterSkills(query) {
   if (!query || !query.trim()) {
@@ -2745,15 +2908,16 @@ export function filterIndustries(query) {
 
   for (const item of INDUSTRIES_DATABASE) {
     const lowerName = item.name.toLowerCase();
-    const lowerTags = item.tags.toLowerCase();
+    const lowerTags = (item.tags || '').toLowerCase();
+    const lowerCat = (item.category || '').toLowerCase();
 
     if (lowerName.startsWith(clean)) {
       startsWith.push(item);
     } else {
-      const words = lowerName.split(/[\s/(),-]+/).filter(Boolean);
+      const words = `${lowerName} ${lowerCat}`.split(/[\s/(),.&-]+/).filter(Boolean);
       if (words.some(w => w.startsWith(clean))) {
         wordStartsWith.push(item);
-      } else if (lowerName.includes(clean) || lowerTags.includes(clean)) {
+      } else if (lowerName.includes(clean) || lowerTags.includes(clean) || lowerCat.includes(clean)) {
         substringMatch.push(item);
       }
     }
@@ -2762,7 +2926,6 @@ export function filterIndustries(query) {
   return [...startsWith, ...wordStartsWith, ...substringMatch];
 }
 
-// ===========================================================================
 // SALARY SUGGESTIONS (Exactly 72 increments matching Naukri Resdex specification)
 // ===========================================================================
 export const SALARY_SUGGESTIONS = [

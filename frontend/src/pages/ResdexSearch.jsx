@@ -1831,12 +1831,12 @@ export default function ResdexSearch() {
                 )}
               </div>
 
-              {/* Industry / Sector with Autocomplete */}
+              {/* Industry / Sector - Simple, Clean Dropdown */}
               <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Industry / Sector</span>
-                    <span style={{ fontSize: '12px', color: '#64748b' }}>(Scroll or type to choose practice)</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>(Select or search industry)</span>
                   </div>
                   {industry && (
                     <button
@@ -1849,26 +1849,72 @@ export default function ResdexSearch() {
                   )}
                 </div>
 
-                <input 
-                  type="text" 
-                  placeholder="Add industry"
-                  value={industry}
-                  onChange={(e) => {
-                    setIndustry(e.target.value);
-                    setShowIndustrySuggestions(true);
-                  }}
-                  onFocus={() => setShowIndustrySuggestions(true)}
+                {/* Dropdown Input / Selector Field */}
+                <div
                   style={{
-                    width: '100%',
-                    padding: '12px 14px',
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
                     borderRadius: '8px',
                     border: showIndustrySuggestions ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
-                    fontSize: '14px',
-                    outline: 'none',
                     boxShadow: showIndustrySuggestions ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
                     transition: 'all 0.15s'
                   }}
-                />
+                >
+                  <input 
+                    type="text" 
+                    placeholder="Select Industry or Sector"
+                    value={industry}
+                    onChange={(e) => {
+                      setIndustry(e.target.value);
+                      setShowIndustrySuggestions(true);
+                    }}
+                    onFocus={() => setShowIndustrySuggestions(true)}
+                    onClick={() => setShowIndustrySuggestions(true)}
+                    style={{
+                      width: '100%',
+                      padding: '12px 64px 12px 14px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      fontSize: '14px',
+                      outline: 'none',
+                      backgroundColor: 'transparent',
+                      color: industry ? '#0056b3' : '#0f172a',
+                      fontWeight: industry ? 600 : 400,
+                      cursor: 'pointer'
+                    }}
+                  />
+
+                  {/* Right side controls: Clear (X) + Dropdown Chevron */}
+                  <div style={{ position: 'absolute', right: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {industry && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIndustry('');
+                          setShowIndustrySuggestions(false);
+                        }}
+                        style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '2px', display: 'flex', alignItems: 'center' }}
+                        title="Clear selection"
+                      >
+                        <X size={15} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowIndustrySuggestions(prev => !prev);
+                      }}
+                      style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '2px', display: 'flex', alignItems: 'center' }}
+                      title={showIndustrySuggestions ? "Close dropdown" : "Open dropdown"}
+                    >
+                      {showIndustrySuggestions ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    </button>
+                  </div>
+                </div>
 
                 {/* Industry Autocomplete Dropdown */}
                 {showIndustrySuggestions && filteredIndustries.length > 0 && (
@@ -1886,32 +1932,65 @@ export default function ResdexSearch() {
                     overflowY: 'auto'
                   }}>
                     <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
-                      <span>{industry ? `Matching Industrial Sectors (${filteredIndustries.length})` : `All Industrial Practices (${filteredIndustries.length} Total)`}</span>
+                      <span>{industry ? `Matching Industries (${filteredIndustries.length})` : `All Industries & Sectors (${filteredIndustries.length} Total)`}</span>
                       <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to select</span>
                     </div>
 
-                    {filteredIndustries.map((ind, i) => (
-                      <div
-                        key={i}
-                        onClick={() => {
-                          setIndustry(ind.name);
-                          setShowIndustrySuggestions(false);
-                        }}
-                        style={{ padding: '11px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'background-color 0.12s' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
-                      >
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
-                          {highlightMatch(ind.name, industry)}
-                        </span>
-                        <span style={{ fontSize: '11px', color: '#64748b', maxWidth: '300px', textAlign: 'right' }}>
-                          {ind.tags}
-                        </span>
-                      </div>
-                    ))}
+                    {filteredIndustries.map((ind, i) => {
+                      const isSelected = industry === ind.name;
+                      return (
+                        <div
+                          key={i}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            setIndustry(ind.name);
+                            setShowIndustrySuggestions(false);
+                          }}
+                          onClick={() => {
+                            setIndustry(ind.name);
+                            setShowIndustrySuggestions(false);
+                          }}
+                          style={{
+                            padding: '11px 16px',
+                            borderBottom: '1px solid #f1f5f9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            cursor: 'pointer',
+                            backgroundColor: isSelected ? '#eff6ff' : '#ffffff',
+                            transition: 'background-color 0.12s'
+                          }}
+                          onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
+                          onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.backgroundColor = '#ffffff'; }}
+                        >
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <span style={{ fontSize: '13px', fontWeight: isSelected ? 700 : 600, color: isSelected ? '#0056b3' : '#0f172a' }}>
+                                {highlightMatch(ind.name, industry)}
+                              </span>
+                              {ind.category && (
+                                <span style={{ fontSize: '10px', padding: '2px 7px', backgroundColor: isSelected ? '#dbeafe' : '#f1f5f9', color: isSelected ? '#1e40af' : '#475569', borderRadius: '10px', fontWeight: 600 }}>
+                                  {ind.category}
+                                </span>
+                              )}
+                            </div>
+                            {ind.tags && (
+                              <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
+                                {ind.tags}
+                              </div>
+                            )}
+                          </div>
+                          {ind.count && (
+                            <span style={{ fontSize: '11px', color: '#64748b', whiteSpace: 'nowrap', marginLeft: '12px' }}>
+                              {ind.count}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
 
                     <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
-                      <span>Showing all {filteredIndustries.length} industrial practices • Scroll to browse</span>
+                      <span>Showing {filteredIndustries.length} modern industries • Scroll or type to search</span>
                       <span style={{ fontWeight: 600 }}>1-Click Select</span>
                     </div>
                   </div>
