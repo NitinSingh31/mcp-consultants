@@ -1016,7 +1016,7 @@ export default function ResdexSearch() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Keywords</span>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type any letter A-Z to see instant matching skills & competencies)</span>
+                  <span style={{ fontSize: '12px', color: '#64748b' }}>(Type to search skills & competencies)</span>
                 </div>
 
                 {/* Boolean Mode Toggle */}
@@ -1243,8 +1243,8 @@ export default function ResdexSearch() {
                     {/* Footer bar */}
                     {filteredSkills.length > 0 && (
                       <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
-                        <span>Showing {filteredSkills.length} skills • Scroll to browse A–Z</span>
-                        <span style={{ fontWeight: 600 }}>Type or click letters A–Z to jump</span>
+                        <span>Showing {filteredSkills.length} curated skills</span>
+                        <span style={{ fontWeight: 600 }}>Type to search or filter skills</span>
                       </div>
                     )}
                   </div>

@@ -3,3244 +3,1244 @@
 
 export const SKILLS_DATABASE = [
   {
-    "name": "Account Reconciliation & Month-End Financial Close",
+    "name": "Account Reconciliation",
     "category": "Accounting",
+    "count": "5,400 candidates"
+  },
+  {
+    "name": "Active Directory",
+    "category": "IT Infrastructure",
     "count": "4,200 candidates"
   },
   {
-    "name": "Acoustic & NVH Sound Quality Testing",
-    "category": "Vehicle Testing",
-    "count": "1,320 candidates"
+    "name": "ADAS (Driver Assistance)",
+    "category": "Automotive & EV",
+    "count": "1,850 candidates"
   },
   {
-    "name": "Active Pharmaceutical Ingredient (API) Synthesis",
-    "category": "Pharma & Biotech",
-    "count": "2,600 candidates"
+    "name": "Agile / Scrum",
+    "category": "Project Management",
+    "count": "8,900 candidates"
   },
   {
-    "name": "Actuators, Control Valves & Flow Automation",
-    "category": "Instrumentation",
-    "count": "2,400 candidates"
+    "name": "AI / Machine Learning",
+    "category": "Data & AI",
+    "count": "6,500 candidates"
   },
   {
-    "name": "Additive Manufacturing & 3D Metal Printing",
-    "category": "Advanced Manufacturing",
-    "count": "1,280 candidates"
-  },
-  {
-    "name": "Adobe Experience Manager (AEM) & CMS Architecture",
-    "category": "Digital Marketing",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Advanced Driver Assistance Systems (ADAS)",
-    "category": "EV & Autonomous",
-    "count": "1,620 candidates"
-  },
-  {
-    "name": "Aerospace Avionics & Flight Control Systems",
-    "category": "Aerospace",
-    "count": "940 candidates"
-  },
-  {
-    "name": "Agile & Scrum Project Management",
-    "category": "Project Leadership",
-    "count": "6,300 candidates"
-  },
-  {
-    "name": "Air Separation Units (ASU) & Cryogenics",
-    "category": "Industrial Gases",
-    "count": "1,100 candidates"
-  },
-  {
-    "name": "Alloy Steel & Superalloy Metallurgy",
-    "category": "Metallurgy",
-    "count": "1,890 candidates"
-  },
-  {
-    "name": "Analytical Method Development (HPLC, GC & UV-Vis)",
+    "name": "Analytical Method Development",
     "category": "Pharma Analytical",
     "count": "3,700 candidates"
   },
   {
-    "name": "Angular Web Application Development",
+    "name": "Angular",
     "category": "Frontend Development",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Anodizing, Electroplating & Surface Finishing",
-    "category": "Surface Finishing",
-    "count": "1,350 candidates"
-  },
-  {
-    "name": "Ansible Configuration Management & Automation",
-    "category": "DevOps & IT",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Apache Airflow Workflow Orchestration & Data DAGs",
-    "category": "Data Engineering",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Apache Cassandra Distributed NoSQL Database",
-    "category": "Database Systems",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Apache Kafka Event Streaming & Message Queues",
-    "category": "Distributed Systems",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Apache Spark Distributed Data Processing",
-    "category": "Data Engineering",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "API Gateway Design & RESTful Architecture",
-    "category": "Software Architecture",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "APQP & PPAP Documentation (IATF 16949)",
-    "category": "Automotive Quality",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Artificial Intelligence & Machine Learning (AI/ML)",
-    "category": "Data & AI",
-    "count": "7,400 candidates"
-  },
-  {
-    "name": "ASME Section VIII Pressure Vessels & Heat Exchangers",
-    "category": "Heavy Engineering",
-    "count": "2,180 candidates"
-  },
-  {
-    "name": "Aspen Plus & Aspen HYSYS Chemical Simulation",
-    "category": "Process Engineering",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Assembly Line Balancing & Takt Time Optimization",
-    "category": "Industrial Engineering",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Asset Liability Management (ALM & Treasury Risk)",
-    "category": "Banking & Finance",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Asset Performance Management & Reliability",
-    "category": "Plant Engineering",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Auditing (Statutory, Internal & Tax Compliance)",
-    "category": "Finance & Accounts",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Augmented Reality (AR) & Industrial Digital Twin",
-    "category": "Emerging Tech",
-    "count": "1,200 candidates"
-  },
-  {
-    "name": "AutoCAD & 3D Modeling (CATIA / NX)",
-    "category": "Design & CAD",
     "count": "5,800 candidates"
   },
   {
-    "name": "Automation Testing (Selenium, Cypress, Playwright)",
-    "category": "Software QA",
-    "count": "5,600 candidates"
-  },
-  {
-    "name": "Automotive Crash Safety & Structural CAE",
-    "category": "CAE & Simulation",
-    "count": "1,750 candidates"
-  },
-  {
-    "name": "Automotive Powertrain & Transmission Systems",
-    "category": "Automotive Eng",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "AUTOSAR Embedded Architecture",
-    "category": "Automotive Embedded",
-    "count": "1,540 candidates"
-  },
-  {
-    "name": "AWS Cloud Infrastructure & DevOps CI/CD",
-    "category": "Cloud & DevOps",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Azure Cloud Infrastructure & Solutions Architecture",
-    "category": "Cloud Computing",
-    "count": "5,500 candidates"
-  },
-  {
-    "name": "B2B Industrial OEM Sales & Key Account Management",
-    "category": "Commercial Strategy",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "Backend API Development (REST & GraphQL)",
-    "category": "Backend Software",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Balance of Plant (BOP) Civil & Electrical EPC",
-    "category": "Power Generation",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Bar Bending Schedule (BBS) & RCC Detailing",
-    "category": "Civil Engineering",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Battery Cell Chemistry (LFP / NMC Pack Testing)",
-    "category": "EV Battery",
-    "count": "1,850 candidates"
-  },
-  {
-    "name": "Battery Management Systems (BMS)",
-    "category": "Electric Vehicles",
-    "count": "2,640 candidates"
-  },
-  {
-    "name": "Bending & Sheet Metal Forming (CNC Press Brake)",
-    "category": "Fabrication",
-    "count": "2,450 candidates"
-  },
-  {
-    "name": "Big Data Analytics (Apache Spark, Kafka & Hadoop)",
-    "category": "Enterprise Tech",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Billing, Invoicing & Cash Collections (Accounts Receivable)",
-    "category": "Finance",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Bimetallic Strip & Precision Sintered Parts",
-    "category": "Foundry & Metallurgy",
-    "count": "1,250 candidates"
-  },
-  {
-    "name": "Bio-Pharmaceutical Fermentation & Cleanrooms",
-    "category": "Pharma & Biotech",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Bioinformatics & Computational Genomics Data Analysis",
-    "category": "Life Sciences",
-    "count": "1,300 candidates"
-  },
-  {
-    "name": "Black Belt Lean Six Sigma (DMAIC / DFSS)",
-    "category": "Operational Excellence",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Blast Furnace Operations & Ironmaking",
-    "category": "Steel & Mining",
-    "count": "1,720 candidates"
-  },
-  {
-    "name": "Blockchain Development & Smart Contracts",
-    "category": "Web3 & Fintech",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Bluetooth Low Energy (BLE) & Wireless Protocols",
-    "category": "IoT & Firmware",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "Boiler Design & Thermal EPC (IBR / ASME)",
-    "category": "Power & Capital Goods",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Boiler Water Chemistry & Demineralization (DM Plants)",
-    "category": "Water Treatment",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "BOM (Bill of Materials) Management & Engineering Change",
-    "category": "Supply Chain",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Braking Systems & Electronic Stability Control (ABS / ESC)",
-    "category": "Automotive Chassis",
-    "count": "1,680 candidates"
-  },
-  {
-    "name": "Brand Strategy & Integrated Marketing Campaigns",
-    "category": "Marketing",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Bridge & Flyover Structural Engineering (IRC Standards)",
-    "category": "Civil Infrastructure",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Budgeting, Capex & P&L Plant Financial Control",
-    "category": "Finance & Operations",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Building Information Modeling (BIM / Revit MEP)",
-    "category": "Civil & MEP",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Building Management Systems (BMS / HVAC Automation)",
-    "category": "Smart Infrastructure",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Bulk Material Handling & Conveyor Systems",
-    "category": "Mining & Bulk EPC",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Business Continuity Planning (BCP) & Disaster Recovery",
-    "category": "IT Governance",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Business Development & Strategic Enterprise Partnerships",
-    "category": "Sales & BD",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Business Intelligence & Data Storytelling (Power BI / Tableau)",
-    "category": "Data Analytics",
-    "count": "6,100 candidates"
-  },
-  {
-    "name": "Business Process Reengineering (BPR & Workflows)",
-    "category": "Management Consulting",
-    "count": "3,300 candidates"
-  },
-  {
-    "name": "C Programming for Embedded Microcontrollers",
-    "category": "Firmware Dev",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "C# .NET Core Enterprise Application Development",
-    "category": "Backend Engineering",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "C++ Embedded & Real-Time Operating Systems (RTOS)",
-    "category": "Embedded Systems",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "CAD/CAM (CATIA, SolidWorks, Siemens NX, Creo)",
-    "category": "Mechanical Design",
-    "count": "5,400 candidates"
-  },
-  {
-    "name": "CAN Bus, CANoe & Vehicle Diagnostics (UDS / J1939)",
-    "category": "Automotive Electronics",
-    "count": "2,150 candidates"
-  },
-  {
-    "name": "Change Management & Organization Transformation (ADKAR)",
-    "category": "HR & Leadership",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Chemical Process Simulation (Aspen Plus / HYSYS)",
-    "category": "Process Engineering",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "CI/CD Pipeline Automation (Jenkins, GitLab CI, GitHub Actions)",
-    "category": "DevOps & Cloud",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "Civil Structural Engineering & Foundation Design (STAAD.Pro)",
-    "category": "Civil & Infra",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Cleanroom ISO 14644 HVAC & Clean Utilities",
-    "category": "Pharma & Semiconductor",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Clinical Trials Management & GCP Compliance",
-    "category": "Clinical Research",
-    "count": "1,700 candidates"
-  },
-  {
-    "name": "Cloud Native Architecture (Docker & Kubernetes)",
-    "category": "Cloud Engineering",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "CNC Machining & VMC / HMC 5-Axis Programming",
-    "category": "Precision Engineering",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Cobol Programming & Legacy Mainframe Support",
-    "category": "Mainframe Tech",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Cold Chain Logistics & Temperature Controlled Warehousing",
-    "category": "Supply Chain SCM",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Cold Rolling Mill (CRM) Operations",
-    "category": "Metal Processing",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "Combined Cycle Gas Turbines (CCGT) EPC",
-    "category": "Power Generation",
-    "count": "1,750 candidates"
-  },
-  {
-    "name": "Compensation & Benefits Structuring (C&B Benchmarking)",
-    "category": "Human Resources",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Computational Fluid Dynamics (ANSYS Fluent / OpenFOAM)",
-    "category": "Thermal CAE",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Condition Monitoring & Vibration Analysis (ISO 18436)",
-    "category": "Reliability Engineering",
-    "count": "2,050 candidates"
-  },
-  {
-    "name": "Content Marketing, Copywriting & SEO Editorial Strategy",
-    "category": "Content Marketing",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Continuous Casting Machine (CCM) Operations",
-    "category": "Steel Manufacturing",
-    "count": "1,850 candidates"
-  },
-  {
-    "name": "Continuous Integration & Continuous Deployment (CI/CD)",
-    "category": "DevOps",
-    "count": "5,600 candidates"
-  },
-  {
-    "name": "Contract Management & EPC Disputes (FIDIC Standards)",
-    "category": "Commercial EPC",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Coordinate Measuring Machine (CMM Metrology & Zeiss)",
-    "category": "Quality & Inspection",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Core Quality Tools (APQP, PPAP, FMEA, MSA, SPC)",
-    "category": "Automotive Quality",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Corporate Governance & Board Level Secretarial Practice",
-    "category": "Legal & Secretarial",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Corrosion Engineering, Cathodic Protection & NACE Standards",
-    "category": "Materials Science",
-    "count": "1,650 candidates"
-  },
-  {
-    "name": "Cost Reduction & Value Engineering (VAVE)",
-    "category": "Operations & Design",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Cross-Platform Mobile Development (React Native / Flutter)",
-    "category": "Mobile Tech",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "Cryogenic Liquid Nitrogen & LNG Pressure Storage",
-    "category": "Oil & Gas Equipment",
-    "count": "1,300 candidates"
-  },
-  {
-    "name": "Customer Acquisition Cost (CAC) & LTV Unit Economics",
-    "category": "Growth Strategy",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Customer Relationship Management (Salesforce / HubSpot)",
-    "category": "CRM Strategy",
-    "count": "5,500 candidates"
-  },
-  {
-    "name": "Customer Success & Retention Management",
-    "category": "SaaS & Enterprise",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Cyber Security Operations Center (SOC Tier 2 / 3 Analysis)",
-    "category": "Cyber Defense",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Cybersecurity in Industrial SCADA & OT Networks",
-    "category": "Industrial Security",
-    "count": "1,200 candidates"
-  },
-  {
-    "name": "Data Engineering Pipelines (PySpark, Airflow, dbt)",
-    "category": "Big Data",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Data Science, Machine Learning & Python Analytics",
-    "category": "Analytics & AI",
-    "count": "6,800 candidates"
-  },
-  {
-    "name": "Data Warehousing (Snowflake, Google BigQuery, Redshift)",
-    "category": "Cloud Data",
-    "count": "4,300 candidates"
-  },
-  {
-    "name": "Database Administration (PostgreSQL, MySQL, Oracle DBA)",
-    "category": "Database Systems",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "DC Fast Charging Stations (CCS2 / CHAdeMO / GB/T)",
-    "category": "EV Infrastructure",
-    "count": "1,150 candidates"
-  },
-  {
-    "name": "DCS & SCADA Architecture (Yokogawa / ABB / Honeywell)",
-    "category": "Process Automation",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Deep Drawing, Progressive & Transfer Tooling",
-    "category": "Sheet Metal Press",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Defence Offsets, ITAR & Strategic Procurement",
-    "category": "Aerospace & Defence",
-    "count": "890 candidates"
-  },
-  {
-    "name": "Demand Planning & Statistical Forecasting (S&OP)",
-    "category": "Supply Chain",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Dermatology & Cosmeceutical Formulations R&D",
-    "category": "Pharma & Cosmetics",
-    "count": "1,350 candidates"
-  },
-  {
-    "name": "Design for Manufacturing & Assembly (DFMA)",
+    "name": "ANSYS Simulation",
     "category": "Engineering Design",
-    "count": "2,750 candidates"
+    "count": "2,400 candidates"
   },
   {
-    "name": "Design of Experiments (DOE - Taguchi / Factorial Methods)",
-    "category": "Quality Statistics",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "DevOps CI/CD Pipelines (Jenkins, GitHub Actions, GitLab)",
-    "category": "Software Engineering",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Die Casting (HPDC / LPDC & Gravity Tooling)",
-    "category": "Foundry & Tooling",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Diesel & Dual-Fuel Engine Calibration (ECU / Dyno)",
-    "category": "Automotive Powertrain",
-    "count": "1,450 candidates"
-  },
-  {
-    "name": "Digital Marketing (SEO, Google Ads, Meta Performance)",
-    "category": "Growth Marketing",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Digital Signal Processing (DSP Algorithms & MATLAB)",
-    "category": "Embedded Electronics",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Digital Twin Factory Modeling (Siemens Plant Sim)",
-    "category": "Industry 4.0",
-    "count": "1,650 candidates"
-  },
-  {
-    "name": "Direct Reduced Iron (DRI / Sponge Iron Metallization)",
-    "category": "Steel Metallurgy",
-    "count": "1,500 candidates"
-  },
-  {
-    "name": "Direct Taxation & Indirect Tax (GST Filings / Litigation)",
-    "category": "Tax & Compliance",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Disaster Recovery & Business Continuity (BCP / DR)",
-    "category": "Enterprise Resilience",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Distribution Logistics & Multi-Modal Freight",
-    "category": "Supply Chain",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "District Cooling & Chilled Water Network Systems",
-    "category": "MEP Infrastructure",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Django & FastAPI Backend Development in Python",
-    "category": "Web Development",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Docker Containerization & Image Optimization",
-    "category": "DevOps & Containers",
-    "count": "5,300 candidates"
-  },
-  {
-    "name": "Drilling Operations, Blowout Prevention & Wellhead EPC",
-    "category": "Upstream Oil & Gas",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "Drone Piloting, UAV Hardware & Telemetry Systems",
-    "category": "Robotics & Drones",
-    "count": "1,100 candidates"
-  },
-  {
-    "name": "Drug Formulation & Development (F&D Solid Orals / Parenterals)",
-    "category": "Pharma R&D",
-    "count": "2,500 candidates"
-  },
-  {
-    "name": "Due Diligence & Commercial Valuation in M&A",
-    "category": "Corporate Finance",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Dynamics, Noise, Vibration & Harshness (NVH)",
-    "category": "Automotive Testing",
-    "count": "1,320 candidates"
-  },
-  {
-    "name": "E-Commerce Platform Management (Shopify, Amazon, Magento)",
-    "category": "Digital Commerce",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Earned Value Management (EVM) Project Controls",
-    "category": "Project Management",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Effluent Treatment Plants (ETP / Zero Liquid Discharge)",
-    "category": "Environmental EPC",
-    "count": "2,500 candidates"
-  },
-  {
-    "name": "Elasticsearch, Logstash & Kibana (ELK Stack)",
-    "category": "Observability & Search",
+    "name": "Apache Kafka",
+    "category": "Data Engineering",
     "count": "3,100 candidates"
   },
   {
-    "name": "Electric Vehicle (EV) Powertrain Integration",
-    "category": "Automotive & EV",
-    "count": "3,150 candidates"
-  },
-  {
-    "name": "Electrical Substation & Switchyard (HV / EHV / GIS)",
-    "category": "Power Distribution",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Electro-Hydraulic Servo Proportional Systems",
-    "category": "Fluid Power",
-    "count": "1,700 candidates"
-  },
-  {
-    "name": "Electrolyzers & Green Hydrogen Systems",
-    "category": "CleanTech",
-    "count": "920 candidates"
-  },
-  {
-    "name": "Electromagnetic Compatibility (EMC / EMI Testing)",
-    "category": "Electronics Validation",
-    "count": "1,250 candidates"
-  },
-  {
-    "name": "Electronic Control Unit (ECU) Calibration & Diagnostics",
-    "category": "Automotive Electronics",
-    "count": "1,950 candidates"
-  },
-  {
-    "name": "Electronic Hardware Design & Altium Schematic Capture",
-    "category": "Hardware Engineering",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Electronic Stability Control (ESC) & ABS Braking Systems",
-    "category": "Automotive Chassis",
-    "count": "1,550 candidates"
-  },
-  {
-    "name": "Embedded C & Microcontroller Firmware (ARM / STM32)",
-    "category": "Electronics & Firmware",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Embedded Linux Kernel & Device Driver Development",
-    "category": "Embedded Software",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Employee Engagement & Retention Strategy (eNPS)",
-    "category": "HR Management",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Employee Relations, Trade Unions & Industrial Disputes",
-    "category": "Industrial Relations",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Energy Auditing & ISO 50001 Sustainability",
-    "category": "Energy Management",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Engineering Change Management (ECM & ECN Workflows)",
-    "category": "Product Lifecycle",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Enterprise Architecture & Cloud Migration (TOGAF)",
-    "category": "Enterprise Tech",
-    "count": "2,850 candidates"
-  },
-  {
-    "name": "Enterprise Risk Management (ERM & Internal Controls)",
-    "category": "Governance & Risk",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Environmental Health & Safety (EHS, OSHA & ISO 45001)",
-    "category": "Plant Compliance",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Environmental Impact Assessment (EIA & MoEF Approvals)",
-    "category": "Sustainability",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "EPC Project Management & Turnkey Commissioning",
-    "category": "Capital Projects",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "ERP SAP S/4HANA (PP, MM, PM, QM Modules)",
-    "category": "Enterprise Systems",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "ETL / ELT Data Pipeline Architecture (Informatica / Talend)",
-    "category": "Data Integration",
+    "name": "Apache Spark",
+    "category": "Data Engineering",
     "count": "3,600 candidates"
   },
   {
-    "name": "Event-Driven Microservices Architecture (Kafka / RabbitMQ)",
-    "category": "Software Design",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Executive Search & Senior Leadership Headhunting",
-    "category": "Talent Acquisition",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Extrusion & Plastic Injection Moulding",
-    "category": "Polymers & Tooling",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Facility Management & Industrial Utilities Maintenance",
-    "category": "Plant Engineering",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Fast-Moving Consumer Goods (FMCG) Channel Sales",
-    "category": "Consumer Sales",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Fiber Optic Cable (OFC) Networks & FTTH Infrastructure",
-    "category": "Telecom Infra",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Fieldbus Protocols (Profinet, Modbus TCP, EtherCAT)",
-    "category": "Industrial Networking",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Filtration Systems & Membrane Technology (Ultrafiltration / RO)",
-    "category": "Process Utilities",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Financial Auditing & Statutory Compliance (ICAI / Big 4)",
-    "category": "Audit & Tax",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Financial Modeling & Valuation (DCF / Comps / LBO)",
-    "category": "Investment Banking",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Financial Planning & Analysis (FP&A Modeling & Variance)",
-    "category": "Corporate Finance",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Finite Element Analysis (FEA - ANSYS / HyperMesh)",
-    "category": "CAE & Simulation",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Fire Fighting & Protection Systems (NFPA / NBC Standards)",
-    "category": "Safety & MEP",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Flue Gas Desulfurization (FGD) & Wet Scrubber EPC",
-    "category": "Thermal Power CleanTech",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Fluid Power & Pneumatic Logic Circuit Design",
-    "category": "Mechanical Automation",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Flutter Cross-Platform Mobile App Development",
-    "category": "Mobile Tech",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "FMEA (Design DFMEA & Process PFMEA)",
-    "category": "Quality Systems",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Food Safety Standards & Auditing (HACCP / ISO 22000 / FSSAI)",
-    "category": "Food & FMCG Quality",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Foreign Exchange (Forex) Hedging & Treasury Management",
-    "category": "Banking & Treasury",
-    "count": "1,950 candidates"
-  },
-  {
-    "name": "Forging Technology (Hot / Cold Open & Closed Die)",
-    "category": "Metal Forming",
-    "count": "1,950 candidates"
-  },
-  {
-    "name": "Formulations Analytical Development (Method Validation)",
-    "category": "Pharma Science",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Foundation Engineering, Piling & Deep Excavation",
-    "category": "Geotechnical Civil",
-    "count": "2,000 candidates"
-  },
-  {
-    "name": "Foundry Melting & Casting (Induction & Cupola Furnace)",
-    "category": "Foundry & Metallurgy",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Freight Forwarding, Customs Clearance & CHA Operations",
-    "category": "Global Logistics",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Front-End Development (React, Vue, Next.js, Tailwind)",
-    "category": "Web Development",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Fullstack Web Development (React.js, Node.js & TypeScript)",
-    "category": "Software Engineering",
-    "count": "6,400 candidates"
-  },
-  {
-    "name": "Furnace Refractory Lining & Thermal Insulation",
-    "category": "Thermal Engineering",
-    "count": "1,650 candidates"
-  },
-  {
-    "name": "Galvanizing (Hot Dip & Electro) Quality Inspection",
-    "category": "Surface Metallurgy",
-    "count": "1,650 candidates"
-  },
-  {
-    "name": "GAMP 5 Computerized System Validation in Pharma",
-    "category": "Pharma Validation",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Gas Chromatography (GC / GC-MS Method Development)",
-    "category": "Analytical Science",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Gas Turbine Operations & Auxiliary Maintenance (CCGT)",
-    "category": "Power EPC",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "GD&T (Geometric Dimensioning & Tolerancing - ASME Y14.5)",
-    "category": "Mechanical CAD/QC",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Gear Hobbing, Shaping & Precision Gear Grinding",
-    "category": "Precision Machining",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "Gearbox Design & Automotive Transmission Systems",
-    "category": "Drivetrain Engineering",
-    "count": "1,700 candidates"
-  },
-  {
-    "name": "General Ledger, Ind AS / IFRS Balance Sheet Finalization",
-    "category": "Accounting & Audit",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Generative AI, Large Language Models (LLMs) & LangChain",
-    "category": "Artificial Intelligence",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Geotechnical Investigation & Soil Mechanics",
-    "category": "Civil & Infra",
-    "count": "1,850 candidates"
-  },
-  {
-    "name": "Git & GitHub Enterprise Version Control Workflows",
-    "category": "Software Collaboration",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "Go-to-Market (GTM) Strategy & Product Commercialization",
-    "category": "Product Strategy",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Golang (Go) Distributed Systems & Cloud Microservices",
+    "name": "API Development (REST / GraphQL)",
     "category": "Backend Engineering",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Good Manufacturing Practices (cGMP & US FDA Part 211)",
-    "category": "Pharma Compliance",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Google Cloud Platform (GCP - BigQuery, GKE, Vertex AI)",
-    "category": "Cloud Infrastructure",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "GraphQL API Design & Apollo Client Integration",
-    "category": "Web Architecture",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Greenhouse Gas (GHG) Scope 1-3 Carbon Footprint Auditing",
-    "category": "ESG & Sustainability",
-    "count": "1,500 candidates"
-  },
-  {
-    "name": "Grid Interconnection & High Voltage Power Evacuation",
-    "category": "Renewable Power",
-    "count": "1,750 candidates"
-  },
-  {
-    "name": "Gross Margin Optimization & Price Waterfall Analysis",
-    "category": "Revenue Strategy",
-    "count": "2,500 candidates"
-  },
-  {
-    "name": "Grounding, Earthing & Lightning Protection Systems",
-    "category": "Electrical Safety",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Hadoop Ecosystem (HDFS, Hive & MapReduce Big Data)",
-    "category": "Big Data Tech",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Hardware-in-the-Loop (HIL) Simulation (dSPACE / Speedgoat)",
-    "category": "Automotive Embedded",
-    "count": "1,350 candidates"
-  },
-  {
-    "name": "Hazard and Operability Study (HAZOP & SIL Assessment)",
-    "category": "Process Safety",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Headhunting & C-Suite Leadership Recruitment",
-    "category": "Executive Search",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Health, Safety & Environment (HSE Incident Investigation)",
-    "category": "Industrial Safety",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Heat Exchanger Design (TEMA Standards & HTRI Modeling)",
-    "category": "Thermal Engineering",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Heat Treatment Metallurgy (Carburizing, Quenching, Annealing)",
-    "category": "Metallurgical Eng",
-    "count": "2,500 candidates"
-  },
-  {
-    "name": "Heavy Earthmoving Machinery (HEMM Fleet Maintenance)",
-    "category": "Mining Equipment",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "High Performance Liquid Chromatography (HPLC / UPLC Method Dev)",
-    "category": "Analytical Pharma",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "High Voltage Switchgear (GIS / AIS Substations 66kV-765kV)",
-    "category": "Power Systems",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "High-Speed Digital PCB Layout & Signal Integrity (SI/PI)",
-    "category": "Hardware Design",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Hot Strip Mill & Steckel Mill Rolling Operations",
-    "category": "Steel Rolling",
-    "count": "1,450 candidates"
-  },
-  {
-    "name": "HubSpot Inbound Marketing, Lead Nurturing & CRM Setup",
-    "category": "Marketing Automation",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Human Resources Business Partnering (HRBP Strategic Advisory)",
-    "category": "Human Resources",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Human-Machine Interface (HMI) Programming (Siemens / Rockwell)",
-    "category": "Industrial Controls",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "HVAC System Design, Heat Load & Chiller Commissioning",
-    "category": "Building MEP",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Hybrid Electric Vehicle (HEV) Dual-Motor Architecture",
-    "category": "EV Powertrain",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Hydraulics & Pneumatics System Troubleshooting",
-    "category": "Fluid Power",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Hydrocarbon Processing & Refinery Distillation Units",
-    "category": "Oil & Gas Refining",
-    "count": "1,750 candidates"
-  },
-  {
-    "name": "Hydroelectric Power Plant Turbines (Francis, Kaplan, Pelton)",
-    "category": "Hydro Power",
-    "count": "1,500 candidates"
-  },
-  {
-    "name": "Hydrogen Fuel Cells & PEM Electrolyzer Engineering",
-    "category": "Clean Energy Tech",
-    "count": "980 candidates"
-  },
-  {
-    "name": "Hyper-Converged Infrastructure (Nutanix / VMware vSAN)",
-    "category": "IT Infrastructure",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "IATF 16949 Automotive Quality Management Standards",
-    "category": "Automotive QMS",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Identity and Access Management (IAM, Okta, CyberArk)",
-    "category": "Cyber Security",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "IFRS 16 Lease Accounting & Asset Schedule Compliance",
-    "category": "Corporate Accounting",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Incident Response, Cyber Forensics & Malware Analysis",
-    "category": "Cyber Security",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Ind AS & IFRS Financial Statements Preparation",
-    "category": "Financial Reporting",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "InDesign & Adobe Creative Cloud Graphics Layout",
-    "category": "Design & Media",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Induction Furnace Steel Melting & Slag Management",
-    "category": "Steel Metallurgy",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Industrial Automation, Robotics & SCADA Integration",
-    "category": "Factory Automation",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Industrial Engineering (MOST, Time & Motion Study, Ergonomics)",
-    "category": "Industrial Eng",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Industrial Internet of Things (IIoT & Edge Gateways)",
-    "category": "Industry 4.0",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Industrial Waste Management & Hazardous Material Handling",
-    "category": "EHS & Waste",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Infrastructure as Code (Terraform & AWS CloudFormation)",
-    "category": "DevOps & Cloud",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Injection Moulding Tooling Design & Mouldflow Analysis",
-    "category": "Plastics Engineering",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Inside Sales, Prospecting & B2B Lead Generation",
-    "category": "Sales Pipeline",
-    "count": "5,300 candidates"
-  },
-  {
-    "name": "Instrumentation & Process Sensors Calibration (4-20mA / HART)",
-    "category": "Instrumentation",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Intellectual Property (IP) Patents & Trademark Prosecution",
-    "category": "Legal & IP",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Internal Audit, SOX 404 Testing & Enterprise Risk",
-    "category": "Audit & Governance",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "International Commercial Terms (Incoterms 2020 & Export LC)",
-    "category": "EXIM & Trade",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Inventory Control, ABC Analysis & Safety Stock Optimization",
-    "category": "Supply Chain",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Investment Banking, DCF Valuation & M&A Advisory",
-    "category": "Corporate Finance",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "iOS App Development (Swift, SwiftUI & Xcode)",
-    "category": "Mobile Engineering",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Iron Ore Beneficiation & Pelletizing Plant Operations",
-    "category": "Mining & Minerals",
-    "count": "1,550 candidates"
-  },
-  {
-    "name": "ISO 9001 / ISO 14001 / ISO 45001 Integrated Management",
-    "category": "Quality & EHS",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "ITIL v4 Framework Service Delivery & IT Service Management",
-    "category": "IT Operations",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Java Enterprise Edition (JEE) & Spring Boot Microservices",
-    "category": "Backend Software",
-    "count": "6,800 candidates"
-  },
-  {
-    "name": "Java Virtual Machine (JVM Performance Tuning & Garbage Collection)",
-    "category": "Java Architecture",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "JavaScript (ES6+, Async/Await & Modern Web Standards)",
-    "category": "Web Development",
-    "count": "7,100 candidates"
-  },
-  {
-    "name": "Jenkins CI/CD Automation & Declarative Pipeline as Code",
-    "category": "DevOps & Tooling",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Jest & React Testing Library (Unit & Component Tests)",
-    "category": "Frontend QA",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Jigs & Fixtures Design for Automotive Welding / Machining",
-    "category": "Tooling Engineering",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "JIRA & Confluence Agile Project Management",
-    "category": "Agile Management",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "JMP Statistical Discovery Software (DOE & Reliability)",
-    "category": "Industrial Statistics",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "Job Evaluation, Role Banding & Competency Mapping (Hay System)",
-    "category": "HR Strategy",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Joint Ventures, Commercial Alliances & M&A Agreements",
-    "category": "Corporate Legal",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "JSON Web Tokens (JWT), OAuth 2.0 & API Authentication",
-    "category": "Web Security",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Junction Box & Industrial Cable Schedule Engineering",
-    "category": "Electrical EPC",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Jupyter Notebooks, Pandas & Exploratory Data Analysis",
-    "category": "Data Science",
-    "count": "5,500 candidates"
-  },
-  {
-    "name": "Just-In-Time (JIT) Manufacturing & Kanban Pull Systems",
-    "category": "Lean Manufacturing",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Kaizen Continuous Improvement & 5S Workplace Organization",
-    "category": "Lean Excellence",
-    "count": "5,600 candidates"
-  },
-  {
-    "name": "Kanban Workflow Optimization & Lead Time Reduction",
-    "category": "Lean Operations",
-    "count": "4,300 candidates"
-  },
-  {
-    "name": "Keras Deep Learning Framework with TensorFlow Backend",
-    "category": "Machine Learning",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Key Account Management (KAM & Executive Client Relations)",
-    "category": "Enterprise Sales",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Key Skill Mapping & Strategic Workforce Planning",
-    "category": "Human Resources",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Kiln Operations & Thermal Efficiency (Cement / Refractories)",
-    "category": "Process Industries",
-    "count": "1,650 candidates"
-  },
-  {
-    "name": "Kinetic Energy Recovery Systems (KERS & Regenerative Braking)",
-    "category": "EV Engineering",
-    "count": "1,200 candidates"
-  },
-  {
-    "name": "Kite / Zerodha / Upstox Algorithmic Trading API Integrations",
-    "category": "FinTech",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Knowledge Graphs & Semantic Ontology Modeling",
-    "category": "AI & Semantics",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Knowledge Management & Standard Operating Procedures (SOPs)",
-    "category": "Operational Process",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Kotlin Android Native Mobile Application Development",
-    "category": "Mobile Engineering",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Kotlin Multiplatform (KMP Cross-Platform Mobile & Desktop)",
-    "category": "Mobile Architecture",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "KPI Dashboards & Balanced Scorecard Performance Tracking",
-    "category": "Strategic Operations",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Kubernetes Container Orchestration & Helm Charts",
-    "category": "Cloud Infrastructure",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Labor Law Compliance, Factories Act & Statutory Filings",
-    "category": "Industrial Relations",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "LangChain & LlamaIndex AI Agent Development",
-    "category": "Generative AI",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Large Language Models (LLMs, RAG & Prompt Engineering)",
-    "category": "Artificial Intelligence",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Laser Cutting & CNC Sheet Metal Piercing Operations",
-    "category": "Fabrication",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Lathe Turning, Mill-Turn & 4-Axis Precision Machining",
-    "category": "Machining & Tooling",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Lead Acid & Lithium-Ion Battery Quality & Cell Testing",
-    "category": "Energy Storage",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Lead Generation, Outbound Prospecting & Sales Cadences",
-    "category": "Sales Strategy",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Leadership Development, Mentoring & Executive Coaching",
-    "category": "Organizational Dev",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Lean Manufacturing (Toyota Production System - TPS)",
-    "category": "Operational Excellence",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Lightweight Materials & Carbon Fiber Composites",
-    "category": "Aerospace & Auto",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Line Balancing & Cycle Time Takt Optimization",
-    "category": "Industrial Engineering",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Linear Programming & Supply Chain Optimization Modeling",
-    "category": "Operations Research",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Linux System Administration, Bash Shell Scripting & RedHat",
-    "category": "IT & Infrastructure",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Liquefied Natural Gas (LNG) Cryogenic Regasification EPC",
-    "category": "Oil & Gas CleanTech",
-    "count": "1,200 candidates"
-  },
-  {
-    "name": "Liquid Chromatography Mass Spectrometry (LC-MS / MS)",
-    "category": "Analytical Science",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Logistics Management & 3PL / 4PL Freight Operations",
-    "category": "Supply Chain",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Low Voltage Switchgear & Motor Control Centers (MCC / PCC)",
-    "category": "Power Electrical",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Lyophilization & Aseptic Sterile Injectable Processing",
-    "category": "Pharma Manufacturing",
-    "count": "1,850 candidates"
-  },
-  {
-    "name": "Machine Learning & Deep Learning (TensorFlow / PyTorch)",
-    "category": "Data Science & AI",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "Maintenance Management (Preventive, Predictive & TPM)",
-    "category": "Plant Maintenance",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Manufacturing Execution Systems (MES & Industry 4.0)",
-    "category": "Smart Factory",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Marketing Automation (HubSpot, Marketo & Lead Scoring)",
-    "category": "Growth Marketing",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Mass Spectrometry & Spectral Library Identification",
-    "category": "Analytical Science",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Material Handling Equipment (EOT Cranes, Hoists & Conveyors)",
-    "category": "Heavy Machinery",
-    "count": "2,500 candidates"
-  },
-  {
-    "name": "Material Requirement Planning (MRP & SAP MM Procurement)",
-    "category": "Supply Chain",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "MATLAB & Simulink Model-Based Development (MBD)",
-    "category": "System Simulation",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Mechanical 3D CAD Design (SolidWorks, NX, CATIA)",
-    "category": "Design Engineering",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Mechatronics Systems Engineering & Electro-Mechanical Rigs",
-    "category": "Mechatronics",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Medical Device Design & Risk Management (ISO 13485 / ISO 14971)",
-    "category": "Medical Tech",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Membrane Bioreactor (MBR) Effluent Recycling Systems",
-    "category": "Water Treatment",
-    "count": "1,650 candidates"
-  },
-  {
-    "name": "Mergers & Acquisitions (M&A) Commercial Due Diligence",
-    "category": "Corporate Strategy",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Metallurgy & Heat Treatment Phase Transformation",
-    "category": "Materials Engineering",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Metrology & Coordinate Measuring Machine (CMM Zeiss / Calypso)",
-    "category": "Quality Control",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Microbiology Quality Testing & Bioburden Sterility Auditing",
-    "category": "Pharma Lab",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Microcontroller Firmware Development (ARM Cortex / ESP32)",
-    "category": "Embedded Systems",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Microservices Architecture & RESTful API Scalability",
-    "category": "Software Architecture",
-    "count": "5,300 candidates"
-  },
-  {
-    "name": "Microsoft Excel Advanced (VBA Macros, Power Query & Pivot)",
-    "category": "Productivity & MIS",
     "count": "7,200 candidates"
   },
   {
-    "name": "Microsoft Project (MSP) Critical Path Planning & Tracking",
-    "category": "Project Planning",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "MLOps Pipeline Deployment (MLflow, Kubeflow & Docker)",
-    "category": "AI Infrastructure",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Mobile Application Development (Flutter / React Native)",
-    "category": "Mobile Engineering",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Modern Trade & Supermarket FMCG Channel Management",
-    "category": "FMCG Sales",
+    "name": "API Manufacturing",
+    "category": "Pharma & Biotech",
     "count": "4,100 candidates"
   },
   {
-    "name": "MongoDB & NoSQL Distributed Database Optimization",
-    "category": "Database Systems",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Motor Control Centers (MCC), VFDs & Soft Starters",
-    "category": "Electrical Automation",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Mould Design for Plastic Extrusion & Blow Moulding",
-    "category": "Tooling Design",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "MSA (Measurement Systems Analysis & Gage R&R Studies)",
-    "category": "Quality Engineering",
+    "name": "APQP / PPAP",
+    "category": "Automotive Quality",
     "count": "3,900 candidates"
   },
   {
-    "name": "MySQL Database Administration & High Availability Clustering",
-    "category": "Database Systems",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Natural Language Processing (NLP, Transformers & BERT)",
-    "category": "Artificial Intelligence",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Near-Field Communication (NFC, RFID & Asset Tracking IoT)",
-    "category": "Smart Tracking",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Network Engineering (Cisco CCNA / CCNP, Routing & BGP)",
-    "category": "IT Networking",
-    "count": "4,300 candidates"
-  },
-  {
-    "name": "Network Security, Firewalls & Next-Gen UTM (Palo Alto / Fortinet)",
-    "category": "Cyber Security",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "New Product Development (NPD / Stage-Gate APQP Process)",
-    "category": "R&D Engineering",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Next-Generation Sequencing (NGS Bioinformatics Pipelines)",
-    "category": "Biotechnology",
-    "count": "1,100 candidates"
-  },
-  {
-    "name": "Next.js React Server Components & Fullstack SSR",
-    "category": "Frontend Tech",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "NGINX Reverse Proxy, Load Balancing & SSL Termination",
-    "category": "Web Infrastructure",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Nickel & Cobalt Superalloy Investment Casting",
-    "category": "Special Metallurgy",
-    "count": "1,200 candidates"
-  },
-  {
-    "name": "Nitrogen & Oxygen Industrial Cryogenic Generation Plants",
-    "category": "Industrial Gases",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Node.js & Express REST API Backend Development",
-    "category": "Web Backend",
-    "count": "5,700 candidates"
-  },
-  {
-    "name": "Non-Destructive Testing (NDT Level II / III - UT, RT, MPI, DPT)",
-    "category": "NDT Quality",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Non-Ferrous Foundry Operations (Aluminium & Zinc Alloys)",
-    "category": "Foundry Engineering",
-    "count": "1,950 candidates"
-  },
-  {
-    "name": "NoSQL Distributed Architecture (MongoDB, Cassandra, DynamoDB)",
-    "category": "Database Systems",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Nuclear Power Reactor Safety Standards & Shielding EPC",
-    "category": "Nuclear Energy",
-    "count": "850 candidates"
-  },
-  {
-    "name": "Numerical Control (CNC G-Code / M-Code Programming)",
-    "category": "Precision Machining",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "NumPy & SciPy Scientific Computing in Python",
-    "category": "Data Science",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "NVH (Noise, Vibration & Harshness) Vehicle Acoustics Testing",
-    "category": "Automotive CAE/Test",
-    "count": "1,850 candidates"
-  },
-  {
-    "name": "Object-Oriented Programming (OOP Principles & Design Patterns)",
-    "category": "Software Engineering",
+    "name": "Assembly Line Operations",
+    "category": "Manufacturing",
     "count": "6,800 candidates"
   },
   {
-    "name": "Odoo ERP Python Customization & Module Deployment",
-    "category": "ERP Platforms",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Oil & Gas Cross-Country Pipeline EPC (ASME B31.4 / B31.8)",
-    "category": "Pipeline Engineering",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "OKR (Objectives and Key Results) Performance Alignment",
-    "category": "Leadership Systems",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Omnichannel Retail Marketing & Loyalty Program Management",
-    "category": "Retail Strategy",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "On-Page, Off-Page & Technical SEO Auditing",
-    "category": "Digital Marketing",
-    "count": "4,300 candidates"
-  },
-  {
-    "name": "Open Source Software Contribution & GitHub Best Practices",
-    "category": "Software Dev",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Operational Risk Management (ORM & Basel Framework)",
-    "category": "Banking & Risk",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Operations Research, Linear Optimization & Simulation",
-    "category": "Industrial Analytics",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Optical Character Recognition (OCR & Computer Vision Tesseract)",
-    "category": "AI & Document AI",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Optical Emission Spectrometry (OES Metal Chemistry Testing)",
-    "category": "Metallurgical Lab",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Oracle ERP Cloud / E-Business Suite (Financials & SCM)",
-    "category": "Enterprise Software",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Organizational Development (OD Interventions & Change Mgmt)",
-    "category": "Strategic HR",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "OSHA Workplace Safety & Industrial Hazard Mitigation",
-    "category": "Safety & Compliance",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Overall Equipment Effectiveness (OEE) Metric Optimization",
-    "category": "Plant Productivity",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Overhead Transmission Lines EPC (132kV to 765kV Tower Erection)",
-    "category": "Power Transmission",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Paint Shop & Automotive Powder Coating Line Management",
-    "category": "Automotive Paint",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Payroll Administration, Statutory Compliance & Labor Codes",
-    "category": "HR Operations",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Penetration Testing, Ethical Hacking & VAPT Audits",
-    "category": "Cyber Security",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Performance Management Systems (PMS - Balanced Scorecard & OKRs)",
-    "category": "HR Strategy",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Pharmacovigilance (PV, Adverse Drug Reporting & MedDRA)",
-    "category": "Pharma Safety",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "PHP & Laravel Fullstack Framework Development",
-    "category": "Web Development",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Piping & Instrumentation Diagram (P&ID Drafting & Review)",
-    "category": "Process Engineering",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Piping Stress Analysis (CAESAR II Pipe Flexibility)",
-    "category": "Process Piping",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Plant Operations Leadership & Factory P&L Accountability",
-    "category": "Manufacturing Leadership",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Plastic Injection Moulding Process Optimization & Tooling",
-    "category": "Plastics & Polymers",
-    "count": "3,300 candidates"
-  },
-  {
-    "name": "PLC Programming (Siemens TIA Portal, Allen-Bradley, Mitsubishi)",
-    "category": "Industrial Automation",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "PostgreSQL Database Performance Tuning & Query Optimization",
-    "category": "Database Systems",
-    "count": "4,300 candidates"
-  },
-  {
-    "name": "Power Automate RPA & Microsoft Power Platform",
-    "category": "Process Automation",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Power BI Enterprise Dashboard Development & DAX Modeling",
-    "category": "Business Intelligence",
-    "count": "6,400 candidates"
-  },
-  {
-    "name": "Power Plant EPC & Commissioning (Thermal / Solar / Combined Cycle)",
-    "category": "Energy Infrastructure",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Powertrain Calibration, Dyno Testing & Emission Tuning",
-    "category": "Automotive Eng",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "PPAP (Production Part Approval Process Levels 1-5)",
-    "category": "Automotive Quality",
+    "name": "Auditing & Compliance",
+    "category": "Finance & Accounts",
     "count": "4,600 candidates"
   },
   {
-    "name": "Pre-Engineered Buildings (PEB Design & Tekla Detailing)",
-    "category": "Structural Civil",
-    "count": "3,100 candidates"
+    "name": "AutoCAD",
+    "category": "Design Engineering",
+    "count": "8,200 candidates"
   },
   {
-    "name": "Predictive Maintenance (PdM, Vibration & Thermal Imaging)",
-    "category": "Reliability Maintenance",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Press Tools & Progressive Sheet Metal Die Stamping",
-    "category": "Tooling Mfg",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "PRINCE2 Agile Project Management Methodology",
-    "category": "Project Management",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Printed Circuit Board (PCB Layout Design - Altium / Allegro)",
-    "category": "Hardware Engineering",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Process Safety Management (PSM, HAZOP & Risk Assessment)",
-    "category": "Chemical Safety",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Procurement Strategy, Vendor Negotiation & Ariba E-Sourcing",
-    "category": "Strategic Sourcing",
+    "name": "Automation Testing (Selenium / Cypress)",
+    "category": "Software QA",
     "count": "5,100 candidates"
   },
   {
-    "name": "Product Lifecycle Management (PLM - Siemens Teamcenter / Windchill)",
-    "category": "Engineering Systems",
-    "count": "3,200 candidates"
+    "name": "AWS Cloud",
+    "category": "Cloud Computing",
+    "count": "9,400 candidates"
   },
   {
-    "name": "Project Management Professional (PMP / PMBOK Governance)",
-    "category": "Project Leadership",
-    "count": "5,500 candidates"
+    "name": "Azure Cloud",
+    "category": "Cloud Computing",
+    "count": "8,100 candidates"
   },
   {
-    "name": "Python Programming, Data Science & Automation Scripting",
-    "category": "Programming & AI",
+    "name": "B2B Sales",
+    "category": "Sales & BD",
     "count": "7,800 candidates"
   },
   {
-    "name": "PyTorch Deep Learning Model Training & Neural Networks",
-    "category": "Deep Learning",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Qlik Sense & QlikView Business Intelligence Development",
-    "category": "Data Visualization",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Quality Assurance & Quality Control (QA/QC Management)",
-    "category": "Quality Systems",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "Quality Audit Preparation (FDA, ISO, ASME & CE Certification)",
-    "category": "Regulatory Compliance",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Quality by Design (QbD in Pharma Formulation & Analytical)",
-    "category": "Pharma Science",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Quality Circles (QC) & Total Quality Control Facilitation",
-    "category": "Continuous Improvement",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Quality Control Laboratory Instruments (HPLC, GC, UV-Vis)",
-    "category": "Pharma QC",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Quality Engineering, Customer Audits & 8D Corrective Actions",
-    "category": "Manufacturing Quality",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Quality Function Deployment (QFD & Voice of Customer Matrix)",
-    "category": "Design Quality",
+    "name": "Battery Management Systems (BMS)",
+    "category": "EV & Battery Tech",
     "count": "2,300 candidates"
   },
   {
-    "name": "Quality Management Systems (ISO 9001:2015 & IATF 16949)",
-    "category": "Standards Compliance",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Quality Maturity Model & Continuous Process Auditing",
-    "category": "Operational Excellence",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Quantitative Financial Modeling, Valuation & Risk Analytics",
-    "category": "Financial Analytics",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Quantitative Risk Assessment (QRA & Consequence Modeling)",
-    "category": "Chemical Safety",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Quantity Surveying, Cost Estimation & BOQ Preparation",
-    "category": "Civil & Infra",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Quick Changeover (SMED Single-Minute Exchange of Die)",
-    "category": "Lean Manufacturing",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "R Statistical Programming Language & Bio-Statistics",
-    "category": "Statistical Computing",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "RabbitMQ Message Broker & Enterprise Service Bus",
-    "category": "Middleware Systems",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Radio Frequency (RF) Circuit Design & Antenna Optimization",
-    "category": "Telecom & Wireless",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Railway Signaling, Interlocking & Track Engineering",
-    "category": "Rail & Metro EPC",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "React Native Cross-Platform iOS & Android Mobile Apps",
-    "category": "Mobile Engineering",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "React.js Frontend Architecture & Web Applications",
-    "category": "Frontend Development",
-    "count": "7,200 candidates"
-  },
-  {
-    "name": "Recruitment & Talent Acquisition (Full Lifecycle Hiring)",
-    "category": "Human Resources",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Redis In-Memory Caching & Distributed Session Management",
-    "category": "Backend Systems",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Redux Toolkit, Zustand & React State Management",
-    "category": "Frontend Architecture",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Regulatory Affairs (US FDA IND/NDA, EU MDR & MHRA Filings)",
-    "category": "Pharma Regulatory",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Reliability Centered Maintenance (RCM II & FMECA Analysis)",
-    "category": "Plant Reliability",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Renewable Energy EPC (Utility-Scale Solar PV & Wind Farms)",
-    "category": "Clean Energy",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "RESTful API Architecture & Swagger Documentation",
-    "category": "Software Design",
-    "count": "6,100 candidates"
-  },
-  {
-    "name": "Reverse Osmosis (RO) & Demineralization Water Treatment",
-    "category": "Water & Effluent",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Risk Assessment & Hazard Identification (HIRA / HAZID)",
-    "category": "Industrial Safety",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Risk Management Framework (ISO 31000 & Enterprise Governance)",
-    "category": "Corporate Governance",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Robotic Process Automation (RPA - UiPath, Blue Prism, Power Automate)",
-    "category": "Enterprise Automation",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Rolling Mill Operations (Hot & Cold Strip, Rebar & Sections)",
-    "category": "Steel Metallurgy",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Root Cause Analysis (RCA - 8D, 5-Why, Fishbone Diagram)",
-    "category": "Quality Engineering",
-    "count": "5,700 candidates"
-  },
-  {
-    "name": "Rust Systems Programming & Memory-Safe Architecture",
-    "category": "Systems Engineering",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "S&OP (Sales and Operations Planning & Demand-Supply Sync)",
-    "category": "Supply Chain Strategy",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "SaaS Architecture, Multi-Tenancy & Cloud Delivery",
-    "category": "Software Architecture",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Safety Engineering (Industrial EHS, OSHA & Safety Audits)",
-    "category": "Industrial Safety",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Safety Instrumented Systems (SIS / SIL Rating Verification)",
-    "category": "Process Safety",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Sales & Business Development (Enterprise B2B Technology)",
-    "category": "Commercial Strategy",
-    "count": "6,800 candidates"
-  },
-  {
-    "name": "Sales Channel & Dealer / Distributor Network Management",
-    "category": "Channel Sales",
-    "count": "5,600 candidates"
-  },
-  {
-    "name": "Sales Forecasting, Quota Allocation & Pipeline Management",
-    "category": "Revenue Operations",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Salesforce Administration, User Roles & Permission Sets",
-    "category": "CRM Platforms",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Salesforce Apex, Visualforce & Lightning Web Components (LWC)",
-    "category": "CRM Development",
-    "count": "4,300 candidates"
-  },
-  {
-    "name": "Salesforce CRM Implementation, Workflows & Process Builder",
-    "category": "Enterprise CRM",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Salesforce Marketing Cloud, Journey Builder & Pardot",
-    "category": "Marketing Automation",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Salesforce Service Cloud & Field Service Lightning (FSL)",
-    "category": "CRM Platforms",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "SAP ABAP Programming, Core Data Services (CDS) & Fiori OData",
-    "category": "Enterprise ERP",
-    "count": "5,400 candidates"
-  },
-  {
-    "name": "SAP Ariba Strategic Sourcing, Supplier Network & Procure-to-Pay",
-    "category": "E-Procurement",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "SAP Basis Administration, System Refresh & NetWeaver",
-    "category": "ERP Infrastructure",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "SAP Business Warehouse (SAP BW/4HANA & BI Analytics)",
-    "category": "ERP Analytics",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "SAP Customer Experience (C/4HANA & SAP Sales Cloud)",
-    "category": "Enterprise CRM",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "SAP EWM (Extended Warehouse Management & Inbound/Outbound)",
-    "category": "Supply Chain ERP",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "SAP FICO (Financial Accounting, General Ledger & Controlling)",
-    "category": "Finance ERP",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "SAP HANA In-Memory Database Architecture & Calculation Views",
-    "category": "Database Systems",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "SAP MM (Materials Management, Purchasing & Inventory)",
-    "category": "Supply Chain ERP",
-    "count": "6,100 candidates"
-  },
-  {
-    "name": "SAP PM (Plant Maintenance, Calibration & Breakdown Orders)",
-    "category": "Maintenance ERP",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "SAP PP (Production Planning, Shop Floor Control & MRP)",
-    "category": "Manufacturing ERP",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "SAP QM (Quality Management, Inspection Lots & Certificates)",
-    "category": "Quality ERP",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "SAP S/4HANA Enterprise Transformation, Migration & Greenfield",
-    "category": "ERP Transformation",
-    "count": "5,500 candidates"
-  },
-  {
-    "name": "SAP SD (Sales & Distribution, Pricing, Billing & Shipping)",
-    "category": "Commercial ERP",
-    "count": "5,700 candidates"
-  },
-  {
-    "name": "SAP SuccessFactors (HCM, Employee Central & Performance)",
-    "category": "HR Tech & ERP",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "SAP SuccessFactors Learning (LMS) & Compensation Management",
-    "category": "HR Tech",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "SCADA Architecture, Telemetry & RTU Integration",
-    "category": "Industrial Automation",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "SCADA HMI Development (Siemens WinCC, Wonderware, Ignition)",
-    "category": "Process Controls",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Scikit-Learn Machine Learning in Python & Predictive Models",
-    "category": "Data Science",
-    "count": "5,300 candidates"
-  },
-  {
-    "name": "Scrap Reduction, Melt Loss Control & Metal Yield Optimization",
-    "category": "Foundry & Rolling",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Scrum Master, Agile Coaching & Sprint Backlog Management",
-    "category": "Agile Delivery",
-    "count": "5,900 candidates"
-  },
-  {
-    "name": "Search Engine Marketing (SEM, Google Ads PPC & Display)",
-    "category": "Performance Marketing",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Search Engine Optimization (Technical SEO, Content & Backlinks)",
-    "category": "Digital Marketing",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Secondary Metallurgy (Ladle Refining Furnace LRF & Vacuum Degassing)",
-    "category": "Steel Metallurgy",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Section Mill & Rail Mill Roll Pass Calibrations",
-    "category": "Steel Rolling",
-    "count": "1,500 candidates"
-  },
-  {
-    "name": "Security Information & Event Management (SIEM - Splunk / Sentinel)",
-    "category": "Cyber Defense",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Security Operations Center (SOC Tier 1-3 Incident Response)",
-    "category": "Cyber Security",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Selenium WebDriver Automation Framework (Java / Python / TestNG)",
-    "category": "Software QA",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Semiconductor Device Fabrication, Photolithography & Wafer Packaging",
-    "category": "Semiconductor",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Sentiment Analysis, NLP & Large Scale Text Classification",
-    "category": "Artificial Intelligence",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Serverless Computing (AWS Lambda, API Gateway & Azure Functions)",
-    "category": "Cloud Architecture",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Service Delivery Management (ITIL v4 SLAs & IT Services)",
-    "category": "IT Leadership",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "ServiceNow ITSM, ITOM, Incident, Problem & Change Management",
-    "category": "IT Service Management",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Servo Motors, Drives & Multi-Axis Motion Control",
-    "category": "Electrical Automation",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Sheet Metal Die Design & Stamping Press Automation",
-    "category": "Tooling & Fabrication",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Sheet Metal Fabrication (Laser Cutting, CNC Bending & Turret Punching)",
-    "category": "Fabrication Engineering",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Shell Scripting (Bash, Zsh & PowerShell Automation)",
-    "category": "IT Automation",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "Shift Operations, Production Scheduling & Plant Output Planning",
-    "category": "Plant Operations",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Shop Floor Control & MES (Manufacturing Execution Systems)",
-    "category": "Smart Manufacturing",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Single-Minute Exchange of Die (SMED Quick Tool Changeover)",
-    "category": "Lean Manufacturing",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Sintering Plant Operations & Iron Ore Beneficiation",
-    "category": "Steel & Mining",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Site Reliability Engineering (SRE, Prometheus & Grafana)",
-    "category": "DevOps & Reliability",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Six Sigma Black Belt (DMAIC, DFSS & Hypothesis Statistical Testing)",
-    "category": "Operational Excellence",
-    "count": "5,800 candidates"
-  },
-  {
-    "name": "Six Sigma DMAIC Continuous Process Improvement",
-    "category": "Quality Excellence",
-    "count": "5,400 candidates"
-  },
-  {
-    "name": "Six Sigma Green Belt (Process Capability Studies Cp / Cpk)",
-    "category": "Quality Excellence",
-    "count": "6,900 candidates"
-  },
-  {
-    "name": "Six Sigma Master Black Belt (Enterprise-Wide Lean Transformation)",
-    "category": "Executive Quality",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Six Sigma Yellow Belt Problem Solving Fundamentals",
-    "category": "Continuous Improvement",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Smart Grid Infrastructure, Advanced Metering (AMI) & Substation Automation",
-    "category": "Power Transmission",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "SMT (Surface Mount Technology) Pick-and-Place & Reflow Soldering",
-    "category": "Electronics Mfg",
-    "count": "3,300 candidates"
-  },
-  {
-    "name": "Snowflake Data Cloud Warehousing, Snowpipe & Data Lakes",
+    "name": "Big Data Analytics",
     "category": "Data Engineering",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Snowflake Snowpark Python DataFrames & Stored Procedures",
-    "category": "Cloud Data Tech",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Social Media Marketing & Executive Employer Branding",
-    "category": "Brand Communications",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "Software Architecture, Microservices & High-Level System Design",
-    "category": "Software Engineering",
-    "count": "5,400 candidates"
-  },
-  {
-    "name": "Software Defined Networking (SDN / SD-WAN Enterprise Routing)",
-    "category": "Enterprise Network",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Software Engineering (Full SDLC, Design Patterns & Clean Code)",
-    "category": "Software Dev",
-    "count": "7,500 candidates"
-  },
-  {
-    "name": "Solar Inverter, Central Station PCS & SCADA Monitoring",
-    "category": "Clean Energy Tech",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Solar PV Power Plant Engineering (EPC, Rooftop & Ground Mount)",
-    "category": "Renewable Power",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Solid-State Battery & High Energy Density Lithium Cell Chemistry",
-    "category": "EV Battery R&D",
-    "count": "1,450 candidates"
-  },
-  {
-    "name": "SolidWorks 3D CAD Modeling, Weldments & FEA Simulation",
-    "category": "Mechanical CAD",
-    "count": "6,500 candidates"
-  },
-  {
-    "name": "Solution Architecture & Enterprise Cloud Migration Blueprinting",
-    "category": "Enterprise Cloud",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Spark (Apache Spark Distributed Big Data Processing & PySpark)",
-    "category": "Big Data Tech",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Specialty Chemicals Organic Synthesis & Pilot Plant Scale-up",
-    "category": "Chemical R&D",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Spring Boot Microservices, REST APIs & Spring Security",
-    "category": "Backend Java",
-    "count": "6,600 candidates"
-  },
-  {
-    "name": "Spring Framework & Enterprise Java Application Development",
-    "category": "Java Development",
-    "count": "6,100 candidates"
-  },
-  {
-    "name": "SQL Database Optimization, Indexing & Complex Stored Procedures",
-    "category": "Database Systems",
-    "count": "7,900 candidates"
-  },
-  {
-    "name": "SQL Server Database Administration (SSMS, SSIS, SSRS, SSAS)",
-    "category": "Microsoft Data",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "SQLite Embedded Database Architecture & Optimization",
-    "category": "Database Systems",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Stability Testing, Dissolution Profiling & ICH Stability Chambers",
-    "category": "Pharma QC",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Staffing, Executive Search & Headhunting Methodologies",
-    "category": "Recruitment Advisory",
-    "count": "4,900 candidates"
-  },
-  {
-    "name": "Stakeholder Management, CXO Communication & Client Advisory",
-    "category": "Leadership Advisory",
-    "count": "6,200 candidates"
-  },
-  {
-    "name": "Standard Operating Procedures (SOP Writing, Review & cGMP)",
-    "category": "Process Compliance",
-    "count": "5,500 candidates"
-  },
-  {
-    "name": "Statistical Data Modeling & Hypothesis Testing (R / Python Pandas)",
-    "category": "Data Science",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Statistical Process Control (SPC, Control Charts & Process Capability)",
-    "category": "Quality Control",
-    "count": "5,300 candidates"
-  },
-  {
-    "name": "Steam Boiler Efficiency, Heat Recovery & Coal Combustion",
-    "category": "Thermal Energy",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Steam Turbine Auxiliaries, Electro-Hydraulic Governors & Condensers",
-    "category": "Rotating Equipment",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Steam Turbines & High Pressure Power Plant Boiler Erection",
-    "category": "Thermal EPC",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Steel Making (Basic Oxygen Furnace BOF & Electric Arc Furnace EAF)",
-    "category": "Primary Steelmaking",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Steel Rolling Rebar, Wire Rod & Merchant Bar Mills",
-    "category": "Steel Rolling",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Steel Structure Fabrication, Erection & PEB Building Standards",
-    "category": "Structural Infra",
     "count": "4,200 candidates"
   },
   {
-    "name": "Storage Area Network (SAN, NAS & Enterprise NetApp / Dell Storage)",
-    "category": "IT Infrastructure",
-    "count": "3,100 candidates"
+    "name": "Biotechnology",
+    "category": "Pharma & Biotech",
+    "count": "2,900 candidates"
   },
   {
-    "name": "Strategic Corporate Planning, Annual Operating Plans & Business Growth",
-    "category": "Corporate Strategy",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Strategic Sourcing, Spend Analysis & Vendor Relationship Management",
-    "category": "Procurement SCM",
-    "count": "5,600 candidates"
-  },
-  {
-    "name": "Structural Analysis & Design (STAAD.Pro, ETABS & SAFE)",
-    "category": "Civil & Structural",
-    "count": "4,700 candidates"
-  },
-  {
-    "name": "Structural Steel Detailing, 3D Modeling & Fab Connection (Tekla)",
-    "category": "Steel Detailing",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Substation Engineering (GIS / AIS High Voltage 66kV to 765kV)",
-    "category": "Power Electrical",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Succession Planning, High-Potential Talent & Leadership Pipeline",
-    "category": "Talent Management",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Superalloy Machining (Inconel, Titanium & Hastelloy VMC)",
-    "category": "Aerospace Machining",
+    "name": "Blow Molding",
+    "category": "Manufacturing",
     "count": "1,900 candidates"
   },
   {
-    "name": "Supply Chain Analytics, KPI Dashboards & Inventory Metrics",
-    "category": "SCM Analytics",
-    "count": "4,500 candidates"
+    "name": "Brand Management",
+    "category": "Marketing",
+    "count": "3,800 candidates"
   },
   {
-    "name": "Supply Chain Management & End-to-End Global Freight Logistics",
-    "category": "Logistics & SCM",
+    "name": "Budgeting & Forecasting",
+    "category": "Corporate Finance",
+    "count": "4,900 candidates"
+  },
+  {
+    "name": "Business Analysis",
+    "category": "Business Strategy",
     "count": "6,400 candidates"
   },
   {
-    "name": "Supply Chain Risk Mitigation, Dual Sourcing & Business Continuity",
-    "category": "Supply Chain Resilience",
-    "count": "3,800 candidates"
+    "name": "Business Development",
+    "category": "Sales & Commercial",
+    "count": "9,200 candidates"
   },
   {
-    "name": "Supply Chain Visibility, RFID & Real-Time Track-and-Trace",
-    "category": "Supply Chain Tech",
-    "count": "3,200 candidates"
+    "name": "Business Intelligence (Power BI / Tableau)",
+    "category": "Analytics",
+    "count": "6,100 candidates"
   },
   {
-    "name": "Supply Planning, Material Requisition & Safety Stock Optimization",
-    "category": "Materials Planning",
-    "count": "4,600 candidates"
+    "name": "C / C++",
+    "category": "Software Development",
+    "count": "5,300 candidates"
   },
   {
-    "name": "Surface Finishing, Hard Chrome Plating, Anodizing & Powder Coating",
-    "category": "Metal Finishing",
-    "count": "2,700 candidates"
+    "name": "C# / .NET",
+    "category": "Backend Engineering",
+    "count": "6,200 candidates"
   },
   {
-    "name": "Surface Mount Technology (SMT PCBA Quality, AOI & Solder Paste)",
-    "category": "Electronics Assembly",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Surface Treatment (Phosphating, Passivation & Shot Blasting)",
-    "category": "Surface Metallurgy",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Sustainable ESG Auditing, Scope 1-3 Decarbonization & CSR",
-    "category": "ESG Sustainability",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Svelte & SvelteKit Modern Lightweight Web Applications",
-    "category": "Frontend Tech",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Swift & SwiftUI iOS Native Mobile Application Development",
-    "category": "iOS Development",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Switchgear Design, Vacuum Circuit Breakers (VCB) & Type Testing",
-    "category": "Power Switchgear",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Synthetic Organic Chemistry, API Intermediates & Route Scouting",
-    "category": "Chemical Synthesis",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "System Integration Testing, Hardware-in-the-Loop & Rig Validation",
-    "category": "Systems Engineering",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "System on Chip (SoC) Architecture & ASIC Design Verification",
-    "category": "VLSI Engineering",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "SystemVerilog & UVM Universal Verification Methodology",
-    "category": "Semiconductor VLSI",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Tableau Data Visualization, LOD Calculations & Interactive Dashboards",
-    "category": "Business Intelligence",
-    "count": "5,500 candidates"
-  },
-  {
-    "name": "Tailwind CSS Modern Responsive Web UI Design",
-    "category": "Frontend CSS",
-    "count": "4,800 candidates"
-  },
-  {
-    "name": "Talent Acquisition Strategy, Campus Relations & Headhunting",
-    "category": "Human Resources",
-    "count": "5,200 candidates"
-  },
-  {
-    "name": "Technical Writing, Standard Operating Manuals & API Docs",
-    "category": "Technical Documentation",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Telematics, CAN Bus (J1939) & Connected Vehicle IoT",
-    "category": "Automotive IoT",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Tender Management, GeM Bidding & Government EPC Contracts",
-    "category": "Commercial Bidding",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Terraform Infrastructure as Code & Multi-Cloud Deployment",
-    "category": "Cloud DevOps",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "Test Automation Framework Design (BDD Cucumber / TestNG)",
-    "category": "Software QA",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Test Driven Development (TDD, Unit Testing & Mocking Frameworks)",
-    "category": "Software Craftsmanship",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Thermal Power Plant Erection, Boilers & Steam Turbine EPC",
-    "category": "Power EPC",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "TIG, MIG & Submerged Arc Welding Standards (ASME IX / AWS D1.1)",
-    "category": "Welding Metallurgy",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Time & Motion Study (MOST / Maynard Work Measurement)",
-    "category": "Industrial Engineering",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Titanium & Nickel Superalloy Forging & Machining",
-    "category": "Special Metallurgy",
-    "count": "1,500 candidates"
-  },
-  {
-    "name": "Tool & Die Design (Press Tools, Progressive Dies & Moulds)",
-    "category": "Tooling Engineering",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Total Cost of Ownership (TCO) & Sourcing Optimization",
-    "category": "Strategic SCM",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Total Productive Maintenance (TPM - 8 Pillars Implementation)",
-    "category": "Plant Reliability",
+    "name": "CAD / CAM Modeling",
+    "category": "Mechanical Engineering",
     "count": "4,700 candidates"
   },
   {
-    "name": "Total Quality Management (TQM & Deming Prize Framework)",
-    "category": "Quality Excellence",
+    "name": "CATIA",
+    "category": "Automotive Design",
     "count": "3,400 candidates"
   },
   {
-    "name": "Toxic Gas Monitoring, Industrial Hygiene & Workplace Safety",
-    "category": "Plant EHS",
-    "count": "2,100 candidates"
+    "name": "cGMP Compliance",
+    "category": "Pharma Regulatory",
+    "count": "5,600 candidates"
   },
   {
-    "name": "Transformer Testing, Oil Dissolved Gas Analysis (DGA) & Maintenance",
-    "category": "High Voltage Power",
+    "name": "Chemical Synthesis",
+    "category": "Chemical & Pharma",
     "count": "2,800 candidates"
   },
   {
-    "name": "Transmission Line Towers & Substation Erection (400kV / 765kV)",
-    "category": "Power Infrastructure",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Treasury & Cash Flow Management, Liquidity & Forex Hedging",
-    "category": "Corporate Finance",
-    "count": "3,500 candidates"
-  },
-  {
-    "name": "Tunnel Boring Machine (TBM) Operations & Underground Civil EPC",
-    "category": "Infra EPC",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Turbine Vibration Analysis, Dynamic Balancing & Orbit Plots",
-    "category": "Condition Monitoring",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "TypeScript Fullstack Application Development (Node / React)",
-    "category": "Software Engineering",
+    "name": "CI/CD Pipelines",
+    "category": "DevOps",
     "count": "5,700 candidates"
   },
   {
-    "name": "UI/UX Product Design, User Journey Mapping & Figma Prototyping",
-    "category": "Product Design",
-    "count": "5,100 candidates"
-  },
-  {
-    "name": "Ultrafiltration & Reverse Osmosis (RO) Industrial Effluent Recycling",
-    "category": "Water Treatment",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Ultrasonic Testing (UT Level II / Phased Array PAUT / TOFD)",
-    "category": "NDT & Inspection",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Underground Mining & Heavy Earthmoving Machinery (HEMM Fleet)",
-    "category": "Mining Equipment",
-    "count": "1,850 candidates"
-  },
-  {
-    "name": "Underwriters Laboratories (UL Certification & Product Safety)",
-    "category": "Regulatory Testing",
-    "count": "1,700 candidates"
-  },
-  {
-    "name": "Unified Modeling Language (UML & System Architecture Diagrams)",
-    "category": "Software Architecture",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Unit Economics, Margin Analysis & P&L Modeling",
-    "category": "Business Finance",
-    "count": "3,300 candidates"
-  },
-  {
-    "name": "Universal Testing Machine (UTM Tensile, Compressive & Stress Testing)",
-    "category": "Materials Testing",
-    "count": "2,500 candidates"
-  },
-  {
-    "name": "Universal Verification Methodology (UVM SystemVerilog)",
-    "category": "VLSI Design",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "UNIX / Linux Shell Scripting & Automated Server Administration",
-    "category": "System Engineering",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Unmanned Aerial Vehicles (UAV, Drone Avionics & Autopilot)",
-    "category": "Aerospace Robotics",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "UPS, Industrial Inverters & Battery Energy Backup Systems",
-    "category": "Power Electronics",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Upstream Oil & Gas Drilling, Well Completion & Mud Logging",
-    "category": "Petroleum Engineering",
-    "count": "1,950 candidates"
-  },
-  {
-    "name": "Urban Planning, Highway Geometric Design & Smart Cities",
-    "category": "Civil Infrastructure",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "US GAAP & SEC Financial Reporting Compliance",
-    "category": "Corporate Accounting",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Usability Testing, User Persona Development & Customer Empathy",
-    "category": "UX Research",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "User Acceptance Testing (UAT QA Management & Test Scripts)",
-    "category": "Software Quality",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Utility Boilers, Chiller Plants & Compressed Air Energy Auditing",
-    "category": "Plant Utilities",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Vacuum Heat Treatment, Plasma Nitriding & Gas Quenching Metallurgy",
-    "category": "Special Metallurgy",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Vacuum Induction Melting (VIM & VAR Aerospace Metallurgy)",
-    "category": "Special Metallurgy",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Valuation & Financial Modeling (Discounted Cash Flow DCF / LBO)",
-    "category": "Investment Banking",
-    "count": "3,400 candidates"
-  },
-  {
-    "name": "Value Analysis & Value Engineering (VAVE Cost Optimization)",
-    "category": "Design Optimization",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Value Stream Mapping (VSM Current & Future State Lean)",
-    "category": "Lean Manufacturing",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Valves Manufacturing (Gate, Globe, Ball, Check, Control & Safety)",
-    "category": "Flow Control",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Variable Frequency Drives (VFD) & AC/DC Servo Motion Control",
-    "category": "Electrical Automation",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Vehicle Dynamics Simulation (Adams / CarSim / IPG CarMaker)",
-    "category": "Automotive Simulation",
-    "count": "1,800 candidates"
-  },
-  {
-    "name": "Vendor Development, Supplier Rationalization & Spend Analysis",
-    "category": "Strategic Procurement",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Vendor Managed Inventory (VMI, Consignment Stock & Kanbans)",
-    "category": "Supply Chain",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Vendor Quality Assurance (VQA & Supplier Audits / Scorecards)",
-    "category": "Quality & Sourcing",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Vessel Fabrication & ASME Boiler Code Section VIII Standards",
-    "category": "Heavy Engineering",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Vibration Analysis (ISO 18436 Category II / III FFT Spectrum)",
-    "category": "Condition Monitoring",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Virtual Commissioning & Factory Digital Twin Simulation",
-    "category": "Automation Design",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "VLSI Design, RTL Synthesis & Static Timing Analysis (STA)",
-    "category": "Semiconductor",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Voice of Customer (VOC) Analysis, NPS & Customer Journey",
-    "category": "Customer Experience",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Vue.js & Nuxt.js Modern Web Application Frontend",
-    "category": "Frontend Development",
-    "count": "3,900 candidates"
-  },
-  {
-    "name": "Vulnerability Assessment & Penetration Testing (VAPT OWASP)",
-    "category": "Cyber Security",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Warehouse Layout Optimization & Slotting Management",
-    "category": "Logistics",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "Warehouse Management Systems (WMS, ASRS & Barcode Automation)",
-    "category": "Intralogistics",
-    "count": "4,400 candidates"
-  },
-  {
-    "name": "Waste Water Treatment & Zero Liquid Discharge (ZLD Multi-Effect)",
-    "category": "Environmental EPC",
-    "count": "3,100 candidates"
-  },
-  {
-    "name": "Water Tube Boilers, Deaerators & High Pressure Steam Auxiliaries",
-    "category": "Thermal Energy",
-    "count": "2,600 candidates"
-  },
-  {
-    "name": "Wealth Management, Private Banking & High Net-Worth Advisory",
-    "category": "Private Wealth",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "Web Services, RESTful APIs & Microservices Architecture",
-    "category": "Software Engineering",
-    "count": "6,600 candidates"
-  },
-  {
-    "name": "WebAssembly (Wasm) High Performance Browser Execution",
-    "category": "Web Architecture",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Webpack, Vite & Modern Frontend Build Asset Pipelines",
-    "category": "Web Engineering",
-    "count": "4,200 candidates"
-  },
-  {
-    "name": "WebSockets Real-Time Bidirectional Event Communication",
-    "category": "Real-Time Web",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Welding Engineering (WPS / PQR, SMAW, GTAW, GMAW, SAW Standards)",
-    "category": "Fabrication Standards",
-    "count": "4,600 candidates"
-  },
-  {
-    "name": "Wind Tunnel Aerodynamic Testing, CFD Validation & Drag Reduction",
-    "category": "Aerodynamics",
-    "count": "1,200 candidates"
-  },
-  {
-    "name": "Wind Turbine Generator Erection, Gearbox & Pitch Control EPC",
-    "category": "Clean Energy EPC",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Windows Server, Active Directory (AD) & Group Policy Management",
-    "category": "IT Infrastructure",
+    "name": "Civil Construction Execution",
+    "category": "Civil & Infrastructure",
     "count": "4,300 candidates"
   },
   {
-    "name": "Wire Drawing, Annealing & Multi-Strand Cable Operations",
-    "category": "Cable Manufacturing",
-    "count": "1,900 candidates"
+    "name": "Clinical Research",
+    "category": "Healthcare & Pharma",
+    "count": "2,600 candidates"
   },
   {
-    "name": "Wire EDM (Electrical Discharge Machining Precision Tooling)",
+    "name": "CNC Programming & VMC",
     "category": "Precision Tooling",
-    "count": "2,200 candidates"
+    "count": "4,800 candidates"
   },
   {
-    "name": "Wire Harness Design & 3D Electrical Routing (Zuken / Capital / Arcadia)",
-    "category": "Automotive Electrical",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Work Breakdown Structure (WBS & Project Schedule CPM / PERT)",
-    "category": "Project Planning",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Workday HCM Configuration, Core HR, Compensation & Security",
-    "category": "HR Tech Systems",
+    "name": "Compensation & Benefits",
+    "category": "Human Resources",
     "count": "3,100 candidates"
   },
   {
-    "name": "X-Ray Diffraction (XRD) & Crystal Structure Characterization",
-    "category": "Metallurgical Lab",
-    "count": "1,300 candidates"
+    "name": "Continuous Improvement (Kaizen)",
+    "category": "Lean Operations",
+    "count": "4,200 candidates"
   },
   {
-    "name": "X-Ray Fluorescence (XRF) Chemical Spectroscopy Lab Analysis",
-    "category": "Materials Testing",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "X-Ray Radiographic Non-Destructive Testing (RT Level II Film / DDA)",
-    "category": "NDT Inspection",
-    "count": "2,900 candidates"
-  },
-  {
-    "name": "XaaS (Everything-as-a-Service Cloud Architecture & Monetization)",
-    "category": "Cloud Business",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Xcode & iOS Instrument Profiling / Memory Leak Detection",
-    "category": "Mobile QA",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Xen Virtualization & KVM Hypervisor Infrastructure",
-    "category": "Cloud Systems",
-    "count": "1,500 candidates"
-  },
-  {
-    "name": "Xenon Arc Accelerated Weathering, QUV & Polymer Aging Testing",
-    "category": "Polymer Testing",
-    "count": "1,100 candidates"
-  },
-  {
-    "name": "Xero & QuickBooks Cloud Accounting & Automated Invoicing",
-    "category": "Financial Software",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "XGBoost & Gradient Boosting Algorithmic Modeling in Python",
-    "category": "Machine Learning",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "XLPE High Voltage Insulated Underground Power Cables",
-    "category": "Power Transmission",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "XML, JSON & EDI B2B Supply Chain Electronic Data Interchange",
-    "category": "Enterprise Integration",
-    "count": "3,700 candidates"
-  },
-  {
-    "name": "Y-Axis CNC Lathe Turning & Mill-Turn Multi-Tasking Operations",
-    "category": "Precision Machining",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "YAML & JSON Schema Validation for Cloud Deployments",
-    "category": "DevOps & Tooling",
-    "count": "3,800 candidates"
-  },
-  {
-    "name": "Yard Management & Bulk Port Terminal Rail Logistics",
-    "category": "Bulk Supply Chain",
+    "name": "Corporate Legal Advisory",
+    "category": "Legal Affairs",
     "count": "2,200 candidates"
   },
   {
-    "name": "YARN (Hadoop Yet Another Resource Negotiator Clustering)",
-    "category": "Big Data Infra",
-    "count": "2,200 candidates"
-  },
-  {
-    "name": "Yarn & Textile Spinning Machinery Automation & Carding Quality",
-    "category": "Textile Machinery",
-    "count": "1,700 candidates"
-  },
-  {
-    "name": "Yaskawa Motoman Robotic Arc Welding & Spot Welding Programming",
-    "category": "Robotics Automation",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Yellow Belt Lean Six Sigma Foundation & Problem Solving",
-    "category": "Process Excellence",
-    "count": "4,100 candidates"
-  },
-  {
-    "name": "Yield Curve Analysis, Bond Duration & Fixed Income Trading",
-    "category": "Capital Markets",
-    "count": "1,900 candidates"
-  },
-  {
-    "name": "Yield Management & Defect Density in Semiconductor Wafer Fab",
-    "category": "Semiconductor Mfg",
-    "count": "1,350 candidates"
-  },
-  {
-    "name": "Yield Optimization & Scrap Reduction in Foundry & Rolling Mills",
-    "category": "Metallurgy & Plastics",
-    "count": "3,600 candidates"
-  },
-  {
-    "name": "Yii & Symfony PHP MVC Enterprise Framework Development",
-    "category": "Web Development",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Young's Modulus, Tensile & Hardness Metallurgical Testing",
-    "category": "Mechanical Testing",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Z/OS Mainframe Operations, JCL & COBOL Legacy Support",
-    "category": "Mainframe Systems",
-    "count": "1,600 candidates"
-  },
-  {
-    "name": "Zabbix & Grafana Real-Time Server Infrastructure Monitoring",
-    "category": "IT Infrastructure",
-    "count": "2,800 candidates"
-  },
-  {
-    "name": "Zebra Barcode Printers & Mobile Computer Warehouse RFID",
-    "category": "Warehouse Tech",
-    "count": "2,300 candidates"
-  },
-  {
-    "name": "Zero Defect Manufacturing & Pokayoke Mistake-Proofing",
-    "category": "Quality Engineering",
-    "count": "4,500 candidates"
-  },
-  {
-    "name": "Zero Liquid Discharge (ZLD) Multi-Effect Evaporators & Crystallizers",
-    "category": "Environmental EPC",
-    "count": "2,700 candidates"
-  },
-  {
-    "name": "Zero Trust Cybersecurity Architecture & Identity-Centric Access",
-    "category": "Security Engineering",
-    "count": "3,200 candidates"
-  },
-  {
-    "name": "ZigBee, LoRaWAN & Industrial Wireless Mesh Sensor Networks",
-    "category": "IoT & Wireless",
-    "count": "2,400 candidates"
-  },
-  {
-    "name": "Zinc Galvanizing, Sherardizing & Anti-Corrosion Coating Quality",
-    "category": "Surface Metallurgy",
-    "count": "2,100 candidates"
-  },
-  {
-    "name": "Zinc-Air & Sodium-Ion Next-Gen Battery Energy Storage R&D",
-    "category": "Clean Energy Tech",
-    "count": "1,400 candidates"
-  },
-  {
-    "name": "Zoho CRM & Custom Deluge Workflow Automation",
-    "category": "Business Systems",
+    "name": "Cost Accounting",
+    "category": "Accounting",
     "count": "3,900 candidates"
   },
   {
-    "name": "Zoned Cleanroom Differential Pressure Control & Air Balancing",
-    "category": "HVAC & Pharma",
+    "name": "Creo (Pro/ENGINEER)",
+    "category": "Mechanical CAD",
+    "count": "3,100 candidates"
+  },
+  {
+    "name": "CRM (Salesforce / Zoho)",
+    "category": "Sales Operations",
+    "count": "5,400 candidates"
+  },
+  {
+    "name": "Cyber Security",
+    "category": "Information Security",
+    "count": "4,500 candidates"
+  },
+  {
+    "name": "Data Analytics",
+    "category": "Data Science",
+    "count": "8,700 candidates"
+  },
+  {
+    "name": "Data Engineering",
+    "category": "Data Platforms",
+    "count": "5,300 candidates"
+  },
+  {
+    "name": "Data Science",
+    "category": "AI & Analytics",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "Database Administration (DBA)",
+    "category": "Databases",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Deep Learning",
+    "category": "AI & Data Science",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "DevOps",
+    "category": "DevOps & Cloud",
+    "count": "8,600 candidates"
+  },
+  {
+    "name": "Die Casting & Foundry",
+    "category": "Metallurgy",
+    "count": "2,700 candidates"
+  },
+  {
+    "name": "Digital Marketing",
+    "category": "Marketing",
+    "count": "6,900 candidates"
+  },
+  {
+    "name": "Direct & Indirect Taxation",
+    "category": "Taxation",
+    "count": "4,400 candidates"
+  },
+  {
+    "name": "Docker",
+    "category": "DevOps & Containers",
+    "count": "7,300 candidates"
+  },
+  {
+    "name": "Drug Formulation (F&D)",
+    "category": "Pharma R&D",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "Dyeing & Textile Finishing",
+    "category": "Textiles",
+    "count": "2,400 candidates"
+  },
+  {
+    "name": "E-commerce Operations",
+    "category": "Retail & Commerce",
+    "count": "4,900 candidates"
+  },
+  {
+    "name": "EHS (Environment, Health & Safety)",
+    "category": "Plant Safety",
+    "count": "4,500 candidates"
+  },
+  {
+    "name": "Electrical Maintenance",
+    "category": "Maintenance",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "Electro-Mechanical Assembly",
+    "category": "Electrical Engg",
+    "count": "3,700 candidates"
+  },
+  {
+    "name": "Embedded C / Firmware",
+    "category": "Embedded Systems",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "Employee Relations",
+    "category": "Human Resources",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "EPF / ESIC Compliance",
+    "category": "Statutory HR",
+    "count": "5,200 candidates"
+  },
+  {
+    "name": "EPC Project Management",
+    "category": "Power & Projects",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "ERP Implementation (SAP / Oracle)",
+    "category": "Enterprise Systems",
+    "count": "5,800 candidates"
+  },
+  {
+    "name": "ETL Pipelines",
+    "category": "Data Engineering",
+    "count": "4,300 candidates"
+  },
+  {
+    "name": "EV Battery Assembly",
+    "category": "EV & Green Energy",
+    "count": "2,900 candidates"
+  },
+  {
+    "name": "EV Powertrain",
+    "category": "Automotive & EV",
+    "count": "2,600 candidates"
+  },
+  {
+    "name": "Excel / Advanced Excel",
+    "category": "Analytics & MIS",
+    "count": "12,400 candidates"
+  },
+  {
+    "name": "Executive Search",
+    "category": "Talent Acquisition",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Facility Management",
+    "category": "Operations",
+    "count": "5,100 candidates"
+  },
+  {
+    "name": "Financial Accounting",
+    "category": "Accounting",
+    "count": "7,400 candidates"
+  },
+  {
+    "name": "Financial Modeling",
+    "category": "Corporate Finance",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "Fire & Industrial Safety",
+    "category": "EHS & Safety",
+    "count": "3,600 candidates"
+  },
+  {
+    "name": "Flutter",
+    "category": "Mobile Development",
+    "count": "3,700 candidates"
+  },
+  {
+    "name": "FMEA (Risk Analysis)",
+    "category": "Quality Engineering",
+    "count": "3,200 candidates"
+  },
+  {
+    "name": "Formulation & API Manufacturing",
+    "category": "Pharma Production",
+    "count": "4,600 candidates"
+  },
+  {
+    "name": "Frontend Development",
+    "category": "Web Engineering",
+    "count": "7,800 candidates"
+  },
+  {
+    "name": "Full Stack Development",
+    "category": "Software Engineering",
+    "count": "9,100 candidates"
+  },
+  {
+    "name": "Gas Chromatography (GC)",
+    "category": "Analytical Chemistry",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "GD&T (Dimensioning & Tolerancing)",
+    "category": "Mechanical Design",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "Generative AI / LLMs",
+    "category": "AI & Innovation",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Git / GitHub",
+    "category": "Version Control",
+    "count": "9,600 candidates"
+  },
+  {
+    "name": "GLP / Good Laboratory Practices",
+    "category": "Pharma QA",
+    "count": "3,200 candidates"
+  },
+  {
+    "name": "Go (Golang)",
+    "category": "Backend Engineering",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Google Cloud Platform (GCP)",
+    "category": "Cloud Computing",
+    "count": "5,400 candidates"
+  },
+  {
+    "name": "Graphic Design (Photoshop / Illustrator)",
+    "category": "Creative",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Grid Automation & SCADA",
+    "category": "Power Distribution",
+    "count": "2,800 candidates"
+  },
+  {
+    "name": "GST Compliance & Filing",
+    "category": "Taxation",
+    "count": "6,700 candidates"
+  },
+  {
+    "name": "High Voltage (HV) Engineering",
+    "category": "Power & Energy",
+    "count": "3,300 candidates"
+  },
+  {
+    "name": "Hospital Administration",
+    "category": "Healthcare",
+    "count": "2,500 candidates"
+  },
+  {
+    "name": "Hospitality Management",
+    "category": "Hospitality",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "HPLC (Liquid Chromatography)",
+    "category": "Pharma QC",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "HR Analytics",
+    "category": "Human Resources",
+    "count": "3,500 candidates"
+  },
+  {
+    "name": "HR Business Partnering (HRBP)",
+    "category": "Human Resources",
+    "count": "4,700 candidates"
+  },
+  {
+    "name": "HR Operations",
+    "category": "Human Resources",
+    "count": "6,900 candidates"
+  },
+  {
+    "name": "HTML / CSS",
+    "category": "Web Development",
+    "count": "10,200 candidates"
+  },
+  {
+    "name": "HVAC Engineering",
+    "category": "Building Services",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Hydraulic & Pneumatic Systems",
+    "category": "Plant Maintenance",
+    "count": "3,600 candidates"
+  },
+  {
+    "name": "IATF 16949 Standards",
+    "category": "Automotive Quality",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "Industrial Automation",
+    "category": "Automation & Controls",
+    "count": "5,300 candidates"
+  },
+  {
+    "name": "Industrial Engineering",
+    "category": "Operations",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Information Security",
+    "category": "Cyber Security",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Injection Molding",
+    "category": "Plastics & Tooling",
+    "count": "3,500 candidates"
+  },
+  {
+    "name": "Inside Sales",
+    "category": "Sales",
+    "count": "5,600 candidates"
+  },
+  {
+    "name": "Institutional Sales",
+    "category": "B2B Sales",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "Instrumentation & Process Control",
+    "category": "Instrumentation",
+    "count": "4,400 candidates"
+  },
+  {
+    "name": "Internal Audit",
+    "category": "Finance Audit",
+    "count": "4,300 candidates"
+  },
+  {
+    "name": "Inventory Management",
+    "category": "Supply Chain",
+    "count": "6,800 candidates"
+  },
+  {
+    "name": "IoT (Internet of Things)",
+    "category": "Connected Hardware",
+    "count": "3,700 candidates"
+  },
+  {
+    "name": "ISO 9001 / 14001 / 45001",
+    "category": "Quality & EHS",
+    "count": "5,900 candidates"
+  },
+  {
+    "name": "Java",
+    "category": "Software Development",
+    "count": "11,500 candidates"
+  },
+  {
+    "name": "JavaScript",
+    "category": "Web Engineering",
+    "count": "12,800 candidates"
+  },
+  {
+    "name": "JIRA",
+    "category": "Project Tools",
+    "count": "7,400 candidates"
+  },
+  {
+    "name": "Job Costing & Estimation",
+    "category": "Costing",
+    "count": "3,200 candidates"
+  },
+  {
+    "name": "Kaizen",
+    "category": "Lean Manufacturing",
+    "count": "4,700 candidates"
+  },
+  {
+    "name": "Key Account Management (KAM)",
+    "category": "Sales Leadership",
+    "count": "5,300 candidates"
+  },
+  {
+    "name": "Kubernetes",
+    "category": "DevOps & Cloud",
+    "count": "5,900 candidates"
+  },
+  {
+    "name": "Labor Law Compliance",
+    "category": "Statutory HR",
+    "count": "5,600 candidates"
+  },
+  {
+    "name": "Laser Cutting & Press Brake",
+    "category": "Sheet Metal",
+    "count": "3,100 candidates"
+  },
+  {
+    "name": "Lead Generation",
+    "category": "Sales & Marketing",
+    "count": "6,400 candidates"
+  },
+  {
+    "name": "Lean Manufacturing",
+    "category": "Continuous Improvement",
+    "count": "5,800 candidates"
+  },
+  {
+    "name": "Linux / Unix Administration",
+    "category": "Systems Engineering",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "Logistics & Dispatch",
+    "category": "Supply Chain",
+    "count": "6,900 candidates"
+  },
+  {
+    "name": "Machine Learning",
+    "category": "AI & Data Science",
+    "count": "6,700 candidates"
+  },
+  {
+    "name": "Manual Testing",
+    "category": "Software QA",
+    "count": "6,400 candidates"
+  },
+  {
+    "name": "Manufacturing Operations",
+    "category": "Plant Operations",
+    "count": "7,500 candidates"
+  },
+  {
+    "name": "Market Research",
+    "category": "Marketing",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Materials Management",
+    "category": "Supply Chain",
+    "count": "5,100 candidates"
+  },
+  {
+    "name": "Mechanical Design Engineering",
+    "category": "Engineering Design",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "Mechanical Maintenance",
+    "category": "Plant Maintenance",
+    "count": "5,800 candidates"
+  },
+  {
+    "name": "Mechatronics & Robotics",
+    "category": "Automation",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "Medical Devices Regulatory (MDR)",
+    "category": "Healthcare QA",
+    "count": "2,200 candidates"
+  },
+  {
+    "name": "Microbiology (Sterility Testing)",
+    "category": "Pharma QC",
+    "count": "3,600 candidates"
+  },
+  {
+    "name": "Microservices Architecture",
+    "category": "Software Architecture",
+    "count": "6,100 candidates"
+  },
+  {
+    "name": "MIS Reporting",
+    "category": "Business Analytics",
+    "count": "8,900 candidates"
+  },
+  {
+    "name": "Mobile App Development",
+    "category": "Mobile Engineering",
+    "count": "5,700 candidates"
+  },
+  {
+    "name": "MongoDB",
+    "category": "NoSQL Databases",
+    "count": "6,300 candidates"
+  },
+  {
+    "name": "MySQL",
+    "category": "SQL Databases",
+    "count": "9,200 candidates"
+  },
+  {
+    "name": "Network Security",
+    "category": "IT Infrastructure",
+    "count": "4,600 candidates"
+  },
+  {
+    "name": "Next.js",
+    "category": "Frontend Framework",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "Node.js",
+    "category": "Backend Engineering",
+    "count": "7,900 candidates"
+  },
+  {
+    "name": "NoSQL Databases",
+    "category": "Databases",
+    "count": "5,100 candidates"
+  },
+  {
+    "name": "NVH Testing",
+    "category": "Automotive R&D",
+    "count": "1,600 candidates"
+  },
+  {
+    "name": "NX CAD (Unigraphics)",
+    "category": "Tooling & Design",
+    "count": "2,900 candidates"
+  },
+  {
+    "name": "OEM Vendor Management",
+    "category": "Supply Chain",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Onboarding & Offboarding",
+    "category": "HR Operations",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "Operations Management",
+    "category": "Plant & Operations",
+    "count": "8,400 candidates"
+  },
+  {
+    "name": "Oracle Database",
+    "category": "Databases",
+    "count": "5,500 candidates"
+  },
+  {
+    "name": "Organizational Development (OD)",
+    "category": "Human Resources",
+    "count": "3,200 candidates"
+  },
+  {
+    "name": "Packaging Development",
+    "category": "Packaging & FMCG",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "Payroll Management",
+    "category": "HR & Payroll",
+    "count": "7,600 candidates"
+  },
+  {
+    "name": "PCB Design & Soldering",
+    "category": "Electronics Hardware",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "Penetration Testing (VAPT)",
+    "category": "Cyber Security",
+    "count": "2,900 candidates"
+  },
+  {
+    "name": "Performance Marketing",
+    "category": "Digital Marketing",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Pharmacovigilance",
+    "category": "Pharma Clinical",
+    "count": "2,700 candidates"
+  },
+  {
+    "name": "PHP",
+    "category": "Web Development",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "Piping & Instrumentation (P&ID)",
+    "category": "Process Engineering",
+    "count": "3,100 candidates"
+  },
+  {
+    "name": "PLC / SCADA Programming",
+    "category": "Industrial Automation",
+    "count": "5,400 candidates"
+  },
+  {
+    "name": "PostgreSQL",
+    "category": "SQL Databases",
+    "count": "6,900 candidates"
+  },
+  {
+    "name": "Power BI",
+    "category": "Data Visualization",
+    "count": "7,800 candidates"
+  },
+  {
+    "name": "Power Distribution & Substation",
+    "category": "Power & Energy",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Precision Tooling & Dies",
+    "category": "Toolroom & Dies",
+    "count": "3,700 candidates"
+  },
+  {
+    "name": "Press Tool & Stamping",
+    "category": "Sheet Metal",
+    "count": "3,300 candidates"
+  },
+  {
+    "name": "Preventive Maintenance (PM)",
+    "category": "Plant Engineering",
+    "count": "5,900 candidates"
+  },
+  {
+    "name": "Procurement & Sourcing",
+    "category": "Supply Chain",
+    "count": "6,600 candidates"
+  },
+  {
+    "name": "Product Management",
+    "category": "Product Strategy",
+    "count": "5,200 candidates"
+  },
+  {
+    "name": "Production Planning & Control (PPC)",
+    "category": "Manufacturing",
+    "count": "6,300 candidates"
+  },
+  {
+    "name": "Project Management (PMP)",
+    "category": "Project Leadership",
+    "count": "7,900 candidates"
+  },
+  {
+    "name": "Python",
+    "category": "Programming & Data",
+    "count": "12,900 candidates"
+  },
+  {
+    "name": "QA / QC Inspection",
+    "category": "Quality Management",
+    "count": "8,600 candidates"
+  },
+  {
+    "name": "Quality Assurance (QA)",
+    "category": "Quality Engineering",
+    "count": "9,300 candidates"
+  },
+  {
+    "name": "Quality Control (QC)",
+    "category": "Quality Engineering",
+    "count": "9,800 candidates"
+  },
+  {
+    "name": "Quality Management Systems (QMS)",
+    "category": "Standards & Compliance",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "React.js",
+    "category": "Frontend Development",
+    "count": "10,400 candidates"
+  },
+  {
+    "name": "React Native",
+    "category": "Mobile Development",
+    "count": "4,600 candidates"
+  },
+  {
+    "name": "Recruitment & Staffing",
+    "category": "Human Resources",
+    "count": "8,900 candidates"
+  },
+  {
+    "name": "Redis",
+    "category": "Caching & Databases",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Regulatory Affairs",
+    "category": "Pharma Compliance",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Renewable Energy (Solar / Wind)",
+    "category": "Clean Energy",
+    "count": "4,700 candidates"
+  },
+  {
+    "name": "REST APIs",
+    "category": "Software Engineering",
+    "count": "8,400 candidates"
+  },
+  {
+    "name": "Retail Store Operations",
+    "category": "Retail & Commerce",
+    "count": "5,300 candidates"
+  },
+  {
+    "name": "Risk Management",
+    "category": "Governance & Finance",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Robotic Welding",
+    "category": "Industrial Robotics",
+    "count": "2,800 candidates"
+  },
+  {
+    "name": "Robotics Programming (FANUC / KUKA)",
+    "category": "Industrial Robotics",
+    "count": "2,600 candidates"
+  },
+  {
+    "name": "Root Cause Analysis (RCA)",
+    "category": "Quality Engineering",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "Rust",
+    "category": "Systems Programming",
     "count": "1,900 candidates"
   },
   {
-    "name": "Zookeeper (Apache Zookeeper Distributed Coordination)",
-    "category": "Distributed Systems",
+    "name": "Salesforce CRM",
+    "category": "CRM Architecture",
+    "count": "5,800 candidates"
+  },
+  {
+    "name": "SAP FICO",
+    "category": "ERP Finance",
+    "count": "4,900 candidates"
+  },
+  {
+    "name": "SAP MM (Materials)",
+    "category": "ERP Supply Chain",
+    "count": "4,600 candidates"
+  },
+  {
+    "name": "SAP PP (Production)",
+    "category": "ERP Manufacturing",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "SAP SD (Sales)",
+    "category": "ERP Sales",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "SCADA Systems",
+    "category": "Industrial Controls",
+    "count": "4,500 candidates"
+  },
+  {
+    "name": "Search Engine Optimization (SEO)",
+    "category": "Digital Marketing",
+    "count": "6,100 candidates"
+  },
+  {
+    "name": "Selenium Automation",
+    "category": "Software QA",
+    "count": "5,400 candidates"
+  },
+  {
+    "name": "Sheet Metal Fabrication",
+    "category": "Precision Fabrication",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Six Sigma (Green / Black Belt)",
+    "category": "Operational Excellence",
+    "count": "5,700 candidates"
+  },
+  {
+    "name": "SMT (Surface Mount Technology)",
+    "category": "Electronics Assembly",
+    "count": "3,600 candidates"
+  },
+  {
+    "name": "Social Media Marketing",
+    "category": "Digital Marketing",
+    "count": "6,400 candidates"
+  },
+  {
+    "name": "Software Architecture",
+    "category": "Software Engineering",
+    "count": "4,800 candidates"
+  },
+  {
+    "name": "Solar PV Plant EPC",
+    "category": "Renewable Energy",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "SolidWorks",
+    "category": "3D Mechanical Design",
+    "count": "6,400 candidates"
+  },
+  {
+    "name": "SOP Documentation",
+    "category": "Quality Assurance",
+    "count": "6,100 candidates"
+  },
+  {
+    "name": "Spinning & Loom Operations",
+    "category": "Textiles",
+    "count": "2,900 candidates"
+  },
+  {
+    "name": "Spring Boot",
+    "category": "Java Backend",
+    "count": "6,800 candidates"
+  },
+  {
+    "name": "SQL",
+    "category": "Database Querying",
+    "count": "13,600 candidates"
+  },
+  {
+    "name": "Statutory Compliance",
+    "category": "Legal & Labor HR",
+    "count": "7,200 candidates"
+  },
+  {
+    "name": "Sterile Cleanroom Operations",
+    "category": "Pharma Manufacturing",
+    "count": "3,700 candidates"
+  },
+  {
+    "name": "Strategic Sourcing",
+    "category": "Procurement",
+    "count": "4,300 candidates"
+  },
+  {
+    "name": "Structural Engineering",
+    "category": "Civil & Heavy Engg",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Substation Testing & Commissioning",
+    "category": "Power & Energy",
+    "count": "3,200 candidates"
+  },
+  {
+    "name": "Supply Chain Management (SCM)",
+    "category": "Supply Chain",
+    "count": "8,900 candidates"
+  },
+  {
+    "name": "Swift (iOS)",
+    "category": "Mobile Development",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "Switchgear Manufacturing",
+    "category": "Power & Electricals",
+    "count": "3,100 candidates"
+  },
+  {
+    "name": "Tableau",
+    "category": "Data Visualization",
+    "count": "5,900 candidates"
+  },
+  {
+    "name": "Talent Acquisition",
+    "category": "Human Resources",
+    "count": "9,600 candidates"
+  },
+  {
+    "name": "Tally Prime",
+    "category": "Accounting Software",
+    "count": "8,800 candidates"
+  },
+  {
+    "name": "Tax Audit & Planning",
+    "category": "Taxation",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Technical Recruitment",
+    "category": "HR Staffing",
+    "count": "6,300 candidates"
+  },
+  {
+    "name": "Terraform",
+    "category": "DevOps & Cloud",
+    "count": "4,200 candidates"
+  },
+  {
+    "name": "Textile Weaving & Spinning",
+    "category": "Textiles",
+    "count": "3,100 candidates"
+  },
+  {
+    "name": "Thermal Power Operations",
+    "category": "Power Generation",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "TIG / MIG Welding",
+    "category": "Fabrication",
+    "count": "4,600 candidates"
+  },
+  {
+    "name": "Tool & Die Maintenance",
+    "category": "Toolroom",
+    "count": "3,800 candidates"
+  },
+  {
+    "name": "Total Productive Maintenance (TPM)",
+    "category": "Plant Reliability",
+    "count": "4,500 candidates"
+  },
+  {
+    "name": "Transformer Maintenance",
+    "category": "Electrical Power",
+    "count": "2,800 candidates"
+  },
+  {
+    "name": "Transmission & Distribution (T&D)",
+    "category": "Power & Energy",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "TypeScript",
+    "category": "Frontend & Fullstack",
+    "count": "7,800 candidates"
+  },
+  {
+    "name": "UI / UX Design (Figma)",
+    "category": "Design",
+    "count": "6,200 candidates"
+  },
+  {
+    "name": "Unit Testing & TDD",
+    "category": "Software Engineering",
+    "count": "4,900 candidates"
+  },
+  {
+    "name": "USFDA / MHRA Audit Readiness",
+    "category": "Pharma Regulatory",
+    "count": "3,500 candidates"
+  },
+  {
+    "name": "Validation & Calibration",
+    "category": "Pharma & Engg QA",
+    "count": "4,100 candidates"
+  },
+  {
+    "name": "Vendor Management",
+    "category": "Procurement & SCM",
+    "count": "6,700 candidates"
+  },
+  {
+    "name": "Vibration Analysis",
+    "category": "Plant Reliability",
     "count": "2,100 candidates"
+  },
+  {
+    "name": "Visual Merchandising",
+    "category": "Retail",
+    "count": "2,800 candidates"
+  },
+  {
+    "name": "VMC Machine Programming",
+    "category": "Precision Tooling",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "Vue.js",
+    "category": "Frontend Framework",
+    "count": "3,900 candidates"
+  },
+  {
+    "name": "Warehouse Operations (WMS)",
+    "category": "Logistics",
+    "count": "5,800 candidates"
+  },
+  {
+    "name": "Water Treatment / ETP / STP",
+    "category": "Plant Utilities",
+    "count": "3,200 candidates"
+  },
+  {
+    "name": "Web Security",
+    "category": "Cyber Security",
+    "count": "3,400 candidates"
+  },
+  {
+    "name": "Weaving & Loom Maintenance",
+    "category": "Textiles",
+    "count": "2,600 candidates"
+  },
+  {
+    "name": "Wind Turbine O&M",
+    "category": "Renewable Energy",
+    "count": "2,100 candidates"
+  },
+  {
+    "name": "Wire Harness Assembly",
+    "category": "Automotive Electrical",
+    "count": "3,100 candidates"
+  },
+  {
+    "name": "Workforce Management",
+    "category": "Operations & HR",
+    "count": "7,100 candidates"
+  },
+  {
+    "name": "Zero Liquid Discharge (ZLD)",
+    "category": "Environmental Engg",
+    "count": "1,700 candidates"
+  },
+  {
+    "name": "Zoho CRM",
+    "category": "Sales CRM",
+    "count": "3,600 candidates"
   }
 ];
 
