@@ -1182,58 +1182,12 @@ export default function ResdexSearch() {
                     maxHeight: '380px',
                     overflowY: 'auto'
                   }}>
-                    {/* Sticky Header bar */}
-                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 10 }}>
+                    {/* Header bar */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 10 }}>
                       <span>
-                        {keywordInput ? `Matching Skills (${filteredSkills.length}) starting with "${keywordInput}"` : `All Available Skills in the World (${filteredSkills.length} Total from A–Z)`}
+                        {keywordInput ? `Matching Skills (${filteredSkills.length})` : 'Suggested Skills'}
                       </span>
-                      <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to add tag</span>
-                    </div>
-
-                    {/* A-Z Alphabet Quick Jump Scrubber */}
-                    <div style={{
-                      padding: '6px 12px',
-                      backgroundColor: '#f1f5f9',
-                      borderBottom: '1px solid #e2e8f0',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      overflowX: 'auto',
-                      whiteSpace: 'nowrap',
-                      position: 'sticky',
-                      top: '32px',
-                      zIndex: 10
-                    }}>
-                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', marginRight: '4px', textTransform: 'uppercase' }}>Filter A–Z:</span>
-                      {['ALL', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(letter => (
-                        <button
-                          key={letter}
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (letter === 'ALL') {
-                              setKeywordInput('');
-                            } else {
-                              setKeywordInput(letter.toLowerCase());
-                            }
-                            keywordInputRef.current?.focus();
-                          }}
-                          style={{
-                            border: 'none',
-                            backgroundColor: (letter === 'ALL' && !keywordInput) || (keywordInput.toUpperCase() === letter) ? '#0056b3' : '#ffffff',
-                            color: (letter === 'ALL' && !keywordInput) || (keywordInput.toUpperCase() === letter) ? '#ffffff' : '#334155',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            padding: '2px 7px',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                            transition: 'all 0.1s'
-                          }}
-                        >
-                          {letter}
-                        </button>
-                      ))}
+                      <span style={{ color: '#0056b3', fontWeight: 600 }}>Click to add tag</span>
                     </div>
 
                     {/* Suggestions List or Empty State */}
