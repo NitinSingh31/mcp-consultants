@@ -163,9 +163,9 @@ export default function ResdexSearch() {
   const [showMaxSalaryDropdown, setShowMaxSalaryDropdown] = useState(false);
   const [includeUnspecifiedSalary, setIncludeUnspecifiedSalary] = useState(true);
 
-  // 6. Department & Role Sub-panel State (37 suggestions)
+  // 6. Department & Role Dropdown State (37 options)
   const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [departmentSubPanelOpen, setDepartmentSubPanelOpen] = useState(false);
+  const [showDepartmentDropdown, setShowDepartmentDropdown] = useState(false);
   const [departmentQuery, setDepartmentQuery] = useState('');
 
   // 7. Industry / Sector Autocomplete State
@@ -250,6 +250,7 @@ export default function ResdexSearch() {
         setShowIndustrySuggestions(false);
         setShowClientSuggestions(false);
         setShowLocationSuggestions(false);
+        setShowDepartmentDropdown(false);
         setShowMinSalaryDropdown(false);
         setShowMaxSalaryDropdown(false);
       }
@@ -1651,109 +1652,180 @@ export default function ResdexSearch() {
                 Employment Details
               </h2>
 
-              {/* Department and Role Sub-panel Section */}
-              <div style={{ marginBottom: '22px', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '14px 16px', backgroundColor: '#f8fafc' }}>
+              {/* Department and Role - Simple, Clean Dropdown */}
+              <div className="resdex-autocomplete-wrapper" style={{ marginBottom: '22px', position: 'relative' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Department and Role</span>
-                    <button
-                      type="button"
-                      onClick={() => setDepartmentSubPanelOpen(!departmentSubPanelOpen)}
-                      style={{
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        padding: '3px 10px',
-                        borderRadius: '12px',
-                        border: '1px solid #cbd5e1',
-                        backgroundColor: departmentSubPanelOpen ? '#0056b3' : '#ffffff',
-                        color: departmentSubPanelOpen ? '#ffffff' : '#475569',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {departmentSubPanelOpen ? 'Sub-panel open' : 'Sub-panel closed'}
-                    </button>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>(Select or search department/role)</span>
                   </div>
 
                   {selectedDepartment && (
                     <button
                       type="button"
                       onClick={() => { setSelectedDepartment(''); setDepartmentQuery(''); }}
-                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', textDecoration: 'underline' }}
+                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', padding: '2px', textDecoration: 'underline' }}
                     >
                       Clear
                     </button>
                   )}
                 </div>
 
-                {/* Input with exact placeholder Add Department/Role */}
-                <div style={{ position: 'relative', marginBottom: '8px' }}>
+                {/* Dropdown Input / Selector Field */}
+                <div
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
+                    borderRadius: '8px',
+                    border: showDepartmentDropdown ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                    boxShadow: showDepartmentDropdown ? '0 0 0 3px rgba(0, 86, 179, 0.1)' : 'none',
+                    transition: 'all 0.15s'
+                  }}
+                >
                   <input
                     type="text"
-                    placeholder="Add Department/Role"
+                    placeholder="Select Department and Role"
                     value={selectedDepartment || departmentQuery}
                     onChange={(e) => {
                       setSelectedDepartment('');
                       setDepartmentQuery(e.target.value);
-                      setDepartmentSubPanelOpen(true);
+                      setShowDepartmentDropdown(true);
                     }}
-                    onFocus={() => setDepartmentSubPanelOpen(true)}
+                    onFocus={() => setShowDepartmentDropdown(true)}
+                    onClick={() => setShowDepartmentDropdown(true)}
                     style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '12px 64px 12px 14px',
                       borderRadius: '8px',
-                      border: departmentSubPanelOpen ? '1.5px solid #0056b3' : '1px solid #cbd5e1',
+                      border: 'none',
                       fontSize: '14px',
                       outline: 'none',
-                      backgroundColor: '#ffffff'
+                      backgroundColor: 'transparent',
+                      color: selectedDepartment ? '#0056b3' : '#0f172a',
+                      fontWeight: selectedDepartment ? 600 : 400,
+                      cursor: 'pointer'
                     }}
                   />
-                </div>
 
-                <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>
-                  37 suggestions found, to navigate use up and down arrows
-                </div>
-
-                {/* Selected Department Display */}
-                {selectedDepartment && (
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', color: '#0056b3', padding: '4px 12px', borderRadius: '16px', fontSize: '13px', fontWeight: 600, marginBottom: '8px' }}>
-                    <span>{selectedDepartment}</span>
-                    <X size={13} style={{ cursor: 'pointer' }} onClick={() => { setSelectedDepartment(''); setDepartmentQuery(''); }} />
+                  {/* Right side controls: Clear (X) + Dropdown Chevron */}
+                  <div style={{ position: 'absolute', right: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {(selectedDepartment || departmentQuery) && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedDepartment('');
+                          setDepartmentQuery('');
+                          setShowDepartmentDropdown(false);
+                        }}
+                        style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '2px', display: 'flex', alignItems: 'center' }}
+                        title="Clear selection"
+                      >
+                        <X size={15} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowDepartmentDropdown(prev => !prev);
+                      }}
+                      style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '2px', display: 'flex', alignItems: 'center' }}
+                      title={showDepartmentDropdown ? "Close dropdown" : "Open dropdown"}
+                    >
+                      {showDepartmentDropdown ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    </button>
                   </div>
-                )}
+                </div>
 
-                {/* Expandable Sub-panel with the 37 Suggestions */}
-                {departmentSubPanelOpen && (
-                  <div style={{ marginTop: '6px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #cbd5e1', padding: '12px' }}>
-                    <div style={{ maxHeight: '220px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      {filteredDepts.map((dept, i) => (
-                        <div
-                          key={i}
-                          onClick={() => {
-                            setSelectedDepartment(dept.name);
-                            setDepartmentSubPanelOpen(false);
-                          }}
-                          style={{
-                            padding: '8px 12px',
-                            borderRadius: '6px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            backgroundColor: selectedDepartment === dept.name ? '#eff6ff' : '#ffffff',
-                            border: selectedDepartment === dept.name ? '1px solid #bfdbfe' : '1px solid transparent',
-                            transition: 'background-color 0.12s'
-                          }}
-                          onMouseEnter={(e) => { if (selectedDepartment !== dept.name) e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
-                          onMouseLeave={(e) => { if (selectedDepartment !== dept.name) e.currentTarget.style.backgroundColor = '#ffffff'; }}
-                        >
-                          <span style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
-                            {highlightMatch(dept.name, departmentQuery)}
-                          </span>
-                          <span style={{ fontSize: '11px', color: '#64748b' }}>
-                            {dept.count}
-                          </span>
-                        </div>
-                      ))}
+                {/* Dropdown Floating Menu */}
+                {showDepartmentDropdown && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 'calc(100% + 6px)',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#ffffff',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '10px',
+                      boxShadow: '0 12px 28px -4px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)',
+                      zIndex: 60,
+                      maxHeight: '320px',
+                      overflowY: 'auto'
+                    }}
+                  >
+                    {/* Header bar */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
+                      <span>
+                        {departmentQuery ? `Matching Departments (${filteredDepts.length})` : `All Departments & Roles (${DEPARTMENTS_DATABASE.length})`}
+                      </span>
+                      <span style={{ color: '#0056b3', fontWeight: 700 }}>Click to select</span>
+                    </div>
+
+                    {/* Department Items */}
+                    {filteredDepts.length > 0 ? (
+                      filteredDepts.map((dept, i) => {
+                        const isSelected = selectedDepartment === dept.name;
+                        return (
+                          <div
+                            key={i}
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              setSelectedDepartment(dept.name);
+                              setDepartmentQuery('');
+                              setShowDepartmentDropdown(false);
+                            }}
+                            onClick={() => {
+                              setSelectedDepartment(dept.name);
+                              setDepartmentQuery('');
+                              setShowDepartmentDropdown(false);
+                            }}
+                            style={{
+                              padding: '11px 16px',
+                              borderBottom: '1px solid #f1f5f9',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              cursor: 'pointer',
+                              backgroundColor: isSelected ? '#eff6ff' : '#ffffff',
+                              transition: 'background-color 0.12s'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!isSelected) e.currentTarget.style.backgroundColor = '#f1f5f9';
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!isSelected) e.currentTarget.style.backgroundColor = '#ffffff';
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <span style={{ fontSize: '13px', fontWeight: isSelected ? 700 : 500, color: isSelected ? '#0056b3' : '#0f172a' }}>
+                                {highlightMatch(dept.name, departmentQuery)}
+                              </span>
+                              {dept.category && (
+                                <span style={{ fontSize: '10px', padding: '2px 7px', backgroundColor: isSelected ? '#dbeafe' : '#f1f5f9', color: isSelected ? '#1e40af' : '#475569', borderRadius: '10px', fontWeight: 600 }}>
+                                  {dept.category}
+                                </span>
+                              )}
+                            </div>
+                            <span style={{ fontSize: '11px', color: '#64748b' }}>
+                              {dept.count}
+                            </span>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div style={{ padding: '16px', textAlign: 'center', fontSize: '13px', color: '#64748b' }}>
+                        No departments match "<strong>{departmentQuery}</strong>".
+                      </div>
+                    )}
+
+                    {/* Footer bar */}
+                    <div style={{ padding: '8px 16px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '11px', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10 }}>
+                      <span>Showing {filteredDepts.length} departments • Scroll or type to search</span>
+                      <span style={{ fontWeight: 600 }}>1-Click Select</span>
                     </div>
                   </div>
                 )}
