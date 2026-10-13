@@ -248,11 +248,10 @@ export default function About() {
             
             {/* OUR VISION */}
             <div className="vm-card">
-              <div className="vm-badge">
-                <Compass size={16} />
-                <span>OUR VISION</span>
+              <div className="vm-badge" style={{ marginBottom: '20px' }}>
+                <Compass size={18} />
+                <span style={{ fontSize: '14px', letterSpacing: '2px' }}>OUR VISION</span>
               </div>
-              <h3 className="vm-title">Ethics, Integrity &amp; Sustainable Strategic Growth</h3>
 
               <div style={{ fontSize: '15px', lineHeight: 1.8, color: 'rgba(255, 255, 255, 0.9)', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '22px' }}>
                 <p style={{ margin: 0 }}>
@@ -272,11 +271,10 @@ export default function About() {
 
             {/* OUR MISSION */}
             <div className="vm-card">
-              <div className="vm-badge">
-                <Target size={16} />
-                <span>OUR MISSION</span>
+              <div className="vm-badge" style={{ marginBottom: '20px' }}>
+                <Target size={18} />
+                <span style={{ fontSize: '14px', letterSpacing: '2px' }}>OUR MISSION</span>
               </div>
-              <h3 className="vm-title">Shared Purpose, Adaptability &amp; Customer-Centricity</h3>
 
               <div style={{ fontSize: '15px', lineHeight: 1.8, color: 'rgba(255, 255, 255, 0.9)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <p style={{ margin: 0 }}>
