@@ -83,11 +83,15 @@ export default function About() {
               </h2>
               
               <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', marginBottom: '18px' }}>
-                MCP GROUP is a company that was founded in 2007 in Chandigarh, India, and has since become a leading provider of specialized Human Resource Services across the country. The group employs over 550 core employees and has nearly 50,000 associates working with over 500 clients in India's private, public, and government sectors: the Managing Director, <strong>Shallu Gaba</strong> aims to excel in all services, focusing on <strong>Workforce Management, Power Sector, Pharmaceuticals, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development &amp; Education, and Facility Management &amp; BPO</strong>.
+                Established in 2007 in Chandigarh, <strong>MCP Group</strong> has grown into one of India’s most dependable workforce management and specialized recruitment partners. Driven by a core conviction that true progress is achieved through ethics, integrity, and relentless operational discipline, we empower enterprises across the country with agile, compliant, and scalable workforce solutions.
+              </p>
+
+              <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', marginBottom: '18px' }}>
+                Under the leadership of Managing Director, <strong>Shallu Gaba</strong>, the organization has built an outstanding presence across diverse industrial segments including <strong>Workforce Management, Pharmaceuticals, Power Sector, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development &amp; Education, and Facility Management &amp; BPO</strong>.
               </p>
 
               <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', margin: 0 }}>
-                Our organization is ISO 9001-2008 certified and is committed to providing compliance-driven services to various industries and government agencies. As known as Himalaya Bhumi of India, the MCP group itself is one such pioneer who brings the purity of Himalaya to the land of Ganga-Jamuna.
+                With nearly <strong>50,000 MCP Family Members</strong> deployed nationwide and over <strong>500 esteemed clients</strong> across the private, public, and government sectors, MCP Group operates on ISO 9001:2008 certified quality standards. We take pride in building long-lasting client-candidate relationships, translating human potential into strategic growth and sustainable national impact.
               </p>
             </div>
 
