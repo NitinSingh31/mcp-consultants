@@ -513,69 +513,36 @@ export default function Home() {
       </section>
 
       {/* 6. Why MCP (Section 06 from Corporate Profile) */}
-      <section className="why-mcp-section" id="capabilities">
+      <section className="why-mcp-editorial-section" id="capabilities" style={{ backgroundColor: '#fcf8f2', padding: '80px 0', borderTop: '1px solid rgba(226, 232, 240, 0.8)', borderBottom: '1px solid rgba(226, 232, 240, 0.8)' }}>
         <div className="container">
-          
-          <div className="section-header text-center" style={{ maxWidth: '820px', margin: '0 auto 48px' }}>
-            <span className="section-tag">WHY MCP</span>
-            <h2 className="section-title">Why MCP</h2>
-            <p className="section-desc">
-              The workforce industry is changing. Organizations today need more than people — they need speed, compliance, technology, reliability and strategic workforce thinking.
-            </p>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '28px' }}>
+              <span className="section-tag" style={{ display: 'inline-block', marginBottom: '8px' }}>WHY MCP</span>
+              <h2 style={{ fontSize: '38px', fontWeight: 800, color: '#0066cc', margin: 0, letterSpacing: '-0.5px' }}>
+                Why MCP
+              </h2>
+            </div>
+            <ul style={{ listStyleType: 'disc', paddingLeft: '24px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our organization is firmly committed for achieving excellence in every aspect of Indian service as we strive to realize our mission to create a <strong>“Viksit Bharat” (meaning a developed India)</strong>. As a group that first-generation entrepreneurs have supported, we take great pride in this <strong>“Amrit Kaal,” or Golden Age</strong>, and pledge to uphold our values in all our endeavors.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our team members across functions ensure that we maintain individual connections with every one of our clients. This allows us to address feedback and escalations in a timely and effective manner.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our expertise extends across various industries, including <strong>Manufacturing to Pharmaceuticals, Automobile, Textiles, Lighting, Mining, Hospitality to Health, e-commerce to Telecom.</strong>
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our leadership structure is designed to be lean and efficient, with minimal hierarchy, enabling us to make quick and informed decisions.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                We are equally committed to serving both Public and Private sectors across socio-economic &amp; geographies, and this approach helps our clients to navigate complex situations and make informed decisions.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                We are excited about our speedy growth expansion and are always willing to putin the hard work required to achieve our goals. As a product of our visionary leader, we are well-prepared to overcome any geographical or Socio-Economic challenges that may arise.
+              </li>
+            </ul>
           </div>
-
-          <div className="why-mcp-grid">
-            
-            <div className="why-mcp-card">
-              <div className="why-mcp-icon">
-                <Compass size={24} />
-              </div>
-              <h3>Pan-India Reach</h3>
-              <p>Our extensive workforce network enables us to support organizations across multiple manufacturing corridors and corporate hubs nationwide.</p>
-            </div>
-
-            <div className="why-mcp-card">
-              <div className="why-mcp-icon">
-                <Award size={24} />
-              </div>
-              <h3>Deep Industry Expertise</h3>
-              <p>Nearly two decades of experience gives us a strong understanding of diverse industries, shopfloor environments, and operational dynamics.</p>
-            </div>
-
-            <div className="why-mcp-card">
-              <div className="why-mcp-icon">
-                <ShieldCheck size={24} />
-              </div>
-              <h3>Compliance First</h3>
-              <p>We place statutory compliance, governance, labor laws, and process discipline at the heart of every deployment to safeguard clients from risk.</p>
-            </div>
-
-            <div className="why-mcp-card">
-              <div className="why-mcp-icon">
-                <TrendingUp size={24} />
-              </div>
-              <h3>Scale With Flexibility</h3>
-              <p>From specialized technical staffing to large-scale workforce deployment of 1,000+ associates, our solutions adapt seamlessly to business demands.</p>
-            </div>
-
-            <div className="why-mcp-card">
-              <div className="why-mcp-icon">
-                <Users size={24} />
-              </div>
-              <h3>People-Powered</h3>
-              <p>Our greatest strength is our people — supported by robust digital systems, attendance technology, and dedicated on-site operational leadership.</p>
-            </div>
-
-            <div className="why-mcp-card">
-              <div className="why-mcp-icon">
-                <Target size={24} />
-              </div>
-              <h3>Long-Term Partnerships</h3>
-              <p>We focus on building lasting relationships rather than short-term engagements, growing collaboratively with our clients year after year.</p>
-            </div>
-
-          </div>
-
         </div>
       </section>
 
@@ -622,12 +589,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. Leadership Spotlight (Section 07 from Corporate Profile) */}
+      {/* 8. Message from Managing Director */}
       <section className="md-message-section" style={{ padding: '80px 0', background: 'var(--color-bg-light)' }}>
         <div className="container">
           <div className="section-header text-center" style={{ maxWidth: '780px', margin: '0 auto 48px' }}>
             <span className="section-tag">OUR LEADERSHIP</span>
-            <h2 className="section-title">Leadership With Vision. Growth With Purpose.</h2>
+            <h2 className="section-title">Message from Managing Director</h2>
           </div>
 
           <div className="md-message-card" style={{ background: '#ffffff', borderRadius: '16px', padding: '40px', boxShadow: '0 12px 36px rgba(0,0,0,0.06)', display: 'grid', gridTemplateColumns: 'minmax(280px, 320px) 1fr', gap: '48px', alignItems: 'center' }}>
@@ -637,13 +604,13 @@ export default function Home() {
               <div style={{ width: '220px', height: '220px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 20px', border: '4px solid var(--color-accent)', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
                 <img 
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" 
-                  alt="Mrs. Shallu Gaba, Chairman & Managing Director" 
+                  alt="Shallu Gaba, Managing Director" 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
-              <h3 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--color-primary)', margin: '0 0 4px 0' }}>Mrs. Shallu Gaba</h3>
+              <h3 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--color-primary)', margin: '0 0 4px 0' }}>Shallu Gaba</h3>
               <p style={{ fontSize: '14px', color: 'var(--color-accent)', fontWeight: 700, margin: '0 0 12px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Chairman &amp; Managing Director
+                Managing Director
               </p>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', background: 'rgba(212, 175, 55, 0.12)', borderRadius: '20px', color: '#b48a28', fontSize: '12px', fontWeight: 700 }}>
                 <Award size={14} />
@@ -654,19 +621,25 @@ export default function Home() {
             {/* Leadership Philosophy & Quote */}
             <div>
               <blockquote style={{ fontSize: '1.25rem', fontStyle: 'italic', color: 'var(--color-primary)', lineHeight: 1.6, borderLeft: '4px solid var(--color-accent)', paddingLeft: '20px', margin: '0 0 20px 0', fontWeight: 600 }}>
-                “When people grow, organizations grow. Our responsibility is to create the environment where both can succeed.”
+                “Progress for me has never been a daydream. It has consistently been far off the real world, and once one achievement is accomplished, another is held back from being traversed.”
               </blockquote>
 
               <p style={{ color: '#475569', lineHeight: 1.7, fontSize: '15px', marginBottom: '16px' }}>
-                With a clear vision for creating a professionally managed, people-centric organization, Mrs. Shallu Gaba has been instrumental in shaping the growth and direction of MCP Group. Her leadership philosophy combines integrity, operational excellence, innovation and commitment to people.
+                With this conviction, I set out on MCP Group in 2007, an organization specially focused on occupied with Recruitment Services. MCP Group became an outstanding name in its business fragments like Workforce Management, Power Sector, Pharmaceuticals, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development &amp; Education, and Facility Management &amp; BPO, with almost 50,000 MCP Family Members across India.
               </p>
 
-              <p style={{ color: '#475569', lineHeight: 1.7, fontSize: '15px', marginBottom: '24px' }}>
-                Under her stewardship, MCP Group has expanded from its Chandigarh roots into a nationwide powerhouse serving over 500 organizations with nearly 50,000 associates, while maintaining an uncompromising focus on quality, statutory compliance and customer satisfaction.
+              <p style={{ color: '#475569', lineHeight: 1.7, fontSize: '15px', marginBottom: '20px' }}>
+                MCP GROUP’s passion for matching the right people to the right job has helped us to amass over a decade of successful stories in the human resource business. Each client and candidate is like an extended family member to us. And like family, we understand and anticipate your needs, matching the right candidates to the right clients.
               </p>
+
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>Yours Sincerely,</div>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-primary)', fontFamily: 'var(--font-heading)' }}>Shallu Gaba</div>
+                <div style={{ fontSize: '13px', color: '#64748b' }}>Managing Director</div>
+              </div>
 
               <Link to="/about" className="btn btn-outline-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                <span>Read Full Corporate Profile</span>
+                <span>Read Full Message &amp; Story</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
