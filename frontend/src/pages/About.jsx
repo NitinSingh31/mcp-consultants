@@ -61,15 +61,15 @@ export default function About() {
       <section 
         className="page-hero" 
         style={{ 
-          background: 'linear-gradient(rgba(0, 75, 160, 0.78), rgba(0, 45, 105, 0.88)), url("/images/about-hero-bg.jpg") center 40% / cover no-repeat',
-          padding: '65px 0 55px', 
+          background: 'linear-gradient(rgba(3, 27, 65, 0.48), rgba(2, 16, 42, 0.65)), url("/images/about-hero-bg.jpg") center 40% / cover no-repeat',
+          padding: '75px 0 65px', 
           textAlign: 'center', 
           borderBottom: 'none',
           position: 'relative'
         }}
       >
         <div className="container">
-          <h1 style={{ color: '#ffffff', fontSize: '48px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+          <h1 style={{ color: '#ffffff', fontSize: '48px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px', textShadow: '0 3px 16px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.5)' }}>
             About Us
           </h1>
         </div>

@@ -122,7 +122,7 @@ export default function PublicJobs() {
       <section 
         className="page-hero"
         style={{ 
-          background: 'linear-gradient(rgba(0, 75, 160, 0.82), rgba(0, 45, 105, 0.92)), url("/images/careers-hero-bg.jpg") center 35% / cover no-repeat', 
+          background: 'linear-gradient(rgba(3, 27, 65, 0.48), rgba(2, 16, 42, 0.65)), url("/images/careers-hero-bg.jpg") center 35% / cover no-repeat', 
           color: '#ffffff', 
           padding: '75px 24px 65px', 
           textAlign: 'center',
@@ -131,13 +131,13 @@ export default function PublicJobs() {
         }}
       >
         <div style={{ maxWidth: '820px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: '#fbbf24', display: 'inline-block', marginBottom: '10px' }}>
+          <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: '#fbbf24', display: 'inline-block', marginBottom: '10px', textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>
             Workforce, Technical &amp; Leadership Careers
           </span>
-          <h1 style={{ margin: '0 0 12px', fontSize: '38px', fontWeight: 800, letterSpacing: '-0.5px', color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+          <h1 style={{ margin: '0 0 12px', fontSize: '38px', fontWeight: 800, letterSpacing: '-0.5px', color: '#ffffff', textShadow: '0 3px 16px rgba(0, 0, 0, 0.75), 0 1px 4px rgba(0, 0, 0, 0.5)' }}>
             Explore Active Opportunities with MCP Group
           </h1>
-          <p style={{ margin: 0, fontSize: '15.5px', color: 'rgba(255, 255, 255, 0.9)', lineHeight: 1.6, textShadow: '0 1px 4px rgba(0, 0, 0, 0.2)' }}>
+          <p style={{ margin: 0, fontSize: '15.5px', color: '#ffffff', lineHeight: 1.6, textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)' }}>
             Discover career opportunities across Pharmaceuticals, Power, Automobiles, Textiles, Facility Management, BPO and Corporate functions with India's leading workforce partner.
           </p>
         </div>

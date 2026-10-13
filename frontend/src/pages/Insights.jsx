@@ -61,7 +61,7 @@ export default function Insights() {
       <section 
         className="page-hero"
         style={{
-          background: 'linear-gradient(rgba(0, 75, 160, 0.82), rgba(0, 45, 105, 0.92)), url("/images/insights-hero-bg.jpg") center center / cover no-repeat',
+          background: 'linear-gradient(rgba(3, 27, 65, 0.48), rgba(2, 16, 42, 0.65)), url("/images/insights-hero-bg.jpg") center center / cover no-repeat',
           borderBottom: 'none',
           position: 'relative'
         }}
@@ -72,10 +72,10 @@ export default function Insights() {
             <span className="divider">&rsaquo;</span>
             <span>Insights &amp; Whitepapers</span>
           </div>
-          <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+          <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 3px 16px rgba(0, 0, 0, 0.75), 0 1px 4px rgba(0, 0, 0, 0.5)' }}>
             Workforce Insights &amp; Compliance Intelligence
           </h1>
-          <p className="page-hero-subtitle" style={{ color: 'rgba(255, 255, 255, 0.9)', textShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
+          <p className="page-hero-subtitle" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)' }}>
             Authoritative whitepapers, statutory compliance guides, and workforce benchmarks produced by MCP Group's 19+ years of industry practice leadership.
           </p>
         </div>

@@ -637,7 +637,7 @@ export default function Services() {
           <section 
             className="page-hero"
             style={{
-              background: 'linear-gradient(rgba(0, 75, 160, 0.80), rgba(0, 45, 105, 0.90)), url("/images/services-hero-bg.jpg") center 40% / cover no-repeat',
+              background: 'linear-gradient(rgba(3, 27, 65, 0.48), rgba(2, 16, 42, 0.65)), url("/images/services-hero-bg.jpg") center 40% / cover no-repeat',
               borderBottom: 'none',
               position: 'relative'
             }}
@@ -648,13 +648,13 @@ export default function Services() {
                 <span className="divider">&rsaquo;</span>
                 <span>Our Services</span>
               </div>
-              <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
+              <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px', textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>
                 WHAT WE DO
               </span>
-              <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+              <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 3px 16px rgba(0, 0, 0, 0.75), 0 1px 4px rgba(0, 0, 0, 0.5)' }}>
                 One Group. Multiple Solutions. One Standard of Excellence.
               </h1>
-              <p className="page-hero-subtitle" style={{ color: 'rgba(255, 255, 255, 0.9)', textShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
+              <p className="page-hero-subtitle" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)' }}>
                 MCP Group offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations across India.
               </p>
             </div>
