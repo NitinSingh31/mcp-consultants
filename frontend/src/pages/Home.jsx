@@ -563,7 +563,7 @@ export default function Home() {
           
           <div className="section-header text-center" style={{ maxWidth: '820px', margin: '0 auto 48px' }}>
             <span className="section-tag">WHY MCP</span>
-            <h2 className="section-title">Why Leading Organizations Choose MCP</h2>
+            <h2 className="section-title">Why MCP</h2>
             <p className="section-desc">
               The workforce industry is changing. Organizations today need more than people — they need speed, compliance, technology, reliability and strategic workforce thinking.
             </p>
