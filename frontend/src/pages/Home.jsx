@@ -512,39 +512,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Why MCP (Section 06 from Corporate Profile) */}
-      <section className="why-mcp-editorial-section" id="capabilities" style={{ backgroundColor: '#fcf8f2', padding: '80px 0', borderTop: '1px solid rgba(226, 232, 240, 0.8)', borderBottom: '1px solid rgba(226, 232, 240, 0.8)' }}>
-        <div className="container">
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '28px' }}>
-              <span className="section-tag" style={{ display: 'inline-block', marginBottom: '8px' }}>WHY MCP</span>
-              <h2 style={{ fontSize: '38px', fontWeight: 800, color: '#0066cc', margin: 0, letterSpacing: '-0.5px' }}>
-                Why MCP
-              </h2>
-            </div>
-            <ul style={{ listStyleType: 'disc', paddingLeft: '24px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                Our organization is firmly committed for achieving excellence in every aspect of Indian service as we strive to realize our mission to create a <strong>“Viksit Bharat” (meaning a developed India)</strong>. As a group that first-generation entrepreneurs have supported, we take great pride in this <strong>“Amrit Kaal,” or Golden Age</strong>, and pledge to uphold our values in all our endeavors.
-              </li>
-              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                Our team members across functions ensure that we maintain individual connections with every one of our clients. This allows us to address feedback and escalations in a timely and effective manner.
-              </li>
-              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                Our expertise extends across various industries, including <strong>Manufacturing to Pharmaceuticals, Automobile, Textiles, Lighting, Mining, Hospitality to Health, e-commerce to Telecom.</strong>
-              </li>
-              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                Our leadership structure is designed to be lean and efficient, with minimal hierarchy, enabling us to make quick and informed decisions.
-              </li>
-              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                We are equally committed to serving both Public and Private sectors across socio-economic &amp; geographies, and this approach helps our clients to navigate complex situations and make informed decisions.
-              </li>
-              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                We are excited about our speedy growth expansion and are always willing to putin the hard work required to achieve our goals. As a product of our visionary leader, we are well-prepared to overcome any geographical or Socio-Economic challenges that may arise.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+
 
       {/* 7. Industries We Serve (Section 05 from Profile) */}
       <section className="industries-matrix-section">
