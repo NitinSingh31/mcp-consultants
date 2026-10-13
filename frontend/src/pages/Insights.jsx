@@ -17,7 +17,7 @@ export default function Insights() {
       category: "Pharmaceuticals",
       date: "Q1 2026",
       image: "/images/insights-pharma-cgmp.jpg",
-      description: "How leading pharma formulation and API manufacturing units in Baddi, Mohali, and Hyderabad achieve zero-deviation staffing in sterile environments.",
+      description: "How leading pharma formulation and API manufacturing units across Pan India achieve zero-deviation staffing in sterile environments.",
       readTime: "14 min read"
     },
     {
