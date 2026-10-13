@@ -370,23 +370,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              {/* Key Metrics Strip */}
-              <div className="about-demo-metrics-strip">
-                <div className="about-metric-item">
-                  <div className="metric-val">19+</div>
-                  <div className="metric-lbl">Years Experience</div>
-                </div>
-                <div className="metric-separator"></div>
-                <div className="about-metric-item">
-                  <div className="metric-val">50,000+</div>
-                  <div className="metric-lbl">Associates</div>
-                </div>
-                <div className="metric-separator"></div>
-                <div className="about-metric-item">
-                  <div className="metric-val">500+</div>
-                  <div className="metric-lbl">Clients</div>
-                </div>
-              </div>
+
 
             </div>
 
