@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
   Award, 
@@ -60,11 +59,6 @@ export default function About() {
       {/* 1. Page Hero Banner */}
       <section className="page-hero" style={{ backgroundColor: '#0066cc', backgroundImage: 'none', padding: '54px 0 46px', textAlign: 'center', borderBottom: 'none' }}>
         <div className="container">
-          <div className="breadcrumbs" style={{ justifyContent: 'center', marginBottom: '12px' }}>
-            <Link to="/" style={{ color: '#ffffff' }}>Home</Link>
-            <span className="divider" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>&rsaquo;</span>
-            <span style={{ color: '#ffffff', fontWeight: 600 }}>About Us</span>
-          </div>
           <h1 style={{ color: '#ffffff', fontSize: '46px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px' }}>
             About Us
           </h1>
