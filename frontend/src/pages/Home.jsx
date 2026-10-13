@@ -346,45 +346,16 @@ export default function Home() {
               <h2 className="about-demo-title">
                 Building India’s Workforce. Strengthening India’s Businesses.
               </h2>
-              <p className="about-demo-desc">
-                Founded in 2007 in Chandigarh under the leadership of Chairman &amp; Managing Director Mrs. Shallu Gaba, MCP Group has evolved into a trusted partner for organizations across the private, public and government sectors. With nearly 50,000 associates and 500+ clients, MCP Group brings together deep industry expertise, technology-enabled workforce solutions and a strong commitment to service excellence.
-              </p>
-
-              {/* 2x2 Pillars Grid */}
-              <div className="about-demo-pillars-grid">
-                
-                <div className="about-demo-pillar-item">
-                  <div className="pillar-num-badge">01</div>
-                  <div className="pillar-text-wrap">
-                    <h4>People-Centric Approach</h4>
-                    <p>Understanding people to create dependable, future-ready talent solutions.</p>
-                  </div>
-                </div>
-
-                <div className="about-demo-pillar-item">
-                  <div className="pillar-num-badge">02</div>
-                  <div className="pillar-text-wrap">
-                    <h4>Process &amp; Technology</h4>
-                    <p>Automated payroll, attendance tracking, and transparent operational systems.</p>
-                  </div>
-                </div>
-
-                <div className="about-demo-pillar-item">
-                  <div className="pillar-num-badge">03</div>
-                  <div className="pillar-text-wrap">
-                    <h4>Compliance First</h4>
-                    <p>100% statutory adherence (PF, ESIC, Factories Act) and ISO 9001 governance.</p>
-                  </div>
-                </div>
-
-                <div className="about-demo-pillar-item">
-                  <div className="pillar-num-badge">04</div>
-                  <div className="pillar-text-wrap">
-                    <h4>Industry Expertise</h4>
-                    <p>Dedicated sector pods understanding technical plant &amp; corporate needs.</p>
-                  </div>
-                </div>
-
+              <div className="about-demo-narrative" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
+                <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
+                  Founded in 2007 in Chandigarh under the leadership of Managing Director <strong>Shallu Gaba</strong>, <strong>MCP Group</strong> has evolved into a premier workforce management and specialized recruitment powerhouse. We partner with leading organizations across India’s private, public, and government sectors to build, manage, and scale high-performing workforces with speed and precision.
+                </p>
+                <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
+                  With nearly <strong>50,000 associates</strong> deployed nationwide and over <strong>500 corporate clients</strong>, MCP Group delivers deep expertise across key sectors including <strong>Workforce Management, Pharmaceuticals, Power &amp; Energy, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development, and Facility Management</strong>.
+                </p>
+                <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
+                  Backed by <strong>ISO 9001:2008</strong> certified processes, 100% statutory compliance, and modern technology systems for automated payroll and attendance, we take pride in building lasting client-candidate partnerships that power long-term business growth.
+                </p>
               </div>
 
               {/* Action Buttons */}
