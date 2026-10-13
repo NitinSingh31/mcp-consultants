@@ -163,7 +163,14 @@ export default function Industries() {
     <div className="industries-page">
       
       {/* Page Hero */}
-      <section className="page-hero">
+      <section 
+        className="page-hero"
+        style={{
+          background: 'linear-gradient(rgba(0, 75, 160, 0.80), rgba(0, 45, 105, 0.90)), url("/images/industries-hero-bg.jpg") center 40% / cover no-repeat',
+          borderBottom: 'none',
+          position: 'relative'
+        }}
+      >
         <div className="container">
           <div className="breadcrumbs">
             <Link to="/">Home</Link>
@@ -173,8 +180,10 @@ export default function Industries() {
           <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
             INDUSTRIES WE SERVE
           </span>
-          <h1 className="page-hero-title">Expertise Across India’s Growth Industries.</h1>
-          <p className="page-hero-subtitle">
+          <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+            Expertise Across India’s Growth Industries.
+          </h1>
+          <p className="page-hero-subtitle" style={{ color: 'rgba(255, 255, 255, 0.9)', textShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
             Our sector-focused teams understand the unique workforce, operational and compliance requirements of different industries across India.
           </p>
         </div>

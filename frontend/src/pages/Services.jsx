@@ -634,7 +634,14 @@ export default function Services() {
         <div className="all-services-view">
           
           {/* Page Hero */}
-          <section className="page-hero">
+          <section 
+            className="page-hero"
+            style={{
+              background: 'linear-gradient(rgba(0, 75, 160, 0.80), rgba(0, 45, 105, 0.90)), url("/images/services-hero-bg.jpg") center 40% / cover no-repeat',
+              borderBottom: 'none',
+              position: 'relative'
+            }}
+          >
             <div className="container">
               <div className="breadcrumbs">
                 <Link to="/">Home</Link>
@@ -644,8 +651,10 @@ export default function Services() {
               <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
                 WHAT WE DO
               </span>
-              <h1 className="page-hero-title">One Group. Multiple Solutions. One Standard of Excellence.</h1>
-              <p className="page-hero-subtitle">
+              <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+                One Group. Multiple Solutions. One Standard of Excellence.
+              </h1>
+              <p className="page-hero-subtitle" style={{ color: 'rgba(255, 255, 255, 0.9)', textShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
                 MCP Group offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations across India.
               </p>
             </div>

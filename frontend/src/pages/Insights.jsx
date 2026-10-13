@@ -58,15 +58,24 @@ export default function Insights() {
     <div className="insights-page">
       
       {/* Page Hero */}
-      <section className="page-hero">
+      <section 
+        className="page-hero"
+        style={{
+          background: 'linear-gradient(rgba(0, 75, 160, 0.82), rgba(0, 45, 105, 0.92)), url("/images/insights-hero-bg.jpg") center center / cover no-repeat',
+          borderBottom: 'none',
+          position: 'relative'
+        }}
+      >
         <div className="container">
           <div className="breadcrumbs">
             <Link to="/">Home</Link>
             <span className="divider">&rsaquo;</span>
             <span>Insights &amp; Whitepapers</span>
           </div>
-          <h1 className="page-hero-title">Workforce Insights &amp; Compliance Intelligence</h1>
-          <p className="page-hero-subtitle">
+          <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
+            Workforce Insights &amp; Compliance Intelligence
+          </h1>
+          <p className="page-hero-subtitle" style={{ color: 'rgba(255, 255, 255, 0.9)', textShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
             Authoritative whitepapers, statutory compliance guides, and workforce benchmarks produced by MCP Group's 19+ years of industry practice leadership.
           </p>
         </div>
