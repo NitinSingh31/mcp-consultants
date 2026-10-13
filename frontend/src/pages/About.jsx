@@ -58,24 +58,55 @@ export default function About() {
     <div className="about-page">
       
       {/* 1. Page Hero Banner */}
-      <section className="page-hero">
+      <section className="page-hero" style={{ backgroundColor: '#0066cc', backgroundImage: 'none', padding: '54px 0 46px', textAlign: 'center', borderBottom: 'none' }}>
         <div className="container">
-          <div className="breadcrumbs">
-            <Link to="/">Home</Link>
-            <span className="divider">&rsaquo;</span>
-            <span>About Us</span>
+          <div className="breadcrumbs" style={{ justifyContent: 'center', marginBottom: '12px' }}>
+            <Link to="/" style={{ color: '#ffffff' }}>Home</Link>
+            <span className="divider" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>&rsaquo;</span>
+            <span style={{ color: '#ffffff', fontWeight: 600 }}>About Us</span>
           </div>
-          <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '12px' }}>
-            SINCE 2007 • CHANDIGARH, INDIA
-          </span>
-          <h1 className="page-hero-title">Empowering People. Powering Businesses. Building India.</h1>
-          <p className="page-hero-subtitle">
-            A leading Human Resource and Workforce Management organization delivering specialized, compliance-driven workforce solutions across India with nearly 50,000 associates and 500+ clients.
-          </p>
+          <h1 style={{ color: '#ffffff', fontSize: '46px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px' }}>
+            About Us
+          </h1>
         </div>
       </section>
 
-      {/* 2. Key Metrics Ribbon */}
+      {/* 2. Section 01: About MCP Group */}
+      <section className="about-intro-section" style={{ padding: '80px 0 70px', backgroundColor: '#ffffff' }}>
+        <div className="container">
+          <div className="about-intro-grid">
+            
+            {/* Left Narrative */}
+            <div className="about-narrative-text">
+              <h2 style={{ fontSize: '38px', fontWeight: 800, color: '#0066cc', marginBottom: '24px', letterSpacing: '-0.5px' }}>
+                About MCP Group
+              </h2>
+              
+              <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', marginBottom: '18px' }}>
+                MCP GROUP is a company that was founded in 2007 in Chandigarh, India, and has since become a leading provider of specialized Human Resource Services across the country. The group employs over 550 core employees and has nearly 50,000 associates working with over 500 clients in India's private, public, and government sectors: the Managing Director, <strong>Shallu Gaba</strong> aims to excel in all services, focusing on <strong>Workforce Management, Power Sector, Pharmaceuticals, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development &amp; Education, and Facility Management &amp; BPO</strong>.
+              </p>
+
+              <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', margin: 0 }}>
+                Our organization is ISO 9001-2008 certified and is committed to providing compliance-driven services to various industries and government agencies. As known as Himalaya Bhumi of India, the MCP group itself is one such pioneer who brings the purity of Himalaya to the land of Ganga-Jamuna.
+              </p>
+            </div>
+
+            {/* Right Tower Image */}
+            <div className="about-tower-image-wrap">
+              <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 45px rgba(0, 43, 102, 0.12)', border: '1px solid #e2e8f0' }}>
+                <img 
+                  src="/images/mcp-corporate-tower.jpg" 
+                  alt="MCP Group Corporate Headquarters Tower" 
+                  style={{ width: '100%', height: '100%', maxHeight: '480px', display: 'block', objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Key Metrics Ribbon */}
       <section className="about-stats-ribbon">
         <div className="container">
           <div className="about-stats-grid">
@@ -99,104 +130,6 @@ export default function About() {
               <span className="about-stat-label">Certified Organization</span>
               <span className="about-stat-sub">Highest operational &amp; statutory quality</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Section 01: Who We Are */}
-      <section className="about-intro-section">
-        <div className="container">
-          <div className="about-intro-grid">
-            
-            {/* Left Narrative */}
-            <div className="about-narrative-text">
-              <span className="section-tag">WHO WE ARE</span>
-              <h2 className="section-title" style={{ fontSize: '34px', marginBottom: '20px', lineHeight: 1.25 }}>
-                Building India’s Workforce. Strengthening India’s Businesses.
-              </h2>
-              
-              <p>
-                Founded in 2007 in Chandigarh, <strong>MCP Group</strong> has grown into a trusted workforce and human resource partner for organizations across India. What began with a vision to create dependable workforce solutions has evolved into a diversified group serving some of India’s most demanding industries.
-              </p>
-
-              <p>
-                Under the leadership of <strong>Chairman &amp; Managing Director Mrs. Shallu Gaba</strong>, the Group continues to expand its capabilities across diverse and rapidly evolving industries, including Pharmaceuticals, Power, Textiles, Automobiles, Electronics &amp; Electricals, Retail &amp; EV, Hospitality, Skill Development, Education, Facility Management, BPO and Workforce Management.
-              </p>
-
-              <blockquote style={{ background: 'var(--color-bg-light)', borderLeft: '4px solid var(--color-accent)', padding: '16px 20px', margin: '24px 0', borderRadius: '0 8px 8px 0', fontStyle: 'italic', color: 'var(--color-primary)' }}>
-                “Rooted in India. Inspired by the Himalayas. From the foothills of Chandigarh, we carry the spirit of purity, strength, resilience and enduring excellence to every client, every workforce and every partnership.”
-              </blockquote>
-
-              <p>
-                Our strength lies in understanding people, industries and compliance — and transforming these insights into reliable, scalable and future-ready workforce solutions.
-              </p>
-
-              <div className="about-feature-checks" style={{ marginTop: '24px' }}>
-                <div className="about-check-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>People + Process + Technology + Compliance + Industry Expertise</strong></span>
-                </div>
-                <div className="about-check-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Nearly 50,000 associates deployed under structured SLAs across India</span>
-                </div>
-                <div className="about-check-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>ISO 9001:2008 certified quality management and 100% labor law adherence</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Formula Card */}
-            <div className="about-blueprint-card">
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent)', fontWeight: 800, fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '16px' }}>
-                <Sparkles size={16} />
-                <span>The MCP Blueprint</span>
-              </div>
-              
-              <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff', marginBottom: '16px', lineHeight: 1.3 }}>
-                More Than Manpower. We Build Workforce Solutions.
-              </h3>
-              
-              <p style={{ fontSize: '14.5px', color: '#cbd5e1', lineHeight: 1.7, marginBottom: '24px' }}>
-                At MCP Group, we believe that people are the foundation of every successful organization. Our approach combines five essential dimensions:
-              </p>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: '20px' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                  <Users size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                  <div>
-                    <strong style={{ display: 'block', fontSize: '15px', color: '#ffffff' }}>People at the Centre</strong>
-                    <span style={{ fontSize: '13px', color: '#94a3b8' }}>Understanding aspirations, developing skills, and creating opportunities for growth.</span>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                  <TrendingUp size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                  <div>
-                    <strong style={{ display: 'block', fontSize: '15px', color: '#ffffff' }}>Process &amp; Technology</strong>
-                    <span style={{ fontSize: '13px', color: '#94a3b8' }}>Automated attendance, digital salary disbursement, and transparent client reporting.</span>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                  <ShieldCheck size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                  <div>
-                    <strong style={{ display: 'block', fontSize: '15px', color: '#ffffff' }}>Statutory Compliance</strong>
-                    <span style={{ fontSize: '13px', color: '#94a3b8' }}>100% adherence to PF, ESIC, minimum wages, and Factories Act requirements.</span>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                  <Factory size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                  <div>
-                    <strong style={{ display: 'block', fontSize: '15px', color: '#ffffff' }}>Industry Expertise</strong>
-                    <span style={{ fontSize: '13px', color: '#94a3b8' }}>Specialized domain pods tuned to plant machinery, pharma GMP, and automotive lines.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
