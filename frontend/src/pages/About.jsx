@@ -300,7 +300,7 @@ export default function About() {
           
           <div className="section-header text-center" style={{ maxWidth: '780px', margin: '0 auto 48px' }}>
             <span className="section-tag">OUR LEADERSHIP</span>
-            <h2 className="section-title">Leadership With Vision. Growth With Purpose.</h2>
+            <h2 className="section-title">Message from Managing Director</h2>
             <p className="section-subtitle">
               Pioneering a professionally managed, people-centric workforce organization
             </p>
@@ -313,11 +313,11 @@ export default function About() {
               <div className="md-portrait-frame">
                 <img 
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" 
-                  alt="Mrs. Shallu Gaba, Chairman & Managing Director"
+                  alt="Shallu Gaba, Managing Director"
                 />
               </div>
-              <div className="md-name">Mrs. Shallu Gaba</div>
-              <div className="md-role">Chairman &amp; Managing Director</div>
+              <div className="md-name">Shallu Gaba</div>
+              <div className="md-role">Managing Director</div>
               <div className="md-firm">MCP GROUP</div>
               
               <div style={{ marginTop: '16px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: 'rgba(196, 154, 69, 0.12)', borderRadius: '20px', color: 'var(--color-accent)', fontSize: '12px', fontWeight: 700 }}>
@@ -333,28 +333,37 @@ export default function About() {
               </div>
 
               <blockquote className="md-quote-lead">
-                “When people grow, organizations grow. Our responsibility is to create the environment where both can succeed.”
+                “Progress for me has never been a daydream. It has consistently been far off the real world, and once one achievement is accomplished, another is held back from being traversed.”
               </blockquote>
 
               <div className="md-body-text">
                 <p>
-                  With a clear vision for creating a professionally managed, people-centric organization, Mrs. Shallu Gaba has been instrumental in shaping the growth and strategic direction of MCP Group since its inception in 2007 in Chandigarh.
+                  Progress for me has never been a daydream. It has consistently been far off the real world, and once one achievement is accomplished, another is held back from being traversed. With this conviction, I set out on a MCP Group in 2007, an organization specially focused on occupied with Recruitment Services. MCP Group became an outstanding name in its business fragments like Workforce Management, Power Sector, Pharmaceuticals , Textiles , Lighting, Retail &amp; EV, Hospitality Skill Development &amp; Education, and Facility Management &amp; BPO, with almost 50,000 MCP Family Members across India.
                 </p>
                 <p>
-                  Her leadership philosophy combines integrity, operational excellence, innovation and an unwavering commitment to people. Under her stewardship, MCP Group has expanded its footprint across India’s core and emerging industries, including Pharmaceuticals, Power, Textiles, Automobiles, Electronics, Retail &amp; EV, Hospitality, and Government sectors.
+                  However, as each business visionary adheres to their fiction, I generally needed to push my organization to more prosperous achievements. We have witnessed consistent growth for years, achieved long-term success, and faced challenging times.. We have emerged as one of employers’ most favored and sought-after Workforce Management.
                 </p>
                 <p>
-                  By prioritizing statutory compliance, transparent governance, and technological modernization, Mrs. Gaba has guided MCP Group to become a trusted workforce partner for over 500 organizations with nearly 50,000 associates nationwide.
+                  MCP GROUP’s passion for matching the right people to the right job has helped us to amass over a decade of successful stories in the human resource business. Each client and candidate is like an extended family member to us. And like family, we understand and anticipate your needs, matching the right candidates to the right clients. We aim to create a long-lasting client-candidate relationship, translating into long-term winning strategies and exponential growth for both parties.
+                </p>
+                <p>
+                  We provide a one-stop solution for companies and professionals to remain in the business and become leaders in their respective fields.
+                </p>
+                <p>
+                  If you wish to learn more or engage with our workforce solution, please do not hesitate to contact us. We look forward to having you as a part of the MCP Family.
                 </p>
               </div>
 
               <div className="md-signoff">
                 <div>
+                  <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '4px', fontWeight: 600 }}>
+                    Yours Sincerely,
+                  </div>
                   <div style={{ fontFamily: "var(--font-heading)", fontSize: '20px', fontWeight: 800, color: 'var(--color-primary)', letterSpacing: '0.2px' }}>
-                    Mrs. Shallu Gaba
+                    Shallu Gaba
                   </div>
                   <div style={{ fontSize: '13px', color: '#64748b' }}>
-                    Chairman &amp; Managing Director, MCP Group
+                    Managing Director
                   </div>
                 </div>
 
