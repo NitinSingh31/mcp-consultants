@@ -58,9 +58,18 @@ export default function About() {
     <div className="about-page">
       
       {/* 1. Page Hero Banner */}
-      <section className="page-hero" style={{ backgroundColor: '#0066cc', backgroundImage: 'none', padding: '54px 0 46px', textAlign: 'center', borderBottom: 'none' }}>
+      <section 
+        className="page-hero" 
+        style={{ 
+          background: 'linear-gradient(rgba(0, 75, 160, 0.78), rgba(0, 45, 105, 0.88)), url("/images/about-hero-bg.jpg") center 40% / cover no-repeat',
+          padding: '65px 0 55px', 
+          textAlign: 'center', 
+          borderBottom: 'none',
+          position: 'relative'
+        }}
+      >
         <div className="container">
-          <h1 style={{ color: '#ffffff', fontSize: '46px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px' }}>
+          <h1 style={{ color: '#ffffff', fontSize: '48px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px', textShadow: '0 2px 10px rgba(0, 0, 0, 0.25)' }}>
             About Us
           </h1>
         </div>
