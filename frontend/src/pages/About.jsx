@@ -252,32 +252,22 @@ export default function About() {
                 <Compass size={16} />
                 <span>OUR VISION</span>
               </div>
-              <h3 className="vm-title">To Become India’s Most Trusted Workforce &amp; Business Solutions Partner</h3>
-              <p className="vm-statement">
-                “We envision a future where organizations can focus on their core business while MCP Group takes care of the people, processes and operational support that power their success.”
-              </p>
+              <h3 className="vm-title">Ethics, Integrity &amp; Sustainable Strategic Growth</h3>
 
-              <div style={{ margin: '16px 0', padding: '14px 18px', background: 'rgba(212, 175, 55, 0.1)', borderRadius: '8px', borderLeft: '3px solid var(--color-accent)' }}>
-                <strong style={{ color: '#ffffff', fontSize: '14px' }}>Our Goal is Simple:</strong>
-                <p style={{ margin: '4px 0 0 0', color: 'var(--color-accent)', fontWeight: 700, fontSize: '15px' }}>
-                  Build stronger organizations by building stronger workforces.
+              <div style={{ fontSize: '15px', lineHeight: 1.8, color: 'rgba(255, 255, 255, 0.9)', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '22px' }}>
+                <p style={{ margin: 0 }}>
+                  At our core, we are a company passionate about human resource management and dedicated to creating a better future for all. We believe success should never come at the cost of ethics and integrity, so we prioritize these values above all else.
+                </p>
+                <p style={{ margin: 0 }}>
+                  By always striving for sustainable strategic growth, we have earned a reputation as a trusted partner for our clients. Our commitment to excellence is reflected in the exceptional services we offer and the positive feedback we receive from our clients.
                 </p>
               </div>
 
-              <ul className="vm-list">
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Operational Freedom:</strong> Allowing client boardrooms to innovate while we handle the workforce engine.</span>
-                </li>
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Nationwide Accessibility:</strong> Connecting enterprises across Tier-1, Tier-2, and industrial belts.</span>
-                </li>
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Sustainable Economic Impact:</strong> Supporting India’s manufacturing resurgence and employment generation.</span>
-                </li>
-              </ul>
+              <div style={{ marginTop: 'auto', padding: '16px 20px', background: 'rgba(196, 154, 69, 0.12)', borderRadius: '10px', borderLeft: '3px solid var(--color-accent)' }}>
+                <p style={{ margin: 0, color: 'var(--color-accent)', fontWeight: 700, fontSize: '15px', lineHeight: 1.5 }}>
+                  Join hands with us as we build a brighter future for all.
+                </p>
+              </div>
             </div>
 
             {/* OUR MISSION */}
@@ -286,33 +276,19 @@ export default function About() {
                 <Target size={16} />
                 <span>OUR MISSION</span>
               </div>
-              <h3 className="vm-title">People at the Centre. Excellence in Everything.</h3>
-              <p className="vm-statement">
-                “Our mission is to provide organizations with dependable, ethical and compliance-driven workforce solutions while creating meaningful employment opportunities for people across India.”
-              </p>
+              <h3 className="vm-title">Shared Purpose, Adaptability &amp; Customer-Centricity</h3>
 
-              <div style={{ margin: '16px 0' }}>
-                <strong style={{ color: '#ffffff', fontSize: '13.5px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>We Continuously Invest In:</strong>
+              <div style={{ fontSize: '15px', lineHeight: 1.8, color: 'rgba(255, 255, 255, 0.9)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <p style={{ margin: 0 }}>
+                  At MCP Group, we are dedicated to achieving our goals and objectives with a team that shares a common sense of purpose. We believe in being adaptable and responsive to changes in our clients’ needs and market trends.
+                </p>
+                <p style={{ margin: 0 }}>
+                  Our team values growth, success, and happiness, and we strive to integrate these elements into our work every day. We have designed strategies to accomplish our goals and provide exceptional customer service consistently.
+                </p>
+                <p style={{ margin: 0 }}>
+                  We are known for being friendly, customer-centric, and supportive of our clients’ needs, and we are committed to partnering with them to recruit, retain, or manage their workforce to achieve their vision and mission. Our values are reflected in the feedback we receive, which reinforces our commitment to excellence.
+                </p>
               </div>
-
-              <ul className="vm-list">
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Workforce Excellence &amp; Skill Development:</strong> Preparing associates for tomorrow's jobs through training.</span>
-                </li>
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Technology &amp; Process Innovation:</strong> Deploying state-of-the-art attendance and payroll infrastructure.</span>
-                </li>
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Statutory Compliance &amp; Employee Engagement:</strong> Cultivating ethical workplaces where people thrive.</span>
-                </li>
-                <li className="vm-list-item">
-                  <CheckCircle2 size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Long-Term Value Partnerships:</strong> Creating measurable operational ROI for every client organization.</span>
-                </li>
-              </ul>
             </div>
 
           </div>
