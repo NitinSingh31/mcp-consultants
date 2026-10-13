@@ -344,7 +344,7 @@ export default function Home() {
             <div className="about-demo-content-col">
               <span className="about-demo-tag">WHO WE ARE</span>
               <h2 className="about-demo-title">
-                Building India’s Workforce. Strengthening India’s Businesses.
+                About MCP Group
               </h2>
               <div className="about-demo-narrative" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
                 <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
