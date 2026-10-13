@@ -52,38 +52,7 @@ export default function About() {
     }
   ];
 
-  const whyMcp = [
-    {
-      icon: Award,
-      title: "Excellence for Viksit Bharat",
-      description: "Our organization is firmly committed for achieving excellence in every aspect of Indian service as we strive to realize our mission to create a “Viksit Bharat” (meaning a developed India). As a group that first-generation entrepreneurs have supported, we take great pride in this “Amrit Kaal,” or Golden Age, and pledge to uphold our values in all our endeavors."
-    },
-    {
-      icon: Users,
-      title: "Individual Client Connections",
-      description: "Our team members across functions ensure that we maintain individual connections with every one of our clients. This allows us to address feedback and escalations in a timely and effective manner."
-    },
-    {
-      icon: Factory,
-      title: "Cross-Industry Expertise",
-      description: "Our expertise extends across various industries, including Manufacturing to Pharmaceuticals, Automobile, Textiles, Lighting, Mining, Hospitality to Health, e-commerce to Telecom."
-    },
-    {
-      icon: Compass,
-      title: "Lean & Efficient Leadership",
-      description: "Our leadership structure is designed to be lean and efficient, with minimal hierarchy, enabling us to make quick and informed decisions."
-    },
-    {
-      icon: Building2,
-      title: "Public & Private Sector Commitment",
-      description: "We are equally committed to serving both Public and Private sectors across socio-economic & geographies, and this approach helps our clients to navigate complex situations and make informed decisions."
-    },
-    {
-      icon: TrendingUp,
-      title: "Speedy Expansion & Resilience",
-      description: "We are excited about our speedy growth expansion and are always willing to put in the hard work required to achieve our goals. As a product of our visionary leader, we are well-prepared to overcome any geographical or Socio-Economic challenges that may arise."
-    }
-  ];
+
 
   return (
     <div className="about-page">
@@ -420,39 +389,33 @@ export default function About() {
       </section>
 
       {/* 7. Section 06: Why MCP */}
-      <section className="why-mcp-section">
+      <section className="why-mcp-editorial-section" style={{ backgroundColor: '#fcf8f2', padding: '80px 0', borderTop: '1px solid rgba(226, 232, 240, 0.8)', borderBottom: '1px solid rgba(226, 232, 240, 0.8)' }}>
         <div className="container">
-          
-          <div className="section-header text-center" style={{ maxWidth: '820px', margin: '0 auto 20px' }}>
-            <span className="section-tag">WHY MCP</span>
-            <h2 className="section-title">Why MCP</h2>
-            <p className="section-desc">
-              Firmly committed to excellence, agile governance, and empowering India’s growth story across public and private sectors.
-            </p>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '38px', fontWeight: 800, color: '#0066cc', marginBottom: '28px', letterSpacing: '-0.5px' }}>
+              Why MCP
+            </h2>
+            <ul style={{ listStyleType: 'disc', paddingLeft: '24px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our organization is firmly committed for achieving excellence in every aspect of Indian service as we strive to realize our mission to create a <strong>“Viksit Bharat” (meaning a developed India)</strong>. As a group that first-generation entrepreneurs have supported, we take great pride in this <strong>“Amrit Kaal,” or Golden Age</strong>, and pledge to uphold our values in all our endeavors.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our team members across functions ensure that we maintain individual connections with every one of our clients. This allows us to address feedback and escalations in a timely and effective manner.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our expertise extends across various industries, including <strong>Manufacturing to Pharmaceuticals, Automobile, Textiles, Lighting, Mining, Hospitality to Health, e-commerce to Telecom.</strong>
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                Our leadership structure is designed to be lean and efficient, with minimal hierarchy, enabling us to make quick and informed decisions.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                We are equally committed to serving both Public and Private sectors across socio-economic &amp; geographies, and this approach helps our clients to navigate complex situations and make informed decisions.
+              </li>
+              <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
+                We are excited about our speedy growth expansion and are always willing to putin the hard work required to achieve our goals. As a product of our visionary leader, we are well-prepared to overcome any geographical or Socio-Economic challenges that may arise.
+              </li>
+            </ul>
           </div>
-
-          <div className="why-mcp-cards-grid">
-            {whyMcp.map((item, idx) => {
-              const IconComp = item.icon;
-              return (
-                <div key={idx} className="why-card">
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                    <div className="why-icon-wrap" style={{ marginBottom: 0 }}>
-                      <IconComp size={24} />
-                    </div>
-                    <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-accent)', letterSpacing: '1px', background: 'rgba(196, 154, 69, 0.1)', padding: '4px 10px', borderRadius: '12px' }}>
-                      0{idx + 1}
-                    </span>
-                  </div>
-                  {item.title && <h3 className="why-title">{item.title}</h3>}
-                  <p className="why-desc" style={{ fontSize: '14.5px', lineHeight: 1.7, color: '#475569', margin: 0 }}>
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
         </div>
       </section>
 
