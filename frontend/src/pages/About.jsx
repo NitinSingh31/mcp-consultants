@@ -376,7 +376,7 @@ export default function About() {
 
               <div className="md-signoff">
                 <div>
-                  <div style={{ fontFamily: "'Cinzel', serif", fontSize: '20px', fontWeight: 700, color: 'var(--color-primary)', letterSpacing: '1px' }}>
+                  <div style={{ fontFamily: "var(--font-heading)", fontSize: '20px', fontWeight: 800, color: 'var(--color-primary)', letterSpacing: '0.2px' }}>
                     Mrs. Shallu Gaba
                   </div>
                   <div style={{ fontSize: '13px', color: '#64748b' }}>
