@@ -1260,7 +1260,7 @@ export default function Contact({ defaultTab }) {
                 Mohali (Corporate HQ)
               </h3>
               <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.7', margin: '0 0 16px 0' }}>
-                4579 B, Sector 70, Mohali, Punjab 160071
+                Mohali, Punjab, India
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14.5px', color: '#334155' }}>
                 <div>

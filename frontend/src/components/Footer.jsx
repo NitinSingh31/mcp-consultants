@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Shield, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, Shield, ArrowUpRight } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -67,10 +67,6 @@ export default function Footer() {
             <h4 className="footer-heading">Connect With Us</h4>
             <div className="footer-contact-info">
               
-              <div className="footer-contact-item">
-                <MapPin size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                <span><strong>Head Office:</strong> 4579 B, Sector 70, Mohali, Punjab (Chandigarh Tricity)</span>
-              </div>
 
               <div className="footer-contact-item">
                 <Phone size={18} color="var(--color-accent)" style={{ flexShrink: 0 }} />
