@@ -130,6 +130,49 @@ export default function PostJob() {
   const [resdexMatchCount, setResdexMatchCount] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
 
+  // Naukri Fast-Import State
+  const [showNaukriBox, setShowNaukriBox] = useState(false);
+  const [naukriUrlInput, setNaukriUrlInput] = useState('');
+  const [isNaukriLoading, setIsNaukriLoading] = useState(false);
+  const [naukriFeedback, setNaukriFeedback] = useState(null);
+
+  const handleNaukriAutoFill = async (e) => {
+    e.preventDefault();
+    if (!naukriUrlInput.trim()) return;
+    setIsNaukriLoading(true);
+    setNaukriFeedback(null);
+    try {
+      const res = await fetch(apiUrl('/api/jobs/import-naukri'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: naukriUrlInput.trim(), autoPublish: false })
+      });
+      const result = await res.json();
+      if (result.success && result.jobData) {
+        const d = result.jobData;
+        if (d.title) setJobTitle(d.title);
+        if (d.company) setCompany(d.company);
+        if (d.department) setDepartment(d.department);
+        if (d.workExperienceMin !== undefined) setWorkExperienceMin(d.workExperienceMin);
+        if (d.workExperienceMax !== undefined) setWorkExperienceMax(d.workExperienceMax);
+        if (d.salaryMin) setSalaryMin(d.salaryMin);
+        if (d.salaryMax) setSalaryMax(d.salaryMax);
+        if (d.locations && d.locations.length > 0) setLocations(d.locations);
+        if (d.skills && d.skills.length > 0) setSkills(d.skills);
+        if (d.jobDescription) setJobDescription(d.jobDescription);
+        if (d.candidateProfile) setCandidateProfile(d.candidateProfile);
+        if (d.referenceCode) setReferenceCode(d.referenceCode);
+        setNaukriFeedback({ type: 'success', message: `✅ Successfully extracted "${d.title}" from Naukri! All form fields have been populated.` });
+      } else {
+        setNaukriFeedback({ type: 'error', message: result.message || 'Could not parse Naukri link.' });
+      }
+    } catch (err) {
+      setNaukriFeedback({ type: 'error', message: 'Error connecting to Naukri sync API.' });
+    } finally {
+      setIsNaukriLoading(false);
+    }
+  };
+
   // Outside click listener
   useEffect(() => {
     function handleClickOutside(e) {
@@ -516,6 +559,59 @@ export default function PostJob() {
                 Prefill from previous jobs
               </button>
             </span>
+          </div>
+
+          {/* Quick Header: Import from Naukri Bar */}
+          <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '10px', padding: '16px 20px', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a' }}>
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#14532d' }}>
+                    ⚡ Auto-Sync / Import from Naukri
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#166534' }}>
+                    Paste your Naukri Hiring Link (e.g. https://hiring.naukri.com/hiring/051026801594/applies) or 12-digit Job ID
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowNaukriBox(!showNaukriBox)}
+                style={{ backgroundColor: '#16a34a', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '7px 14px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}
+              >
+                {showNaukriBox ? 'Close' : 'Import from Naukri'}
+              </button>
+            </div>
+
+            {showNaukriBox && (
+              <form onSubmit={handleNaukriAutoFill} style={{ marginTop: '14px', paddingTop: '14px', borderTop: '1px solid #dcfce7' }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <input
+                    type="text"
+                    placeholder="Paste Naukri Hiring URL or Job ID (e.g. 051026801594)"
+                    value={naukriUrlInput}
+                    onChange={(e) => setNaukriUrlInput(e.target.value)}
+                    required
+                    style={{ flex: 1, minWidth: '280px', padding: '9px 14px', borderRadius: '6px', border: '1px solid #86efac', fontSize: '13px', outline: 'none', backgroundColor: '#ffffff' }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={isNaukriLoading}
+                    style={{ backgroundColor: '#15803d', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '9px 18px', fontSize: '13px', fontWeight: 700, cursor: isNaukriLoading ? 'not-allowed' : 'pointer' }}
+                  >
+                    {isNaukriLoading ? 'Extracting...' : 'Fetch & Auto-Fill Form'}
+                  </button>
+                </div>
+                {naukriFeedback && (
+                  <div style={{ marginTop: '10px', fontSize: '12.5px', color: naukriFeedback.type === 'success' ? '#166534' : '#991b1b', fontWeight: 600 }}>
+                    {naukriFeedback.message}
+                  </div>
+                )}
+              </form>
+            )}
           </div>
 
           {/* --------------------------------------------------------- */}

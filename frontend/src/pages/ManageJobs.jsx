@@ -19,7 +19,8 @@ import {
   Edit,
   Building2,
   Mail,
-  Phone
+  Phone,
+  X
 } from 'lucide-react';
 import { apiUrl } from '../api';
 
@@ -30,6 +31,42 @@ export default function ManageJobs() {
   const [statusFilter, setStatusFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState(null);
+  
+  // Naukri Fast-Sync State
+  const [showNaukriSyncModal, setShowNaukriSyncModal] = useState(false);
+  const [naukriUrl, setNaukriUrl] = useState('');
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncFeedback, setSyncFeedback] = useState(null);
+
+  const handleNaukriSync = async (e) => {
+    e.preventDefault();
+    if (!naukriUrl.trim()) return;
+    setIsSyncing(true);
+    setSyncFeedback(null);
+    try {
+      const res = await fetch(apiUrl('/api/jobs/import-naukri'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: naukriUrl.trim(), autoPublish: true })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSyncFeedback({ type: 'success', message: data.message || 'Job successfully synced from Naukri!' });
+        fetchJobs();
+        setTimeout(() => {
+          setShowNaukriSyncModal(false);
+          setNaukriUrl('');
+          setSyncFeedback(null);
+        }, 1800);
+      } else {
+        setSyncFeedback({ type: 'error', message: data.message || 'Failed to sync job.' });
+      }
+    } catch (err) {
+      setSyncFeedback({ type: 'error', message: 'Network error connecting to sync service.' });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   useEffect(() => {
     fetchJobs();
@@ -145,7 +182,28 @@ export default function ManageJobs() {
             </nav>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <button
+              onClick={() => setShowNaukriSyncModal(true)}
+              style={{
+                backgroundColor: '#16a34a',
+                color: '#ffffff',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                fontSize: '13px',
+                fontWeight: 700,
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: '0 2px 4px rgba(22,163,74,0.2)'
+              }}
+            >
+              <Sparkles size={15} />
+              <span>⚡ Sync from Naukri</span>
+            </button>
+
             <Link
               to="/admin/post-job"
               style={{
@@ -485,6 +543,70 @@ export default function ManageJobs() {
         )}
 
       </main>
+
+      {/* Naukri Fast-Sync Modal */}
+      {showNaukriSyncModal && (
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '14px', maxWidth: '520px', width: '100%', padding: '28px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a' }}>
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#0f172a' }}>Sync Job from Naukri</h3>
+                  <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Instantly publish any Naukri job posting to your Careers board</p>
+                </div>
+              </div>
+              <button onClick={() => { setShowNaukriSyncModal(false); setSyncFeedback(null); }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8' }}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleNaukriSync}>
+              <div style={{ marginBottom: '18px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                  Naukri Link or Job ID
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. https://hiring.naukri.com/hiring/051026801594/applies or 051026801594"
+                  value={naukriUrl}
+                  onChange={(e) => setNaukriUrl(e.target.value)}
+                  required
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13.5px', outline: 'none' }}
+                />
+                <span style={{ fontSize: '11.5px', color: '#64748b', display: 'block', marginTop: '5px' }}>
+                  Paste the hiring link from your dashboard or the 12-digit Job ID.
+                </span>
+              </div>
+
+              {syncFeedback && (
+                <div style={{ padding: '10px 14px', borderRadius: '8px', marginBottom: '16px', fontSize: '13px', backgroundColor: syncFeedback.type === 'success' ? '#f0fdf4' : '#fef2f2', color: syncFeedback.type === 'success' ? '#166534' : '#991b1b', border: syncFeedback.type === 'success' ? '1px solid #bbf7d0' : '1px solid #fecaca' }}>
+                  {syncFeedback.message}
+                </div>
+              )}
+
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => { setShowNaukriSyncModal(false); setSyncFeedback(null); }}
+                  style={{ padding: '9px 16px', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSyncing}
+                  style={{ padding: '9px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#16a34a', color: '#ffffff', fontSize: '13px', fontWeight: 700, cursor: isSyncing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  {isSyncing ? 'Syncing...' : 'Fetch & Publish'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
     </div>
   );

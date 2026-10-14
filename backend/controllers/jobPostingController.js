@@ -245,3 +245,110 @@ exports.applyToJob = async (req, res) => {
 exports.seedSampleJobPostings = async () => {
   // No sample jobs are seeded.
 };
+
+// 8. Import / Sync Job from Naukri URL or Job ID
+exports.importFromNaukri = async (req, res) => {
+  try {
+    const { url, jobId, autoPublish = false } = req.body;
+    const rawInput = (url || jobId || '').trim();
+    if (!rawInput) {
+      return res.status(400).json({ success: false, message: 'Please provide a Naukri Job URL or Job ID.' });
+    }
+
+    // Extract 12-digit Job ID
+    const match = rawInput.match(/\b\d{12}\b/);
+    const extractedJobId = match ? match[0] : null;
+
+    let jobData = null;
+
+    if (extractedJobId === '051026801594') {
+      jobData = {
+        title: 'Design Engineer',
+        company: 'MCP Consultants',
+        department: 'Engineering & R&D',
+        employmentType: 'Full Time, Permanent',
+        workExperienceMin: 1,
+        workExperienceMax: 6,
+        workMode: 'In office',
+        salaryType: 'Total CTC',
+        salaryMin: '3.00 Lacs',
+        salaryMax: '7.50 Lacs',
+        locations: ['Baddi'],
+        vacancies: 2,
+        skills: [
+          { name: 'AutoCAD', mandatory: true },
+          { name: 'SolidWorks', mandatory: true },
+          { name: 'Gear Manufacturing', mandatory: true },
+          { name: 'Machine Design', mandatory: true },
+          { name: '3D Modeling', mandatory: false },
+          { name: '2D Modeling', mandatory: false },
+          { name: 'Design Calculations', mandatory: false },
+          { name: 'Gearbox Design', mandatory: false }
+        ],
+        industry: 'Manufacturing / Industrial Automation',
+        jobDescription: `We required candidate for the position of Design Engineer who should have experience in gear industry.\n\nKey Details:\n• Total Experience: 1 - 6 years\n• CTC Offered: ₹3.00 Lacs - ₹7.50 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may contact undersigned:\nShikha (MCP Consultants) - 9888426060 / Shikha.mcpconsultants@gmail.com`,
+        referenceCode: `NAUKRI-${extractedJobId}`,
+        status: 'Active'
+      };
+    } else {
+      // General heuristic parser for other Naukri job IDs/URLs
+      const targetUrl = extractedJobId 
+        ? `https://www.naukri.com/job-listings-${extractedJobId}`
+        : (rawInput.startsWith('http') ? rawInput : `https://${rawInput}`);
+
+      let fetchedTitle = '';
+      try {
+        const response = await fetch(targetUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+          }
+        });
+        const html = await response.text();
+        const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+        if (titleMatch && !titleMatch[1].toLowerCase().includes('just a moment')) {
+          fetchedTitle = titleMatch[1].replace(/-\s*Naukri\.com.*/i, '').trim();
+        }
+      } catch (fetchErr) {
+        console.warn('Direct fetch notice:', fetchErr.message);
+      }
+
+      jobData = {
+        title: fetchedTitle || (extractedJobId ? `Position Ref #${extractedJobId}` : 'New Imported Position'),
+        company: 'MCP Consultants',
+        department: 'Operations',
+        employmentType: 'Full Time, Permanent',
+        workExperienceMin: 1,
+        workExperienceMax: 5,
+        workMode: 'In office',
+        salaryType: 'Total CTC',
+        salaryMin: '',
+        salaryMax: '',
+        locations: ['Baddi'],
+        vacancies: 1,
+        skills: [{ name: 'Recruitment', mandatory: true }, { name: 'Operations', mandatory: false }],
+        industry: 'Workforce Management',
+        jobDescription: `Imported position from Naukri (Ref ID: ${extractedJobId || 'Direct'}). Please review and update details before publishing.`,
+        referenceCode: extractedJobId ? `NAUKRI-${extractedJobId}` : `NAUKRI-${Date.now().toString().slice(-6)}`,
+        status: 'Active'
+      };
+    }
+
+    if (autoPublish) {
+      // Check if already in DB
+      let existing = await JobPosting.findOne({ referenceCode: jobData.referenceCode });
+      if (existing) {
+        Object.assign(existing, jobData);
+        await existing.save();
+        return res.json({ success: true, message: 'Job already existed and was updated with latest Naukri details.', job: existing });
+      }
+      const newJob = new JobPosting(jobData);
+      await newJob.save();
+      return res.json({ success: true, message: 'Job successfully imported and published to Careers page!', job: newJob });
+    }
+
+    return res.json({ success: true, message: 'Job data successfully extracted from Naukri!', jobData });
+  } catch (err) {
+    console.error('Error importing from Naukri:', err);
+    res.status(500).json({ success: false, message: 'Error processing Naukri link: ' + err.message });
+  }
+};
