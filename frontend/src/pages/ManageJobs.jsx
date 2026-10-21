@@ -46,7 +46,7 @@ export default function ManageJobs() {
     try {
       const res = await fetch(apiUrl('/api/jobs/import-naukri'), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ url: naukriUrl.trim(), autoPublish: true })
       });
       const data = await res.json();
@@ -59,7 +59,7 @@ export default function ManageJobs() {
           setSyncFeedback(null);
         }, 1800);
       } else {
-        setSyncFeedback({ type: 'error', message: data.message || 'Failed to sync job.' });
+        setSyncFeedback({ type: 'error', message: data.message || data.error || 'Failed to sync job.' });
       }
     } catch (err) {
       setSyncFeedback({ type: 'error', message: 'Network error connecting to sync service.' });
