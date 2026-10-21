@@ -303,10 +303,32 @@ exports.seedSampleJobPostings = async () => {
   // No sample jobs are seeded.
 };
 
+// Helper to extract clean job title from Naukri URL slug
+function extractTitleFromUrlSlug(inputUrl) {
+  if (!inputUrl) return '';
+  try {
+    const slugMatch = inputUrl.match(/job-listings-([a-zA-Z0-9-]+)/i);
+    if (slugMatch && slugMatch[1]) {
+      let slug = slugMatch[1];
+      // Remove trailing digits / job ID
+      slug = slug.replace(/-\d{8,14}$/, '');
+      // Remove trailing experience token
+      slug = slug.replace(/-\d+(?:-to-|-)?\d+-years.*$/i, '');
+      // Remove trailing generic keywords
+      slug = slug.replace(/-(?:naukri|india|jobs?)$/i, '');
+      const words = slug.split('-').filter(Boolean);
+      if (words.length > 0) {
+        return words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+      }
+    }
+  } catch (e) {}
+  return '';
+}
+
 // 8. Import / Sync Job from Naukri URL or Job ID
 exports.importFromNaukri = async (req, res) => {
   try {
-    const { url, jobId, autoPublish = false } = req.body;
+    const { url, jobId, autoPublish = false, title: customTitle, department: customDept, locations: customLocations } = req.body;
     const rawInput = (url || jobId || '').trim();
     if (!rawInput) {
       return res.status(400).json({ success: false, message: 'Please provide a Naukri Job URL or Job ID.' });
@@ -320,9 +342,9 @@ exports.importFromNaukri = async (req, res) => {
 
     if (extractedJobId === '051026801594') {
       jobData = {
-        title: 'Design Engineer',
+        title: (customTitle && customTitle.trim()) || 'Design Engineer',
         company: 'MCP Consultants',
-        department: 'Engineering & R&D',
+        department: (customDept && customDept.trim()) || 'Engineering & R&D',
         employmentType: 'Full Time, Permanent',
         workExperienceMin: 1,
         workExperienceMax: 6,
@@ -330,7 +352,7 @@ exports.importFromNaukri = async (req, res) => {
         salaryType: 'Total CTC',
         salaryMin: '3.00 Lacs',
         salaryMax: '7.50 Lacs',
-        locations: ['Baddi'],
+        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
         vacancies: 2,
         skills: [
           { name: 'AutoCAD', mandatory: true },
@@ -348,7 +370,10 @@ exports.importFromNaukri = async (req, res) => {
         status: 'Active'
       };
     } else {
-      // General heuristic parser for other Naukri job IDs/URLs
+      // Check if URL has a descriptive slug
+      const slugTitle = extractTitleFromUrlSlug(rawInput);
+
+      // Heuristic parser for other Naukri job IDs/URLs
       const targetUrl = extractedJobId 
         ? `https://www.naukri.com/job-listings-${extractedJobId}`
         : (rawInput.startsWith('http') ? rawInput : `https://${rawInput}`);
@@ -362,17 +387,19 @@ exports.importFromNaukri = async (req, res) => {
         });
         const html = await response.text();
         const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
-        if (titleMatch && !titleMatch[1].toLowerCase().includes('just a moment')) {
+        if (titleMatch && !titleMatch[1].toLowerCase().includes('just a moment') && !titleMatch[1].toLowerCase().includes('job posting website')) {
           fetchedTitle = titleMatch[1].replace(/-\s*Naukri\.com.*/i, '').trim();
         }
       } catch (fetchErr) {
         console.warn('Direct fetch notice:', fetchErr.message);
       }
 
+      const finalTitle = (customTitle && customTitle.trim()) || slugTitle || fetchedTitle || (extractedJobId ? `Position Ref #${extractedJobId}` : 'New Imported Position');
+
       jobData = {
-        title: fetchedTitle || (extractedJobId ? `Position Ref #${extractedJobId}` : 'New Imported Position'),
+        title: finalTitle,
         company: 'MCP Consultants',
-        department: 'Operations',
+        department: (customDept && customDept.trim()) || 'Operations',
         employmentType: 'Full Time, Permanent',
         workExperienceMin: 1,
         workExperienceMax: 5,
@@ -380,11 +407,11 @@ exports.importFromNaukri = async (req, res) => {
         salaryType: 'Total CTC',
         salaryMin: '',
         salaryMax: '',
-        locations: ['Baddi'],
+        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
         vacancies: 1,
         skills: [{ name: 'Recruitment', mandatory: true }, { name: 'Operations', mandatory: false }],
         industry: 'Workforce Management',
-        jobDescription: `Imported position from Naukri (Ref ID: ${extractedJobId || 'Direct'}). Please review and update details before publishing.`,
+        jobDescription: `Imported position from Naukri (Ref ID: ${extractedJobId || 'Direct'}). Review and update details or requirements before conducting interviews.`,
         referenceCode: extractedJobId ? `NAUKRI-${extractedJobId}` : `NAUKRI-${Date.now().toString().slice(-6)}`,
         status: 'Active'
       };
@@ -394,13 +421,16 @@ exports.importFromNaukri = async (req, res) => {
       // Check if already in DB
       let existing = await JobPosting.findOne({ referenceCode: jobData.referenceCode });
       if (existing) {
+        if (customTitle && customTitle.trim()) {
+          jobData.title = customTitle.trim();
+        }
         Object.assign(existing, jobData);
         await existing.save();
-        return res.json({ success: true, message: 'Job already existed and was updated with latest Naukri details.', job: existing });
+        return res.json({ success: true, message: `Job "${existing.title}" updated and published!`, job: existing });
       }
       const newJob = new JobPosting(jobData);
       await newJob.save();
-      return res.json({ success: true, message: 'Job successfully imported and published to Careers page!', job: newJob });
+      return res.json({ success: true, message: `Job "${newJob.title}" successfully published to Careers page!`, job: newJob });
     }
 
     return res.json({ success: true, message: 'Job data successfully extracted from Naukri!', jobData });

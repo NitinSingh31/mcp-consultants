@@ -35,8 +35,94 @@ export default function ManageJobs() {
   // Naukri Fast-Sync State
   const [showNaukriSyncModal, setShowNaukriSyncModal] = useState(false);
   const [naukriUrl, setNaukriUrl] = useState('');
+  const [naukriTitle, setNaukriTitle] = useState('');
+  const [naukriDept, setNaukriDept] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncFeedback, setSyncFeedback] = useState(null);
+
+  // Edit Job Modal State
+  const [editingJob, setEditingJob] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    title: '',
+    company: 'MCP Consultants',
+    department: '',
+    locations: '',
+    workExperienceMin: 0,
+    workExperienceMax: 5,
+    salaryMin: '',
+    salaryMax: '',
+    vacancies: 1,
+    status: 'Active',
+    jobDescription: ''
+  });
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
+  const [editFeedback, setEditFeedback] = useState(null);
+
+  const handleOpenEdit = (job) => {
+    setEditingJob(job);
+    setEditFormData({
+      title: job.title || '',
+      company: job.company || 'MCP Consultants',
+      department: job.department || 'Operations',
+      locations: Array.isArray(job.locations) ? job.locations.join(', ') : (job.locations || 'Baddi'),
+      workExperienceMin: job.workExperienceMin ?? 0,
+      workExperienceMax: job.workExperienceMax ?? 5,
+      salaryMin: job.salaryMin || '',
+      salaryMax: job.salaryMax || '',
+      vacancies: job.vacancies || 1,
+      status: job.status || 'Active',
+      jobDescription: job.jobDescription || ''
+    });
+    setEditFeedback(null);
+  };
+
+  const handleSaveEdit = async (e) => {
+    e.preventDefault();
+    if (!editingJob) return;
+    if (!editFormData.title.trim()) {
+      setEditFeedback({ type: 'error', message: 'Job title is required.' });
+      return;
+    }
+    setIsSavingEdit(true);
+    setEditFeedback(null);
+    try {
+      const locList = editFormData.locations.split(',').map(s => s.trim()).filter(Boolean);
+      const payload = {
+        title: editFormData.title.trim(),
+        company: editFormData.company.trim() || 'MCP Consultants',
+        department: editFormData.department.trim(),
+        locations: locList.length ? locList : ['Baddi'],
+        workExperienceMin: Number(editFormData.workExperienceMin) || 0,
+        workExperienceMax: Number(editFormData.workExperienceMax) || 0,
+        salaryMin: editFormData.salaryMin.trim(),
+        salaryMax: editFormData.salaryMax.trim(),
+        vacancies: Number(editFormData.vacancies) || 1,
+        status: editFormData.status,
+        jobDescription: editFormData.jobDescription
+      };
+
+      const res = await fetch(apiUrl(`/api/jobs/${editingJob._id}`), {
+        method: 'PUT',
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setJobs(prevJobs => prevJobs.map(j => j._id === editingJob._id ? { ...j, ...payload } : j));
+        setEditFeedback({ type: 'success', message: 'Job details updated successfully!' });
+        setTimeout(() => {
+          setEditingJob(null);
+          setEditFeedback(null);
+        }, 1200);
+      } else {
+        setEditFeedback({ type: 'error', message: data.message || 'Failed to update job details.' });
+      }
+    } catch (err) {
+      setEditFeedback({ type: 'error', message: 'Network error saving job changes.' });
+    } finally {
+      setIsSavingEdit(false);
+    }
+  };
 
   const handleNaukriSync = async (e) => {
     e.preventDefault();
@@ -47,7 +133,12 @@ export default function ManageJobs() {
       const res = await fetch(apiUrl('/api/jobs/import-naukri'), {
         method: 'POST',
         headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({ url: naukriUrl.trim(), autoPublish: true })
+        body: JSON.stringify({
+          url: naukriUrl.trim(),
+          title: naukriTitle.trim(),
+          department: naukriDept.trim(),
+          autoPublish: true
+        })
       });
       const data = await res.json();
       if (data.success) {
@@ -56,6 +147,8 @@ export default function ManageJobs() {
         setTimeout(() => {
           setShowNaukriSyncModal(false);
           setNaukriUrl('');
+          setNaukriTitle('');
+          setNaukriDept('');
           setSyncFeedback(null);
         }, 1800);
       } else {
@@ -384,6 +477,29 @@ export default function ManageJobs() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <button
                         type="button"
+                        onClick={() => handleOpenEdit(job)}
+                        style={{
+                          background: '#eff6ff',
+                          border: '1px solid #bfdbfe',
+                          color: '#1d4ed8',
+                          cursor: 'pointer',
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          transition: 'all 0.2s ease'
+                        }}
+                        title="Edit Job Title, Requirements, Experience & Salary"
+                      >
+                        <Edit size={14} />
+                        <span>Edit Details</span>
+                      </button>
+
+                      <button
+                        type="button"
                         onClick={() => handleDeleteJob(job._id, job.title)}
                         style={{
                           background: '#fff1f2',
@@ -567,20 +683,36 @@ export default function ManageJobs() {
             </div>
 
             <form onSubmit={handleNaukriSync}>
-              <div style={{ marginBottom: '18px' }}>
+              <div style={{ marginBottom: '16px' }}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
-                  Naukri Link or Job ID
+                  Naukri Link or Job ID <span style={{ color: '#dc2626' }}>*</span>
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. https://hiring.naukri.com/hiring/051026801594/applies or 051026801594"
+                  placeholder="e.g. https://hiring.naukri.com/hiring/180526801442/applies or 180526801442"
                   value={naukriUrl}
                   onChange={(e) => setNaukriUrl(e.target.value)}
                   required
                   style={{ width: '100%', padding: '11px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13.5px', outline: 'none' }}
                 />
-                <span style={{ fontSize: '11.5px', color: '#64748b', display: 'block', marginTop: '5px' }}>
-                  Paste the hiring link from your dashboard or the 12-digit Job ID.
+                <span style={{ fontSize: '11.5px', color: '#64748b', display: 'block', marginTop: '4px' }}>
+                  Paste the hiring link from your recruiter dashboard or the 12-digit Job ID.
+                </span>
+              </div>
+
+              <div style={{ marginBottom: '18px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                  Job Title / Designation
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Senior QA Engineer, Production Incharge, Accountant"
+                  value={naukriTitle}
+                  onChange={(e) => setNaukriTitle(e.target.value)}
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13.5px', outline: 'none' }}
+                />
+                <span style={{ fontSize: '11.5px', color: '#64748b', display: 'block', marginTop: '4px' }}>
+                  Recommended: Set the designation to appear directly on your public Careers page.
                 </span>
               </div>
 
@@ -604,6 +736,203 @@ export default function ManageJobs() {
                   style={{ padding: '9px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#16a34a', color: '#ffffff', fontSize: '13px', fontWeight: 700, cursor: isSyncing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
                 >
                   {isSyncing ? 'Syncing...' : 'Fetch & Publish'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Job Mandate Modal */}
+      {editingJob && (
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '14px', maxWidth: '620px', width: '100%', maxHeight: '90vh', overflowY: 'auto', padding: '28px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', borderBottom: '1px solid #e2e8f0', paddingBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0056b3' }}>
+                  <Edit size={20} />
+                </div>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#0f172a' }}>Edit Job Mandate</h3>
+                  <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Update designation, requirements, location and compensation</p>
+                </div>
+              </div>
+              <button
+                onClick={() => { setEditingJob(null); setEditFeedback(null); }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEdit}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                
+                {/* Job Title */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                    Job Designation / Title <span style={{ color: '#dc2626' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={editFormData.title}
+                    onChange={(e) => setEditFormData({ ...editFormData, title: e.target.value })}
+                    required
+                    placeholder="e.g. Senior Mechanical Design Engineer"
+                    style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {/* Company */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                      Hiring Company
+                    </label>
+                    <input
+                      type="text"
+                      value={editFormData.company}
+                      onChange={(e) => setEditFormData({ ...editFormData, company: e.target.value })}
+                      placeholder="MCP Consultants"
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+
+                  {/* Department */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                      Department / Function
+                    </label>
+                    <input
+                      type="text"
+                      value={editFormData.department}
+                      onChange={(e) => setEditFormData({ ...editFormData, department: e.target.value })}
+                      placeholder="e.g. Engineering, Operations, HR"
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '12px' }}>
+                  {/* Locations */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                      Job Locations (comma separated)
+                    </label>
+                    <input
+                      type="text"
+                      value={editFormData.locations}
+                      onChange={(e) => setEditFormData({ ...editFormData, locations: e.target.value })}
+                      placeholder="Baddi, Chandigarh, Solan"
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+
+                  {/* Status */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                      Status
+                    </label>
+                    <select
+                      value={editFormData.status}
+                      onChange={(e) => setEditFormData({ ...editFormData, status: e.target.value })}
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none', backgroundColor: '#ffffff' }}
+                    >
+                      <option value="Active">🟢 Active (Live)</option>
+                      <option value="Paused">🟡 Paused</option>
+                      <option value="Closed">⚪ Closed</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Experience & Salary Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '10px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+                      Min Exp (Yrs)
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={editFormData.workExperienceMin}
+                      onChange={(e) => setEditFormData({ ...editFormData, workExperienceMin: e.target.value })}
+                      style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+                      Max Exp (Yrs)
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={editFormData.workExperienceMax}
+                      onChange={(e) => setEditFormData({ ...editFormData, workExperienceMax: e.target.value })}
+                      style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+                      Min CTC (Lacs)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 3.00"
+                      value={editFormData.salaryMin}
+                      onChange={(e) => setEditFormData({ ...editFormData, salaryMin: e.target.value })}
+                      style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+                      Max CTC (Lacs)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 7.50"
+                      value={editFormData.salaryMax}
+                      onChange={(e) => setEditFormData({ ...editFormData, salaryMax: e.target.value })}
+                      style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Job Description */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                    Job Description &amp; Candidate Profile
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={editFormData.jobDescription}
+                    onChange={(e) => setEditFormData({ ...editFormData, jobDescription: e.target.value })}
+                    placeholder="Brief summary of duties, qualifications, and key skills..."
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none', resize: 'vertical', fontFamily: 'inherit' }}
+                  />
+                </div>
+
+              </div>
+
+              {editFeedback && (
+                <div style={{ marginTop: '16px', padding: '10px 14px', borderRadius: '8px', fontSize: '13px', backgroundColor: editFeedback.type === 'success' ? '#f0fdf4' : '#fef2f2', color: editFeedback.type === 'success' ? '#166534' : '#991b1b', border: editFeedback.type === 'success' ? '1px solid #bbf7d0' : '1px solid #fecaca' }}>
+                  {editFeedback.message}
+                </div>
+              )}
+
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '20px', paddingTop: '14px', borderTop: '1px solid #f1f5f9' }}>
+                <button
+                  type="button"
+                  onClick={() => { setEditingJob(null); setEditFeedback(null); }}
+                  style={{ padding: '9px 16px', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingEdit}
+                  style={{ padding: '9px 22px', borderRadius: '8px', border: 'none', backgroundColor: '#0056b3', color: '#ffffff', fontSize: '13px', fontWeight: 700, cursor: isSavingEdit ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  {isSavingEdit ? 'Saving Changes...' : 'Save Mandate'}
                 </button>
               </div>
             </form>
