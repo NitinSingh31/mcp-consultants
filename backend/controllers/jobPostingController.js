@@ -369,6 +369,57 @@ exports.importFromNaukri = async (req, res) => {
         referenceCode: `NAUKRI-${extractedJobId}`,
         status: 'Active'
       };
+    } else if (extractedJobId === '180526801442') {
+      jobData = {
+        title: (customTitle && customTitle.trim()) || 'Production Manager',
+        company: 'MCP Consultants',
+        department: (customDept && customDept.trim()) || 'Plant Operations & Production',
+        employmentType: 'Full Time, Permanent',
+        workExperienceMin: 10,
+        workExperienceMax: 20,
+        workMode: 'In office',
+        salaryType: 'Total CTC',
+        salaryMin: '6.00 Lacs',
+        salaryMax: '9.50 Lacs',
+        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
+        vacancies: 1,
+        skills: [
+          { name: 'Production Management', mandatory: true },
+          { name: 'Plant Operations', mandatory: true },
+          { name: 'Shop Floor Control', mandatory: true },
+          { name: 'Lean Manufacturing', mandatory: false },
+          { name: 'Process Optimization', mandatory: false }
+        ],
+        industry: 'Manufacturing / Industrial Operations',
+        jobDescription: `Urgent requirement for Production Manager with 10 to 20 years of experience in manufacturing plant operations, production planning, manpower management, and machine efficiency.\n\nKey Details:\n• Total Experience: 10 - 20 years\n• CTC Offered: ₹6.00 Lacs - ₹9.50 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may apply online or contact MCP Consultants.`,
+        referenceCode: `NAUKRI-${extractedJobId}`,
+        status: 'Active'
+      };
+    } else if (extractedJobId === '051026828978') {
+      jobData = {
+        title: (customTitle && customTitle.trim()) || 'Production Engineer',
+        company: 'MCP Consultants',
+        department: (customDept && customDept.trim()) || 'Engineering & Production',
+        employmentType: 'Full Time, Permanent',
+        workExperienceMin: 1,
+        workExperienceMax: 6,
+        workMode: 'In office',
+        salaryType: 'Total CTC',
+        salaryMin: '3.00 Lacs',
+        salaryMax: '8.00 Lacs',
+        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
+        vacancies: 2,
+        skills: [
+          { name: 'Production Planning', mandatory: true },
+          { name: 'Shop Floor Operations', mandatory: true },
+          { name: 'Quality Control', mandatory: true },
+          { name: 'Manufacturing Engineering', mandatory: false }
+        ],
+        industry: 'Manufacturing / Industrial Operations',
+        jobDescription: `Urgent opening for Production Engineer with 1 to 6 years of experience in shop floor operations, line production, cycle time reduction, and quality compliance.\n\nKey Details:\n• Total Experience: 1 - 6 years\n• CTC Offered: ₹3.00 Lacs - ₹8.00 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may apply online or contact MCP Consultants.`,
+        referenceCode: `NAUKRI-${extractedJobId}`,
+        status: 'Active'
+      };
     } else {
       // Check if URL has a descriptive slug
       const slugTitle = extractTitleFromUrlSlug(rawInput);
