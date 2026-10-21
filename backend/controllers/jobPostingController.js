@@ -1,6 +1,9 @@
 const JobPosting = require('../models/JobPosting');
 const Candidate = require('../models/Candidate');
+const Application = require('../models/Application');
 const { sendNotificationEmail } = require('../config/mailer');
+
+const APP_BASE_URL = process.env.APP_URL || process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // Helper to count potential Resdex matches for a job
 async function calculateResdexMatchCount(job) {
@@ -59,7 +62,7 @@ exports.createJobPosting = async (req, res) => {
           <p><strong>Salary:</strong> ${newJob.salaryMin} to ${newJob.salaryMax} ${newJob.salaryType}</p>
           <p><strong>Reference Code:</strong> ${newJob.referenceCode}</p>
           <p style="margin-top: 20px;">
-            <a href="http://localhost:5173/admin/resdex?jobId=${newJob._id}" style="background-color: #0056b3; color: #ffffff; padding: 10px 18px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+            <a href="${APP_BASE_URL}/admin/resdex?jobId=${newJob._id}" style="background-color: #0056b3; color: #ffffff; padding: 10px 18px; text-decoration: none; border-radius: 6px; font-weight: bold;">
               Search ${matchingCandidatesCount} Matching Candidates on Resdex
             </a>
           </p>
@@ -200,14 +203,60 @@ exports.deleteJobPosting = async (req, res) => {
 exports.applyToJob = async (req, res) => {
   try {
     const { name, email, phone, currentCtc, expectedCtc, noticePeriod, answers } = req.body;
+    const file = req.file || null;
     const job = await JobPosting.findById(req.params.id);
 
     if (!job) {
       return res.status(404).json({ success: false, message: 'Job posting not found' });
     }
 
+    if (!name || !email) {
+      return res.status(400).json({ success: false, message: 'Candidate name and email are required.' });
+    }
+
     job.applicationsCount = (job.applicationsCount || 0) + 1;
     await job.save();
+
+    const savedCvFilename = file ? (file.savedFilename || file.filename) : null;
+    const originalCvName = file ? (file.originalName || file.originalname) : null;
+
+    let parsedAnswers = {};
+    if (typeof answers === 'string') {
+      try { parsedAnswers = JSON.parse(answers); } catch (e) { parsedAnswers = {}; }
+    } else if (answers) {
+      parsedAnswers = answers;
+    }
+
+    // Persist application safely in MongoDB Atlas
+    const application = await Application.create({
+      jobId: job._id,
+      jobTitle: job.title,
+      jobReferenceCode: job.referenceCode || '',
+      name,
+      email,
+      phone: phone || '',
+      currentCtc: currentCtc || '',
+      expectedCtc: expectedCtc || '',
+      noticePeriod: noticePeriod || '',
+      answers: parsedAnswers,
+      cv_filename: savedCvFilename,
+      cv_original_name: originalCvName
+    });
+
+    // Prepare email attachments if CV was uploaded
+    const emailAttachments = [];
+    if (savedCvFilename) {
+      const { UPLOADS_DIR } = require('../middleware/upload');
+      const fs = require('fs');
+      const path = require('path');
+      const filePath = path.join(UPLOADS_DIR, savedCvFilename);
+      if (fs.existsSync(filePath)) {
+        emailAttachments.push({
+          filename: originalCvName || savedCvFilename,
+          path: filePath
+        });
+      }
+    }
 
     // Notify recruiter via email
     try {
@@ -221,11 +270,18 @@ exports.applyToJob = async (req, res) => {
           <p><strong>Expected CTC:</strong> ${expectedCtc || 'Not specified'}</p>
           <p><strong>Notice Period:</strong> ${noticePeriod || 'Not specified'}</p>
           <p><strong>Job Ref:</strong> ${job.referenceCode} (${(job.locations || []).join(', ')})</p>
+          <p><strong>Resume:</strong> ${savedCvFilename ? '📎 Attached' : 'No file uploaded'}</p>
+          <p style="margin-top: 20px;">
+            <a href="${APP_BASE_URL}/admin" style="background-color: #0b1a2f; color: #ffffff; padding: 10px 18px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+              Open Admin Portal
+            </a>
+          </p>
         </div>
       `;
       await sendNotificationEmail({
         subject: `[New Candidate Application] ${name} - ${job.title}`,
-        html: emailHtml
+        html: emailHtml,
+        attachments: emailAttachments
       });
     } catch (e) {
       console.warn('Application notification email error:', e.message);
@@ -233,11 +289,12 @@ exports.applyToJob = async (req, res) => {
 
     res.json({
       success: true,
+      applicationId: application._id,
       message: 'Application submitted successfully! Our recruitment team will review your profile.'
     });
   } catch (err) {
     console.error('Error submitting application:', err);
-    res.status(500).json({ success: false, message: 'Server error submitting application' });
+    res.status(500).json({ success: false, message: 'Server error submitting application: ' + err.message });
   }
 };
 

@@ -28,7 +28,13 @@ const candidateSchema = new mongoose.Schema({
   linkedin_url: String,
   cv_filename: String,
   cv_original_name: String,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now, index: true }
 });
+
+// Resdex Search compound & field indexes
+candidateSchema.index({ current_role: 1, location: 1, sector: 1 });
+candidateSchema.index({ key_skills: 1 });
+candidateSchema.index({ email: 1 });
+candidateSchema.index({ company: 1 });
 
 module.exports = mongoose.model('Candidate', candidateSchema);

@@ -35,7 +35,12 @@ const jobPostingSchema = new mongoose.Schema({
   status: { type: String, enum: ['Active', 'Draft', 'Closed'], default: 'Active' },
   viewsCount: { type: Number, default: 0 },
   applicationsCount: { type: Number, default: 0 },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now, index: true }
 });
+
+jobPostingSchema.index({ status: 1, createdAt: -1 });
+jobPostingSchema.index({ referenceCode: 1 });
+jobPostingSchema.index({ 'skills.name': 1 });
+jobPostingSchema.index({ locations: 1 });
 
 module.exports = mongoose.model('JobPosting', jobPostingSchema);

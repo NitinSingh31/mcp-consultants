@@ -1498,7 +1498,7 @@ export default function Admin() {
                           <td style={{ padding: '14px 18px' }}>
                             {item.doc_filename ? (
                               <a 
-                                href={apiUrl(`/uploads/${item.doc_filename}`)} 
+                                href={apiUrl(`/uploads/${item.doc_filename}?token=${token}`)} 
                                 download 
                                 style={{ 
                                   display: 'inline-flex', 
@@ -1605,7 +1605,7 @@ export default function Admin() {
                           <td style={{ padding: '14px 18px' }}>
                             {item.cv_filename ? (
                               <a 
-                                href={apiUrl(`/uploads/${item.cv_filename}`)} 
+                                href={apiUrl(`/uploads/${item.cv_filename}?token=${token}`)} 
                                 download 
                                 style={{ 
                                    display: 'inline-flex', 
@@ -1681,7 +1681,7 @@ export default function Admin() {
                           <td style={{ padding: '14px 18px' }}>
                             {item.cv_filename ? (
                               <a 
-                                href={apiUrl(`/uploads/${item.cv_filename}`)} 
+                                href={apiUrl(`/uploads/${item.cv_filename}?token=${token}`)} 
                                 download 
                                 style={{ 
                                   display: 'inline-flex', 

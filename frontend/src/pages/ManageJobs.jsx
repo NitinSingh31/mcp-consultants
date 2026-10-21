@@ -22,7 +22,7 @@ import {
   Phone,
   X
 } from 'lucide-react';
-import { apiUrl } from '../api';
+import { apiUrl, getAuthHeaders } from '../api';
 
 export default function ManageJobs() {
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ export default function ManageJobs() {
     try {
       const res = await fetch(apiUrl(`/api/jobs/${id}`), {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ status: newStatus })
       });
       const data = await res.json();
@@ -109,7 +109,10 @@ export default function ManageJobs() {
   const handleDeleteJob = async (id, title) => {
     if (!window.confirm(`Are you sure you want to remove "${title || 'this job posting'}"?\n\nThis will permanently delete the mandate and immediately remove it from the public Careers page.`)) return;
     try {
-      await fetch(apiUrl(`/api/jobs/${id}`), { method: 'DELETE' });
+      await fetch(apiUrl(`/api/jobs/${id}`), {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
       setJobs(jobs.filter(j => j._id !== id));
     } catch (err) {
       console.error('Error deleting job:', err);
@@ -117,7 +120,7 @@ export default function ManageJobs() {
   };
 
   const handleCopyLink = (id) => {
-    const link = `http://localhost:5173/jobs`;
+    const link = typeof window !== 'undefined' ? `${window.location.origin}/jobs` : 'https://mcpconsultants.in/jobs';
     navigator.clipboard.writeText(link);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -312,7 +315,7 @@ export default function ManageJobs() {
         ) : filteredJobs.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {filteredJobs.map((job) => {
-              const shareUrl = `http://localhost:5173/jobs`;
+              const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/jobs` : 'https://mcpconsultants.in/jobs';
               const whatsAppText = encodeURIComponent(
                 `🚀 *Opening via MCP Consultants: ${job.title}*\n` +
                 `📍 Location: ${(job.locations || []).join(', ') || 'Baddi'}\n` +

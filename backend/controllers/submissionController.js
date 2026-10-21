@@ -8,6 +8,7 @@ const { mailTransporter, escapeHtml, sendNotificationEmail } = require('../confi
 const { UPLOADS_DIR } = require('../middleware/upload');
 
 const PORT = process.env.PORT || 3000;
+const APP_BASE_URL = process.env.APP_URL || process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // GET /api/db-status
 exports.getDbStatus = (req, res) => {
@@ -76,7 +77,7 @@ exports.postHiring = async (req, res) => {
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Attached Document:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${savedDocFilename ? '📎 ' + escapeHtml(originalDocName || savedDocFilename) + ' (Attached to this email)' : 'No file attached'}</td></tr>
               </table>
               <div style="margin-top: 24px; text-align: center;">
-                <a href="http://localhost:${PORT}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                <a href="${APP_BASE_URL}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
               </div>
             </div>
           </div>
@@ -173,7 +174,7 @@ exports.postCandidate = async (req, res) => {
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Resume File:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${savedCvFilename ? '📎 ' + escapeHtml(originalCvName || savedCvFilename) + ' (Attached to this email)' : 'No file uploaded'}</td></tr>
               </table>
               <div style="margin-top: 24px; text-align: center;">
-                <a href="http://localhost:${PORT}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                <a href="${APP_BASE_URL}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
               </div>
             </div>
           </div>
@@ -249,7 +250,7 @@ exports.postInquiry = async (req, res) => {
                 <tr><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #64748b;"><strong>Attached Resume / File:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">${savedCvFilename ? '📎 ' + escapeHtml(originalCvName || savedCvFilename) + ' (Attached to this email)' : 'No file uploaded'}</td></tr>
               </table>
               <div style="margin-top: 24px; text-align: center;">
-                <a href="http://localhost:${PORT}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
+                <a href="${APP_BASE_URL}/admin" style="background: #0b1a2f; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard &rarr;</a>
               </div>
             </div>
           </div>

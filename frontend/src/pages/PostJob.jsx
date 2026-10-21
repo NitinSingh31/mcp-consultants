@@ -23,7 +23,7 @@ import {
   Clock,
   Award
 } from 'lucide-react';
-import { apiUrl } from '../api';
+import { apiUrl, getAuthHeaders } from '../api';
 import {
   filterSkills,
   filterDepartments,
@@ -144,7 +144,7 @@ export default function PostJob() {
     try {
       const res = await fetch(apiUrl('/api/jobs/import-naukri'), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ url: naukriUrlInput.trim(), autoPublish: false })
       });
       const result = await res.json();
@@ -290,7 +290,7 @@ export default function PostJob() {
 
       const res = await fetch(apiUrl('/api/jobs'), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(payload)
       });
 

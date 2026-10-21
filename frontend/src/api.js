@@ -7,3 +7,15 @@ export function apiUrl(endpoint) {
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   return `${API_BASE}${cleanEndpoint}`;
 }
+
+export function getAuthToken() {
+  return typeof window !== 'undefined' ? (localStorage.getItem('mcp_admin_token') || '') : '';
+}
+
+export function getAuthHeaders(extraHeaders = {}) {
+  const token = getAuthToken();
+  return {
+    ...extraHeaders,
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+  };
+}

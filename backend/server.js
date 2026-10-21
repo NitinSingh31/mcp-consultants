@@ -4,10 +4,14 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+
 const { connectMongoDB, getIsMongoConnected } = require('./config/db');
 const { mailTransporter, NOTIFICATION_EMAILS } = require('./config/mailer');
 const { seedDefaultAdmin } = require('./seeds/adminSeed');
 const { UPLOADS_DIR } = require('./middleware/upload');
+const { requireAdmin } = require('./middleware/auth');
 
 const submissionRoutes = require('./routes/submissionRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
@@ -17,10 +21,64 @@ const jobPostingRoutes = require('./routes/jobPostingRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Core Middleware
-app.use(cors());
+// Security Headers (Helmet)
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+// CORS Configuration
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:5173',
+  'http://localhost:3000'
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app') || origin.includes('localhost')) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
+
+// 1. General API Rate Limiter
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 500,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many requests, please try again later.' }
+});
+app.use('/api', apiLimiter);
+
+// 2. Strict Rate Limiter for Authentication & Password Reset
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many authentication attempts, please try again after 15 minutes.' }
+});
+app.use('/api/admin/login', authLimiter);
+app.use('/api/admin/forgot-password', authLimiter);
+
+// 3. Form Submission Rate Limiter (Prevents spamming inquiries/resumes)
+const formSubmissionLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Submission limit reached, please try again shortly.' }
+});
+app.use('/api/hiring', formSubmissionLimiter);
+app.use('/api/candidate', formSubmissionLimiter);
+app.use('/api/inquiry', formSubmissionLimiter);
 
 // Health check endpoint for uptime and container health probes (Render, AWS, Docker)
 app.get('/api/health', (req, res) => {
@@ -43,8 +101,8 @@ app.use('/api/candidates', candidateRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/jobs', jobPostingRoutes);
 
-// File downloads endpoint for uploaded CVs and job descriptions
-app.get('/uploads/:filename', (req, res) => {
+// File downloads endpoint for uploaded CVs and job descriptions (Protected - Admin only)
+app.get('/uploads/:filename', requireAdmin, (req, res) => {
   const filename = path.basename(req.params.filename);
   const filePath = path.join(UPLOADS_DIR, filename);
 

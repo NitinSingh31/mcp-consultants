@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const candidateController = require('../controllers/candidateController');
+const { requireAdmin } = require('../middleware/auth');
+
+// All candidate search and Resdex operations require active Admin authentication
+router.use(requireAdmin);
 
 // Advanced Candidate Search for Resdex
 router.post('/search', candidateController.searchCandidates);

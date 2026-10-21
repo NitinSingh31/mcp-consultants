@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 // Public Core Pages (Eagerly loaded for instant initial rendering)
 import Home from './pages/Home';
 import About from './pages/About';
@@ -129,13 +131,13 @@ export default function App() {
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/jobs" element={<PublicJobs />} />
 
-            {/* Recruiter & Admin Management Pages (Lazy Loaded) */}
+            {/* Recruiter & Admin Management Pages (Protected & Lazy Loaded) */}
             <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/resdex" element={<ResdexSearch />} />
-            <Route path="/resdex" element={<ResdexSearch />} />
-            <Route path="/admin/post-job" element={<PostJob />} />
-            <Route path="/post-job" element={<PostJob />} />
-            <Route path="/admin/jobs" element={<ManageJobs />} />
+            <Route path="/admin/resdex" element={<ProtectedRoute><ResdexSearch /></ProtectedRoute>} />
+            <Route path="/resdex" element={<ProtectedRoute><ResdexSearch /></ProtectedRoute>} />
+            <Route path="/admin/post-job" element={<ProtectedRoute><PostJob /></ProtectedRoute>} />
+            <Route path="/post-job" element={<ProtectedRoute><PostJob /></ProtectedRoute>} />
+            <Route path="/admin/jobs" element={<ProtectedRoute><ManageJobs /></ProtectedRoute>} />
 
             {/* Branded 404 Fallback Route */}
             <Route path="*" element={<NotFound />} />

@@ -32,7 +32,7 @@ import {
   Trash2,
   RotateCcw
 } from 'lucide-react';
-import { apiUrl } from '../api';
+import { apiUrl, getAuthHeaders } from '../api';
 import {
   filterSkills,
   filterDesignations,
@@ -301,7 +301,9 @@ export default function ResdexSearch() {
 
   const fetchRecentSearches = async () => {
     try {
-      const res = await fetch(apiUrl('/api/candidates/recent-searches'));
+      const res = await fetch(apiUrl('/api/candidates/recent-searches'), {
+        headers: getAuthHeaders()
+      });
       const data = await res.json();
       if (data.success) {
         const clearedRecent = localStorage.getItem('mcp_resdex_recent_cleared') === 'true';
@@ -321,7 +323,10 @@ export default function ResdexSearch() {
       setRecentSearches([]);
       localStorage.setItem('mcp_resdex_recent_cleared', 'true');
       try {
-        await fetch(apiUrl('/api/candidates/clear-recent-searches'), { method: 'POST' });
+        await fetch(apiUrl('/api/candidates/clear-recent-searches'), {
+          method: 'POST',
+          headers: getAuthHeaders()
+        });
       } catch (e) {
         console.error('Failed to notify clear-recent-searches:', e);
       }
@@ -332,7 +337,9 @@ export default function ResdexSearch() {
   const handleRestoreRecentSearches = async () => {
     localStorage.removeItem('mcp_resdex_recent_cleared');
     try {
-      const res = await fetch(apiUrl('/api/candidates/recent-searches'));
+      const res = await fetch(apiUrl('/api/candidates/recent-searches'), {
+        headers: getAuthHeaders()
+      });
       const data = await res.json();
       if (data.success) {
         setRecentSearches(data.recentSearches || []);
@@ -354,7 +361,10 @@ export default function ResdexSearch() {
       setSavedSearches([]);
       localStorage.setItem('mcp_resdex_saved_cleared', 'true');
       try {
-        await fetch(apiUrl('/api/candidates/clear-saved-searches'), { method: 'POST' });
+        await fetch(apiUrl('/api/candidates/clear-saved-searches'), {
+          method: 'POST',
+          headers: getAuthHeaders()
+        });
       } catch (e) {
         console.error('Failed to notify clear-saved-searches:', e);
       }
@@ -365,7 +375,9 @@ export default function ResdexSearch() {
   const handleRestoreSavedSearches = async () => {
     localStorage.removeItem('mcp_resdex_saved_cleared');
     try {
-      const res = await fetch(apiUrl('/api/candidates/recent-searches'));
+      const res = await fetch(apiUrl('/api/candidates/recent-searches'), {
+        headers: getAuthHeaders()
+      });
       const data = await res.json();
       if (data.success) {
         setSavedSearches(data.savedSearches || []);
@@ -481,7 +493,7 @@ export default function ResdexSearch() {
 
       const res = await fetch(apiUrl('/api/candidates/search'), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(payload)
       });
 
@@ -3493,7 +3505,7 @@ export default function ResdexSearch() {
 
                       {cand.cv_filename ? (
                         <a 
-                          href={apiUrl(`/uploads/${cand.cv_filename}`)} 
+                          href={apiUrl(`/uploads/${cand.cv_filename}?token=${getAuthToken()}`)} 
                           download 
                           style={{
                             padding: '6px 14px',

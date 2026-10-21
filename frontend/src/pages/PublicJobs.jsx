@@ -30,6 +30,7 @@ export default function PublicJobs() {
   const [applicantCurrentCtc, setApplicantCurrentCtc] = useState('');
   const [applicantExpectedCtc, setApplicantExpectedCtc] = useState('');
   const [applicantNoticePeriod, setApplicantNoticePeriod] = useState('0 - 15 days');
+  const [applicantResume, setApplicantResume] = useState(null);
   const [answers, setAnswers] = useState({});
   const [isApplying, setIsApplying] = useState(false);
   const [applySuccess, setApplySuccess] = useState(false);
@@ -62,20 +63,21 @@ export default function PublicJobs() {
 
     setIsApplying(true);
     try {
-      const payload = {
-        name: applicantName,
-        email: applicantEmail,
-        phone: applicantPhone,
-        currentCtc: applicantCurrentCtc,
-        expectedCtc: applicantExpectedCtc,
-        noticePeriod: applicantNoticePeriod,
-        answers
-      };
+      const formData = new FormData();
+      formData.append('name', applicantName);
+      formData.append('email', applicantEmail);
+      formData.append('phone', applicantPhone);
+      formData.append('currentCtc', applicantCurrentCtc);
+      formData.append('expectedCtc', applicantExpectedCtc);
+      formData.append('noticePeriod', applicantNoticePeriod);
+      formData.append('answers', JSON.stringify(answers));
+      if (applicantResume) {
+        formData.append('cv', applicantResume);
+      }
 
       const res = await fetch(apiUrl(`/api/jobs/${activeJobForApply._id}/apply`), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: formData
       });
 
       const data = await res.json();
@@ -86,7 +88,7 @@ export default function PublicJobs() {
       }
     } catch (err) {
       console.error('Error submitting application:', err);
-      setApplySuccess(true); // graceful demo feedback
+      alert('Network issue submitting application. Please try again or email us directly.');
     } finally {
       setIsApplying(false);
     }
@@ -496,6 +498,23 @@ export default function PublicJobs() {
                     <option>3 months</option>
                     <option>Currently serving notice period</option>
                   </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+                    Attach Resume / CV (PDF, DOC, DOCX)
+                  </label>
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx,.txt"
+                    onChange={(e) => setApplicantResume(e.target.files ? e.target.files[0] : null)}
+                    style={{ width: '100%', padding: '7px 10px', borderRadius: '6px', border: '1px dashed #cbd5e1', fontSize: '12.5px', backgroundColor: '#f8fafc' }}
+                  />
+                  {applicantResume && (
+                    <span style={{ fontSize: '11.5px', color: '#16a34a', fontWeight: 600, marginTop: '2px', display: 'block' }}>
+                      Selected: {applicantResume.name}
+                    </span>
+                  )}
                 </div>
 
                 {/* Screening Questions from Job Posting */}
