@@ -365,7 +365,7 @@ exports.importFromNaukri = async (req, res) => {
           { name: 'Gearbox Design', mandatory: false }
         ],
         industry: 'Manufacturing / Industrial Automation',
-        jobDescription: `We required candidate for the position of Design Engineer who should have experience in gear industry.\n\nKey Details:\n• Total Experience: 1 - 6 years\n• CTC Offered: ₹3.00 Lacs - ₹7.50 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may contact undersigned:\nShikha (MCP Consultants) - 9888426060 / Shikha.mcpconsultants@gmail.com`,
+        jobDescription: `We required candidate for the position of Design Engineer who should have experience in gear industry.\n\nKey Details:\n• Total Experience: 1 - 6 years\n• CTC Offered: ₹3.00 Lacs - ₹7.50 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may contact undersigned:\nShikha (MCP Consultants) - 9888426060 / shikha.kathuria@mcpconsultants.in`,
         referenceCode: `NAUKRI-${extractedJobId}`,
         status: 'Active'
       };

@@ -138,7 +138,7 @@ The backend is equipped to automatically detect and serve `frontend/dist` when c
    - `MONGODB_URI`: *Your MongoDB Atlas connection string*
    - `EMAIL_USER`: `Recruiter.mcpconsultants@gmail.com`
    - `EMAIL_PASS`: *Your Google App Password*
-   - `NOTIFICATION_EMAILS`: `Recruiter.mcpconsultants@gmail.com, Shallu.mcpconsultants@gmail.com, Shikha.mcpconsultants@gmail.com`
+   - `NOTIFICATION_EMAILS`: `Recruiter.mcpconsultants@gmail.com, shallu.gaba@mcpconsultants.in, shikha.kathuria@mcpconsultants.in`
 
 ### Option 2: Decoupled (Frontend on Vercel/Netlify + Backend on Render)
 - **Frontend**: Deploy `frontend/` folder to Vercel or Netlify. Set `VITE_API_URL=https://your-backend-api.onrender.com`.

@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
-const NOTIFICATION_EMAILS = process.env.NOTIFICATION_EMAILS || 'Recruiter.mcpconsultants@gmail.com, shallu.gaba@mcpconsultants.in, Shikha.mcpconsultants@gmail.com';
+const NOTIFICATION_EMAILS = process.env.NOTIFICATION_EMAILS || 'Recruiter.mcpconsultants@gmail.com, shallu.gaba@mcpconsultants.in, shikha.kathuria@mcpconsultants.in';
 
 let mailTransporter = null;
 if (EMAIL_USER && EMAIL_PASS && !EMAIL_PASS.includes('your_')) {
