@@ -27,7 +27,7 @@ export default function About() {
   const journeyTimeline = [
     {
       year: "2007",
-      title: "MCP Group Founded",
+      title: "MCP Consultants Founded",
       desc: "The journey begins in Chandigarh with a vision to create dependable, compliance-driven workforce solutions for emerging and established enterprises."
     },
     {
@@ -75,7 +75,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 2. Section 01: About MCP Group */}
+      {/* 2. Section 01: About MCP Consultants */}
       <section className="about-intro-section" style={{ padding: '80px 0 70px', backgroundColor: '#ffffff' }}>
         <div className="container">
           <div className="about-intro-grid">
@@ -83,11 +83,11 @@ export default function About() {
             {/* Left Narrative */}
             <div className="about-narrative-text">
               <h2 style={{ fontSize: '38px', fontWeight: 800, color: '#0066cc', marginBottom: '24px', letterSpacing: '-0.5px' }}>
-                About MCP Group
+                About MCP Consultants
               </h2>
               
               <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', marginBottom: '18px' }}>
-                Established in 2007 in Chandigarh, <strong>MCP Group</strong> has grown into one of India’s most dependable workforce management and specialized recruitment partners. Driven by a core conviction that true progress is achieved through ethics, integrity, and relentless operational discipline, we empower enterprises across the country with agile, compliant, and scalable workforce solutions.
+                Established in 2007 in Chandigarh, <strong>MCP Consultants</strong> has grown into one of India’s most dependable workforce management and specialized recruitment partners. Driven by a core conviction that true progress is achieved through ethics, integrity, and relentless operational discipline, we empower enterprises across the country with agile, compliant, and scalable workforce solutions.
               </p>
 
               <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', marginBottom: '18px' }}>
@@ -95,7 +95,7 @@ export default function About() {
               </p>
 
               <p style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626', margin: 0 }}>
-                With nearly <strong>50,000 MCP Family Members</strong> deployed nationwide and over <strong>500 esteemed clients</strong> across the private, public, and government sectors, MCP Group operates on ISO 9001:2008 certified quality standards. We take pride in building long-lasting client-candidate relationships, translating human potential into strategic growth and sustainable national impact.
+                With nearly <strong>50,000 MCP Family Members</strong> deployed nationwide and over <strong>500 esteemed clients</strong> across the private, public, and government sectors, MCP Consultants operates on ISO 9001:2008 certified quality standards. We take pride in building long-lasting client-candidate relationships, translating human potential into strategic growth and sustainable national impact.
               </p>
             </div>
 
@@ -104,7 +104,7 @@ export default function About() {
               <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 45px rgba(0, 43, 102, 0.12)', border: '1px solid #e2e8f0' }}>
                 <img 
                   src="/images/mcp-corporate-tower.jpg" 
-                  alt="MCP Group Corporate Headquarters Tower" 
+                  alt="MCP Consultants Corporate Headquarters Tower" 
                   style={{ width: '100%', height: '100%', maxHeight: '480px', display: 'block', objectFit: 'cover' }}
                 />
               </div>
@@ -188,7 +188,7 @@ export default function About() {
 
               <div style={{ fontSize: '15px', lineHeight: 1.8, color: 'rgba(255, 255, 255, 0.9)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <p style={{ margin: 0 }}>
-                  At MCP Group, we are dedicated to achieving our goals and objectives with a team that shares a common sense of purpose. We believe in being adaptable and responsive to changes in our clients’ needs and market trends.
+                  At MCP Consultants, we are dedicated to achieving our goals and objectives with a team that shares a common sense of purpose. We believe in being adaptable and responsive to changes in our clients’ needs and market trends.
                 </p>
                 <p style={{ margin: 0 }}>
                   Our team values growth, success, and happiness, and we strive to integrate these elements into our work every day. We have designed strategies to accomplish our goals and provide exceptional customer service consistently.
@@ -228,7 +228,7 @@ export default function About() {
               </div>
               <div className="md-name">Shallu Gaba</div>
               <div className="md-role">Managing Director</div>
-              <div className="md-firm">MCP GROUP</div>
+              <div className="md-firm">MCP CONSULTANTS</div>
               
               <div style={{ marginTop: '16px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: 'rgba(196, 154, 69, 0.12)', borderRadius: '20px', color: 'var(--color-accent)', fontSize: '12px', fontWeight: 700 }}>
                 <Award size={14} />
@@ -248,13 +248,13 @@ export default function About() {
 
               <div className="md-body-text">
                 <p>
-                  Progress for me has never been a daydream. It has consistently been far off the real world, and once one achievement is accomplished, another is held back from being traversed. With this conviction, I set out on a MCP Group in 2007, an organization specially focused on occupied with Recruitment Services. MCP Group became an outstanding name in its business fragments like Workforce Management, Power Sector, Pharmaceuticals , Textiles , Lighting, Retail &amp; EV, Hospitality Skill Development &amp; Education, and Facility Management &amp; BPO, with almost 50,000 MCP Family Members across India.
+                  Progress for me has never been a daydream. It has consistently been far off the real world, and once one achievement is accomplished, another is held back from being traversed. With this conviction, I set out on MCP Consultants in 2007, an organization specially focused on occupied with Recruitment Services. MCP Consultants became an outstanding name in its business fragments like Workforce Management, Power Sector, Pharmaceuticals , Textiles , Lighting, Retail &amp; EV, Hospitality Skill Development &amp; Education, and Facility Management &amp; BPO, with almost 50,000 MCP Family Members across India.
                 </p>
                 <p>
                   However, as each business visionary adheres to their fiction, I generally needed to push my organization to more prosperous achievements. We have witnessed consistent growth for years, achieved long-term success, and faced challenging times.. We have emerged as one of employers’ most favored and sought-after Workforce Management.
                 </p>
                 <p>
-                  MCP GROUP’s passion for matching the right people to the right job has helped us to amass over a decade of successful stories in the human resource business. Each client and candidate is like an extended family member to us. And like family, we understand and anticipate your needs, matching the right candidates to the right clients. We aim to create a long-lasting client-candidate relationship, translating into long-term winning strategies and exponential growth for both parties.
+                  MCP CONSULTANTS’ passion for matching the right people to the right job has helped us to amass over a decade of successful stories in the human resource business. Each client and candidate is like an extended family member to us. And like family, we understand and anticipate your needs, matching the right candidates to the right clients. We aim to create a long-lasting client-candidate relationship, translating into long-term winning strategies and exponential growth for both parties.
                 </p>
                 <p>
                   We provide a one-stop solution for companies and professionals to remain in the business and become leaders in their respective fields.
@@ -338,7 +338,7 @@ export default function About() {
             </h2>
             <ul style={{ listStyleType: 'disc', paddingLeft: '24px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
-                Our organization is firmly committed for achieving excellence in every aspect of Indian service as we strive to realize our mission to create a <strong>“Viksit Bharat” (meaning a developed India)</strong>. As a group that first-generation entrepreneurs have supported, we take great pride in this <strong>“Amrit Kaal,” or Golden Age</strong>, and pledge to uphold our values in all our endeavors.
+                Our organization is firmly committed for achieving excellence in every aspect of Indian service as we strive to realize our mission to create a <strong>“Viksit Bharat” (meaning a developed India)</strong>. As an organization that first-generation entrepreneurs have supported, we take great pride in this <strong>“Amrit Kaal,” or Golden Age</strong>, and pledge to uphold our values in all our endeavors.
               </li>
               <li style={{ fontSize: '16.5px', lineHeight: 1.85, color: '#262626' }}>
                 Our team members across functions ensure that we maintain individual connections with every one of our clients. This allows us to address feedback and escalations in a timely and effective manner.
@@ -367,7 +367,7 @@ export default function About() {
             <span className="section-tag">QUALITY &amp; COMPLIANCE</span>
             <h2 className="section-title">Built on Trust. Driven by Compliance.</h2>
             <p className="section-desc">
-              MCP Group follows structured processes designed to deliver consistent quality and operational reliability.
+              MCP Consultants follows structured processes designed to deliver consistent quality and operational reliability.
             </p>
           </div>
 
@@ -471,7 +471,7 @@ export default function About() {
                 Your Workforce. Our Responsibility.
               </h3>
               <p style={{ color: '#64748b', fontSize: '14.5px', lineHeight: 1.6, marginBottom: '20px' }}>
-                When you partner with MCP Group, you gain more than a service provider. You gain a workforce partner committed to understanding your business, solving your operational challenges and supporting your growth.
+                When you partner with MCP Consultants, you gain more than a service provider. You gain a workforce partner committed to understanding your business, solving your operational challenges and supporting your growth.
               </p>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
@@ -494,7 +494,7 @@ export default function About() {
               </div>
 
               <Link to="/contact" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Partner With MCP Group</span>
+                <span>Partner With MCP Consultants</span>
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -508,13 +508,13 @@ export default function About() {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '32px' }}>
           <div style={{ maxWidth: '680px' }}>
             <span style={{ color: 'var(--color-accent)', fontWeight: 800, fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-              MCP GROUP • SINCE 2007
+              MCP CONSULTANTS • SINCE 2007
             </span>
             <h2 style={{ fontSize: '30px', fontWeight: 800, color: '#ffffff', margin: '0 0 12px 0', lineHeight: 1.3 }}>
               Let's Build Something Stronger Together.
             </h2>
             <p style={{ margin: 0, fontSize: '15px', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.6 }}>
-              Whether you need workforce management, recruitment, facility management, BPO, skill development or specialized industry manpower — MCP Group is ready to help.
+              Whether you need workforce management, recruitment, facility management, BPO, skill development or specialized industry manpower — MCP Consultants is ready to help.
             </p>
           </div>
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>

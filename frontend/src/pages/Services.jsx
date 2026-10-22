@@ -29,7 +29,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 01',
     tagline: 'End-to-End Workforce Deployment, Staffing, Payroll & Workforce Administration',
     shortDesc: 'End-to-end workforce deployment, staffing, payroll and workforce administration for industrial and corporate enterprises.',
-    overview: 'MCP Group delivers agile, audit-ready workforce management frameworks engineered for industrial manufacturing belts, supply chain corridors, and fast-scaling corporate hubs. From flexi-staffing ramp-ups for seasonal peaks to permanent technical staffing and nationwide statutory payroll execution, our workforce practice eliminates operational bottlenecks.',
+    overview: 'MCP Consultants delivers agile, audit-ready workforce management frameworks engineered for industrial manufacturing belts, supply chain corridors, and fast-scaling corporate hubs. From flexi-staffing ramp-ups for seasonal peaks to permanent technical staffing and nationwide statutory payroll execution, our workforce practice eliminates operational bottlenecks.',
     secondaryOverview: 'With a pan-India network of nearly 50,000 associates, we mobilize vetted shopfloor personnel, technical supervisors, and corporate back-office teams under strict Service Level Agreements (SLAs).',
     stats: [
       { label: 'Payroll & Compliance Accuracy', value: '100%' },
@@ -83,7 +83,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 02',
     tagline: 'Specialized Recruitment, Talent Acquisition, HR Support & Employee Management',
     shortDesc: 'Specialized recruitment, lateral talent acquisition, HR operational support and employee management.',
-    overview: 'MCP Group’s Human Resource Services practice partners with organizations to identify, attract, and retain the right people. From specialized engineering and shopfloor supervisors to corporate managers and functional heads, we deliver structured recruitment with verified track records.',
+    overview: 'MCP Consultants’ Human Resource Services practice partners with organizations to identify, attract, and retain the right people. From specialized engineering and shopfloor supervisors to corporate managers and functional heads, we deliver structured recruitment with verified track records.',
     secondaryOverview: 'We also support organizations in establishing robust HR operational policies, employee lifecycle frameworks, and performance appraisal structures.',
     stats: [
       { label: 'Client Mandate Success Rate', value: '98%' },
@@ -128,7 +128,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 03',
     tagline: 'Professional Facility, Housekeeping, Security Support & Operational Services',
     shortDesc: 'Professional facility, mechanized housekeeping, security support and operational services.',
-    overview: 'Clean, safe, and well-managed premises are vital for industrial productivity and corporate reputation. MCP Group provides comprehensive soft and hard facility management services covering corporate offices, commercial campuses, and manufacturing factories.',
+    overview: 'Clean, safe, and well-managed premises are vital for industrial productivity and corporate reputation. MCP Consultants provides comprehensive soft and hard facility management services covering corporate offices, commercial campuses, and manufacturing factories.',
     secondaryOverview: 'Our trained facility personnel operate under strict hygiene, safety, and SLA protocols with mechanized cleaning tools and eco-friendly consumables.',
     stats: [
       { label: 'Premises Maintained', value: '15M+ Sq.Ft.' },
@@ -173,7 +173,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 04',
     tagline: 'Scalable Business Process & Support Solutions Designed for Operational Efficiency',
     shortDesc: 'Scalable business process and support solutions designed for operational efficiency.',
-    overview: 'MCP Group’s BPO practice provides scalable back-office and customer support solutions that allow organizations to streamline non-core operations, reduce fixed overheads, and improve service delivery.',
+    overview: 'MCP Consultants’ BPO practice provides scalable back-office and customer support solutions that allow organizations to streamline non-core operations, reduce fixed overheads, and improve service delivery.',
     secondaryOverview: 'Operating with modern IT infrastructure, data security protocols, and multi-lingual voice/chat capabilities, we help clients enhance operational responsiveness.',
     stats: [
       { label: 'First-Contact Resolution', value: '94%+' },
@@ -209,7 +209,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 05',
     tagline: 'Industry-Oriented Training & Skill Programs That Prepare People for Tomorrow’s Jobs',
     shortDesc: 'Industry-oriented training and skill development programs that prepare people for tomorrow’s jobs.',
-    overview: 'India’s economic growth depends on a workforce equipped with modern, practical capabilities. MCP Group conducts structured skill development initiatives aligned with National Skill Development Corporation (NSDC) and sector skill council standards.',
+    overview: 'India’s economic growth depends on a workforce equipped with modern, practical capabilities. MCP Consultants conducts structured skill development initiatives aligned with National Skill Development Corporation (NSDC) and sector skill council standards.',
     secondaryOverview: 'We collaborate with state governments, corporate CSR initiatives, and industrial clusters to transform youth into job-ready professionals.',
     stats: [
       { label: 'Candidates Trained', value: '35,000+' },
@@ -245,7 +245,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 06',
     tagline: 'Workforce & Education Solutions Focused on Employability, Skills & Future Readiness',
     shortDesc: 'Workforce and education solutions focused on employability, skills and future readiness.',
-    overview: 'Bridging the divide between academic degree programs and real-world workplace requirements. MCP Group partners with colleges, universities, and polytechnics to enhance student employability through experiential learning and industry apprenticeships.',
+    overview: 'Bridging the divide between academic degree programs and real-world workplace requirements. MCP Consultants partners with colleges, universities, and polytechnics to enhance student employability through experiential learning and industry apprenticeships.',
     secondaryOverview: 'We empower educational institutions with job-market insights, guest faculty from industry, and campus placement drives.',
     stats: [
       { label: 'Educational Partners', value: '40+' },
@@ -281,7 +281,7 @@ const servicesData = [
     badge: 'CORE SOLUTION 07',
     tagline: 'Structured, Process-Driven Solutions Helping Organizations Meet Statutory & Regulatory Requirements',
     shortDesc: 'Structured, process-driven solutions helping organizations meet statutory and regulatory requirements.',
-    overview: 'Operating in India requires rigorous adherence to multi-state labor laws, statutory acts, and regulatory filings. MCP Group’s compliance practice delivers comprehensive statutory audits, registration management, and monthly filings.',
+    overview: 'Operating in India requires rigorous adherence to multi-state labor laws, statutory acts, and regulatory filings. MCP Consultants’ compliance practice delivers comprehensive statutory audits, registration management, and monthly filings.',
     secondaryOverview: 'As an ISO 9001:2008 certified organization, we protect employers from statutory penalties, factory inspectorate notices, and legal vulnerabilities.',
     stats: [
       { label: 'Statutory Compliance Record', value: '100%' },
@@ -590,7 +590,7 @@ export default function Services() {
               }}>
                 <div style={{ maxWidth: '650px' }}>
                   <span style={{ color: 'var(--color-accent)', fontSize: '12px', fontWeight: '800', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                    PARTNER WITH MCP GROUP
+                    PARTNER WITH MCP CONSULTANTS
                   </span>
                   <h3 style={{ fontSize: '26px', color: '#ffffff', fontWeight: '800', margin: '8px 0 10px' }}>
                     Need customized support in {activeService.title}?
@@ -652,10 +652,10 @@ export default function Services() {
                 WHAT WE DO
               </span>
               <h1 className="page-hero-title" style={{ color: '#ffffff', textShadow: '0 3px 16px rgba(0, 0, 0, 0.75), 0 1px 4px rgba(0, 0, 0, 0.5)' }}>
-                One Group. Multiple Solutions. One Standard of Excellence.
+                One Partner. Multiple Solutions. One Standard of Excellence.
               </h1>
               <p className="page-hero-subtitle" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)' }}>
-                MCP Group offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations across India.
+                MCP Consultants offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations across India.
               </p>
             </div>
           </section>

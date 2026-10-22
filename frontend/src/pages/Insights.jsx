@@ -76,7 +76,7 @@ export default function Insights() {
             Workforce Insights &amp; Compliance Intelligence
           </h1>
           <p className="page-hero-subtitle" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)' }}>
-            Authoritative whitepapers, statutory compliance guides, and workforce benchmarks produced by MCP Group's 19+ years of industry practice leadership.
+            Authoritative whitepapers, statutory compliance guides, and workforce benchmarks produced by MCP Consultants' 19+ years of industry practice leadership.
           </p>
         </div>
       </section>
@@ -122,7 +122,7 @@ export default function Insights() {
       <section style={{ padding: '40px 0 90px', background: 'var(--color-bg-light)' }}>
         <div className="container">
           <div className="section-header text-center">
-            <span className="section-tag">MCP GROUP KNOWLEDGE REPOSITORY</span>
+            <span className="section-tag">MCP CONSULTANTS KNOWLEDGE REPOSITORY</span>
             <h2 className="section-title">Industry Research, Compliance &amp; Operational Benchmarks</h2>
             <p className="section-subtitle" style={{ maxWidth: '720px', margin: '14px auto 0' }}>
               Actionable insights derived from deploying and managing 50,000+ associates across 500+ enterprise clients nationwide.

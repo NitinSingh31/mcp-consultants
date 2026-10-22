@@ -34,7 +34,7 @@ export default function Home() {
     {
       subtitle: "SINCE 2007 • CHANDIGARH, INDIA",
       title: "Empowering People. Powering Businesses. Building India.",
-      description: "MCP Group is a leading Human Resource and Workforce Management organization delivering specialized, compliance-driven workforce solutions across India.",
+      description: "MCP Consultants is a leading Human Resource and Workforce Management organization delivering specialized, compliance-driven workforce solutions across India.",
       ctaText: "Work With MCP",
       ctaLink: "/contact",
       secondaryText: "Explore Our Solutions",
@@ -57,7 +57,7 @@ export default function Home() {
       description: "From the foothills of Chandigarh, carrying the spirit of purity, resilience, and enduring excellence to every client, every workforce, and every partnership across India.",
       ctaText: "Partner With Us",
       ctaLink: "/contact",
-      secondaryText: "About MCP Group",
+      secondaryText: "About MCP Consultants",
       secondaryLink: "/about",
       bgImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
     }
@@ -65,7 +65,7 @@ export default function Home() {
 
   const testimonials = [
     {
-      quote: "MCP Group has managed our manufacturing plant workforce with extraordinary discipline and 100% statutory compliance. Their on-site coordinators and rapid deployment have helped us achieve uninterrupted plant operations.",
+      quote: "MCP Consultants has managed our manufacturing plant workforce with extraordinary discipline and 100% statutory compliance. Their on-site coordinators and rapid deployment have helped us achieve uninterrupted plant operations.",
       author: "Vice President - Operations",
       company: "Leading Pharmaceutical Formulation Group (Punjab & Baddi)",
       sector: "Pharmaceuticals"
@@ -127,7 +127,7 @@ export default function Home() {
                 </h1>
                 
                 <p className="hero-split-desc">
-                  MCP Group connects businesses with dependable, skilled and compliance-ready workforce solutions — serving nearly 50,000 associates and 500+ clients across India.
+                  MCP Consultants connects businesses with dependable, skilled and compliance-ready workforce solutions — serving nearly 50,000 associates and 500+ clients across India.
                 </p>
 
                 <div className="hero-split-actions">
@@ -165,7 +165,7 @@ export default function Home() {
                 <div className="hero-split-card">
                   <img 
                     src="/images/hero-split-office.jpg" 
-                    alt="MCP Group Modern Collaborative Office" 
+                    alt="MCP Consultants Modern Collaborative Office" 
                     className="hero-split-img"
                   />
                   
@@ -327,7 +327,7 @@ export default function Home() {
               <div className="about-demo-photo-card">
                 <img 
                   src="/images/about-intro-team.jpg" 
-                  alt="MCP Group Team" 
+                  alt="MCP Consultants Team" 
                   className="about-demo-img"
                   loading="lazy"
                 />
@@ -344,14 +344,14 @@ export default function Home() {
             <div className="about-demo-content-col">
               <span className="about-demo-tag">WHO WE ARE</span>
               <h2 className="about-demo-title">
-                About MCP Group
+                About MCP Consultants
               </h2>
               <div className="about-demo-narrative" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
                 <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
-                  Founded in 2007 in Chandigarh under the leadership of Managing Director <strong>Shallu Gaba</strong>, <strong>MCP Group</strong> has evolved into a premier workforce management and specialized recruitment powerhouse. We partner with leading organizations across India’s private, public, and government sectors to build, manage, and scale high-performing workforces with speed and precision.
+                  Founded in 2007 in Chandigarh under the leadership of Managing Director <strong>Shallu Gaba</strong>, <strong>MCP Consultants</strong> has evolved into a premier workforce management and specialized recruitment powerhouse. We partner with leading organizations across India’s private, public, and government sectors to build, manage, and scale high-performing workforces with speed and precision.
                 </p>
                 <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
-                  With nearly <strong>50,000 associates</strong> deployed nationwide and over <strong>500 corporate clients</strong>, MCP Group delivers deep expertise across key sectors including <strong>Workforce Management, Pharmaceuticals, Power &amp; Energy, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development, and Facility Management</strong>.
+                  With nearly <strong>50,000 associates</strong> deployed nationwide and over <strong>500 corporate clients</strong>, MCP Consultants delivers deep expertise across key sectors including <strong>Workforce Management, Pharmaceuticals, Power &amp; Energy, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development, and Facility Management</strong>.
                 </p>
                 <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#334155', margin: 0 }}>
                   Backed by <strong>ISO 9001:2008</strong> certified processes, 100% statutory compliance, and modern technology systems for automated payroll and attendance, we take pride in building lasting client-candidate partnerships that power long-term business growth.
@@ -361,7 +361,7 @@ export default function Home() {
               {/* Action Buttons */}
               <div className="about-demo-actions">
                 <Link to="/about" className="btn btn-primary">
-                  <span>About MCP Group</span>
+                  <span>About MCP Consultants</span>
                   <ArrowRight size={15} />
                 </Link>
                 <Link to="/services" className="btn-intro-outline">
@@ -387,9 +387,9 @@ export default function Home() {
             <span className="section-tag" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: '8px' }}>
               WHAT WE DO
             </span>
-            <h2 className="our-services-home-title">One Group. Multiple Solutions. One Standard of Excellence.</h2>
+            <h2 className="our-services-home-title">One Partner. Multiple Solutions. One Standard of Excellence.</h2>
             <p style={{ color: '#BAC7D5', maxWidth: '750px', margin: '12px auto 0', fontSize: '15px' }}>
-              MCP Group offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations.
+              MCP Consultants offers an integrated portfolio of workforce and business solutions designed around the evolving needs of modern organizations.
             </p>
           </div>
 
@@ -593,11 +593,11 @@ export default function Home() {
               </blockquote>
 
               <p style={{ color: '#475569', lineHeight: 1.7, fontSize: '15px', marginBottom: '16px' }}>
-                With this conviction, I set out on MCP Group in 2007, an organization specially focused on occupied with Recruitment Services. MCP Group became an outstanding name in its business fragments like Workforce Management, Power Sector, Pharmaceuticals, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development &amp; Education, and Facility Management &amp; BPO, with almost 50,000 MCP Family Members across India.
+                With this conviction, I set out on MCP Consultants in 2007, an organization specially focused on occupied with Recruitment Services. MCP Consultants became an outstanding name in its business fragments like Workforce Management, Power Sector, Pharmaceuticals, Textiles, Lighting, Retail &amp; EV, Hospitality, Skill Development &amp; Education, and Facility Management &amp; BPO, with almost 50,000 MCP Family Members across India.
               </p>
 
               <p style={{ color: '#475569', lineHeight: 1.7, fontSize: '15px', marginBottom: '20px' }}>
-                MCP GROUP’s passion for matching the right people to the right job has helped us to amass over a decade of successful stories in the human resource business. Each client and candidate is like an extended family member to us. And like family, we understand and anticipate your needs, matching the right candidates to the right clients.
+                MCP CONSULTANTS’ passion for matching the right people to the right job has helped us to amass over a decade of successful stories in the human resource business. Each client and candidate is like an extended family member to us. And like family, we understand and anticipate your needs, matching the right candidates to the right clients.
               </p>
 
               <div style={{ marginBottom: '24px' }}>
@@ -623,11 +623,11 @@ export default function Home() {
             
             <div className="cta-banner-content">
               <span style={{ color: 'var(--color-accent)', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-                MCP GROUP • EMPOWERING WORKFORCE. ENABLING BUSINESS.
+                MCP CONSULTANTS • EMPOWERING WORKFORCE. ENABLING BUSINESS.
               </span>
               <h2>PEOPLE POWER BUSINESS.<br />And We Power People.</h2>
               <p>
-                For nearly two decades, MCP Group has connected organizations with the people and solutions they need to move forward. 19+ Years. 50,000+ Associates. 500+ Clients. One Vision.
+                For nearly two decades, MCP Consultants has connected organizations with the people and solutions they need to move forward. 19+ Years. 50,000+ Associates. 500+ Clients. One Vision.
               </p>
             </div>
 

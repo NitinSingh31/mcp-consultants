@@ -61,10 +61,10 @@ export default function Navbar() {
           <div className="header-wrapper">
             
             {/* Brand Wordmark */}
-            <Link to="/" className="brand-logo" aria-label="MCP GROUP Home">
+            <Link to="/" className="brand-logo" aria-label="MCP CONSULTANTS Home">
               <div className="brand-text">
                 <div className="brand-name">
-                  MCP <span className="highlight">GROUP</span>
+                  MCP <span className="highlight">CONSULTANTS</span>
                 </div>
                 <div className="brand-tagline">
                   Empowering People • Powering Businesses
@@ -103,7 +103,7 @@ export default function Navbar() {
                     <ChevronDown size={13} className="nav-chevron" />
                   </NavLink>
 
-                  {/* Dropdown Menu - 7 Core MCP Group Verticals */}
+                  {/* Dropdown Menu - 7 Core MCP Consultants Verticals */}
                   <div className={`nav-services-dropdown ${servicesDropdownOpen ? 'open' : ''}`}>
                     <div 
                       className="dropdown-item has-submenu"
@@ -205,7 +205,7 @@ export default function Navbar() {
           <div className="brand-logo mobile-brand">
             <div className="brand-text">
               <div className="brand-name" style={{ fontSize: '18px' }}>
-                MCP <span className="highlight">GROUP</span>
+                MCP <span className="highlight">CONSULTANTS</span>
               </div>
               <div className="brand-tagline">Empowering People • Powering Businesses</div>
             </div>

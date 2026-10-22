@@ -116,7 +116,7 @@ export default function Contact({ defaultTab }) {
       if (data.success) {
         setModalData({
           title: 'Inquiry Registered Successfully',
-          message: `Thank you, ${hiringForm.name}. Your workforce requirement${hiringForm.company ? ` for ${hiringForm.company}` : ''} has been recorded. An MCP Group practice lead will contact you within 24 business hours.`
+          message: `Thank you, ${hiringForm.name}. Your workforce requirement${hiringForm.company ? ` for ${hiringForm.company}` : ''} has been recorded. An MCP Consultants practice lead will contact you within 24 business hours.`
         });
         setModalOpen(true);
         setHiringForm({

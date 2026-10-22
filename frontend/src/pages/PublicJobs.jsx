@@ -137,7 +137,7 @@ export default function PublicJobs() {
             Workforce, Technical &amp; Leadership Careers
           </span>
           <h1 style={{ margin: '0 0 12px', fontSize: '38px', fontWeight: 800, letterSpacing: '-0.5px', color: '#ffffff', textShadow: '0 3px 16px rgba(0, 0, 0, 0.75), 0 1px 4px rgba(0, 0, 0, 0.5)' }}>
-            Explore Active Opportunities with MCP Group
+            Explore Active Opportunities with MCP Consultants
           </h1>
           <p style={{ margin: 0, fontSize: '15.5px', color: '#ffffff', lineHeight: 1.6, textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)' }}>
             Discover career opportunities across Pharmaceuticals, Power, Automobiles, Textiles, Facility Management, BPO and Corporate functions with India's leading workforce partner.

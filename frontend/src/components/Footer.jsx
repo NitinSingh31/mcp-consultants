@@ -14,12 +14,12 @@ export default function Footer() {
           <div className="footer-brand">
             <Link to="/" className="brand-logo footer-logo">
               <div className="brand-text">
-                <span className="brand-name">MCP <span className="highlight">GROUP</span></span>
+                <span className="brand-name">MCP <span className="highlight">CONSULTANTS</span></span>
                 <span className="brand-tagline">Empowering People. Powering Businesses. Building India.</span>
               </div>
             </Link>
             <p className="footer-desc">
-              Founded in 2007 in Chandigarh, MCP Group is an ISO 9001:2008 certified Human Resource and Workforce Management organization with nearly 50,000 associates and 500+ clients across India.
+              Founded in 2007 in Chandigarh, MCP Consultants is an ISO 9001:2008 certified Human Resource and Workforce Management organization with nearly 50,000 associates and 500+ clients across India.
             </p>
             <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '0.05em' }}>
@@ -100,10 +100,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <div>
-            &copy; {new Date().getFullYear()} MCP GROUP. All rights reserved. Empowering People. Powering Businesses. Building India.
+            &copy; {new Date().getFullYear()} MCP CONSULTANTS. All rights reserved. Empowering People. Powering Businesses. Building India.
           </div>
           <div className="footer-legal-links">
-            <Link to="/about">About Group</Link>
+            <Link to="/about">About Us</Link>
             <span>|</span>
             <Link to="/contact">Privacy Policy</Link>
             <span>|</span>
