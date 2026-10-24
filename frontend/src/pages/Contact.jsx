@@ -441,8 +441,8 @@ export default function Contact({ defaultTab }) {
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
                       Email
                     </div>
-                    <a href="mailto:shikha.kathuria@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
-                      shikha.kathuria@mcpconsultants.in
+                    <a href="mailto:shikha.k@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      shikha.k@mcpconsultants.in
                     </a>
                   </div>
                 </div>
@@ -1062,8 +1062,8 @@ export default function Contact({ defaultTab }) {
                     <div style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
                       Email
                     </div>
-                    <a href="mailto:shikha.kathuria@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
-                      shikha.kathuria@mcpconsultants.in
+                    <a href="mailto:shikha.k@mcpconsultants.in" style={{ fontSize: '16px', color: '#334155', textDecoration: 'none', fontWeight: '500' }}>
+                      shikha.k@mcpconsultants.in
                     </a>
                   </div>
                 </div>
@@ -1267,7 +1267,7 @@ export default function Contact({ defaultTab }) {
                   <strong>Tel:</strong> <a href="tel:+919888426060" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>+91 98 8842 6060</a>
                 </div>
                 <div>
-                  <strong>Email:</strong> <a href="mailto:shikha.kathuria@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>shikha.kathuria@mcpconsultants.in</a>
+                  <strong>Email:</strong> <a href="mailto:shikha.k@mcpconsultants.in" style={{ color: '#0056b3', textDecoration: 'none', fontWeight: '600' }}>shikha.k@mcpconsultants.in</a>
                 </div>
               </div>
             </div>

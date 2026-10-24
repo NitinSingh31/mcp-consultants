@@ -60,7 +60,7 @@ Key Responsibilities:
 • Support cost estimation, design optimization, and client technical reviews.
 
 Contact Person:
-Shikha (MCP Consultants) - 9888426060 / shikha.kathuria@mcpconsultants.in`,
+Shikha (MCP Consultants) - 9888426060 / shikha.k@mcpconsultants.in`,
       candidateProfile: `Candidate should have 1 to 6 years of proven hands-on design experience in gear manufacturing or mechanical transmission systems. Proficiency in AutoCAD and 3D CAD modeling software (SolidWorks / SolidEdge / Creo) is essential.`,
       perks: 'Health insurance, annual appraisal, performance incentive, PF & statutory benefits as per policy.',
       screeningQuestions: [
@@ -69,7 +69,7 @@ Shikha (MCP Consultants) - 9888426060 / shikha.kathuria@mcpconsultants.in`,
         'Are you comfortable working on-site at Baddi?'
       ],
       isWalkIn: false,
-      collaborators: ['shikha.kathuria@mcpconsultants.in', 'recruiter.mcp@gmail.com'],
+      collaborators: ['shikha.k@mcpconsultants.in', 'recruiter.mcp@gmail.com'],
       responseEmailPolicy: 'As a daily summary',
       referenceCode: 'NAUKRI-051026801594',
       status: 'Active',

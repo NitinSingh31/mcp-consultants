@@ -82,8 +82,8 @@ export default function Footer() {
                   <a href="mailto:shallu.gaba@mcpconsultants.in" style={{ color: 'inherit', textDecoration: 'none' }}>
                     shallu.gaba@mcpconsultants.in
                   </a>
-                  <a href="mailto:shikha.kathuria@mcpconsultants.in" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    shikha.kathuria@mcpconsultants.in
+                  <a href="mailto:shikha.k@mcpconsultants.in" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    shikha.k@mcpconsultants.in
                   </a>
                 </div>
               </div>
