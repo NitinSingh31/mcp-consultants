@@ -8,7 +8,6 @@ const { uploadAnySingle } = require('../middleware/upload');
 // Standard Job Posting CRUD
 router.post('/', requireAdmin, jobPostingController.createJobPosting);
 router.get('/', jobPostingController.getJobPostings);
-router.get('/:id/matches', jobPostingController.getJobMatches);
 router.get('/:id', jobPostingController.getJobPostingById);
 router.put('/:id', requireAdmin, jobPostingController.updateJobPosting);
 router.delete('/:id', requireAdmin, jobPostingController.deleteJobPosting);

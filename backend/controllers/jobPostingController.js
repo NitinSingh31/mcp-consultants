@@ -13,15 +13,8 @@ async function calculateResdexMatchCount(job) {
       const skillRegexes = job.skills.map(s => new RegExp((s.name || s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
       orConditions.push({ key_skills: { $in: skillRegexes } });
     }
-    const cleanTitle = (job.title || '').replace(/^Position Ref #[0-9]+/i, '').trim();
-    if (cleanTitle) {
-      orConditions.push({ current_role: new RegExp(cleanTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') });
-    }
-    if (job.department) {
-      const deptRegex = new RegExp(job.department.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-      orConditions.push({ sector: deptRegex });
-      orConditions.push({ function_area: deptRegex });
-      orConditions.push({ current_role: deptRegex });
+    if (job.title) {
+      orConditions.push({ current_role: new RegExp(job.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') });
     }
     if (job.locations && job.locations.length > 0) {
       const locRegexes = job.locations.map(l => new RegExp(l.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
@@ -495,104 +488,5 @@ exports.importFromNaukri = async (req, res) => {
   } catch (err) {
     console.error('Error importing from Naukri:', err);
     res.status(500).json({ success: false, message: 'Error processing Naukri link: ' + err.message });
-  }
-};
-
-// 8. Get matching Resdex candidates & criteria for a job posting
-exports.getJobMatches = async (req, res) => {
-  try {
-    const job = await JobPosting.findById(req.params.id);
-    if (!job) {
-      return res.status(404).json({ success: false, message: 'Job posting not found' });
-    }
-
-    const skillsList = (job.skills || []).map(s => s.name || s).filter(Boolean);
-    const locationsList = (job.locations || []).filter(Boolean);
-    const cleanTitle = (job.title || '').replace(/^Position Ref #[0-9]+/i, '').trim();
-
-    // Build conditions to find matching candidates
-    const orConditions = [];
-    if (skillsList.length > 0) {
-      const skillRegexes = skillsList.map(s => new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
-      orConditions.push({ key_skills: { $in: skillRegexes } });
-    }
-    if (cleanTitle) {
-      orConditions.push({ current_role: new RegExp(cleanTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') });
-    }
-    if (job.department) {
-      const deptRegex = new RegExp(job.department.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-      orConditions.push({ sector: deptRegex });
-      orConditions.push({ function_area: deptRegex });
-      orConditions.push({ current_role: deptRegex });
-    }
-    if (locationsList.length > 0) {
-      const locRegexes = locationsList.map(l => new RegExp(l.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
-      orConditions.push({ location: { $in: locRegexes } });
-    }
-
-    let candidates = [];
-    if (orConditions.length > 0) {
-      candidates = await Candidate.find({ $or: orConditions }).sort({ createdAt: -1 }).limit(30).lean();
-    }
-    if (candidates.length === 0) {
-      candidates = await Candidate.find().sort({ createdAt: -1 }).limit(24).lean();
-    }
-
-    // Determine specific matching things for each candidate
-    const enrichedCandidates = candidates.map(c => {
-      const matches = [];
-
-      // 1. Location match
-      const cLoc = (c.location || '').toLowerCase();
-      const matchedLoc = locationsList.find(l => cLoc.includes(l.toLowerCase()));
-      if (matchedLoc) {
-        matches.push({ type: 'location', label: `Location: ${c.location}` });
-      } else if (cLoc.includes('baddi') || cLoc.includes('chandigarh') || cLoc.includes('himachal')) {
-        matches.push({ type: 'location', label: `Location: ${c.location} (Regional / Relocatable)` });
-      }
-
-      // 2. Role / Designation match
-      const cRole = (c.current_role || '').toLowerCase();
-      if (cleanTitle && cRole.includes(cleanTitle.toLowerCase())) {
-        matches.push({ type: 'role', label: `Role Match: ${c.current_role}` });
-      } else if (job.department && (cRole.includes(job.department.toLowerCase()) || (c.function_area || '').toLowerCase().includes(job.department.toLowerCase()))) {
-        matches.push({ type: 'department', label: `Function: ${c.function_area || c.current_role}` });
-      }
-
-      // 3. Skills match
-      const cSkills = (c.key_skills || []).map(s => s.toLowerCase());
-      const hitSkills = skillsList.filter(s => cSkills.some(cs => cs.includes(s.toLowerCase()) || s.toLowerCase().includes(cs)));
-      if (hitSkills.length > 0) {
-        matches.push({ type: 'skill', label: `Skill: ${hitSkills.join(', ')}` });
-      }
-
-      // 4. Experience match
-      if (c.experience) {
-        matches.push({ type: 'experience', label: `Experience: ${c.experience}` });
-      }
-
-      return {
-        ...c,
-        matches: matches.length > 0 ? matches : [{ type: 'general', label: `Active Resdex Profile: ${c.current_role}` }]
-      };
-    });
-
-    res.json({
-      success: true,
-      totalMatches: enrichedCandidates.length,
-      matchCriteria: {
-        title: job.title,
-        cleanTitle: cleanTitle || job.department || 'Operations',
-        department: job.department,
-        locations: locationsList,
-        skills: skillsList,
-        experience: `${job.workExperienceMin || 1} - ${job.workExperienceMax || 5} Years`,
-        salary: job.salaryMin && job.salaryMax ? `${job.salaryMin} - ${job.salaryMax}` : 'Competitive'
-      },
-      candidates: enrichedCandidates
-    });
-  } catch (err) {
-    console.error('Error in getJobMatches:', err);
-    res.status(500).json({ success: false, message: 'Server error retrieving job matches', error: err.message });
   }
 };
