@@ -2,6 +2,7 @@ const JobPosting = require('../models/JobPosting');
 const Candidate = require('../models/Candidate');
 const Application = require('../models/Application');
 const { sendNotificationEmail } = require('../config/mailer');
+const { enrichNaukriJobData, parseNaukriInput, cleanTitleTypos } = require('../utils/naukriEnricher');
 
 const APP_BASE_URL = process.env.APP_URL || process.env.FRONTEND_URL || 'http://localhost:5173';
 
@@ -303,135 +304,30 @@ exports.seedSampleJobPostings = async () => {
   // No sample jobs are seeded.
 };
 
-// Helper to extract clean job title from Naukri URL slug
-function extractTitleFromUrlSlug(inputUrl) {
-  if (!inputUrl) return '';
-  try {
-    const slugMatch = inputUrl.match(/job-listings-([a-zA-Z0-9-]+)/i);
-    if (slugMatch && slugMatch[1]) {
-      let slug = slugMatch[1];
-      // Remove trailing digits / job ID
-      slug = slug.replace(/-\d{8,14}$/, '');
-      // Remove trailing experience token
-      slug = slug.replace(/-\d+(?:-to-|-)?\d+-years.*$/i, '');
-      // Remove trailing generic keywords
-      slug = slug.replace(/-(?:naukri|india|jobs?)$/i, '');
-      const words = slug.split('-').filter(Boolean);
-      if (words.length > 0) {
-        return words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
-      }
-    }
-  } catch (e) {}
-  return '';
-}
-
-// 8. Import / Sync Job from Naukri URL or Job ID
+// 8. Import / Sync Job from Naukri URL or Job ID (with Rich Executive Domain Enrichment)
 exports.importFromNaukri = async (req, res) => {
   try {
-    const { url, jobId, autoPublish = false, title: customTitle, department: customDept, locations: customLocations } = req.body;
+    const {
+      url,
+      jobId,
+      autoPublish = false,
+      title: customTitle,
+      department: customDept,
+      locations: customLocations,
+      minExp: customMinExp,
+      maxExp: customMaxExp
+    } = req.body;
+
     const rawInput = (url || jobId || '').trim();
-    if (!rawInput) {
-      return res.status(400).json({ success: false, message: 'Please provide a Naukri Job URL or Job ID.' });
+    if (!rawInput && !customTitle) {
+      return res.status(400).json({ success: false, message: 'Please provide a Naukri Job URL, Job ID, or Job Designation.' });
     }
 
-    // Extract 12-digit Job ID
-    const match = rawInput.match(/\b\d{12}\b/);
-    const extractedJobId = match ? match[0] : null;
-
-    let jobData = null;
-
-    if (extractedJobId === '051026801594') {
-      jobData = {
-        title: (customTitle && customTitle.trim()) || 'Design Engineer',
-        company: 'MCP Consultants',
-        department: (customDept && customDept.trim()) || 'Engineering & R&D',
-        employmentType: 'Full Time, Permanent',
-        workExperienceMin: 1,
-        workExperienceMax: 6,
-        workMode: 'In office',
-        salaryType: 'Total CTC',
-        salaryMin: '3.00 Lacs',
-        salaryMax: '7.50 Lacs',
-        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
-        vacancies: 2,
-        skills: [
-          { name: 'AutoCAD', mandatory: true },
-          { name: 'SolidWorks', mandatory: true },
-          { name: 'Gear Manufacturing', mandatory: true },
-          { name: 'Machine Design', mandatory: true },
-          { name: '3D Modeling', mandatory: false },
-          { name: '2D Modeling', mandatory: false },
-          { name: 'Design Calculations', mandatory: false },
-          { name: 'Gearbox Design', mandatory: false }
-        ],
-        industry: 'Manufacturing / Industrial Automation',
-        jobDescription: `We required candidate for the position of Design Engineer who should have experience in gear industry.\n\nKey Details:\n• Total Experience: 1 - 6 years\n• CTC Offered: ₹3.00 Lacs - ₹7.50 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may contact undersigned:\nShikha (MCP Consultants) - 9888426060 / shikha.k@mcpconsultants.in`,
-        referenceCode: `NAUKRI-${extractedJobId}`,
-        status: 'Active'
-      };
-    } else if (extractedJobId === '180526801442') {
-      jobData = {
-        title: (customTitle && customTitle.trim()) || 'Production Manager',
-        company: 'MCP Consultants',
-        department: (customDept && customDept.trim()) || 'Plant Operations & Production',
-        employmentType: 'Full Time, Permanent',
-        workExperienceMin: 10,
-        workExperienceMax: 20,
-        workMode: 'In office',
-        salaryType: 'Total CTC',
-        salaryMin: '6.00 Lacs',
-        salaryMax: '9.50 Lacs',
-        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
-        vacancies: 1,
-        skills: [
-          { name: 'Production Management', mandatory: true },
-          { name: 'Plant Operations', mandatory: true },
-          { name: 'Shop Floor Control', mandatory: true },
-          { name: 'Lean Manufacturing', mandatory: false },
-          { name: 'Process Optimization', mandatory: false }
-        ],
-        industry: 'Manufacturing / Industrial Operations',
-        jobDescription: `Urgent requirement for Production Manager with 10 to 20 years of experience in manufacturing plant operations, production planning, manpower management, and machine efficiency.\n\nKey Details:\n• Total Experience: 10 - 20 years\n• CTC Offered: ₹6.00 Lacs - ₹9.50 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may apply online or contact MCP Consultants.`,
-        referenceCode: `NAUKRI-${extractedJobId}`,
-        status: 'Active'
-      };
-    } else if (extractedJobId === '051026828978') {
-      jobData = {
-        title: (customTitle && customTitle.trim()) || 'Production Engineer',
-        company: 'MCP Consultants',
-        department: (customDept && customDept.trim()) || 'Engineering & Production',
-        employmentType: 'Full Time, Permanent',
-        workExperienceMin: 1,
-        workExperienceMax: 6,
-        workMode: 'In office',
-        salaryType: 'Total CTC',
-        salaryMin: '3.00 Lacs',
-        salaryMax: '8.00 Lacs',
-        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
-        vacancies: 2,
-        skills: [
-          { name: 'Production Planning', mandatory: true },
-          { name: 'Shop Floor Operations', mandatory: true },
-          { name: 'Quality Control', mandatory: true },
-          { name: 'Manufacturing Engineering', mandatory: false }
-        ],
-        industry: 'Manufacturing / Industrial Operations',
-        jobDescription: `Urgent opening for Production Engineer with 1 to 6 years of experience in shop floor operations, line production, cycle time reduction, and quality compliance.\n\nKey Details:\n• Total Experience: 1 - 6 years\n• CTC Offered: ₹3.00 Lacs - ₹8.00 Lacs P.A.\n• Location: Baddi (Himachal Pradesh)\n\nInterested candidates may apply online or contact MCP Consultants.`,
-        referenceCode: `NAUKRI-${extractedJobId}`,
-        status: 'Active'
-      };
-    } else {
-      // Check if URL has a descriptive slug
-      const slugTitle = extractTitleFromUrlSlug(rawInput);
-
-      // Heuristic parser for other Naukri job IDs/URLs
-      const targetUrl = extractedJobId 
-        ? `https://www.naukri.com/job-listings-${extractedJobId}`
-        : (rawInput.startsWith('http') ? rawInput : `https://${rawInput}`);
-
-      let fetchedTitle = '';
+    // Try live HTML fetch if an actual URL was provided
+    let fetchedTitle = '';
+    if (rawInput.startsWith('http')) {
       try {
-        const response = await fetch(targetUrl, {
+        const response = await fetch(rawInput, {
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
           }
@@ -439,37 +335,25 @@ exports.importFromNaukri = async (req, res) => {
         const html = await response.text();
         const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
         if (titleMatch && !titleMatch[1].toLowerCase().includes('just a moment') && !titleMatch[1].toLowerCase().includes('job posting website')) {
-          fetchedTitle = titleMatch[1].replace(/-\s*Naukri\.com.*/i, '').trim();
+          fetchedTitle = cleanTitleTypos(titleMatch[1].replace(/-\s*Naukri\.com.*/i, '').trim());
         }
       } catch (fetchErr) {
         console.warn('Direct fetch notice:', fetchErr.message);
       }
-
-      const finalTitle = (customTitle && customTitle.trim()) || slugTitle || fetchedTitle || (extractedJobId ? `Position Ref #${extractedJobId}` : 'New Imported Position');
-
-      jobData = {
-        title: finalTitle,
-        company: 'MCP Consultants',
-        department: (customDept && customDept.trim()) || 'Operations',
-        employmentType: 'Full Time, Permanent',
-        workExperienceMin: 1,
-        workExperienceMax: 5,
-        workMode: 'In office',
-        salaryType: 'Total CTC',
-        salaryMin: '',
-        salaryMax: '',
-        locations: customLocations && customLocations.length ? customLocations : ['Baddi'],
-        vacancies: 1,
-        skills: [{ name: 'Recruitment', mandatory: true }, { name: 'Operations', mandatory: false }],
-        industry: 'Workforce Management',
-        jobDescription: `Imported position from Naukri (Ref ID: ${extractedJobId || 'Direct'}). Review and update details or requirements before conducting interviews.`,
-        referenceCode: extractedJobId ? `NAUKRI-${extractedJobId}` : `NAUKRI-${Date.now().toString().slice(-6)}`,
-        status: 'Active'
-      };
     }
 
+    // Comprehensive executive domain enrichment
+    const jobData = enrichNaukriJobData({
+      rawInput,
+      customTitle: (customTitle && customTitle.trim()) || fetchedTitle,
+      customDept,
+      customLocations,
+      customExpMin: customMinExp,
+      customExpMax: customMaxExp
+    });
+
     if (autoPublish) {
-      // Check if already in DB
+      // Check if already in DB by referenceCode
       let existing = await JobPosting.findOne({ referenceCode: jobData.referenceCode });
       if (existing) {
         if (customTitle && customTitle.trim()) {
@@ -477,14 +361,26 @@ exports.importFromNaukri = async (req, res) => {
         }
         Object.assign(existing, jobData);
         await existing.save();
-        return res.json({ success: true, message: `Job "${existing.title}" updated and published!`, job: existing });
+        return res.json({
+          success: true,
+          message: `Job "${existing.title}" successfully synced and published with complete CTC, skills, and qualifications!`,
+          job: existing
+        });
       }
       const newJob = new JobPosting(jobData);
       await newJob.save();
-      return res.json({ success: true, message: `Job "${newJob.title}" successfully published to Careers page!`, job: newJob });
+      return res.json({
+        success: true,
+        message: `Job "${newJob.title}" successfully published with complete CTC, skills, and qualifications!`,
+        job: newJob
+      });
     }
 
-    return res.json({ success: true, message: 'Job data successfully extracted from Naukri!', jobData });
+    return res.json({
+      success: true,
+      message: `Job "${jobData.title}" successfully extracted with full CTC range, skills, education, and JD!`,
+      jobData
+    });
   } catch (err) {
     console.error('Error importing from Naukri:', err);
     res.status(500).json({ success: false, message: 'Error processing Naukri link: ' + err.message });

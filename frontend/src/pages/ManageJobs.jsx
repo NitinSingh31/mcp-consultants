@@ -26,6 +26,15 @@ import {
 import { apiUrl, getAuthHeaders } from '../api';
 import { DEPARTMENT_OPTIONS_GROUPED, ALL_DEPARTMENTS_LIST } from '../data/resdexSuggestions';
 
+const formatSalaryDisplay = (min, max) => {
+  if (!min && !max) return '₹ Best in Industry';
+  const cleanMin = (min || '').toString().replace(/\s*lacs?/gi, '').trim();
+  const cleanMax = (max || '').toString().replace(/\s*lacs?/gi, '').trim();
+  if (cleanMin && cleanMax) return `₹ ${cleanMin} - ${cleanMax} Lacs`;
+  if (cleanMin) return `₹ ${cleanMin} Lacs+`;
+  return `Up to ₹ ${cleanMax} Lacs`;
+};
+
 export default function ManageJobs() {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
@@ -55,6 +64,7 @@ export default function ManageJobs() {
     salaryMin: '',
     salaryMax: '',
     vacancies: 1,
+    skills: '',
     status: 'Active',
     jobDescription: ''
   });
@@ -74,6 +84,7 @@ export default function ManageJobs() {
       salaryMin: job.salaryMin || '',
       salaryMax: job.salaryMax || '',
       vacancies: job.vacancies || 1,
+      skills: (job.skills || []).map(s => (typeof s === 'string' ? s : s.name)).join(', '),
       status: job.status || 'Active',
       jobDescription: job.jobDescription || ''
     });
@@ -92,6 +103,7 @@ export default function ManageJobs() {
     setEditFeedback(null);
     try {
       const locList = editFormData.locations.split(',').map(s => s.trim()).filter(Boolean);
+      const skillList = editFormData.skills ? editFormData.skills.split(',').map(s => s.trim()).filter(Boolean).map(s => ({ name: s, mandatory: true })) : undefined;
       const payload = {
         title: editFormData.title.trim(),
         company: editFormData.company.trim() || 'MCP Consultants',
@@ -102,6 +114,7 @@ export default function ManageJobs() {
         salaryMin: editFormData.salaryMin.trim(),
         salaryMax: editFormData.salaryMax.trim(),
         vacancies: Number(editFormData.vacancies) || 1,
+        ...(skillList ? { skills: skillList } : {}),
         status: editFormData.status,
         jobDescription: editFormData.jobDescription
       };
@@ -466,7 +479,7 @@ export default function ManageJobs() {
                 `🚀 *Opening via MCP Consultants: ${job.title}*\n` +
                 `📍 Location: ${(job.locations || []).join(', ') || 'Baddi'}\n` +
                 `💼 Experience: ${job.workExperienceMin}-${job.workExperienceMax} Years\n` +
-                `💰 CTC: ${job.salaryMin}-${job.salaryMax} Lacs\n` +
+                `💰 CTC: ${formatSalaryDisplay(job.salaryMin, job.salaryMax)}\n` +
                 `Apply here: ${shareUrl}`
               );
 
@@ -516,14 +529,22 @@ export default function ManageJobs() {
                         </span>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '13px', color: '#475569' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '13px', color: '#475569', flexWrap: 'wrap' }}>
                         <span>🏢 {job.hideCompany ? 'Confidential Client' : job.company}</span>
                         <span>•</span>
                         <span>📍 {(job.locations || []).join(', ') || 'Pan India'}</span>
                         <span>•</span>
                         <span>💼 {job.workExperienceMin} - {job.workExperienceMax} Years</span>
                         <span>•</span>
-                        <span>💰 ₹ {job.salaryMin} - {job.salaryMax} Lacs ({job.salaryType})</span>
+                        <span>💰 {formatSalaryDisplay(job.salaryMin, job.salaryMax)} ({job.salaryType || 'Total CTC'})</span>
+                        <span>•</span>
+                        <span>👥 {job.vacancies || 1} {job.vacancies > 1 ? 'Openings' : 'Opening'}</span>
+                        {job.education && job.education.length > 0 && (
+                          <>
+                            <span>•</span>
+                            <span>🎓 {job.education[0]}</span>
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -736,6 +757,13 @@ export default function ManageJobs() {
             </div>
 
             <form onSubmit={handleNaukriSync}>
+              <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '10px 14px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Sparkles size={18} style={{ color: '#16a34a', flexShrink: 0 }} />
+                <span style={{ fontSize: '12px', color: '#166534', lineHeight: '1.4' }}>
+                  <strong>Smart Enrichment Active:</strong> Auto-extracts CTC range, experience, domain skills, qualifications, vacancies, and full structured job description.
+                </span>
+              </div>
+
               <div style={{ marginBottom: '16px' }}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
                   Naukri Link or Job ID <span style={{ color: '#dc2626' }}>*</span>
@@ -968,7 +996,7 @@ export default function ManageJobs() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '12px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '12px' }}>
                   {/* Locations */}
                   <div>
                     <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
@@ -979,6 +1007,20 @@ export default function ManageJobs() {
                       value={editFormData.locations}
                       onChange={(e) => setEditFormData({ ...editFormData, locations: e.target.value })}
                       placeholder="Baddi, Chandigarh, Solan"
+                      style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+
+                  {/* Vacancies */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                      Vacancies
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={editFormData.vacancies}
+                      onChange={(e) => setEditFormData({ ...editFormData, vacancies: e.target.value })}
                       style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
                     />
                   </div>
@@ -1050,6 +1092,20 @@ export default function ManageJobs() {
                       style={{ width: '100%', padding: '8px 10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px' }}
                     />
                   </div>
+                </div>
+
+                {/* Key Skills */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                    Key Skills (comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    value={editFormData.skills}
+                    onChange={(e) => setEditFormData({ ...editFormData, skills: e.target.value })}
+                    placeholder="e.g. CNC Programming, VMC, Tooling, AutoCAD, QMS"
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
+                  />
                 </div>
 
                 {/* Job Description */}

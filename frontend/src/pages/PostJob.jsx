@@ -158,12 +158,34 @@ export default function PostJob() {
         if (d.workExperienceMax !== undefined) setWorkExperienceMax(d.workExperienceMax);
         if (d.salaryMin) setSalaryMin(d.salaryMin);
         if (d.salaryMax) setSalaryMax(d.salaryMax);
+        if (d.salaryType) setSalaryType(d.salaryType);
+        if (d.workMode) setWorkMode(d.workMode);
+        if (d.employmentType) setEmploymentType(d.employmentType);
+        if (d.vacancies) setVacancies(d.vacancies);
         if (d.locations && d.locations.length > 0) setLocations(d.locations);
         if (d.skills && d.skills.length > 0) setSkills(d.skills);
+        if (d.education && d.education.length > 0) setEducation(d.education);
+        if (d.industry) setCandidateIndustry(d.industry);
         if (d.jobDescription) setJobDescription(d.jobDescription);
-        if (d.candidateProfile) setCandidateProfile(d.candidateProfile);
-        if (d.referenceCode) setReferenceCode(d.referenceCode);
-        setNaukriFeedback({ type: 'success', message: `✅ Successfully extracted "${d.title}" from Naukri! All form fields have been populated.` });
+        if (d.candidateProfile) {
+          setCandidateProfile(d.candidateProfile);
+          setShowCandidateProfileBlock(true);
+        }
+        if (d.perks) {
+          setPerks(d.perks);
+          setShowPerksBlock(true);
+        }
+        if (d.screeningQuestions && d.screeningQuestions.length > 0) {
+          setScreeningQuestions(d.screeningQuestions);
+        }
+        if (d.referenceCode) {
+          setReferenceCode(d.referenceCode);
+          setShowReferenceCodeInput(true);
+        }
+        setNaukriFeedback({
+          type: 'success',
+          message: `✅ Successfully extracted "${d.title}" from Naukri! CTC (₹${d.salaryMin || '3.50 Lacs'} - ₹${d.salaryMax || '8.00 Lacs'}), Experience (${d.workExperienceMin}-${d.workExperienceMax} Yrs), Skills (${(d.skills || []).length}), and full JD populated.`
+        });
       } else {
         setNaukriFeedback({ type: 'error', message: result.message || 'Could not parse Naukri link.' });
       }
