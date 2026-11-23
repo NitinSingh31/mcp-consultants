@@ -4,6 +4,7 @@ import {
   Briefcase,
   Search,
   Plus,
+  ArrowLeft,
   MapPin,
   Clock,
   Sparkles,
@@ -319,6 +320,29 @@ export default function ManageJobs() {
               <Plus size={15} />
               <span>Post a Job</span>
             </Link>
+
+            {/* Return to Admin Portal Button */}
+            <Link 
+              to="/admin" 
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 14px',
+                borderRadius: '8px',
+                backgroundColor: '#0b1a2f',
+                color: '#c49a45',
+                fontSize: '13px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                border: '1px solid #c49a45',
+                boxShadow: '0 2px 4px rgba(11,26,47,0.15)'
+              }}
+              title="Return to Admin Portal"
+            >
+              <ArrowLeft size={15} />
+              <span>Admin Portal</span>
+            </Link>
           </div>
 
         </div>
@@ -328,6 +352,31 @@ export default function ManageJobs() {
       {/* MAIN CONTAINER                                                */}
       {/* ------------------------------------------------------------- */}
       <main style={{ maxWidth: '1240px', margin: '28px auto', padding: '0 24px' }}>
+        
+        {/* Back to Admin Portal Breadcrumb Navigation */}
+        <div style={{ marginBottom: '16px' }}>
+          <Link
+            to="/admin"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: '#475569',
+              textDecoration: 'none',
+              padding: '6px 14px',
+              borderRadius: '6px',
+              backgroundColor: '#ffffff',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
+              transition: 'all 0.15s ease'
+            }}
+          >
+            <ArrowLeft size={14} style={{ color: '#0056b3' }} />
+            <span>← Back to Admin Portal</span>
+          </Link>
+        </div>
         
         {/* Title Bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>

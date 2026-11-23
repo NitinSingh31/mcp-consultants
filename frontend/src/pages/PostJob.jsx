@@ -455,6 +455,28 @@ export default function PostJob() {
               <Briefcase size={14} />
               <span>Manage Jobs</span>
             </Link>
+
+            {/* Return to Admin Portal Button */}
+            <Link 
+              to="/admin" 
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '7px 14px',
+                borderRadius: '8px',
+                backgroundColor: '#0b1a2f',
+                color: '#c49a45',
+                fontSize: '12px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                border: '1px solid #c49a45'
+              }}
+              title="Return to Admin Portal"
+            >
+              <ArrowLeft size={14} />
+              <span>Admin Portal</span>
+            </Link>
           </div>
 
         </div>
