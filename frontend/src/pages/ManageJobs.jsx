@@ -627,15 +627,11 @@ export default function ManageJobs() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '12.5px', color: '#64748b' }}>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <Eye size={14} style={{ color: '#0056b3' }} />
-                        <strong>{job.viewsCount || 38}</strong> Views
+                        <strong>{job.viewsCount || 0}</strong> Views
                       </span>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <Users size={14} style={{ color: '#16a34a' }} />
-                        <strong>{job.applicationsCount || 7}</strong> Applications Received
-                      </span>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#eff6ff', color: '#0056b3', padding: '3px 8px', borderRadius: '12px', fontWeight: 700 }}>
-                        <Sparkles size={13} />
-                        <span>{job.matchingCandidatesCount || 24} Resdex Matches</span>
+                        <strong>{job.applicationsCount || 0}</strong> Applications Received
                       </span>
                     </div>
 
