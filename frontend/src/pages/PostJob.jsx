@@ -30,7 +30,8 @@ import {
   filterIndustries,
   filterDesignations,
   filterHierarchicalLocations,
-  SPECIAL_LOCATION_SCOPES
+  SPECIAL_LOCATION_SCOPES,
+  ALL_DEPARTMENTS_LIST
 } from '../data/resdexSuggestions';
 import HierarchicalLocationDropdown from '../components/HierarchicalLocationDropdown';
 
@@ -845,19 +846,27 @@ export default function PostJob() {
                     borderRadius: '8px',
                     boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
                     zIndex: 50,
-                    maxHeight: '220px',
+                    maxHeight: '260px',
                     overflowY: 'auto'
                   }}>
-                    {['Quality Assurance - Other', 'Production & Manufacturing', 'Plant P&L & General Management', 'Plant Maintenance & Reliability', 'Engineering Design & CAD', 'Supply Chain & Sourcing'].map((d, i) => (
+                    {ALL_DEPARTMENTS_LIST.map((d, i) => (
                       <div
                         key={i}
                         onClick={() => {
                           setDepartment(d);
                           setShowDeptDropdown(false);
                         }}
-                        style={{ padding: '9px 14px', fontSize: '13px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffffff'}
+                        style={{
+                          padding: '9px 14px',
+                          fontSize: '13px',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid #f1f5f9',
+                          backgroundColor: department === d ? '#eff6ff' : '#ffffff',
+                          color: department === d ? '#0056b3' : '#0f172a',
+                          fontWeight: department === d ? 700 : 400
+                        }}
+                        onMouseEnter={(e) => { if (department !== d) e.currentTarget.style.backgroundColor = '#f8fafc'; }}
+                        onMouseLeave={(e) => { if (department !== d) e.currentTarget.style.backgroundColor = '#ffffff'; }}
                       >
                         {d}
                       </div>
@@ -866,22 +875,18 @@ export default function PostJob() {
                 )}
 
                 {/* Suggestions pills */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
-                  <span style={{ fontSize: '11px', color: '#64748b' }}>Suggestions:</span>
-                  <button
-                    type="button"
-                    onClick={() => setDepartment('Production & Manufacturing')}
-                    style={{ background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '2px 10px', fontSize: '11px', color: '#334155', cursor: 'pointer' }}
-                  >
-                    + Production & Manufacturing
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setDepartment('Quality Assurance - Other')}
-                    style={{ background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '2px 10px', fontSize: '11px', color: '#334155', cursor: 'pointer' }}
-                  >
-                    + Quality Assurance - Other
-                  </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '11px', color: '#64748b' }}>Quick picks:</span>
+                  {['Operations', 'Production & Manufacturing', 'Quality Assurance & QC (QA/QC)', 'Plant Maintenance & Reliability', 'Engineering & R&D', 'Supply Chain Management (SCM)'].map(p => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => setDepartment(p)}
+                      style={{ background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '2px 10px', fontSize: '11px', color: '#334155', cursor: 'pointer' }}
+                    >
+                      + {p}
+                    </button>
+                  ))}
                 </div>
               </div>
 

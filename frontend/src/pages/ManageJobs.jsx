@@ -24,6 +24,7 @@ import {
   X
 } from 'lucide-react';
 import { apiUrl, getAuthHeaders } from '../api';
+import { DEPARTMENT_OPTIONS_GROUPED, ALL_DEPARTMENTS_LIST } from '../data/resdexSuggestions';
 
 export default function ManageJobs() {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ export default function ManageJobs() {
 
   // Edit Job Modal State
   const [editingJob, setEditingJob] = useState(null);
+  const [isCustomDept, setIsCustomDept] = useState(false);
   const [editFormData, setEditFormData] = useState({
     title: '',
     company: 'MCP Consultants',
@@ -61,10 +63,11 @@ export default function ManageJobs() {
 
   const handleOpenEdit = (job) => {
     setEditingJob(job);
+    const initialDept = job.department || 'Operations';
     setEditFormData({
       title: job.title || '',
       company: job.company || 'MCP Consultants',
-      department: job.department || 'Operations',
+      department: initialDept,
       locations: Array.isArray(job.locations) ? job.locations.join(', ') : (job.locations || 'Baddi'),
       workExperienceMin: job.workExperienceMin ?? 0,
       workExperienceMax: job.workExperienceMax ?? 5,
@@ -74,6 +77,7 @@ export default function ManageJobs() {
       status: job.status || 'Active',
       jobDescription: job.jobDescription || ''
     });
+    setIsCustomDept(false);
     setEditFeedback(null);
   };
 
@@ -765,6 +769,40 @@ export default function ManageJobs() {
                 </span>
               </div>
 
+              <div style={{ marginBottom: '18px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+                  Department / Function
+                </label>
+                <select
+                  value={naukriDept}
+                  onChange={(e) => setNaukriDept(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '11px 14px',
+                    borderRadius: '8px',
+                    border: '1px solid #cbd5e1',
+                    fontSize: '13.5px',
+                    outline: 'none',
+                    backgroundColor: '#ffffff',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">-- Select Department / Function (Defaults to Operations) --</option>
+                  {DEPARTMENT_OPTIONS_GROUPED.map((grp) => (
+                    <optgroup key={grp.group} label={grp.group}>
+                      {grp.options.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+                <span style={{ fontSize: '11.5px', color: '#64748b', display: 'block', marginTop: '4px' }}>
+                  Assign the department/function for this imported mandate.
+                </span>
+              </div>
+
               {syncFeedback && (
                 <div style={{ padding: '10px 14px', borderRadius: '8px', marginBottom: '16px', fontSize: '13px', backgroundColor: syncFeedback.type === 'success' ? '#f0fdf4' : '#fef2f2', color: syncFeedback.type === 'success' ? '#166534' : '#991b1b', border: syncFeedback.type === 'success' ? '1px solid #bbf7d0' : '1px solid #fecaca' }}>
                   {syncFeedback.message}
@@ -849,16 +887,84 @@ export default function ManageJobs() {
 
                   {/* Department */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
-                      Department / Function
-                    </label>
-                    <input
-                      type="text"
-                      value={editFormData.department}
-                      onChange={(e) => setEditFormData({ ...editFormData, department: e.target.value })}
-                      placeholder="e.g. Engineering, Operations, HR"
-                      style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none' }}
-                    />
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <label style={{ fontSize: '12.5px', fontWeight: 700, color: '#1e293b' }}>
+                        Department / Function
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setIsCustomDept(!isCustomDept)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#0056b3',
+                          fontSize: '11.5px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: 0
+                        }}
+                      >
+                        {isCustomDept ? '← Choose from list' : '+ Enter custom'}
+                      </button>
+                    </div>
+
+                    {!isCustomDept ? (
+                      <select
+                        value={editFormData.department}
+                        onChange={(e) => {
+                          if (e.target.value === '__custom__') {
+                            setIsCustomDept(true);
+                          } else {
+                            setEditFormData({ ...editFormData, department: e.target.value });
+                          }
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '9px 12px',
+                          borderRadius: '8px',
+                          border: '1px solid #cbd5e1',
+                          fontSize: '13px',
+                          outline: 'none',
+                          backgroundColor: '#ffffff',
+                          color: '#0f172a',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <option value="">-- Select Department / Function --</option>
+                        {editFormData.department && !ALL_DEPARTMENTS_LIST.includes(editFormData.department) && (
+                          <option value={editFormData.department}>
+                            {editFormData.department} (Current)
+                          </option>
+                        )}
+                        {DEPARTMENT_OPTIONS_GROUPED.map((grp) => (
+                          <optgroup key={grp.group} label={grp.group}>
+                            {grp.options.map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
+                            ))}
+                          </optgroup>
+                        ))}
+                        <option value="__custom__">✏️ Other / Custom Department...</option>
+                      </select>
+                    ) : (
+                      <input
+                        type="text"
+                        value={editFormData.department}
+                        onChange={(e) => setEditFormData({ ...editFormData, department: e.target.value })}
+                        placeholder="Type custom department name..."
+                        autoFocus
+                        style={{
+                          width: '100%',
+                          padding: '9px 12px',
+                          borderRadius: '8px',
+                          border: '1px solid #0056b3',
+                          fontSize: '13px',
+                          outline: 'none',
+                          backgroundColor: '#ffffff'
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
 

@@ -2981,6 +2981,112 @@ export const DEPARTMENTS_DATABASE = [
 ];
 
 // ===========================================================================
+// COMPREHENSIVE DEPARTMENT & FUNCTION OPTIONS FOR DROPDOWNS & FORMS
+// ===========================================================================
+export const DEPARTMENT_OPTIONS_GROUPED = [
+  {
+    group: 'Common & Core Functions',
+    options: [
+      'Operations',
+      'Production & Manufacturing',
+      'Engineering & R&D',
+      'Quality Assurance & QC (QA/QC)',
+      'Plant Maintenance & Reliability',
+      'Supply Chain Management (SCM)',
+      'Strategic Sourcing & Procurement',
+      'Human Resources & IR',
+      'Finance & Cost Accounting',
+      'Sales & Business Development',
+      'Plant P&L & General Management',
+      'Information Technology (IT) & ERP'
+    ]
+  },
+  {
+    group: 'Operations, Manufacturing & Plant',
+    options: [
+      'Production & Manufacturing Operations',
+      'Plant P&L, Operations & General Management',
+      'Lean Manufacturing, Six Sigma & Continuous Improvement',
+      'Tool Room, Dies, Moulds & Precision Tooling',
+      'Metallurgy, Melting, Blast Furnace & Foundry',
+      'Forging, Stamping & Heavy Press Shop',
+      'Welding, Heavy Fabrication & Structural EPC',
+      'Surface Treatment, Powder Coating & Electroplating',
+      'Pharma Formulation, Fermentation & Cleanroom Operations',
+      'Chemical Process Engineering & Pilot Plant Scaling'
+    ]
+  },
+  {
+    group: 'Engineering, Design & Automation',
+    options: [
+      'Research & Development (R&D) & Product Innovation',
+      'Engineering Design, CAD & Simulation (FEA / CFD)',
+      'Industrial Automation, PLC, SCADA & Robotics',
+      'Electric Vehicles (EV) Powertrain & Battery Engineering',
+      'Electrical Maintenance, Switchgear & Substations',
+      'Mechanical Maintenance & Hydraulic / Pneumatic Systems',
+      'Instrumentation, Sensors & Industrial IoT (Industry 4.0)',
+      'HVAC, Clean Utilities & Industrial Refrigeration',
+      'Project Management & Industrial Plant Commissioning',
+      'Aerospace Avionics, Composites & Precision Assemblies'
+    ]
+  },
+  {
+    group: 'Quality, EHS & Inspection',
+    options: [
+      'Quality Assurance & Quality Control (QA / QC)',
+      'Health, Safety & Environment (EHS / Sustainability)',
+      'Testing & Validation (Homologation, ARAI, NVH)',
+      'Non-Destructive Testing (NDT / ASNT Level II/III)'
+    ]
+  },
+  {
+    group: 'Supply Chain, Logistics & EXIM',
+    options: [
+      'Supply Chain Management & Logistics (SCM)',
+      'Strategic Sourcing, Procurement & Vendor Development',
+      'Warehouse, Inventory Control & Material Handling',
+      'Import, Export & Customs Regulatory Compliance'
+    ]
+  },
+  {
+    group: 'Commercial, Sales & Support',
+    options: [
+      'Key Account Management & B2B Capital Goods Sales',
+      'Channel Sales, Dealer Network & Regional Distribution',
+      'Technical Support, Customer Service & Field Engineering',
+      'Marketing, Branding & Corporate Communications'
+    ]
+  },
+  {
+    group: 'Corporate, HR, Finance & IT',
+    options: [
+      'Human Resources, Industrial Relations & Labor Compliance',
+      'Factory Administration, Security & Government Liaising',
+      'Cost Accounting, Plant Finance & Capex Budgeting',
+      'SAP / ERP Implementation (PP, PM, QM, MM, FICO)',
+      'Information Technology & Cyber Security',
+      'Legal, Secretarial & Corporate Governance'
+    ]
+  },
+  {
+    group: 'Executive Leadership',
+    options: [
+      'Executive Leadership & Board Advisory (CXO / VP / Director)',
+      'Managing Director / Chief Executive Officer (CEO)',
+      'Chief Operating Officer (COO)',
+      'Chief Financial Officer (CFO)',
+      'Chief Technology Officer (CTO)'
+    ]
+  }
+];
+
+export const ALL_DEPARTMENTS_LIST = Array.from(
+  new Set(DEPARTMENT_OPTIONS_GROUPED.flatMap(g => g.options))
+);
+
+
+// ===========================================================================
 // CANDIDATE LOCATIONS DATABASE
 // ===========================================================================
 // ===========================================================================
