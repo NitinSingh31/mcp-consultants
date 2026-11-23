@@ -272,8 +272,10 @@ export default function ResdexSearch() {
     const locParam = params.get('location');
     const minExpParam = params.get('minExp');
     const maxExpParam = params.get('maxExp');
+    const deptParam = params.get('department');
+    const titleParam = params.get('title');
 
-    if (kwParam || locParam || minExpParam || maxExpParam) {
+    if (kwParam || locParam || minExpParam || maxExpParam || deptParam || titleParam) {
       if (kwParam) {
         const kws = kwParam.split(',').map(s => s.trim()).filter(Boolean);
         setSelectedKeywords(kws);
@@ -283,6 +285,15 @@ export default function ResdexSearch() {
         setSelectedLocations(locs);
         setCandidateLocation(locs.join(', '));
       }
+      if (deptParam) {
+        setSelectedDepartment(deptParam);
+      }
+      if (titleParam) {
+        const cleanT = titleParam.replace(/^Position Ref #[0-9]+/i, '').trim();
+        if (cleanT) {
+          setSelectedDesignations(prev => [...new Set([...prev, cleanT])]);
+        }
+      }
       if (minExpParam) setMinExp(minExpParam);
       if (maxExpParam) setMaxExp(maxExpParam);
 
@@ -290,6 +301,8 @@ export default function ResdexSearch() {
       handleSearch(true, {
         keywords: kwParam ? kwParam.split(',').join(' ') : '',
         location: locParam || '',
+        department: deptParam || '',
+        designation: titleParam ? titleParam.replace(/^Position Ref #[0-9]+/i, '').trim() : '',
         minExp: minExpParam || '',
         maxExp: maxExpParam || ''
       });

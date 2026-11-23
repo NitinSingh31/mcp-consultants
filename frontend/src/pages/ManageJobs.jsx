@@ -15,6 +15,8 @@ import {
   Copy,
   ExternalLink,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   Filter,
   Trash2,
   Edit,
@@ -41,6 +43,35 @@ export default function ManageJobs() {
   const [naukriDept, setNaukriDept] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncFeedback, setSyncFeedback] = useState(null);
+
+  // Resdex Matches Expansion State
+  const [expandedMatchesJobId, setExpandedMatchesJobId] = useState(null);
+  const [jobMatchesData, setJobMatchesData] = useState({});
+  const [loadingMatchesId, setLoadingMatchesId] = useState(null);
+
+  const handleToggleMatches = async (jobId) => {
+    if (expandedMatchesJobId === jobId) {
+      setExpandedMatchesJobId(null);
+      return;
+    }
+    setExpandedMatchesJobId(jobId);
+    if (!jobMatchesData[jobId]) {
+      setLoadingMatchesId(jobId);
+      try {
+        const res = await fetch(apiUrl(`/api/jobs/${jobId}/matches`), {
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+        if (data.success) {
+          setJobMatchesData(prev => ({ ...prev, [jobId]: data }));
+        }
+      } catch (err) {
+        console.error('Error fetching job matches:', err);
+      } finally {
+        setLoadingMatchesId(null);
+      }
+    }
+  };
 
   // Edit Job Modal State
   const [editingJob, setEditingJob] = useState(null);
@@ -612,10 +643,29 @@ export default function ManageJobs() {
                         <Users size={14} style={{ color: '#16a34a' }} />
                         <strong>{job.applicationsCount || 7}</strong> Applications Received
                       </span>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#eff6ff', color: '#0056b3', padding: '3px 8px', borderRadius: '12px', fontWeight: 700 }}>
-                        <Sparkles size={13} />
+                      <button
+                        type="button"
+                        onClick={() => handleToggleMatches(job._id)}
+                        title="Click to view all matching criteria & candidate profiles from Resdex"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          backgroundColor: expandedMatchesJobId === job._id ? '#0056b3' : '#eff6ff',
+                          color: expandedMatchesJobId === job._id ? '#ffffff' : '#0056b3',
+                          padding: '4px 10px',
+                          borderRadius: '12px',
+                          fontWeight: 700,
+                          fontSize: '12px',
+                          border: '1px solid #bfdbfe',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s ease'
+                        }}
+                      >
+                        <Sparkles size={13} style={{ color: expandedMatchesJobId === job._id ? '#c49a45' : '#0056b3' }} />
                         <span>{job.matchingCandidatesCount || 24} Resdex Matches</span>
-                      </span>
+                        {expandedMatchesJobId === job._id ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+                      </button>
                     </div>
 
                     {/* Actions */}
@@ -625,9 +675,10 @@ export default function ManageJobs() {
                       <button
                         type="button"
                         onClick={() => {
-                          const skillsText = (job.skills || []).map(s => s.name || s).join(' ');
+                          const skillsList = (job.skills || []).map(s => s.name || s).filter(Boolean);
+                          const searchTerms = skillsList.length > 0 ? skillsList.join(',') : (job.department || 'Operations');
                           const locText = (job.locations || []).join(', ');
-                          navigate(`/admin/resdex?keywords=${encodeURIComponent(skillsText)}&location=${encodeURIComponent(locText)}&title=${encodeURIComponent(job.title)}`);
+                          navigate(`/admin/resdex?keywords=${encodeURIComponent(searchTerms)}&location=${encodeURIComponent(locText)}&department=${encodeURIComponent(job.department || '')}&title=${encodeURIComponent(job.title || '')}`);
                         }}
                         style={{
                           backgroundColor: '#eff6ff',
@@ -694,6 +745,264 @@ export default function ManageJobs() {
                     </div>
 
                   </div>
+
+                  {/* Expanded Resdex Matches & Criteria Breakdown */}
+                  {expandedMatchesJobId === job._id && (
+                    <div style={{
+                      marginTop: '6px',
+                      padding: '18px 20px',
+                      borderRadius: '10px',
+                      backgroundColor: '#f8fafc',
+                      border: '1px solid #e2e8f0',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '16px'
+                    }}>
+                      {/* Match Criteria Header Bar */}
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px' }}>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Sparkles size={16} style={{ color: '#c49a45' }} />
+                            <h4 style={{ margin: 0, fontSize: '15px', fontWeight: 800, color: '#0f172a' }}>
+                              What Things Are Matched for this Job:
+                            </h4>
+                          </div>
+                          <p style={{ margin: '3px 0 0', fontSize: '12.5px', color: '#64748b' }}>
+                            Criteria used to find verified executive & technical talent profiles from Resdex.
+                          </p>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const skillsList = (job.skills || []).map(s => s.name || s).filter(Boolean);
+                              const searchTerms = skillsList.length > 0 ? skillsList.join(',') : (job.department || 'Operations');
+                              const locText = (job.locations || []).join(', ');
+                              navigate(`/admin/resdex?keywords=${encodeURIComponent(searchTerms)}&location=${encodeURIComponent(locText)}&department=${encodeURIComponent(job.department || '')}&title=${encodeURIComponent(job.title || '')}`);
+                            }}
+                            style={{
+                              backgroundColor: '#0056b3',
+                              color: '#ffffff',
+                              padding: '6px 14px',
+                              borderRadius: '6px',
+                              fontSize: '12px',
+                              fontWeight: 700,
+                              border: 'none',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px'
+                            }}
+                          >
+                            <Search size={13} />
+                            <span>Open Full Search in Resdex</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setExpandedMatchesJobId(null)}
+                            style={{
+                              backgroundColor: '#ffffff',
+                              border: '1px solid #cbd5e1',
+                              color: '#64748b',
+                              padding: '6px 12px',
+                              borderRadius: '6px',
+                              fontSize: '12px',
+                              cursor: 'pointer',
+                              fontWeight: 600
+                            }}
+                          >
+                            Close ▴
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Criteria Breakdown Chips */}
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '6px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', fontSize: '12px' }}>
+                          <MapPin size={13} style={{ color: '#0056b3' }} />
+                          <span style={{ color: '#1e3a8a', fontWeight: 600 }}>Location Matched:</span>
+                          <strong style={{ color: '#0f172a' }}>{(job.locations && job.locations.length ? job.locations : ['Baddi']).join(', ')}</strong>
+                          <span style={{ fontSize: '11px', color: '#64748b' }}>(+ Regional / Relocatable)</span>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '6px', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: '12px' }}>
+                          <Briefcase size={13} style={{ color: '#16a34a' }} />
+                          <span style={{ color: '#166534', fontWeight: 600 }}>Department Matched:</span>
+                          <strong style={{ color: '#0f172a' }}>{job.department || 'Operations'}</strong>
+                        </div>
+
+                        {job.title && !job.title.startsWith('Position Ref #') && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '6px', backgroundColor: '#fef3c7', border: '1px solid #fde68a', fontSize: '12px' }}>
+                            <span style={{ color: '#92400e', fontWeight: 600 }}>Target Role:</span>
+                            <strong style={{ color: '#0f172a' }}>{job.title}</strong>
+                          </div>
+                        )}
+
+                        {job.skills && job.skills.length > 0 && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '6px', backgroundColor: '#f5f3ff', border: '1px solid #ddd6fe', fontSize: '12px' }}>
+                            <span style={{ color: '#5b21b6', fontWeight: 600 }}>Matched Skills:</span>
+                            <strong style={{ color: '#0f172a' }}>{job.skills.map(s => s.name || s).join(', ')}</strong>
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '6px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', fontSize: '12px' }}>
+                          <Clock size={13} style={{ color: '#64748b' }} />
+                          <span style={{ color: '#475569', fontWeight: 600 }}>Experience Range:</span>
+                          <strong style={{ color: '#0f172a' }}>{job.workExperienceMin || 1} - {job.workExperienceMax || 5} Years</strong>
+                        </div>
+                      </div>
+
+                      {/* Matched Candidates List */}
+                      {loadingMatchesId === job._id ? (
+                        <div style={{ padding: '24px', textAlign: 'center', color: '#64748b', fontSize: '13px' }}>
+                          Fetching matched Resdex talent profiles...
+                        </div>
+                      ) : (
+                        <div>
+                          <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#334155', marginBottom: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <span>
+                              Matched Resdex Profiles ({jobMatchesData[job._id]?.candidates?.length || (job.matchingCandidatesCount || 24)})
+                            </span>
+                            <span style={{ fontSize: '11.5px', color: '#64748b', fontWeight: 500 }}>
+                              Profiles matching above criteria
+                            </span>
+                          </div>
+
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '12px' }}>
+                            {(jobMatchesData[job._id]?.candidates || []).slice(0, 6).map((cand, cIdx) => (
+                              <div
+                                key={cIdx}
+                                style={{
+                                  backgroundColor: '#ffffff',
+                                  border: '1px solid #cbd5e1',
+                                  borderRadius: '8px',
+                                  padding: '14px 16px',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '8px',
+                                  boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
+                                }}
+                              >
+                                {/* Candidate Name & CTC */}
+                                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                                  <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                      <strong style={{ fontSize: '13.5px', color: '#0f172a' }}>{cand.name}</strong>
+                                      <span style={{ fontSize: '10px', color: '#16a34a', backgroundColor: '#dcfce7', padding: '1px 5px', borderRadius: '4px', fontWeight: 700 }}>Verified</span>
+                                    </div>
+                                    <div style={{ fontSize: '12px', color: '#0056b3', fontWeight: 600, marginTop: '2px' }}>
+                                      {cand.current_role}
+                                    </div>
+                                  </div>
+                                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#059669', backgroundColor: '#ecfdf5', padding: '2px 8px', borderRadius: '10px', whiteSpace: 'nowrap' }}>
+                                    {cand.annual_ctc || 'Negotiable'}
+                                  </span>
+                                </div>
+
+                                {/* Company & Location */}
+                                <div style={{ fontSize: '11.5px', color: '#64748b', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                  <div>🏢 {cand.company}</div>
+                                  <div>📍 {cand.location} • ⏳ {cand.experience} Exp</div>
+                                </div>
+
+                                {/* Why It Matched Tags */}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '2px' }}>
+                                  {(cand.matches || []).map((m, mIdx) => (
+                                    <span
+                                      key={mIdx}
+                                      style={{
+                                        fontSize: '10.5px',
+                                        fontWeight: 600,
+                                        padding: '2px 6px',
+                                        borderRadius: '4px',
+                                        backgroundColor: m.type === 'location' ? '#eff6ff' : (m.type === 'role' ? '#fef3c7' : '#f0fdf4'),
+                                        color: m.type === 'location' ? '#1e40af' : (m.type === 'role' ? '#92400e' : '#166534'),
+                                        border: '1px solid rgba(0,0,0,0.05)'
+                                      }}
+                                    >
+                                      ✓ {m.label}
+                                    </span>
+                                  ))}
+                                </div>
+
+                                {/* Key Skills */}
+                                {cand.key_skills && cand.key_skills.length > 0 && (
+                                  <div style={{ fontSize: '11px', color: '#475569', display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '2px' }}>
+                                    {cand.key_skills.slice(0, 4).map((sk, skIdx) => (
+                                      <span key={skIdx} style={{ backgroundColor: '#f1f5f9', padding: '1px 6px', borderRadius: '3px' }}>
+                                        {sk}
+                                      </span>
+                                    ))}
+                                    {cand.key_skills.length > 4 && (
+                                      <span style={{ color: '#94a3b8' }}>+{cand.key_skills.length - 4} more</span>
+                                    )}
+                                  </div>
+                                )}
+
+                                {/* Quick Contact Actions */}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px', paddingTop: '8px', borderTop: '1px solid #f1f5f9' }}>
+                                  {cand.phone && (
+                                    <a
+                                      href={`tel:${cand.phone}`}
+                                      style={{ fontSize: '11px', color: '#0056b3', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px', padding: '3px 8px', borderRadius: '4px', backgroundColor: '#eff6ff', fontWeight: 600 }}
+                                    >
+                                      <Phone size={11} />
+                                      <span>Call</span>
+                                    </a>
+                                  )}
+                                  {cand.phone && (
+                                    <a
+                                      href={`https://api.whatsapp.com/send?phone=${cand.phone.replace(/[^0-9]/g, '')}&text=Hello%20${encodeURIComponent(cand.name)},%20we%20have%20an%20active%20opportunity%20for%20${encodeURIComponent(job.title)}%20at%20MCP%20Consultants.`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{ fontSize: '11px', color: '#16a34a', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px', padding: '3px 8px', borderRadius: '4px', backgroundColor: '#f0fdf4', fontWeight: 600 }}
+                                    >
+                                      <span>WhatsApp</span>
+                                    </a>
+                                  )}
+                                  {cand.email && (
+                                    <a
+                                      href={`mailto:${cand.email}?subject=Career Opportunity: ${encodeURIComponent(job.title)}`}
+                                      style={{ fontSize: '11px', color: '#475569', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px', padding: '3px 8px', borderRadius: '4px', backgroundColor: '#f8fafc', fontWeight: 600 }}
+                                    >
+                                      <Mail size={11} />
+                                      <span>Email</span>
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* View All Button */}
+                          <div style={{ textAlign: 'center', marginTop: '12px' }}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const skillsList = (job.skills || []).map(s => s.name || s).filter(Boolean);
+                                const searchTerms = skillsList.length > 0 ? skillsList.join(',') : (job.department || 'Operations');
+                                const locText = (job.locations || []).join(', ');
+                                navigate(`/admin/resdex?keywords=${encodeURIComponent(searchTerms)}&location=${encodeURIComponent(locText)}&department=${encodeURIComponent(job.department || '')}&title=${encodeURIComponent(job.title || '')}`);
+                              }}
+                              style={{
+                                backgroundColor: '#ffffff',
+                                border: '1px solid #0056b3',
+                                color: '#0056b3',
+                                padding: '7px 18px',
+                                borderRadius: '6px',
+                                fontSize: '12.5px',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              View All {jobMatchesData[job._id]?.candidates?.length || (job.matchingCandidatesCount || 24)} Matched Candidates in Resdex Search →
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                 </div>
               );
