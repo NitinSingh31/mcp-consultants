@@ -9,8 +9,6 @@ import {
   Clock,
   Sparkles,
   Share2,
-  Users,
-  Eye,
   Check,
   Copy,
   ExternalLink,
@@ -620,21 +618,9 @@ export default function ManageJobs() {
                     </div>
                   )}
 
-                  {/* Metrics & Action Buttons Bar */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '14px', borderTop: '1px solid #f1f5f9', flexWrap: 'wrap', gap: '12px' }}>
+                  {/* Action Buttons Bar */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', paddingTop: '14px', borderTop: '1px solid #f1f5f9', flexWrap: 'wrap', gap: '8px' }}>
                     
-                    {/* Metrics */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '12.5px', color: '#64748b' }}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Eye size={14} style={{ color: '#0056b3' }} />
-                        <strong>{job.viewsCount || 0}</strong> Views
-                      </span>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Users size={14} style={{ color: '#16a34a' }} />
-                        <strong>{job.applicationsCount || 0}</strong> Applications Received
-                      </span>
-                    </div>
-
                     {/* Actions */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       
