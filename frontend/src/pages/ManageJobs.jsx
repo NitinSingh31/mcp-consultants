@@ -624,32 +624,6 @@ export default function ManageJobs() {
                     {/* Actions */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       
-                      {/* Search Resdex Button */}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const skillsText = (job.skills || []).map(s => s.name || s).join(' ');
-                          const locText = (job.locations || []).join(', ');
-                          navigate(`/admin/resdex?keywords=${encodeURIComponent(skillsText)}&location=${encodeURIComponent(locText)}&title=${encodeURIComponent(job.title)}`);
-                        }}
-                        style={{
-                          backgroundColor: '#eff6ff',
-                          border: '1px solid #bfdbfe',
-                          color: '#0056b3',
-                          fontSize: '12.5px',
-                          fontWeight: 700,
-                          padding: '7px 14px',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}
-                      >
-                        <Search size={14} />
-                        <span>Search Resdex</span>
-                      </button>
-
                       {/* WhatsApp Share */}
                       <a
                         href={`https://api.whatsapp.com/send?text=${whatsAppText}`}
